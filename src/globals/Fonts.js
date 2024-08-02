@@ -1,5 +1,8 @@
 const FontKeys = {
   // paths are relative to the root of the project where the WebFont loading script is run
+  FarmVintage: './src/fonts/FarmVintage/FARMVINTAGE.ttf',
+  HelloFarmer: './src/fonts/HelloFarmer/Hello Farmer Font by Keithzo.ttf',
+  LuckyFarmer: './src/fonts/LuckyFarmer/Lucky Farmer Font by Keithzo.ttf',
   MedievalSharp: './src/fonts/MedievalSharp/MedievalSharp-Regular.ttf',
   Tangerine: './src/fonts/Tangerine/Tangerine-Regular.ttf',
   TangerineBold: './src/fonts/Tangerine/Tangerine-Bold.ttf'
