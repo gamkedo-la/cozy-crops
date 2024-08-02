@@ -1,6 +1,11 @@
-import ImageManager from "./managers/ImageManager.js"
-import TitleScene from "./scenes/TitleScene.js"
 import Constants from "./globals/Constants.js"
+import ImageManager from "./managers/ImageManager.js"
+import AudioManager from "./managers/AudioManager.js"
+import FontManager from "./managers/FontManager.js"
+
+import BootScene from "./scenes/BootScene.js"
+import LoadScene from "./scenes/LoadScene.js"
+import TitleScene from "./scenes/TitleScene.js"
 
 export default class Game {
   constructor () {
@@ -8,36 +13,37 @@ export default class Game {
     this.ctx = buildContext(this.canvas)
     document.body.appendChild(this.canvas)
 
+    this.lastTime = 0
+
     this.imageManager = new ImageManager()
-    this.scenes = {
-      Title: new TitleScene({
-        game: this,
-        imageManager: this.imageManager
-      }),
-    }
+    this.audioManager = new AudioManager()
+    this.fontManager = new FontManager()
 
-    this.currentScene = this.scenes.Title
+    this.scenes = buildScenes(this)
+    this.currentScene = this.scenes.Boot
 
-    // Call this.load() to start the game at the end of the constructor
-    this.load()
-  }
-
-  async load () {
-    await this.imageManager.load()
-
-    // do this after everything is loaded
     this.start()
   }
 
   start () {
     // Do any one-time setup here, then call update()
-    this.update()
+    this.scenes.Boot.start(this.scenes.Load) // Start the boot scene
     console.log("Cassidy New Test")
+
+    this.update(this.lastTime)
   }
 
-  update () {
-    this.currentScene.update()
-    requestAnimationFrame(() => this.update())
+  update (timestamp) {
+    // deltaTime is the time between frames (milliseconds)
+    const deltaTime = timestamp - this.lastTime
+    this.lastTime = timestamp
+    this.currentScene.update(deltaTime)
+    requestAnimationFrame(timestamp => this.update(timestamp))
+  }
+
+  changeScene (scene) {
+    this.currentScene = this.scenes[scene]
+    this.currentScene.start()
   }
 }
 
@@ -56,4 +62,22 @@ function buildContext (canvas) {
   ctx.scale(Constants.CanvasScale, Constants.CanvasScale)
   ctx.imageSmoothingEnabled = false
   return ctx
+}
+
+function buildScenes (game) {
+  return {
+    Boot: new BootScene({
+      game
+    }),
+    Load: new LoadScene({
+      game,
+      imageManager: game.imageManager,
+      audioManager: game.audioManager
+    }),
+    Title: new TitleScene({
+      game,
+      imageManager: game.imageManager,
+      audioManager: game.audioManager
+    })
+  }
 }
