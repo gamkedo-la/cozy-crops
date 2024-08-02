@@ -32,7 +32,7 @@ export default class Game {
   start () {
     // Do any one-time setup here, then call update()
     this.update()
-    console.log("Cassidy testing a commit")
+    console.log("Cassidy New Test")
   }
 
   update () {
