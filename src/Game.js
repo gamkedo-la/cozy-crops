@@ -1,19 +1,11 @@
 import ImageManager from "./managers/ImageManager.js"
 import TitleScene from "./scenes/TitleScene.js"
-import { CanvasHeight, CanvasWidth } from "./globals/Constants.js"
+import Constants from "./globals/Constants.js"
 
 export default class Game {
   constructor () {
-    this.canvas = document.createElement('canvas')
-    this.canvas.classList.add('centered-canvas')
-    this.ctx = this.canvas.getContext('2d')
-    this.scale = 2
-    this.canvas.width = CanvasWidth
-    this.canvas.height = CanvasHeight
-    this.canvas.style.width = `${this.canvas.width * this.scale}px`
-    this.canvas.style.height = `${this.canvas.height * this.scale}px`
-    this.ctx.scale(this.scale, this.scale)
-    this.ctx.imageSmoothingEnabled = false
+    this.canvas = buildCanvas()
+    this.ctx = buildContext(this.canvas)
     document.body.appendChild(this.canvas)
 
     this.imageManager = new ImageManager()
@@ -46,4 +38,21 @@ export default class Game {
     this.currentScene.update()
     requestAnimationFrame(() => this.update())
   }
+}
+
+function buildCanvas () {
+  const canvas = document.createElement('canvas')
+  canvas.classList.add('centered-canvas')
+  canvas.width = Constants.CanvasWidth
+  canvas.height = Constants.CanvasHeight
+  canvas.style.width = `${canvas.width * Constants.CanvasScale}px`
+  canvas.style.height = `${canvas.height * Constants.CanvasScale}px`
+  return canvas
+}
+
+function buildContext (canvas) {
+  const ctx = canvas.getContext('2d')
+  ctx.scale(Constants.CanvasScale, Constants.CanvasScale)
+  ctx.imageSmoothingEnabled = false
+  return ctx
 }
