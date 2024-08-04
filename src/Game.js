@@ -1,11 +1,11 @@
 import Constants from "./globals/Constants.js"
+import EventManager from "./managers/EventManager.js"
+import LoadManager from "./managers/LoadManager.js"
 import ImageManager from "./managers/ImageManager.js"
 import AudioManager from "./managers/AudioManager.js"
 import FontManager from "./managers/FontManager.js"
-
-import BootScene from "./scenes/BootScene.js"
-import LoadScene from "./scenes/LoadScene.js"
-import TitleScene from "./scenes/TitleScene.js"
+import SceneManager from "./managers/SceneManager.js"
+import InputManager from "./managers/InputManager.js"
 
 export default class Game {
   constructor () {
@@ -15,19 +15,22 @@ export default class Game {
 
     this.lastTime = 0
 
-    this.imageManager = new ImageManager()
-    this.audioManager = new AudioManager()
-    this.fontManager = new FontManager()
-
-    this.scenes = buildScenes(this)
-    this.currentScene = this.scenes.Boot
+    this.eventManager = null
+    this.loadManager = null
+    this.imageManager = null
+    this.audioManager = null
+    this.fontManager = null
+    this.sceneManager = null
+    this.inputManager = null
+    buildManagers(this)
 
     this.start()
   }
 
   start () {
     // Do any one-time setup here, then call update()
-    this.scenes.Boot.start(this.scenes.Load) // Start the boot scene
+    this.sceneManager.start()
+
     console.log("Cassidy New Test")
 
     this.update(this.lastTime)
@@ -37,13 +40,12 @@ export default class Game {
     // deltaTime is the time between frames (milliseconds)
     const deltaTime = timestamp - this.lastTime
     this.lastTime = timestamp
-    this.currentScene.update(deltaTime)
+    this.sceneManager.update(deltaTime)
     requestAnimationFrame(timestamp => this.update(timestamp))
   }
 
   changeScene (scene) {
-    this.currentScene = this.scenes[scene]
-    this.currentScene.start()
+    this.sceneManager.changeScene(scene)
   }
 }
 
@@ -64,20 +66,35 @@ function buildContext (canvas) {
   return ctx
 }
 
-function buildScenes (game) {
-  return {
-    Boot: new BootScene({
-      game
-    }),
-    Load: new LoadScene({
-      game,
-      imageManager: game.imageManager,
-      audioManager: game.audioManager
-    }),
-    Title: new TitleScene({
-      game,
-      imageManager: game.imageManager,
-      audioManager: game.audioManager
-    })
+function buildManagers (game) {
+  game.eventManager = new EventManager({ game })
+
+  const managerConfig = {
+    game,
+    eventManager: game.eventManager
   }
+
+  game.imageManager = new ImageManager({ ...managerConfig })
+  game.audioManager = new AudioManager({ ...managerConfig })
+  game.fontManager = new FontManager({ ...managerConfig })
+  game.inputManager = new InputManager({ ...managerConfig })
+
+  game.loadManager = new LoadManager({
+    ...managerConfig,
+    imageManager: game.imageManager,
+    audioManager: game.audioManager,
+    fontManager: game.fontManager
+  })
+
+  game.sceneManager = new SceneManager({
+    game,
+    managers: {
+      loadManager: game.loadManager,
+      eventManager: game.eventManager,
+      imageManager: game.imageManager,
+      audioManager: game.audioManager,
+      fontManager: game.fontManager,
+      inputManager: game.inputManager
+    }
+  })
 }

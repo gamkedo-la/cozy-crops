@@ -1,13 +1,40 @@
-export default class TitleScene {
+import Scene from './Scene.js'
+import Scenes from '../globals/Scenes.js'
+
+export default class TitleScene extends Scene {
   constructor (config) {
-    this.game = config.game
-    this.imageManager = config.imageManager
+    super(config)
+    this.name = Scenes.Title
+
+    this.currentSelection = 'Start'
   }
 
   update (deltaTime) {
-    // deltaTime is the time between frames (milliseconds)
-    this.game.ctx.fillStyle = 'black'
-    this.game.ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height)
-    this.game.ctx.drawImage(this.imageManager.images.TileSet, 0, 0, 512, 512, 0, 0, 512, 512)
+    super.update(deltaTime) // Call the update method of the parent class
+
+    manageInput(this)
+    draw(this)
+  }
+
+  stop () {
+    super.stop() // Call the stop method of the parent class
+
+    // clean up resources
+  }
+}
+
+function draw (scene) {
+  scene.game.ctx.fillStyle = 'black'
+  scene.game.ctx.fillRect(0, 0, scene.game.canvas.width, scene.game.canvas.height)
+  scene.game.ctx.drawImage(scene.imageManager.images.TileSet, 0, 0, 512, 512, 0, 0, 512, 512)
+}
+
+function manageInput (scene) {
+  const downKeys = scene.inputManager.getDownKeys()
+
+  if (downKeys.includes('Enter')) {
+    if (scene.currentSelection === 'Start') {
+      scene.game.changeScene(Scenes.Game)
+    }
   }
 }

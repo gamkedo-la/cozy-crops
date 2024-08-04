@@ -11,13 +11,19 @@ const FontKeys = {
 export const FamilyNames = {
   MedievalSharpRegular: 'MedievalSharp-Regular',
   TangerineRegular: 'Tangerine-Regular',
-  TangerineBold: 'Tangerine-Bold'
+  TangerineBold: 'Tangerine-Bold',
+  FarmVintage: 'FarmVintage',
+  HelloFarmer: 'HelloFarmer',
+  LuckyFarmer: 'LuckyFarmer'
 }
 
 export const FontFamilies = {
   MedievalSharpRegular: FamilyNames.MedievalSharpRegular,
   TangerineRegular: FamilyNames.TangerineRegular,
-  TangerineBold: FamilyNames.TangerineBold
+  TangerineBold: FamilyNames.TangerineBold,
+  FarmVintage: FamilyNames.FarmVintage,
+  HelloFarmer: FamilyNames.HelloFarmer,
+  LuckyFarmer: FamilyNames.LuckyFarmer
 }
 
 export const StyleConfigs = [
@@ -38,6 +44,24 @@ export const StyleConfigs = [
     font-style: normal;
     font-weight: 700;
     src: url('${FontKeys.TangerineBold}') format('truetype');
+  }`,
+  `@font-face {
+    font-family: "${FamilyNames.FarmVintage}";
+    font-style: normal;
+    font-weight: 400;
+    src: url('${FontKeys.FarmVintage}') format('truetype');
+  }`,
+  `@font-face {
+    font-family: "${FamilyNames.HelloFarmer}";
+    font-style: normal;
+    font-weight: 400;
+    src: url('${FontKeys.HelloFarmer}') format('truetype');
+  }`,
+  `@font-face {
+    font-family: "${FamilyNames.LuckyFarmer}";
+    font-style: normal;
+    font-weight: 400;
+    src: url('${FontKeys.LuckyFarmer}') format('truetype');
   }`
 ]
 
@@ -45,5 +69,8 @@ export default FontKeys
 export const {
   MedievalSharp,
   Tangerine,
-  TangerineBold
+  TangerineBold,
+  FarmVintage,
+  HelloFarmer,
+  LuckyFarmer
 } = FontKeys
