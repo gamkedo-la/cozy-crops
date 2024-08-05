@@ -33,7 +33,7 @@ export default class BootScene extends Scene {
     }
 
     updateProgressText(this)
-    draw (this)
+    draw(this)
   }
 
   stop () {
@@ -60,9 +60,6 @@ function updateProgressText(boot) {
 }
 
 function draw(boot) {
-  boot.game.ctx.fillStyle = 'black'
-  boot.game.ctx.fillRect(0, 0, boot.game.canvas.width, boot.game.canvas.height)
-
   boot.game.ctx.font = '15px Arial'
   boot.game.ctx.fillStyle = 'white'
   boot.game.ctx.textAlign = 'left'
