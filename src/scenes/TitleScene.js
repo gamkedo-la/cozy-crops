@@ -39,7 +39,6 @@ export default class TitleScene extends Scene {
 function draw (scene) {
   drawTitle(scene)
   scene.menu.draw()
-  // scene.game.ctx.drawImage(scene.imageManager.images.TileSet, 0, 0, 512, 512, 0, 0, 512, 512)
 }
 
 function drawTitle (title) {

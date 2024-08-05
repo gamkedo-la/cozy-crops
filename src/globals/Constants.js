@@ -5,6 +5,7 @@ const Constants = {
   CanvasHeight: 900,
   CanvasScale: 1,
   CanvasWidth: 1280,
+  ImageScale: 2,
   MainMenuFontSize: 36,
   MainMenuFontFamily: FontFamilies.LuckyFarmer,
   MainMenuTextColor: '#FFFFFF',
@@ -21,6 +22,7 @@ export const {
   CanvasHeight,
   CanvasWidth,
   CanvasScale,
+  ImageScale,
   MainMenuTextColor,
   TileHeight,
   TileWidth

@@ -1,5 +1,6 @@
-import Events from "../globals/Events.js"
-import Images from "../globals/Images.js"
+import Events from '../globals/Events.js'
+import Images from '../globals/Images.js'
+import { ImageScale } from '../globals/Constants.js'
 
 export default class ImageManager {
   constructor (config) {
@@ -25,5 +26,13 @@ export default class ImageManager {
     await Promise.all(imagePromises)
 
     this.eventManager.emit(Events.AllImagesLoaded)
+  }
+
+  draw (image, x, y, width, height) {
+    this.game.ctx.drawImage(image, x, y, ImageScale * width, ImageScale * height)
+  }
+
+  drawKey (imageKey, x, y, width, height) {
+    this.game.ctx.drawImage(this.images[imageKey], x, y, ImageScale * width, ImageScale * height)
   }
 }

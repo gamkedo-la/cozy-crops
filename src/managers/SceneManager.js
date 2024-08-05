@@ -1,6 +1,7 @@
 import Scenes from '../globals/Scenes.js'
 import BootScene from '../scenes/BootScene.js'
 import TitleScene from '../scenes/TitleScene.js'
+import GameScene from '../scenes/GameScene.js'
 
 export default class SceneManager {
   constructor (config) {
@@ -26,6 +27,12 @@ export default class SceneManager {
       managers: this.managers
     })
     this.startedScenes[Scenes.Title] = false
+
+    this.scenes[Scenes.Game] = new GameScene({
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.Game] = false
   }
 
   add (scene) {

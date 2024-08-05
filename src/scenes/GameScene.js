@@ -22,7 +22,7 @@ export default class GameScene extends Scene {
 }
 
 function draw (scene) {
-  scene.game.ctx.drawImage(scene.imageManager.images.TileSet, 0, 0, 512, 512, 0, 0, 512, 512)
+  scene.imageManager.draw(scene.imageManager.images.TileSet, 0, 0, 512, 512)
 }
 
 function manageInput (scene) {
