@@ -5,17 +5,17 @@ import Constants from '../globals/Constants.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys from '../globals/Keys.js'
 
-export default class TitleScene extends Scene {
+export default class CreditsScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.Title
+    this.name = Scenes.Credits
 
     this.menu = new Menu({
-      x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 65,
+      x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
       y: 100 + this.game.canvas.height / (2 * Constants.CanvasScale),
       game: this.game,
       scene: this,
-      options: ['Start', 'Options', 'Credits'],
+      options: ['Back'],
       textColor: Constants.MainMenuTextColor,
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
@@ -46,19 +46,15 @@ function drawTitle (title) {
   title.game.ctx.fillStyle = Constants.TitleTextColor
   title.game.ctx.font = `${Constants.TitleFontSize}px ${Constants.TitleFontFamily}`
   title.game.ctx.textAlign = UIAttributes.CenterAlign
-  title.game.ctx.fillText('Cozy Crops', title.game.canvas.width / 2, title.game.canvas.height / 4)
+  title.game.ctx.fillText('Credits', title.game.canvas.width / 2, title.game.canvas.height / 4)
 }
 
 function manageInput (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
   if (justDownKeys.includes(Keys.ENTER) || justDownKeys.includes(Keys.SPACE)) {
-    if (scene.menu.getCurrentSelection() === 'Start') {
-      scene.game.changeScene(Scenes.Game)
-    } else if (scene.menu.getCurrentSelection() === 'Options') {
-      scene.game.changeScene(Scenes.Options)
-    } else if (scene.menu.getCurrentSelection() === 'Credits') {
-      scene.game.changeScene(Scenes.Credits)
+    if (scene.menu.getCurrentSelection() === 'Back') {
+      scene.game.changeScene(Scenes.Title)
     }
   } else if (justDownKeys.includes(Keys.ARROW_UP) || justDownKeys.includes(Keys.W) || justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.A)) {
     scene.menu.moveUp()

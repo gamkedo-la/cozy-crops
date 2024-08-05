@@ -2,7 +2,10 @@ export default class InputManager {
   constructor (config) {
     Object.assign(this, config)
 
-    this.keys = {}
+    this.justDown = {}
+    this.stillDown = {}
+    this.justUp = {}
+
     this.mouse = {
       x: 0,
       y: 0,
@@ -16,12 +19,27 @@ export default class InputManager {
     window.addEventListener('mouseup', this.handleMouseUp.bind(this))
   }
 
+  update (deltaTime) {
+    this.justDown = {}
+    this.justUp = {}
+  }
+
   handleKeyDown (event) {
-    this.keys[event.key] = true
+    event.preventDefault()
+
+    if (!this.stillDown[event.key]) {
+      this.justDown[event.key] = true
+    }
+    this.stillDown[event.key] = true
+    this.justUp[event.key] = false
   }
 
   handleKeyUp (event) {
-    this.keys[event.key] = false
+    event.preventDefault()
+
+    this.justUp[event.key] = true
+    this.stillDown[event.key] = false
+    this.justDown[event.key] = false
   }
 
   handleMouseMove (event) {
@@ -37,12 +55,28 @@ export default class InputManager {
     this.mouse.clicked = false
   }
 
-  isKeyDown (key) {
-    return this.keys[key]
+  isKeyJustDown (key) {
+    return this.justDown[key]
+  }
+
+  isKeyStillDown (key) {
+    return this.stillDown[key]
+  }
+
+  isKeyJustUp (key) {
+    return this.justUp[key]
+  }
+
+  getJustDownKeys () {
+    return Object.keys(this.justDown).filter(key => this.justDown[key])
   }
 
   getDownKeys () {
-    return Object.keys(this.keys).filter(key => this.keys[key])
+    return Object.keys(this.stillDown).filter(key => this.stillDown[key])
+  }
+
+  getJustUpKeys () {
+    return Object.keys(this.justUp).filter(key => this.justUp[key])
   }
 
   isMouseOver (element) {

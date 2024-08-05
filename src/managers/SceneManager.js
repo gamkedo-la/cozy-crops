@@ -1,5 +1,7 @@
 import Scenes from '../globals/Scenes.js'
 import BootScene from '../scenes/BootScene.js'
+import CreditsScene from '../scenes/CreditsScene.js'
+import OptionsScene from '../scenes/OptionsScene.js'
 import TitleScene from '../scenes/TitleScene.js'
 import GameScene from '../scenes/GameScene.js'
 
@@ -22,17 +24,30 @@ export default class SceneManager {
     })
     this.startedScenes[Scenes.Boot] = false
 
-    this.scenes[Scenes.Title] = new TitleScene({
+    this.scenes[Scenes.Credits] = new CreditsScene({
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Title] = false
+    this.startedScenes[Scenes.Credits] = false
 
     this.scenes[Scenes.Game] = new GameScene({
       game: this.game,
       managers: this.managers
     })
     this.startedScenes[Scenes.Game] = false
+
+    this.scenes[Scenes.Options] = new OptionsScene({
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.Options] = false
+
+    this.scenes[Scenes.Title] = new TitleScene({
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.Title] = false
+
   }
 
   add (scene) {

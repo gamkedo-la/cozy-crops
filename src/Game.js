@@ -41,6 +41,8 @@ export default class Game {
     const deltaTime = timestamp - this.lastTime
     this.lastTime = timestamp
     this.sceneManager.update(deltaTime)
+    this.inputManager.update(deltaTime)
+
     requestAnimationFrame(timestamp => this.update(timestamp))
   }
 

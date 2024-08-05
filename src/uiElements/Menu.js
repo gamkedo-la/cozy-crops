@@ -3,20 +3,19 @@ export default class Menu {
     Object.assign(this, config)
 
     this.selectionIndex = 0
-    this.currentSelection = this.options[this.selectionIndex]
   }
 
   moveUp () {
-    this.selectionIndex++
-    if (this.selectionIndex >= this.options.length) {
-      this.selectionIndex = 0
+    this.selectionIndex--
+    if (this.selectionIndex < 0) {
+      this.selectionIndex = this.options.length - 1
     }
   }
 
   moveDown () {
-    this.selectionIndex--
-    if (this.selectionIndex < 0) {
-      this.selectionIndex = this.options.length - 1
+    this.selectionIndex++
+    if (this.selectionIndex >= this.options.length) {
+      this.selectionIndex = 0
     }
   }
 
