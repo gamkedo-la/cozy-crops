@@ -1,11 +1,13 @@
-import Constants from "./globals/Constants.js"
-import EventManager from "./managers/EventManager.js"
-import LoadManager from "./managers/LoadManager.js"
-import ImageManager from "./managers/ImageManager.js"
-import AudioManager from "./managers/AudioManager.js"
-import FontManager from "./managers/FontManager.js"
-import SceneManager from "./managers/SceneManager.js"
-import InputManager from "./managers/InputManager.js"
+import Constants from './globals/Constants.js'
+import EventManager from './managers/EventManager.js'
+import LoadManager from './managers/LoadManager.js'
+import ImageManager from './managers/ImageManager.js'
+import AudioManager from './managers/AudioManager.js'
+import FontManager from './managers/FontManager.js'
+import SceneManager from './managers/SceneManager.js'
+import InputManager from './managers/InputManager.js'
+import EntityManager from './managers/EntityManager.js'
+import MapManager from './managers/MapManager.js'
 
 export default class Game {
   constructor () {
@@ -22,6 +24,8 @@ export default class Game {
     this.fontManager = null
     this.sceneManager = null
     this.inputManager = null
+    this.entityManager = null
+    this.mapManager = null
     buildManagers(this)
 
     this.start()
@@ -76,7 +80,9 @@ function buildManagers (game) {
     eventManager: game.eventManager
   }
 
+  game.entityManager = new EntityManager({ ...managerConfig })
   game.imageManager = new ImageManager({ ...managerConfig })
+  game.mapManager = new MapManager({ ...managerConfig, imageManager: game.imageManager })
   game.audioManager = new AudioManager({ ...managerConfig })
   game.fontManager = new FontManager({ ...managerConfig })
   game.inputManager = new InputManager({ ...managerConfig })
@@ -96,7 +102,9 @@ function buildManagers (game) {
       imageManager: game.imageManager,
       audioManager: game.audioManager,
       fontManager: game.fontManager,
-      inputManager: game.inputManager
+      inputManager: game.inputManager,
+      entityManager: game.entityManager,
+      mapManager: game.mapManager
     }
   })
 }

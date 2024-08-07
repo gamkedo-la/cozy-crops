@@ -1,4 +1,10 @@
 export default class Menu {
+  /**
+   * 
+   * @param {Object} config {
+   * x: number, y: number, game: Game, scene: Scene, options: string[], textColor: string, fontSize: number, fontFamily: string, marker: string 
+   * }
+   */
   constructor (config) {
     Object.assign(this, config)
 
@@ -35,7 +41,11 @@ export default class Menu {
       this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)
     })
   
-    this.game.ctx.fillText('>', this.x - this.fontSize, this.y + this.selectionIndex * this.fontSize * 1.5)
+    if (this.marker) {
+      this.game.imageManager.draw(this.marker, this.x - this.fontSize * 1.5, this.y + this.selectionIndex * this.fontSize * 1.5)
+    } else {
+      this.game.ctx.fillText('>', this.x - this.fontSize, this.y + this.selectionIndex * this.fontSize * 1.5)
+    }
   }
 }
 

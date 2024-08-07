@@ -28,6 +28,10 @@ export default class ImageManager {
     this.eventManager.emit(Events.AllImagesLoaded)
   }
 
+  getImage (imageKey) {
+    return this.images[imageKey]
+  }
+
   draw (image, x, y, width, height) {
     this.game.ctx.drawImage(image, x, y, ImageScale * width, ImageScale * height)
   }

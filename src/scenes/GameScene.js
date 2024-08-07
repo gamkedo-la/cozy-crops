@@ -5,6 +5,16 @@ export default class GameScene extends Scene {
   constructor (config) {
     super(config)
     this.name = Scenes.Game
+    
+    this.drawList = []
+  }
+
+  addEntity (entity) {
+    insertEntity(this, entity)
+  }
+
+  start () {
+    this.mapManager.start()
   }
 
   update (deltaTime) {
@@ -22,7 +32,8 @@ export default class GameScene extends Scene {
 }
 
 function draw (scene) {
-  scene.imageManager.draw(scene.imageManager.images.TileSet, 0, 0, 512, 512)
+  // scene.imageManager.draw(scene.imageManager.images.TileSet, 0, 0, 512, 512)
+  scene.mapManager.drawMap()
 }
 
 function manageInput (scene) {
@@ -33,4 +44,20 @@ function manageInput (scene) {
       scene.game.changeScene(Scenes.Game)
     }
   }
+}
+
+function insertEntity (scene, entity) {
+  let low = 0
+  let high = scene.drawList.length
+
+  while (low < high) {
+    const mid = Math.floor((low + high) / 2)
+    if (scene.drawList[mid].y < entity.y) {
+      low = mid + 1
+    } else {
+      high = mid
+    }
+  }
+
+  scene.drawList.splice(low, 0, entity)
 }
