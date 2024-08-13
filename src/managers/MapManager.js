@@ -12,7 +12,7 @@ export default class MapManager {
   }
 
   start () {
-    this.tileImage = this.imageManager.getImage('TileSet')
+    this.tileImage = this.imageManager.getImageWithSrc(TileSet)
     this.tilesPerRow = this.tileImage.width / TileWidth
 
     this.mapCanvas = document.createElement('canvas')
@@ -37,5 +37,32 @@ export default class MapManager {
 
   drawMap () {
     this.imageManager.draw(this.mapCanvas, 0, 0, this.mapCanvas.width, this.mapCanvas.height)
+  }
+
+  updateTileAtXY (x, y, tileIndex) {
+    const imageX = (tileIndex % this.tilesPerRow) * TileWidth
+    const imageY = (Math.floor(tileIndex / this.tilesPerRow)) * TileHeight
+    this.mapCtx.drawImage(
+      this.tileImage,
+      imageX, imageY, TileWidth, TileHeight,
+      x * TileWidth, y * TileHeight, TileWidth, TileHeight
+    )
+    MapData[y][x] = tileIndex
+  }
+
+  updateTileAtPixelPos (x, y, tileIndex) {
+    const tileX = Math.floor(x / TileWidth)
+    const tileY = Math.floor(y / TileHeight)
+    this.updateTileAtXY(tileX, tileY, tileIndex)
+  }
+
+  getTileAtXY (x, y) {
+    return MapData[y][x]
+  }
+
+  getTileAtPixelPos (x, y) {
+    const tileX = Math.floor(x / TileWidth)
+    const tileY = Math.floor(y / TileHeight)
+    return this.getTileAtXY(tileX, tileY)
   }
 }

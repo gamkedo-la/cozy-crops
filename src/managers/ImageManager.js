@@ -7,6 +7,7 @@ export default class ImageManager {
     Object.assign(this, config)
 
     this.images = {}
+    this.srcToKeyMap = {}
     this.loadedCount = 0
     this.totalCount = Object.keys(Images).length
   }
@@ -15,6 +16,7 @@ export default class ImageManager {
     const imagePromises = Object.keys(Images).map(async key => {
       const image = new Image()
       image.src = Images[key]
+      this.srcToKeyMap[Images[key]] = key
       await new Promise(resolve => {
         this.eventManager.emit(Events.ImageLoaded)
         this.loadedCount++
@@ -30,6 +32,10 @@ export default class ImageManager {
 
   getImage (imageKey) {
     return this.images[imageKey]
+  }
+
+  getImageWithSrc (src) {
+    return this.images[this.srcToKeyMap[src]]
   }
 
   draw (image, x, y, width, height) {
