@@ -1,5 +1,6 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
+import Player from '../entities/player.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -15,12 +16,17 @@ export default class GameScene extends Scene {
 
   start () {
     this.mapManager.start()
+
+    addPlayers(this)
   }
 
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
     manageInput(this)
+    for (const entity of this.drawList) {
+      entity.update(deltaTime)
+    }
     draw(this)
   }
 
@@ -31,11 +37,6 @@ export default class GameScene extends Scene {
   }
 }
 
-function draw (scene) {
-  // scene.imageManager.draw(scene.imageManager.images.TileSet, 0, 0, 512, 512)
-  scene.mapManager.drawMap()
-}
-
 function manageInput (scene) {
   const downKeys = scene.inputManager.getDownKeys()
 
@@ -43,6 +44,13 @@ function manageInput (scene) {
     if (scene.currentSelection === 'Start') {
       scene.game.changeScene(Scenes.Game)
     }
+  }
+}
+
+function draw (scene) {
+  scene.mapManager.drawMap()
+  for (const entity of scene.drawList) {
+    entity.draw()
   }
 }
 
@@ -60,4 +68,15 @@ function insertEntity (scene, entity) {
   }
 
   scene.drawList.splice(low, 0, entity)
+}
+
+function addPlayers (scene) {
+  scene.steve = new Player({
+    game: scene.game,
+    imageManager: scene.imageManager,
+    x: 50,
+    y: 50
+  })
+
+  scene.addEntity(scene.steve)
 }

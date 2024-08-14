@@ -1,9 +1,13 @@
 export default class Animation {
   constructor (config) {
     Object.assign(this, config)
+
+    this.spritesheet = this.imageManager.getImageWithSrc(this.imageSrc)
     this.currentFrameIndex = 0
     this.currentFrame = this.frames[this.currentFrameIndex]
     this.currentTime = 0
+    this.frameWidth += 2 * this.padding
+    this.frameHeight += 2 * this.padding
   }
 
   update (deltaTime) {
@@ -18,6 +22,17 @@ export default class Animation {
       this.currentFrame = this.frames[this.currentFrameIndex]
       this.currentTime -= this.duration
     }
+  }
+
+  draw (x, y) {
+    const imageX = (this.currentFrame * this.frameWidth) % this.spritesheet.width
+    const imageY = Math.floor((this.currentFrame * this.frameWidth) / this.spritesheet.width) * this.frameHeight
+    this.imageManager.draw(this.spritesheet, x, y, this.frameWidth, this.frameHeight, imageX, imageY, this.flip)
+  }
+
+  setFlip (value) {
+    // This won't work
+    this.flip = !this.flip
   }
 
   getCurrentFrame () {

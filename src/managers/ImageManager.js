@@ -38,8 +38,17 @@ export default class ImageManager {
     return this.images[this.srcToKeyMap[src]]
   }
 
-  draw (image, x, y, width, height) {
-    this.game.ctx.drawImage(image, x, y, ImageScale * width, ImageScale * height)
+  draw (image, x, y, width, height, imageX = 0, imageY = 0, flip = false) {
+    this.game.ctx.save()
+    if (flip) {
+      this.game.ctx.translate(x + width, y)
+      this.game.ctx.scale(-1, 1)
+      this.game.ctx.drawImage(image, imageX, imageY, width, height, x, y, ImageScale * width, ImageScale * height)
+    } else {
+      this.game.ctx.drawImage(image, imageX, imageY, width, height, x, y, ImageScale * width, ImageScale * height)
+    }
+
+    this.game.ctx.restore()
   }
 
   drawKey (imageKey, x, y, width, height) {

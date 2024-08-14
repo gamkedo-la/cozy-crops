@@ -63,11 +63,11 @@ export default class SceneManager {
     if (this.scenes[sceneName]) {
       if (!this.startedScenes[sceneName]) {
         this.scenes[sceneName].start()
+        this.startedScenes[sceneName] = true
       }
 
       const previousScene = this.currentScene
       this.currentScene = this.scenes[sceneName]
-      this.currentScene.start()
       previousScene.stop()
     }
   }
