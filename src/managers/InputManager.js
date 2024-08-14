@@ -1,3 +1,6 @@
+import Keys, { Player1Keys, Player2Keys } from '../globals/Keys.js'
+import { Player1, Player2 } from '../globals/EntityTypes.js'
+
 export default class InputManager {
   constructor (config) {
     Object.assign(this, config)
@@ -5,6 +8,8 @@ export default class InputManager {
     this.justDown = {}
     this.stillDown = {}
     this.justUp = {}
+    this.player1KeyValues = Object.values(Player1Keys)
+    this.player2KeyValues = Object.values(Player2Keys)
 
     this.mouse = {
       x: 0,
@@ -67,15 +72,33 @@ export default class InputManager {
     return this.justUp[key]
   }
 
-  getJustDownKeys () {
+  getJustDownKeys (player) {
+    if (player === Player1) {
+      return Object.keys(this.justDown).filter(key => this.justDown[key] && this.player1KeyValues.includes(key))
+    } else if (player === Player2) {
+      return Object.keys(this.justDown).filter(key => this.justDown[key] && this.player2KeyValues.includes(key))
+    }
+
     return Object.keys(this.justDown).filter(key => this.justDown[key])
   }
 
-  getDownKeys () {
+  getDownKeys (player) {
+    if (player === Player1) {
+      return Object.keys(this.stillDown).filter(key => this.stillDown[key] && this.player1KeyValues.includes(key))
+    } else if (player === Player2) {
+      return Object.keys(this.stillDown).filter(key => this.stillDown[key] && this.player2KeyValues.includes(key))
+    }
+
     return Object.keys(this.stillDown).filter(key => this.stillDown[key])
   }
 
-  getJustUpKeys () {
+  getJustUpKeys (player) {
+    if (player === Player1) {
+      return Object.keys(this.justUp).filter(key => this.justUp[key] && this.player1KeyValues.includes(key))
+    } else if (player === Player2) {
+      return Object.keys(this.justUp).filter(key => this.justUp[key] && this.player2KeyValues.includes(key))
+    }
+
     return Object.keys(this.justUp).filter(key => this.justUp[key])
   }
 

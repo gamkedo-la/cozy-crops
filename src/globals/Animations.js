@@ -8,8 +8,7 @@ export const SteveIdleUp = {
   frameHeight: 32,
   padding: 1,
   duration: 500,
-  loop: true,
-  flip: false
+  loop: true
 }
 
 export const SteveIdleDown = {
@@ -20,32 +19,29 @@ export const SteveIdleDown = {
   frameHeight: 32,
   padding: 1,
   duration: 500,
-  loop: true,
-  flip: false
+  loop: true
 }
 
 export const SteveIdleLeft = {
   name: 'SteveIdleLeft',
   spritesheet: Steve,
-  frames: [5, 6, 7, 8],
+  frames: [20, 21, 22, 23],
   frameWidth: 16,
   frameHeight: 32,
   padding: 1,
   duration: 500,
-  loop: true,
-  flip: true
+  loop: true
 }
 
 export const SteveIdleRight = {
   name: 'SteveIdleRight',
   spritesheet: Steve,
-  frames: [5, 6, 7, 8],
+  frames: [4, 5, 6, 7],
   frameWidth: 16,
   frameHeight: 32,
   padding: 1,
   duration: 500,
-  loop: true,
-  flip: false
+  loop: true
 }
 
 export const SteveWalkUp = {
@@ -56,8 +52,7 @@ export const SteveWalkUp = {
   frameHeight: 32,
   padding: 1,
   duration: 250,
-  loop: true,
-  flip: false
+  loop: true
 }
 
 export const SteveWalkDown = {
@@ -68,20 +63,18 @@ export const SteveWalkDown = {
   frameHeight: 32,
   padding: 1,
   duration: 250,
-  loop: true,
-  flip: false
+  loop: true
 }
 
 export const SteveWalkLeft = {
   name: 'SteveWalkLeft',
   spritesheet: Steve,
-  frames: [12, 13, 14, 15],
+  frames: [28, 29, 30, 31],
   frameWidth: 16,
   frameHeight: 32,
   padding: 1,
   duration: 250,
-  loop: true,
-  flip: true
+  loop: true
 }
 
 export const SteveWalkRight = {
@@ -92,8 +85,7 @@ export const SteveWalkRight = {
   frameHeight: 32,
   padding: 1,
   duration: 250,
-  loop: true,
-  flip: false
+  loop: true
 }
 
 const Animations = {

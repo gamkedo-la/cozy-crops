@@ -1,6 +1,8 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
-import Player from '../entities/player.js'
+import Player from '../entities/Player.js'
+import Keys from '../globals/Keys.js'
+import { Player1 } from '../globals/EntityTypes.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -40,10 +42,8 @@ export default class GameScene extends Scene {
 function manageInput (scene) {
   const downKeys = scene.inputManager.getDownKeys()
 
-  if (downKeys.includes('Enter')) {
-    if (scene.currentSelection === 'Start') {
-      scene.game.changeScene(Scenes.Game)
-    }
+  if (downKeys.includes(Keys.ESCAPE)) {
+    // Pause the game
   }
 }
 
@@ -72,6 +72,7 @@ function insertEntity (scene, entity) {
 
 function addPlayers (scene) {
   scene.steve = new Player({
+    type: Player1,
     game: scene.game,
     imageManager: scene.imageManager,
     x: 50,

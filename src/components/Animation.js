@@ -27,12 +27,7 @@ export default class Animation {
   draw (x, y) {
     const imageX = (this.currentFrame * this.frameWidth) % this.spritesheet.width
     const imageY = Math.floor((this.currentFrame * this.frameWidth) / this.spritesheet.width) * this.frameHeight
-    this.imageManager.draw(this.spritesheet, x, y, this.frameWidth, this.frameHeight, imageX, imageY, this.flip)
-  }
-
-  setFlip (value) {
-    // This won't work
-    this.flip = !this.flip
+    this.imageManager.draw(this.spritesheet, x, y, this.frameWidth, this.frameHeight, imageX, imageY)
   }
 
   getCurrentFrame () {
