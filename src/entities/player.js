@@ -23,8 +23,8 @@ export default class Player {
     this.animation.update(deltaTime)
   }
 
-  draw () {
-    this.animation.draw(this.x, this.y)
+  draw (camera) {
+    this.animation.draw(this.x, this.y, camera)
   }
 }
 

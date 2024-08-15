@@ -2,6 +2,7 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Player from '../entities/Player.js'
 import Keys from '../globals/Keys.js'
+import Camera from '../components/Camera.js'
 import { Player1 } from '../globals/EntityTypes.js'
 
 export default class GameScene extends Scene {
@@ -20,6 +21,16 @@ export default class GameScene extends Scene {
     this.mapManager.start()
 
     addPlayers(this)
+    const cameraConfig = {
+      game: this.game,
+      player1: this.steve
+    }
+    // If there is a second player, add it to the camera config
+    if (this.steve2) {
+      cameraConfig.player2 = this.steve2
+    }
+    this.camera = new Camera(cameraConfig)
+    this.imageManager.setCamera(this.camera)
   }
 
   update (deltaTime) {
@@ -29,6 +40,8 @@ export default class GameScene extends Scene {
     for (const entity of this.drawList) {
       entity.update(deltaTime)
     }
+
+    this.camera.update(deltaTime)
     draw(this)
   }
 

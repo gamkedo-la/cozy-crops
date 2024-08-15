@@ -30,6 +30,10 @@ export default class ImageManager {
     this.eventManager.emit(Events.AllImagesLoaded)
   }
 
+  setCamera (camera) {
+    this.camera = camera
+  }
+
   getImage (imageKey) {
     return this.images[imageKey]
   }
@@ -39,10 +43,8 @@ export default class ImageManager {
   }
 
   draw (image, x, y, width, height, imageX = 0, imageY = 0) {
-    this.game.ctx.save()
-    this.game.ctx.drawImage(image, imageX, imageY, width, height, x, y, ImageScale * width, ImageScale * height)
-
-    this.game.ctx.restore()
+    const cameraPos = this.camera.getTopLeft()
+    this.game.ctx.drawImage(image, imageX, imageY, width, height, x - cameraPos.x, y - cameraPos.y, ImageScale * width, ImageScale * height)
   }
 
   drawKey (imageKey, x, y, width, height) {
