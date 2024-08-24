@@ -1,6 +1,7 @@
 import Events from '../globals/Events.js'
 import Images from '../globals/Images.js'
 import { ImageScale } from '../globals/Constants.js'
+import EntityTypes from '../globals/EntityTypes.js'
 
 export default class ImageManager {
   constructor (config) {
@@ -43,6 +44,15 @@ export default class ImageManager {
     return this.images[imageKey]
   }
 
+  getPlayerImage (playerType) {
+    switch (playerType) {
+      case EntityTypes.Player1:
+        return this.images.BasePlayer
+      case EntityTypes.Player2:
+        return this.images.BasePlayer2
+    }
+  }
+
   getImageWithSrc (src) {
     return this.images[this.srcToKeyMap[src]]
   }
@@ -53,23 +63,10 @@ export default class ImageManager {
   }
 
   drawGround(image) {
-    // const ctx = this.internalCtx
-    // const canvasWidth = this.internalCanvas.width
-    // const canvasHeight = this.internalCanvas.height
-  
-    // Source rectangle (portion of the image to draw)
     const cameraPos = this.camera.getTopLeft()
     const sx = cameraPos.x
     const sy = cameraPos.y
-    // const sWidth = canvasWidth
-    // const sHeight = canvasHeight
-  
-    // Destination rectangle (where to draw on the canvas)
-    // const dx = 0
-    // const dy = 0
-    // const dWidth = canvasWidth
-    // const dHeight = canvasHeight
-  
+
     this.internalCtx.drawImage(image, sx, sy, this.internalCanvas.width, this.internalCanvas.height, 0, 0, this.internalCanvas.width, this.internalCanvas.height)
   }
 

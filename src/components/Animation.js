@@ -2,7 +2,7 @@ export default class Animation {
   constructor (config) {
     Object.assign(this, config)
 
-    this.spritesheet = this.imageManager.getImageWithSrc(this.imageSrc)
+    this.spritesheet = config.canvas || this.imageManager.getImageWithSrc(this.imageSrc)
     this.currentFrameIndex = 0
     this.currentFrame = this.frames[this.currentFrameIndex]
     this.currentTime = 0

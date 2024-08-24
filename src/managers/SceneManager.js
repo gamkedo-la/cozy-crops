@@ -54,15 +54,15 @@ export default class SceneManager {
     this.scenes[scene.name] = scene
   }
 
-  start () {
-    this.currentScene.start()
+  async start () {
+    await this.currentScene.start()
     this.startedScenes[Scenes.Boot] = true
   }
 
-  changeScene (sceneName) {
+  async changeScene (sceneName) {
     if (this.scenes[sceneName]) {
       if (!this.startedScenes[sceneName]) {
-        this.scenes[sceneName].start()
+        await this.scenes[sceneName].start()
         this.startedScenes[sceneName] = true
       }
 

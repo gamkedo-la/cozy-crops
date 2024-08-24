@@ -23,14 +23,14 @@ export default class GameScene extends Scene {
     insertEntity(this, entity)
   }
 
-  start () {
+  async start () {
     this.mapManager.start()
     this.collisionManager = new CollisionManager({
       game: this.game,
       scene: this
     })
 
-    addPlayers(this)
+    await addPlayers(this)
     const cameraConfig = {
       game: this.game,
       imageManager: this.imageManager,
@@ -101,7 +101,7 @@ function insertEntity (scene, entity) {
   scene.drawList.splice(low, 0, entity)
 }
 
-function addPlayers (scene) {
+async function addPlayers (scene) {
   const player1Start =  scene.mapManager.getPlayerStart(Player1)
   scene.steve = new Player({
     type: Player1,
@@ -109,8 +109,16 @@ function addPlayers (scene) {
     scene: scene,
     imageManager: scene.imageManager,
     x: player1Start.x,
-    y: player1Start.y
+    y: player1Start.y,
+    // TODO: Get these colors from the player's saved data or from the player's selection
+    skinColor: [0, 0, 255, 255], // [252, 205, 121, 255],
+    shirtColor: [128, 0, 128, 255],
+    pantsColor: [255, 0, 0, 255],
+    accessoriesColor: [252, 205, 121, 255],
+    hairColor: [0, 121, 0, 255]
   })
+
+  await scene.steve.init()
 
   scene.addEntity(scene.steve)
 }

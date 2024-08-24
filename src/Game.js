@@ -27,13 +27,11 @@ export default class Game {
     this.entityManager = null
     this.mapManager = null
     buildManagers(this)
-
-    this.start()
   }
 
-  start () {
+  async start () {
     // Do any one-time setup here, then call update()
-    this.sceneManager.start()
+    await this.sceneManager.start()
 
     console.log("Cassidy New Test")
 
@@ -50,8 +48,8 @@ export default class Game {
     requestAnimationFrame(timestamp => this.update(timestamp))
   }
 
-  changeScene (scene) {
-    this.sceneManager.changeScene(scene)
+  async changeScene (scene) {
+    await this.sceneManager.changeScene(scene)
   }
 }
 

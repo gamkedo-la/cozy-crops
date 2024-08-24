@@ -49,16 +49,16 @@ function drawTitle (title) {
   title.game.ctx.fillText('Cozy Crops', title.game.canvas.width / 2, title.game.canvas.height / 4)
 }
 
-function manageInput (scene) {
+async function manageInput (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
   if (justDownKeys.includes(Keys.ENTER) || justDownKeys.includes(Keys.SPACE)) {
     if (scene.menu.getCurrentSelection() === 'Start') {
-      scene.game.changeScene(Scenes.Game)
+      await scene.game.changeScene(Scenes.Game)
     } else if (scene.menu.getCurrentSelection() === 'Options') {
-      scene.game.changeScene(Scenes.Options)
+      await scene.game.changeScene(Scenes.Options)
     } else if (scene.menu.getCurrentSelection() === 'Credits') {
-      scene.game.changeScene(Scenes.Credits)
+      await scene.game.changeScene(Scenes.Credits)
     }
   } else if (justDownKeys.includes(Keys.ARROW_UP) || justDownKeys.includes(Keys.W) || justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.A)) {
     scene.menu.moveUp()
