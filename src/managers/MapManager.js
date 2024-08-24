@@ -1,6 +1,7 @@
-import MapData from '../globals/Map.js'
+import MapData, { Player1Start, Player2Start } from '../globals/Map.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
+import { Player1, Player2 } from '../globals/EntityTypes.js'
 
 export default class MapManager {
   constructor (config) {
@@ -35,8 +36,16 @@ export default class MapManager {
     }
   }
 
+  getPlayerStart (playerType) {
+    if (playerType === Player1) {
+      return Player1Start
+    } else if (playerType === Player2) {
+      return Player2Start
+    }
+  }
+
   drawMap () {
-    this.imageManager.draw(this.mapCanvas, 0, 0, this.mapCanvas.width, this.mapCanvas.height)
+    this.imageManager.drawGround(this.mapCanvas, 0, 0, this.mapCanvas.width, this.mapCanvas.height)
   }
 
   updateTileAtXY (x, y, tileIndex) {

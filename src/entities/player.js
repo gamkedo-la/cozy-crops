@@ -16,11 +16,20 @@ export default class Player {
     } else if (this.type === Player2) {
       this.keys = Player2Keys
     }
+
+    this.collisionPoint = {
+      x: this.x + this.animation.width / 2, // Center of the player
+      y: this.y + this.animation.height // Bottom of the player
+    }
   }
 
   update (deltaTime) {
     handleInput(this)
     this.animation.update(deltaTime)
+    this.collisionPoint = {
+      x: this.x + this.animation.width / 2, // Center of the player
+      y: this.y + this.animation.height // Bottom of the player
+    }
   }
 
   draw (camera) {
@@ -43,22 +52,34 @@ function handleInput (player) {
   const downKeys = player.game.inputManager.getDownKeys(player.type)
 
   if (downKeys.includes(player.keys.Up)) {
-    player.y -= player.speed
+    if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {
+      player.y -= player.speed
+    }
+
     if (player.animation !== player.animations.SteveWalkUp) {
       player.animation = player.animations.SteveWalkUp
     }
   } else if (downKeys.includes(player.keys.Down)) {
-    player.y += player.speed
+    if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y + player.speed })) {
+      player.y += player.speed
+    }
+
     if (player.animation !== player.animations.SteveWalkDown) {
       player.animation = player.animations.SteveWalkDown
     }
   } else if (downKeys.includes(player.keys.Left)) {
-    player.x -= player.speed
+    if (player.scene.playerCanWalk({ x: player.collisionPoint.x - player.speed, y: player.collisionPoint.y })) {
+      player.x -= player.speed
+    }
+
     if (player.animation !== player.animations.SteveWalkLeft) {
       player.animation = player.animations.SteveWalkLeft
     }
   }  else if (downKeys.includes(player.keys.Right)) {
-    player.x += player.speed
+    if (player.scene.playerCanWalk({ x: player.collisionPoint.x + player.speed, y: player.collisionPoint.y })) {
+      player.x += player.speed
+    }
+
     if (player.animation !== player.animations.SteveWalkRight) {
       player.animation = player.animations.SteveWalkRight
     }

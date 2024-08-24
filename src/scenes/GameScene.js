@@ -4,6 +4,7 @@ import Player from '../entities/Player.js'
 import Keys from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
 import { Player1 } from '../globals/EntityTypes.js'
+import CollisionManager from '../managers/CollisionManager.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -11,6 +12,11 @@ export default class GameScene extends Scene {
     this.name = Scenes.Game
     
     this.drawList = []
+    this.camera = null
+    this.steve = null
+    this.steve2 = null
+
+    this.collisionManager = null
   }
 
   addEntity (entity) {
@@ -19,10 +25,15 @@ export default class GameScene extends Scene {
 
   start () {
     this.mapManager.start()
+    this.collisionManager = new CollisionManager({
+      game: this.game,
+      scene: this
+    })
 
     addPlayers(this)
     const cameraConfig = {
       game: this.game,
+      imageManager: this.imageManager,
       player1: this.steve
     }
     // If there is a second player, add it to the camera config
@@ -50,6 +61,11 @@ export default class GameScene extends Scene {
 
     // clean up resources
   }
+
+  playerCanWalk(newPosition) {
+    const tileIndex = this.mapManager.getTileAtPixelPos(newPosition.x, newPosition.y)
+    return this.collisionManager.playerCanWalk(tileIndex)
+  }
 }
 
 function manageInput (scene) {
@@ -65,6 +81,8 @@ function draw (scene) {
   for (const entity of scene.drawList) {
     entity.draw()
   }
+
+  scene.imageManager.render()
 }
 
 function insertEntity (scene, entity) {
@@ -84,12 +102,14 @@ function insertEntity (scene, entity) {
 }
 
 function addPlayers (scene) {
+  const player1Start =  scene.mapManager.getPlayerStart(Player1)
   scene.steve = new Player({
     type: Player1,
     game: scene.game,
+    scene: scene,
     imageManager: scene.imageManager,
-    x: 50,
-    y: 50
+    x: player1Start.x,
+    y: player1Start.y
   })
 
   scene.addEntity(scene.steve)

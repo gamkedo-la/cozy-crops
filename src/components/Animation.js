@@ -6,6 +6,8 @@ export default class Animation {
     this.currentFrameIndex = 0
     this.currentFrame = this.frames[this.currentFrameIndex]
     this.currentTime = 0
+    this.width = this.frameWidth
+    this.height = this.frameHeight
     this.frameWidth += 2 * this.padding
     this.frameHeight += 2 * this.padding
   }
