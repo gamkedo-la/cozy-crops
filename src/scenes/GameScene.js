@@ -7,6 +7,12 @@ import { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
 
+var day = 1
+var season = 1
+var year = 1
+var seasonLength = 9
+var seasonDisplay = "Empty"
+
 export default class GameScene extends Scene {
   constructor (config) {
     super(config)
@@ -122,4 +128,40 @@ async function addPlayers (scene) {
   await scene.steve.init()
 
   scene.addEntity(scene.steve)
+}
+
+document.addEventListener('keydown', keyPressed);
+
+function keyPressed(e) {
+  if(e.code == "Numpad1") {
+    day++ 
+    dateCheck()
+    console.log(seasonDisplay + " " + day + " Year " + year)
+  }
+}
+
+function dateCheck()
+{
+  if(day >= (seasonLength + 1)) //season length +1, since we're starting days at 1, we're adding 1 to the season length
+    {
+      season++
+      day = 1
+    }
+    if(season > 3)
+    {
+      year++
+      season = 1
+    }
+    convertSeason()
+}
+
+function convertSeason(){
+  switch(season){
+  case 1 : seasonDisplay = "Cool"
+  break;
+  case 2 : seasonDisplay = "Hot"
+  break;
+  case 3 : seasonDisplay = "Rainy"
+  break;
+  }
 }
