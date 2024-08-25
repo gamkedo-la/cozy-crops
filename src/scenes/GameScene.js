@@ -6,12 +6,13 @@ import Camera from '../components/Camera.js'
 import { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
+import { CheatKeys } from '../globals/Debug.js'
 
-var day = 1
-var season = 1
-var year = 1
-var seasonLength = 9
-var seasonDisplay = "Empty"
+let day = 1
+let season = 1
+let year = 1
+let seasonLength = 9
+let seasonDisplay = 'Empty'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -81,6 +82,8 @@ function manageInput (scene) {
   if (downKeys.includes(Keys.ESCAPE)) {
     // Pause the game
   }
+
+  if (CheatKeys) checkCheatKeys(scene)
 }
 
 function draw (scene) {
@@ -130,41 +133,54 @@ async function addPlayers (scene) {
   scene.addEntity(scene.steve)
 }
 
-document.addEventListener('keydown', keyPressed);
+function checkCheatKeys (scene) {
+  const justDownKeys = scene.inputManager.getJustDownKeys()
 
-function keyPressed(e) {
-  if(e.code == "Numpad1")
-    day++ 
-  if(e.code == "Numpad2")
-    season++ 
-  if(e.code == "Numpad3")
-    year++ 
-  dateCheck()
-  console.log(seasonDisplay + " " + day + " Year " + year)
+  checkCalendarCheatKeys(justDownKeys)
 }
 
-function dateCheck()
-{
-  if(day >= (seasonLength + 1)) //season length +1, since we're starting days at 1, we're adding 1 to the season length
-    {
-      season++
-      day = 1
-    }
-    if(season > 3)
-    {
-      year++
-      season = 1
-    }
-    convertSeason()
+function checkCalendarCheatKeys (justDownKeys) {
+  let timeKeyPressed = false
+  if (justDownKeys.includes(Keys.NUMPAD_1)) {
+    day++
+    timeKeyPressed = true
+  }
+  if (justDownKeys.includes(Keys.NUMPAD_2)) {
+    season++
+    timeKeyPressed = true
+  }
+  if (justDownKeys.includes(Keys.NUMPAD_3)) {
+    year++
+    timeKeyPressed = true
+  }
+
+  if (timeKeyPressed) {
+    dateCheck()
+    console.log(seasonDisplay, day, 'Year', year)
+  }
 }
 
-function convertSeason(){
+function dateCheck() {
+  if (day >= (seasonLength + 1)) { //season length +1, since we're starting days at 1, we're adding 1 to the season length
+    season++
+    day = 1
+  }
+
+  if(season > 3) {
+    year++
+    season = 1
+  }
+
+  convertSeason()
+}
+
+function convertSeason () {
   switch(season){
-  case 1 : seasonDisplay = "Cool"
-  break;
-  case 2 : seasonDisplay = "Hot"
-  break;
-  case 3 : seasonDisplay = "Rainy"
-  break;
+  case 1: seasonDisplay = "Cool"
+  break
+  case 2: seasonDisplay = "Hot"
+  break
+  case 3: seasonDisplay = "Rainy"
+  break
   }
 }
