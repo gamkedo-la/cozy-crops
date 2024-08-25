@@ -143,15 +143,15 @@ function checkCheatKeys (scene) {
 
 function checkCalendarCheatKeys (justDownKeys) {
   let timeKeyPressed = false
-  if (justDownKeys.includes(Keys.NUMPAD_1)) {
+  if (justDownKeys.includes(Keys.I)) {
     day++
     timeKeyPressed = true
   }
-  if (justDownKeys.includes(Keys.NUMPAD_2)) {
+  if (justDownKeys.includes(Keys.O)) {
     season++
     timeKeyPressed = true
   }
-  if (justDownKeys.includes(Keys.NUMPAD_3)) {
+  if (justDownKeys.includes(Keys.P)) {
     year++
     timeKeyPressed = true
   }
