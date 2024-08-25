@@ -11,15 +11,15 @@ export default class Scene {
 
   update (deltaTime) {
     // deltaTime is the time between frames (milliseconds)
-    draw(this)
+    this.draw()
+  }
+
+  draw () {
+    this.game.ctx.fillStyle = CanvasClearColor
+    this.game.ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height)
   }
 
   stop () {
     // clean up resources
   }
-}
-
-function draw (scene) {
-  scene.game.ctx.fillStyle = CanvasClearColor
-  scene.game.ctx.fillRect(0, 0, scene.game.canvas.width, scene.game.canvas.height)
 }

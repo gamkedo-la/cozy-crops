@@ -4,6 +4,7 @@ import CreditsScene from '../scenes/CreditsScene.js'
 import OptionsScene from '../scenes/OptionsScene.js'
 import TitleScene from '../scenes/TitleScene.js'
 import GameScene from '../scenes/GameScene.js'
+import UIScene from '../scenes/UIScene.js'
 
 export default class SceneManager {
   constructor (config) {
@@ -48,6 +49,11 @@ export default class SceneManager {
     })
     this.startedScenes[Scenes.Title] = false
 
+    this.scenes[Scenes.UIScene] = new UIScene({
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.UIScene] = false
   }
 
   add (scene) {
@@ -70,9 +76,24 @@ export default class SceneManager {
       this.currentScene = this.scenes[sceneName]
       previousScene.stop()
     }
+
+    if (this.currentScene.name === Scenes.Game) {
+      if (this.scenes[Scenes.UIScene]) {
+        await this.scenes[Scenes.UIScene].start()
+        this.startedScenes[Scenes.UIScene] = true
+      }
+    } else {
+      if (this.scenes[Scenes.UIScene]) {
+        this.scenes[Scenes.UIScene].stop()
+      }
+    }
   }
 
   update (deltaTime) {
     this.currentScene.update(deltaTime)
+
+    if (this.currentScene.name === Scenes.Game) {
+      this.scenes[Scenes.UIScene].update(deltaTime)
+    }
   }
 }

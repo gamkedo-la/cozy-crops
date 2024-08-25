@@ -19,7 +19,7 @@ export default class BootScene extends Scene {
     registerForEvents(this)
     this.loadManager.load()
 
-    draw(this)
+    this.draw()
   }
 
   update (deltaTime) {
@@ -33,7 +33,21 @@ export default class BootScene extends Scene {
     }
 
     updateProgressText(this)
-    draw(this)
+    this.draw()
+  }
+
+  draw() {
+    super.draw() // Call the draw method of the parent class
+
+    this.game.ctx.font = '15px Arial'
+    this.game.ctx.fillStyle = 'white'
+    this.game.ctx.textAlign = 'left'
+    this.game.ctx.textBaseline = 'middle'
+    const text = this.loadingText + '\n' + this.progressText
+    this.game.ctx.fillText(this.loadingText, (this.game.canvas.width / (2 * CanvasScale)) - 35, this.game.canvas.height / (2 * CanvasScale))
+  
+    this.game.ctx.font = '6px Arial'
+    this.game.ctx.fillText(this.progressText, (this.game.canvas.width / (2 * CanvasScale)) - 35, (this.game.canvas.height / (2 * CanvasScale)) + 30)
   }
 
   stop () {
@@ -57,16 +71,4 @@ function updateLoadingText (boot) {
 
 function updateProgressText(boot) {
   boot.progressText = `Images (${boot.loadManager.imagesLoaded}/${boot.loadManager.totalImages}), Audio (${boot.loadManager.audioLoaded}/${boot.loadManager.totalAudio}), Fonts (${boot.loadManager.fontsLoaded}/${boot.loadManager.totalFonts})`
-}
-
-function draw(boot) {
-  boot.game.ctx.font = '15px Arial'
-  boot.game.ctx.fillStyle = 'white'
-  boot.game.ctx.textAlign = 'left'
-  boot.game.ctx.textBaseline = 'middle'
-  const text = boot.loadingText + '\n' + boot.progressText
-  boot.game.ctx.fillText(boot.loadingText, (boot.game.canvas.width / (2 * CanvasScale)) - 35, boot.game.canvas.height / (2 * CanvasScale))
-
-  boot.game.ctx.font = '6px Arial'
-  boot.game.ctx.fillText(boot.progressText, (boot.game.canvas.width / (2 * CanvasScale)) - 35, (boot.game.canvas.height / (2 * CanvasScale)) + 30)
 }

@@ -26,8 +26,13 @@ export default class TitleScene extends Scene {
     super.update(deltaTime) // Call the update method of the parent class
 
     manageInput(this)
-    
-    draw(this)
+  }
+
+  draw () {
+    super.draw() // Call the draw method of the parent class
+
+    drawTitle(this)
+    this.menu.draw()
   }
 
   stop () {
@@ -35,11 +40,6 @@ export default class TitleScene extends Scene {
 
     // clean up resources
   }
-}
-
-function draw (scene) {
-  drawTitle(scene)
-  scene.menu.draw()
 }
 
 function drawTitle (title) {

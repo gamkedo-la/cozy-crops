@@ -3,7 +3,8 @@ const Scenes = {
   Credits: 'Credits',
   Game: 'Game',
   Options: 'Options',
-  Title: 'Title'
+  Title: 'Title',
+  UIScene: 'UIScene'
 }
 
 export default Scenes
@@ -12,5 +13,6 @@ export const {
   Credits,
   Game,
   Options,
-  Title
+  Title,
+  UIScene
 } =  Scenes

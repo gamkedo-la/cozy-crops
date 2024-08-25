@@ -61,7 +61,18 @@ export default class GameScene extends Scene {
     }
 
     this.camera.update(deltaTime)
-    draw(this)
+    this.draw()
+  }
+
+  draw () {
+    super.draw() // Call the draw method of the parent class
+
+    this.mapManager.drawMap()
+    for (const entity of this.drawList) {
+      entity.draw()
+    }
+  
+    this.imageManager.render()
   }
 
   stop () {
@@ -84,15 +95,6 @@ function manageInput (scene) {
   }
 
   if (CheatKeys) checkCheatKeys(scene)
-}
-
-function draw (scene) {
-  scene.mapManager.drawMap()
-  for (const entity of scene.drawList) {
-    entity.draw()
-  }
-
-  scene.imageManager.render()
 }
 
 function insertEntity (scene, entity) {
