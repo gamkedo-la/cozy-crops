@@ -133,11 +133,14 @@ async function addPlayers (scene) {
 document.addEventListener('keydown', keyPressed);
 
 function keyPressed(e) {
-  if(e.code == "Numpad1") {
+  if(e.code == "Numpad1")
     day++ 
-    dateCheck()
-    console.log(seasonDisplay + " " + day + " Year " + year)
-  }
+  if(e.code == "Numpad2")
+    season++ 
+  if(e.code == "Numpad3")
+    year++ 
+  dateCheck()
+  console.log(seasonDisplay + " " + day + " Year " + year)
 }
 
 function dateCheck()

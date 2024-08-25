@@ -33,8 +33,6 @@ export default class Game {
     // Do any one-time setup here, then call update()
     await this.sceneManager.start()
 
-    console.log("Cassidy New Test")
-
     this.update(this.lastTime)
   }
 
