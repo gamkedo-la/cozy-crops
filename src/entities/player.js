@@ -2,7 +2,7 @@ import { Player1, Player2 } from '../globals/EntityTypes.js'
 import Animations from '../globals/Animations.js'
 import Animation from '../components/Animation.js'
 import { Player1Keys, Player2Keys } from '../globals/Keys.js'
-import { PlayerBodySection, PlayerShirtSection, PlayerPantsSection, PlayerAccessoriesSection, PlayerHairSection, PlayerArmsSection } from '../globals/PlayerImageData.js'
+import PlayerImageData from '../globals/PlayerImageData.js'
 
 export default class Player {
   constructor (config) {
@@ -66,45 +66,45 @@ async function buildSpritesheet (player) {
 
   const bodyCanvas = document.createElement('canvas')
   const bodyCtx = bodyCanvas.getContext('2d')
-  bodyCanvas.width = PlayerBodySection.width
-  bodyCanvas.height = PlayerBodySection.height
-  bodyCtx.drawImage(basePlayerImage, PlayerBodySection.x, PlayerBodySection.y, PlayerBodySection.width, PlayerBodySection.height, 0, 0, PlayerBodySection.width, PlayerBodySection.height)
-  const bodyImage = await replaceColorInImage(bodyCanvas, PlayerBodySection.baseColor, player.skinColor)
+  bodyCanvas.width = PlayerImageData.Body.width
+  bodyCanvas.height = PlayerImageData.Body.height
+  bodyCtx.drawImage(basePlayerImage, PlayerImageData.Body.x, PlayerImageData.Body.y, PlayerImageData.Body.width, PlayerImageData.Body.height, 0, 0, PlayerImageData.Body.width, PlayerImageData.Body.height)
+  const bodyImage = await replaceColorInImage(bodyCanvas, PlayerImageData.Body.baseColor, player.skinColor)
 
   const shirtCanvas = document.createElement('canvas')
   const shirtCtx = shirtCanvas.getContext('2d')
-  shirtCanvas.width = PlayerShirtSection.width
-  shirtCanvas.height = PlayerShirtSection.height
-  shirtCtx.drawImage(basePlayerImage, PlayerShirtSection.x, PlayerShirtSection.y, PlayerShirtSection.width, PlayerShirtSection.height, 0, 0, PlayerShirtSection.width, PlayerShirtSection.height)
-  const shirtImage = await replaceColorInImage(shirtCanvas, PlayerShirtSection.baseColor, player.shirtColor)
+  shirtCanvas.width = PlayerImageData.Shirt.width
+  shirtCanvas.height = PlayerImageData.Shirt.height
+  shirtCtx.drawImage(basePlayerImage, PlayerImageData.Shirt.x, PlayerImageData.Shirt.y, PlayerImageData.Shirt.width, PlayerImageData.Shirt.height, 0, 0, PlayerImageData.Shirt.width, PlayerImageData.Shirt.height)
+  const shirtImage = await replaceColorInImage(shirtCanvas, PlayerImageData.Shirt.baseColor, player.shirtColor)
 
   const pantsCanvas = document.createElement('canvas')
   const pantsCtx = pantsCanvas.getContext('2d')
-  pantsCanvas.width = PlayerPantsSection.width
-  pantsCanvas.height = PlayerPantsSection.height
-  pantsCtx.drawImage(basePlayerImage, PlayerPantsSection.x, PlayerPantsSection.y, PlayerPantsSection.width, PlayerPantsSection.height, 0, 0, PlayerPantsSection.width, PlayerPantsSection.height)
-  const pantsImage = await replaceColorInImage(pantsCanvas, PlayerPantsSection.baseColor, player.pantsColor)
+  pantsCanvas.width = PlayerImageData.Pants.width
+  pantsCanvas.height = PlayerImageData.Pants.height
+  pantsCtx.drawImage(basePlayerImage, PlayerImageData.Pants.x, PlayerImageData.Pants.y, PlayerImageData.Pants.width, PlayerImageData.Pants.height, 0, 0, PlayerImageData.Pants.width, PlayerImageData.Pants.height)
+  const pantsImage = await replaceColorInImage(pantsCanvas, PlayerImageData.Pants.baseColor, player.pantsColor)
 
   // const accessoriesCanvas = document.createElement('canvas')
   // const accessoriesCtx = accessoriesCanvas.getContext('2d')
-  // accessoriesCanvas.width = PlayerAccessoriesSection.width
-  // accessoriesCanvas.height = PlayerAccessoriesSection.height
-  // accessoriesCtx.drawImage(basePlayerImage, PlayerAccessoriesSection.x, PlayerAccessoriesSection.y, PlayerAccessoriesSection.width, PlayerAccessoriesSection.height, 0, 0, PlayerAccessoriesSection.width, PlayerAccessoriesSection.height)
-  // const accessoriesImage = await replaceColorInImage(accessoriesCanvas, PlayerAccessoriesSection.baseColor, player.accessoriesColor)
+  // accessoriesCanvas.width = PlayerImageData.Accessories.width
+  // accessoriesCanvas.height = PlayerImageData.Accessories.height
+  // accessoriesCtx.drawImage(basePlayerImage, PlayerImageData.Accessories.x, PlayerImageData.Accessories.y, PlayerImageData.Accessories.width, PlayerImageData.Accessories.height, 0, 0, PlayerImageData.Accessories.width, PlayerImageData.Accessories.height)
+  // const accessoriesImage = await replaceColorInImage(accessoriesCanvas, PlayerImageData.Accessories.baseColor, player.accessoriesColor)
 
   const hairCanvas = document.createElement('canvas')
   const hairCtx = hairCanvas.getContext('2d')
-  hairCanvas.width = PlayerHairSection.width
-  hairCanvas.height = PlayerHairSection.height
-  hairCtx.drawImage(basePlayerImage, PlayerHairSection.x, PlayerHairSection.y, PlayerHairSection.width, PlayerHairSection.height, 0, 0, PlayerHairSection.width, PlayerHairSection.height)
-  const hairImage = await replaceColorInImage(hairCanvas, PlayerHairSection.baseColor, player.hairColor)
+  hairCanvas.width = PlayerImageData.Hair.width
+  hairCanvas.height = PlayerImageData.Hair.height
+  hairCtx.drawImage(basePlayerImage, PlayerImageData.Hair.x, PlayerImageData.Hair.y, PlayerImageData.Hair.width, PlayerImageData.Hair.height, 0, 0, PlayerImageData.Hair.width, PlayerImageData.Hair.height)
+  const hairImage = await replaceColorInImage(hairCanvas, PlayerImageData.Hair.baseColor, player.hairColor)
 
   const armCanvas = document.createElement('canvas')
   const armCtx = armCanvas.getContext('2d')
-  armCanvas.width = PlayerArmsSection.width
-  armCanvas.height = PlayerArmsSection.height
-  armCtx.drawImage(basePlayerImage, PlayerArmsSection.x, PlayerArmsSection.y, PlayerArmsSection.width, PlayerArmsSection.height, 0, 0, PlayerArmsSection.width, PlayerArmsSection.height)
-  const armImage = await replaceColorInImage(armCanvas, PlayerArmsSection.baseColor, player.skinColor)
+  armCanvas.width = PlayerImageData.Arms.width
+  armCanvas.height = PlayerImageData.Arms.height
+  armCtx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, PlayerImageData.Arms.width, PlayerImageData.Arms.height, 0, 0, PlayerImageData.Arms.width, PlayerImageData.Arms.height)
+  const armImage = await replaceColorInImage(armCanvas, PlayerImageData.Arms.baseColor, player.skinColor)
 
   const spritesheet = document.createElement('canvas')
   const spritesheetCtx = spritesheet.getContext('2d')

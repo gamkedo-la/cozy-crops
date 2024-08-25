@@ -5,6 +5,7 @@ import Keys from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
 import { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
+import Colors from '../globals/Colors.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -111,11 +112,11 @@ async function addPlayers (scene) {
     x: player1Start.x,
     y: player1Start.y,
     // TODO: Get these colors from the player's saved data or from the player's selection
-    skinColor: [0, 0, 255, 255], // [252, 205, 121, 255],
-    shirtColor: [128, 0, 128, 255],
-    pantsColor: [255, 0, 0, 255],
-    accessoriesColor: [252, 205, 121, 255],
-    hairColor: [0, 121, 0, 255]
+    skinColor: Colors.Skin[0],
+    shirtColor: Colors.Shirt[0],
+    pantsColor: Colors.Pants[0],
+    accessoriesColor: Colors.Shirt[0],
+    hairColor: Colors.Hair[0],
   })
 
   await scene.steve.init()

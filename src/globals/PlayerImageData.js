@@ -6,7 +6,7 @@ export const PlayerBodySection = {
   baseColor: [252, 205, 121, 250]
 }
 
-export const PlayerShirtSection = {
+export const PlayerDefaultShirtSection = {
   x: 196,
   y: 0,
   width: 144,
@@ -14,7 +14,7 @@ export const PlayerShirtSection = {
   baseColor: [222, 11, 11, 250]
 }
 
-export const PlayerPantsSection = {
+export const PlayerDefaultPantsSection = {
   x: 196,
   y: 135,
   width: 144,
@@ -22,7 +22,7 @@ export const PlayerPantsSection = {
   baseColor: [0, 37, 203, 250]
 }
 
-export const PlayerAccessoriesSection = {
+export const PlayerDefaultAccessoriesSection = {
   x: 196,
   y: 281,
   width: 144,
@@ -30,7 +30,7 @@ export const PlayerAccessoriesSection = {
   baseColor: [252, 205, 121, 250]
 }
 
-export const PlayerHairSection = {
+export const PlayerDefaultHairSection = {
   x: 196,
   y: 421,
   width: 144,
@@ -38,10 +38,21 @@ export const PlayerHairSection = {
   baseColor: [203, 121, 0, 250]
 }
 
-export const PlayerArmsSection = {
+export const PlayerDefaultArmsSection = {
   x: 196,
   y: 551,
   width: 144,
   height: 136,
   baseColor: [252, 205, 121, 255]
 }
+
+const PlayerImageData = {
+  Body: PlayerBodySection,
+  Shirt: PlayerDefaultShirtSection,
+  Pants: PlayerDefaultPantsSection,
+  Accessories: PlayerDefaultAccessoriesSection,
+  Hair: PlayerDefaultHairSection,
+  Arms: PlayerDefaultArmsSection
+}
+
+export default PlayerImageData
