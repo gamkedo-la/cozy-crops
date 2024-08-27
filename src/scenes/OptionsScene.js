@@ -26,6 +26,7 @@ export default class OptionsScene extends Scene {
     super.update(deltaTime) // Call the update method of the parent class
 
     manageInput(this)
+    this.menu.update(deltaTime)
   }
 
   draw () {
@@ -39,6 +40,12 @@ export default class OptionsScene extends Scene {
     super.stop() // Call the stop method of the parent class
 
     // clean up resources
+  }
+
+  async clicked (selection) {
+    if (selection === 'Back') {
+      await this.game.changeScene(Scenes.Title)
+    }
   }
 }
 

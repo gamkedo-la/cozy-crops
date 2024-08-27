@@ -13,6 +13,9 @@ export default class UIScene extends Scene {
 
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
+
+    const mousePos = this.game.inputManager.getMousePosition()
+    if (mousePos.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
   }
 
   draw () {
@@ -33,5 +36,11 @@ export default class UIScene extends Scene {
     super.stop() // Call the stop method of the parent class
 
     // clean up resources
+  }
+}
+
+function checkMouseClick (scene, x, y) {
+  if (x > scene.game.canvas.width / 4 && x < 3 * scene.game.canvas.width / 4 && y > 3 * scene.game.canvas.height / 4  && y < scene.game.canvas.height) {
+    console.log('Clicked on the UI')
   }
 }

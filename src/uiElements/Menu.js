@@ -9,6 +9,23 @@ export default class Menu {
     Object.assign(this, config)
 
     this.selectionIndex = 0
+    this.menuItems = []
+
+    this.game.ctx.fillStyle = this.textColor
+    this.game.ctx.font = `${this.fontSize}px ${this.fontFamily}`
+    this.game.ctx.textAlign = 'left'
+  
+    this.options.forEach((selection, index) => {
+      const metrics = this.game.ctx.measureText(selection)
+      this.menuItems.push({
+        selection,
+        x: this.x,
+        y: this.y + (index * this.fontSize * 1.5) - (this.fontSize * 0.25),
+        width: metrics.width,
+        height: this.fontSize * 1.5
+      })
+      this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)
+    })
   }
 
   moveUp () {
@@ -30,6 +47,8 @@ export default class Menu {
   }
 
   update (deltaTime) {
+    const mousePos = this.scene.inputManager.getMousePosition()
+    handleMouse(this, mousePos)
   }
 
   draw () {
@@ -49,6 +68,14 @@ export default class Menu {
   }
 }
 
-function draw (menu) {
+function handleMouse (menu, mousePos) {
+  let overButton = false
+  menu.menuItems.forEach((menuItem, index) => {
+    if (mousePos.x > menuItem.x && mousePos.x < menuItem.x + menuItem.width && mousePos.y > menuItem.y && mousePos.y < menuItem.y + menuItem.height) {
+      menu.selectionIndex = index
+      overButton = true
+    }
+  })
 
+  if (mousePos.justDown && overButton) menu.scene.clicked(menu.options[menu.selectionIndex])
 }

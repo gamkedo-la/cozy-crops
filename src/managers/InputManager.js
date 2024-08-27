@@ -26,7 +26,10 @@ export default class InputManager {
     this.mouse = {
       x: 0,
       y: 0,
-      clicked: false
+      justDown: false,
+      down: false,
+      justUp: false,
+      up: false
     }
 
     window.addEventListener('keydown', this.handleKeyDown.bind(this))
@@ -44,6 +47,8 @@ export default class InputManager {
   update (deltaTime) {
     this.justDown = {}
     this.justUp = {}
+    this.mouse.justDown = false
+    this.mouse.justUp = false
   }
 
   handleKeyDown (event) {
@@ -65,16 +70,27 @@ export default class InputManager {
   }
 
   handleMouseMove (event) {
-    this.mouse.x = event.clientX
-    this.mouse.y = event.clientY
+    const rect = this.game.canvas.getBoundingClientRect()
+    this.mouse.x = event.clientX - rect.left
+    this.mouse.y = event.clientY - rect.top
   }
 
   handleMouseDown (event) {
-    this.mouse.clicked = true
+    this.mouse.justDown = true
+    this.mouse.down = true
+    this.mouse.justUp = false
+    this.mouse.up = false
+
+    const rect = this.game.canvas.getBoundingClientRect()
+    this.mouse.x = event.clientX - rect.left
+    this.mouse.y = event.clientY - rect.top
   }
 
   handleMouseUp (event) {
-    this.mouse.clicked = false
+    this.mouse.justDown = false
+    this.mouse.down = false
+    this.mouse.justUp = true
+    this.mouse.up = true
   }
 
   isKeyJustDown (key) {
@@ -117,6 +133,10 @@ export default class InputManager {
     }
 
     return Object.keys(this.justUp).filter(key => this.justUp[key])
+  }
+
+  getMousePosition () {
+    return this.mouse
   }
 
   isMouseOver (element) {

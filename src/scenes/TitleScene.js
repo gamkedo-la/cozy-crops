@@ -26,6 +26,7 @@ export default class TitleScene extends Scene {
     super.update(deltaTime) // Call the update method of the parent class
 
     manageInput(this)
+    this.menu.update(deltaTime)
   }
 
   draw () {
@@ -39,6 +40,17 @@ export default class TitleScene extends Scene {
     super.stop() // Call the stop method of the parent class
 
     // clean up resources
+  }
+
+  async clicked (selection) {
+    if (selection === 'Start') {
+      this.managers.gameManager.loadGame(1)
+      await this.game.changeScene(Scenes.Game)
+    } else if (selection === 'Options') {
+      await this.game.changeScene(Scenes.Options)
+    } else if (selection === 'Credits') {
+      await this.game.changeScene(Scenes.Credits)
+    }
   }
 }
 
@@ -65,5 +77,10 @@ async function manageInput (scene) {
     scene.menu.moveUp()
   } else if (justDownKeys.includes(Keys.ARROW_DOWN) || justDownKeys.includes(Keys.S) || justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.D)) {
     scene.menu.moveDown()
+  }
+
+  const mousePos = scene.game.inputManager.getMousePosition()
+  if (mousePos.justDown) {
+
   }
 }
