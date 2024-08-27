@@ -52,6 +52,8 @@ export default class GameScene extends Scene {
     }
     this.camera = new Camera(cameraConfig)
     this.imageManager.setCamera(this.camera)
+    const date = this.gameManager.getDate()
+    this.calendarManager.setStartDate(date.year, date.season, date.week, date.day)
   }
 
   update (deltaTime) {
@@ -62,6 +64,7 @@ export default class GameScene extends Scene {
       entity.update(deltaTime)
     }
 
+    this.calendarManager.update(deltaTime)
     this.camera.update(deltaTime)
     this.draw()
   }

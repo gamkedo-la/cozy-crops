@@ -19,35 +19,44 @@ export default class CalendarManager {
   }
 
   setStartDate(year, season, week, day) {
-    this.year = year
-    this.season = season
+    this.year = year ? year : this.year
+    this.season = season ? season : this.season
     this.seasonDisplay = Calendar.SeasonNames[this.season]
-    this.week = week
-    this.day = day
+    this.week = week ? week : this.week
+    this.day = day ? day : this.day
+    this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
   }
 
   advanceDay () {
     this.day++
     dateCheck(this)
+    this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
     console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
   }
 
   advanceWeek () {
     this.week++
     dateCheck(this)
+    this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
     console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
   }
 
   advanceSeason () {
     this.season++
     dateCheck(this)
+    this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
     console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
   }
 
   advanceYear () {
     this.year++
     dateCheck(this)
+    this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
     console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
+  }
+
+  getDate () {
+    return { year: this.year, season: this.season, seasonDisplay: this.seasonDisplay, week: this.week, day: this.day }
   }
 
   update (deltaTime) {
@@ -56,6 +65,7 @@ export default class CalendarManager {
       this.day++
       this.elapsedTime -= Calendar.DayLength // Reset the elapsed time, but keep any overflow.
       dateCheck(this)
+      this.gameManager.newDaySave({ year: this.year, season: this.season, week: this.week, day: this.day })
     }
   }
 }

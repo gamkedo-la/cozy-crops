@@ -1,6 +1,6 @@
 import LocalStorageKeys from '../globals/LocalStorageKeys.js'
 import EntityTypes from '../globals/EntityTypes.js'
-import { ArrowKeys, Player1Keys, Player2Keys, WASDKeys } from '../globals/Keys.js'
+import { ArrowKeys, Player1Keys, Player2Keys, WASDKeys, Y } from '../globals/Keys.js'
 
 // GameManager is responsible for keeping track of the game state and saving it to local storage.
 // It is also responsible for loading the game state from local storage when the game is started.
@@ -44,8 +44,15 @@ export default class GameManager {
     this.saveSlot = saveSlot
     this.state = {
       Player1Controls: ArrowKeys,
-      Player2Controls: WASDKeys
+      Player2Controls: WASDKeys,
+      Calendar: {
+        Year: 1,
+        Season: 1,
+        Week: 1,
+        Day: 1
+      }
     }
+
     this.saveGame()
   }
 
@@ -65,5 +72,19 @@ export default class GameManager {
       this.state.Player2Controls[control] = key
       localStorage.setItem(LocalStorageKeys.Player2Controls, JSON.stringify(this.state.Player2Controls))
     }
+  }
+
+  getDate () {
+    return this.state.Calendar
+  }
+
+  setDate (date) {
+    this.state.Calendar = date
+    this.saveGame()
+  }
+
+  newDaySave (date) {
+    this.state.Calendar = date
+    this.saveGame()
   }
 }

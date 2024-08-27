@@ -12,9 +12,9 @@ export const UIColorDark = '#000000'
 export const UIInactiveColor = '#888888'
 export const UIDisabledColor = '#444444'
 export const UIDangerColor = '#FF0000'
-export const UIFontSize = '30px'
+export const UIFontSize = '32px'
 export const InGameFontSize = '40px'
-export const UIFontFamily = FontFamilies.MedievalSharpRegular
+export const UIFontFamily = FontFamilies.HelloFarmer
 export const TextLineSpacing = 2
 
 export const TitleFontSize = '96px'
