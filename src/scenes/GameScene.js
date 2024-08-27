@@ -38,6 +38,8 @@ export default class GameScene extends Scene {
       scene: this
     })
 
+    this.inputManager.setPlayerKeys()
+
     await addPlayers(this)
     const cameraConfig = {
       game: this.game,
@@ -128,6 +130,7 @@ async function addPlayers (scene) {
     pantsColor: Colors.Pants[0],
     accessoriesColor: Colors.Shirt[0],
     hairColor: Colors.Hair[0],
+    controls: scene.managers.gameManager.getPlayerControls(Player1)
   })
 
   await scene.steve.init()
@@ -138,51 +141,17 @@ async function addPlayers (scene) {
 function checkCheatKeys (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
-  checkCalendarCheatKeys(justDownKeys)
+  checkCalendarCheatKeys(scene, justDownKeys)
 }
 
-function checkCalendarCheatKeys (justDownKeys) {
-  let timeKeyPressed = false
+function checkCalendarCheatKeys (scene, justDownKeys) {
   if (justDownKeys.includes(Keys.I)) {
-    day++
-    timeKeyPressed = true
+    scene.calendarManager.advanceDay()
   }
   if (justDownKeys.includes(Keys.O)) {
-    season++
-    timeKeyPressed = true
+    scene.calendarManager.advanceSeason()
   }
   if (justDownKeys.includes(Keys.P)) {
-    year++
-    timeKeyPressed = true
-  }
-
-  if (timeKeyPressed) {
-    dateCheck()
-    console.log(seasonDisplay, day, 'Year', year)
-  }
-}
-
-function dateCheck() {
-  if (day >= (seasonLength + 1)) { //season length +1, since we're starting days at 1, we're adding 1 to the season length
-    season++
-    day = 1
-  }
-
-  if(season > 3) {
-    year++
-    season = 1
-  }
-
-  convertSeason()
-}
-
-function convertSeason () {
-  switch(season){
-  case 1: seasonDisplay = "Cool"
-  break
-  case 2: seasonDisplay = "Hot"
-  break
-  case 3: seasonDisplay = "Rainy"
-  break
+    scene.calendarManager.advanceYear()
   }
 }

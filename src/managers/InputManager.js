@@ -1,15 +1,27 @@
-import Keys, { Player1Keys, Player2Keys } from '../globals/Keys.js'
+import { Player1Keys, Player2Keys } from '../globals/Keys.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
 
+/**
+ * @typedef {import('../Game.js').default} Game
+ * @typedef {import('./EventManager.js').default} EventManager
+ */
+
 export default class InputManager {
+  /**
+   * Creates an instance of InputManager.
+   * 
+   * @param {Object} config - The configuration object.
+   * @param {Game} config.game - An instance of the Game class.
+   * @param {EventManager} config.eventManager - An instance of the EventManager class.
+   */
   constructor (config) {
     Object.assign(this, config)
 
     this.justDown = {}
     this.stillDown = {}
     this.justUp = {}
-    this.player1KeyValues = Object.values(Player1Keys)
-    this.player2KeyValues = Object.values(Player2Keys)
+    this.player1KeyValues = null
+    this.player2KeyValues = null
 
     this.mouse = {
       x: 0,
@@ -22,6 +34,11 @@ export default class InputManager {
     window.addEventListener('mousemove', this.handleMouseMove.bind(this))
     window.addEventListener('mousedown', this.handleMouseDown.bind(this))
     window.addEventListener('mouseup', this.handleMouseUp.bind(this))
+  }
+
+  setPlayerKeys () {
+    this.player1KeyValues = Object.values(this.gameManager.getPlayerControls(Player1))
+    this.player2KeyValues = Object.values(this.gameManager.getPlayerControls(Player2))
   }
 
   update (deltaTime) {

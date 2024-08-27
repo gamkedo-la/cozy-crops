@@ -54,6 +54,7 @@ async function manageInput (scene) {
 
   if (justDownKeys.includes(Keys.ENTER) || justDownKeys.includes(Keys.SPACE)) {
     if (scene.menu.getCurrentSelection() === 'Start') {
+      scene.managers.gameManager.initializeNewGame(1)
       await scene.game.changeScene(Scenes.Game)
     } else if (scene.menu.getCurrentSelection() === 'Options') {
       await scene.game.changeScene(Scenes.Options)

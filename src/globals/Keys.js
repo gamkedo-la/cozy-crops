@@ -72,18 +72,31 @@ const Keys = {
   F12: 'F12'
 }
 
-export const Player1Keys = {
+export const ArrowKeys = {
   Up: Keys.ARROW_UP,
   Down: Keys.ARROW_DOWN,
   Left: Keys.ARROW_LEFT,
   Right: Keys.ARROW_RIGHT
 }
 
-export const Player2Keys = {
+export const WASDKeys = {
   Up: Keys.W,
   Down: Keys.S,
   Left: Keys.A,
   Right: Keys.D
+}
+
+export const Player1Keys = {
+  Up: null,
+  Down: null,
+  Left: null,
+  Right: null
+}
+export const Player2Keys = {
+  Up: null,
+  Down: null,
+  Left: null,
+  Right: null
 }
 
 export default Keys

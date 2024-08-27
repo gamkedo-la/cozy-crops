@@ -11,11 +11,6 @@ export default class Player {
     this.animations = {}
     this.animation = null // Initialize once animations are built
     this.speed = 2
-    if (this.type === Player1) {
-      this.keys = Player1Keys
-    } else if (this.type === Player2) {
-      this.keys = Player2Keys
-    }
 
     this.collisionPoint = {
       x: 0, // Initialize once animations are built
@@ -165,7 +160,7 @@ async function replaceColorInImage(image, oldColor, newColor) {
 function handleInput (player) {
   const downKeys = player.game.inputManager.getDownKeys(player.type)
 
-  if (downKeys.includes(player.keys.Up)) {
+  if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {
       player.y -= player.speed
     }
@@ -173,7 +168,7 @@ function handleInput (player) {
     if (player.animation !== player.animations.SteveWalkUp) {
       player.animation = player.animations.SteveWalkUp
     }
-  } else if (downKeys.includes(player.keys.Down)) {
+  } else if (downKeys.includes(player.controls.Down)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y + player.speed })) {
       player.y += player.speed
     }
@@ -181,7 +176,7 @@ function handleInput (player) {
     if (player.animation !== player.animations.SteveWalkDown) {
       player.animation = player.animations.SteveWalkDown
     }
-  } else if (downKeys.includes(player.keys.Left)) {
+  } else if (downKeys.includes(player.controls.Left)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x - player.speed, y: player.collisionPoint.y })) {
       player.x -= player.speed
     }
@@ -189,7 +184,7 @@ function handleInput (player) {
     if (player.animation !== player.animations.SteveWalkLeft) {
       player.animation = player.animations.SteveWalkLeft
     }
-  }  else if (downKeys.includes(player.keys.Right)) {
+  }  else if (downKeys.includes(player.controls.Right)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x + player.speed, y: player.collisionPoint.y })) {
       player.x += player.speed
     }
