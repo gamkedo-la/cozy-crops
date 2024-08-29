@@ -8,7 +8,6 @@ import Keys from '../globals/Keys.js'
 export default class UIScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.UIScene
   }
 
   update (deltaTime) {

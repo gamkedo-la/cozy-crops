@@ -8,11 +8,10 @@ import Keys from '../globals/Keys.js'
 export default class OptionsScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.Options
 
     this.menu = new Menu({
       x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
-      y: 100 + this.game.canvas.height / (2 * Constants.CanvasScale),
+      y: this.game.canvas.height - Constants.MainMenuFontSize * 1.5,
       game: this.game,
       scene: this,
       options: ['Back'],
@@ -20,6 +19,12 @@ export default class OptionsScene extends Scene {
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
     })
+  }
+
+  start () {
+    super.start() // Call the start method of the parent class
+
+    // setup resources
   }
 
   update (deltaTime) {
@@ -34,6 +39,7 @@ export default class OptionsScene extends Scene {
 
     drawTitle(this)
     this.menu.draw()
+    this.player1Controls.draw()
   }
 
   stop () {
@@ -51,9 +57,9 @@ export default class OptionsScene extends Scene {
 
 function drawTitle (title) {
   title.game.ctx.fillStyle = Constants.TitleTextColor
-  title.game.ctx.font = `${Constants.TitleFontSize}px ${Constants.TitleFontFamily}`
+  title.game.ctx.font = `${Constants.SceneTitleFontSize}px ${Constants.TitleFontFamily}`
   title.game.ctx.textAlign = UIAttributes.CenterAlign
-  title.game.ctx.fillText('Options', title.game.canvas.width / 2, title.game.canvas.height / 4)
+  title.game.ctx.fillText('Options', title.game.canvas.width / 2, Constants.SceneTitleFontSize / 2)
 }
 
 async function manageInput (scene) {

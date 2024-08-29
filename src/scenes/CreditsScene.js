@@ -8,7 +8,6 @@ import Keys from '../globals/Keys.js'
 export default class CreditsScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.Credits
 
     this.menu = new Menu({
       x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,

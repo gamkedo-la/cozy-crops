@@ -9,6 +9,7 @@ const Constants = {
   MainMenuFontSize: 36,
   MainMenuFontFamily: FontFamilies.LuckyFarmer,
   MainMenuTextColor: '#FFFFFF',
+  SceneTitleFontSize: 96,
   TileHeight: 16,
   TileWidth: 16,
   TitleFontSize: 300,

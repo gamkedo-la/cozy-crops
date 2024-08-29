@@ -77,5 +77,7 @@ function handleMouse (menu, mousePos) {
     }
   })
 
-  if (mousePos.justDown && overButton) menu.scene.clicked(menu.options[menu.selectionIndex])
+  if (mousePos.justDown && overButton) {
+    menu.scene.clicked(menu.options[menu.selectionIndex])
+  }
 }

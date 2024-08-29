@@ -6,7 +6,6 @@ import Events from '../globals/Events.js'
 export default class BootScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.Boot
 
     this.loadingText = 'Loading'
     this.loadingTimer = 0

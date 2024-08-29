@@ -2,6 +2,7 @@ import Scenes from '../globals/Scenes.js'
 import BootScene from '../scenes/BootScene.js'
 import CreditsScene from '../scenes/CreditsScene.js'
 import OptionsScene from '../scenes/OptionsScene.js'
+import PreGameScene from '../scenes/PreGameScene.js'
 import TitleScene from '../scenes/TitleScene.js'
 import GameScene from '../scenes/GameScene.js'
 import UIScene from '../scenes/UIScene.js'
@@ -20,36 +21,48 @@ export default class SceneManager {
 
   buildScenes () {
     this.scenes[Scenes.Boot] = new BootScene({
+      name: Scenes.Boot,
       game: this.game,
       managers: this.managers
     })
     this.startedScenes[Scenes.Boot] = false
 
     this.scenes[Scenes.Credits] = new CreditsScene({
+      name: Scenes.Credits,
       game: this.game,
       managers: this.managers
     })
     this.startedScenes[Scenes.Credits] = false
 
     this.scenes[Scenes.Game] = new GameScene({
+      name: Scenes.Game,
       game: this.game,
       managers: this.managers
     })
     this.startedScenes[Scenes.Game] = false
 
     this.scenes[Scenes.Options] = new OptionsScene({
+      name: Scenes.Options,
       game: this.game,
       managers: this.managers
     })
     this.startedScenes[Scenes.Options] = false
 
+    this.scenes[Scenes.PreGame] = new PreGameScene({
+      name: Scenes.PreGame,
+      game: this.game,
+      managers: this.managers
+    })
+
     this.scenes[Scenes.Title] = new TitleScene({
+      name: Scenes.Title,
       game: this.game,
       managers: this.managers
     })
     this.startedScenes[Scenes.Title] = false
 
     this.scenes[Scenes.UIScene] = new UIScene({
+      name: Scenes.UIScene,
       game: this.game,
       managers: this.managers
     })

@@ -22,6 +22,7 @@ export default class InputManager {
     this.justUp = {}
     this.player1KeyValues = null
     this.player2KeyValues = null
+    this.ignore = false
 
     this.mouse = {
       x: 0,
@@ -44,6 +45,23 @@ export default class InputManager {
     this.player2KeyValues = Object.values(this.gameManager.getPlayerControls(Player2))
   }
 
+  setPlayerControl (player, control, key) {
+    this.gameManager.setPlayerControls(player, control, key)
+    this.setPlayerKeys()
+  }
+
+  getPlayerControls (player) {
+    if (player === Player1) {
+      return this.gameManager.getPlayerControls(Player1)
+    } else if (player === Player2) {
+      return this.gameManager.getPlayerControls(Player2)
+    }
+  }
+
+  ignoreInput (ignore) {
+    this.ignore = ignore
+  }
+
   update (deltaTime) {
     this.justDown = {}
     this.justUp = {}
@@ -52,6 +70,8 @@ export default class InputManager {
   }
 
   handleKeyDown (event) {
+    if (this.ignore) return
+
     event.preventDefault()
 
     if (!this.stillDown[event.key]) {
@@ -62,6 +82,8 @@ export default class InputManager {
   }
 
   handleKeyUp (event) {
+    if (this.ignore) return
+
     event.preventDefault()
 
     this.justUp[event.key] = true

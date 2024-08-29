@@ -17,7 +17,6 @@ let seasonDisplay = 'Empty'
 export default class GameScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.Game
     
     this.drawList = []
     this.camera = null

@@ -17,10 +17,41 @@ export default class GameManager {
   constructor (config) {
     Object.assign(this, config)
     this.state = {}
-    this.saveSlot = 1
+    const slots = this.getSaveSlots()
+    this.saveSlot = slots ? slots[0] : null
+  }
+
+  getSaveSlots () {
+    // Get the save slots from local storage
+    const slots = localStorage.getItem(LocalStorageKeys.SaveSlots)
+    if (slots) {
+      return JSON.parse(slots)
+    } else {
+      return null
+    }
+  }
+
+  saveSaveSlot (slot) {
+    let currentSlots = this.getSaveSlots()
+    if (!currentSlots) currentSlots = []
+    const existingSlot = currentSlots.find(s => s === slot)
+    if (!existingSlot) {
+      currentSlots.push(slot)
+      localStorage.setItem(LocalStorageKeys.SaveSlots, JSON.stringify(currentSlots))
+    }
+  }
+
+  clearSaveSlot (slot) {
+    let currentSlots = this.getSaveSlots()
+    if (!currentSlots) return
+    const updatedSlots = currentSlots.filter(s => s !== slot)
+    localStorage.setItem(LocalStorageKeys.SaveSlots, JSON.stringify(updatedSlots))
+    localStorage.removeItem(`${LocalStorageKeys.SaveSlot}${slot}`)
   }
 
   loadGame (saveSlot) {
+    if (!saveSlot) return
+
     // Attempt to load the game state from local storage
     this.saveSlot = saveSlot
     const gameState = localStorage.getItem(`${LocalStorageKeys.SaveSlot}${this.saveSlot}`)
@@ -29,7 +60,7 @@ export default class GameManager {
       this.state = JSON.parse(gameState)
     } else {
       // If the game state does not exist, initialize a new game
-      this.initializeNewGame()
+      this.initializeNewGame(saveSlot)
     }
   }
 

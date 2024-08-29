@@ -8,7 +8,6 @@ import Keys from '../globals/Keys.js'
 export default class TitleScene extends Scene {
   constructor (config) {
     super(config)
-    this.name = Scenes.Title
 
     this.menu = new Menu({
       x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 65,
@@ -44,8 +43,7 @@ export default class TitleScene extends Scene {
 
   async clicked (selection) {
     if (selection === 'Start') {
-      this.managers.gameManager.loadGame(1)
-      await this.game.changeScene(Scenes.Game)
+      await this.game.changeScene(Scenes.PreGame)
     } else if (selection === 'Options') {
       await this.game.changeScene(Scenes.Options)
     } else if (selection === 'Credits') {
