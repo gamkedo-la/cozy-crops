@@ -76,14 +76,16 @@ export const ArrowKeys = {
   Up: Keys.ARROW_UP,
   Down: Keys.ARROW_DOWN,
   Left: Keys.ARROW_LEFT,
-  Right: Keys.ARROW_RIGHT
+  Right: Keys.ARROW_RIGHT,
+  Action: Keys.L
 }
 
 export const WASDKeys = {
   Up: Keys.W,
   Down: Keys.S,
   Left: Keys.A,
-  Right: Keys.D
+  Right: Keys.D,
+  Action: Keys.SPACE
 }
 
 export const Player1Keys = {
