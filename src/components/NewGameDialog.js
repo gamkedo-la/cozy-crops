@@ -1,3 +1,6 @@
+import ImageButton from '../uiElements/ImageButton.js'
+import { ConfirmButton, CancelButton } from '../globals/UISpriteData.js'
+
 export default class NewGameDialog {
   constructor (config) {
     Object.assign(this, config)
@@ -61,75 +64,53 @@ function build (dialog) {
   slotName.style.zIndex = '100'
   slotName.style.display = 'block'
 
-  const createButton = document.createElement('button')
-  createButton.id = 'createButton'
-  createButton.innerText = 'Create'
-  createButton.style.position = 'absolute'
-  const buttonWidth = 100
-  const buttonHeight = 50
-  createButton.style.left = `${canvasRect.left + (canvasRect.width / 2) - (2 * buttonWidth) + 10}px`
-  createButton.style.top = `${canvasRect.top + (canvasRect.height / 2) + (containerHeight / 2) - (buttonHeight) - 8}px`
-  createButton.style.width = `${buttonWidth}px`
-  createButton.style.height = `${buttonHeight}px`
-  createButton.style.fontSize = '24px'
-  createButton.style.textAlign = 'center'
-  createButton.style.border = '2px solid black'
-  createButton.style.borderRadius = '5px'
-  createButton.style.backgroundColor = 'blue'
-  createButton.style.color = 'white'
-  createButton.style.zIndex = '100'
-  createButton.style.display = 'block'
+  const createButton = new ImageButton({
+    imageManager: dialog.scene.managers.imageManager,
+    id: 'createButton',
+    top: '456px', // hard-coded value to place where desired
+    left: '562px', // hard-coded value to place where desired
+    imgDims: ConfirmButton,
+    onClick: () => {
+      dialog.scene.inputManager.ignoreInput(false)
+      dialog.scene.showingNewGameDialog = false
 
-  const cancelButton = document.createElement('button')
-  cancelButton.id = 'cancelButton'
-  cancelButton.innerText = 'Cancel'
-  cancelButton.style.position = 'absolute'
-  cancelButton.style.left = `${canvasRect.left + (canvasRect.width / 2) + (buttonWidth) - 5}px`
-  cancelButton.style.top = `${canvasRect.top + (canvasRect.height / 2) + (containerHeight / 2) - (buttonHeight) - 8}px`
-  cancelButton.style.width = `${buttonWidth}px`
-  cancelButton.style.height = `${buttonHeight}px`
-  cancelButton.style.fontSize = '24px'
-  cancelButton.style.textAlign = 'center'
-  cancelButton.style.border = '2px solid black'
-  cancelButton.style.borderRadius = '5px'
-  cancelButton.style.backgroundColor = 'red'
-  cancelButton.style.color = 'white'
-  cancelButton.style.zIndex = '100'
-  cancelButton.style.display = 'block'
+      const slotName = document.getElementById('slotName').value
+
+      dialog.scene.managers.gameManager.saveSaveSlot(slotName)
+      dialog.scene.managers.gameManager.loadGame(slotName)
+
+      document.body.removeChild(document.getElementById('slotName'))
+      document.body.removeChild(document.getElementById('createButton'))
+      document.body.removeChild(document.getElementById('cancelButton'))
+      document.body.removeChild(document.getElementById('container'))
+      document.body.removeChild(document.getElementById('shadow'))
+
+      dialog.scene.newGameDialogDismissed(true)
+    }
+  })
+
+  const cancelButton = new ImageButton({
+    imageManager: dialog.scene.managers.imageManager,
+    id: 'cancelButton',
+    top: '456px', // hard-coded value to place where desired
+    left: '835px', // hard-coded value to place where desired
+    imgDims: CancelButton,
+    onClick: () => {
+      dialog.scene.inputManager.ignoreInput(false)
+      dialog.scene.showingNewGameDialog = false
+
+      document.body.removeChild(document.getElementById('slotName'))
+      document.body.removeChild(document.getElementById('createButton'))
+      document.body.removeChild(document.getElementById('cancelButton'))
+      document.body.removeChild(document.getElementById('container'))
+      document.body.removeChild(document.getElementById('shadow'))
+
+      dialog.scene.newGameDialogDismissed(false)
+    }
+  })
 
   document.body.appendChild(slotName)
   slotName.focus()
-  document.body.appendChild(createButton)
-  document.body.appendChild(cancelButton)
-
-  createButton.onclick = () => {
-    dialog.scene.inputManager.ignoreInput(false)
-    dialog.scene.showingNewGameDialog = false
-
-    const slotName = document.getElementById('slotName').value
-
-    dialog.scene.managers.gameManager.saveSaveSlot(slotName)
-    dialog.scene.managers.gameManager.loadGame(slotName)
-
-    document.body.removeChild(document.getElementById('slotName'))
-    document.body.removeChild(document.getElementById('createButton'))
-    document.body.removeChild(document.getElementById('cancelButton'))
-    document.body.removeChild(document.getElementById('container'))
-    document.body.removeChild(document.getElementById('shadow'))
-
-    dialog.scene.newGameDialogDismissed(true)
-  }
-
-  cancelButton.onclick = () => {
-    dialog.scene.inputManager.ignoreInput(false)
-    dialog.scene.showingNewGameDialog = false
-
-    document.body.removeChild(document.getElementById('slotName'))
-    document.body.removeChild(document.getElementById('createButton'))
-    document.body.removeChild(document.getElementById('cancelButton'))
-    document.body.removeChild(document.getElementById('container'))
-    document.body.removeChild(document.getElementById('shadow'))
-
-    dialog.scene.newGameDialogDismissed(false)
-  }
+  document.body.appendChild(createButton.element)
+  document.body.appendChild(cancelButton.element)
 }
