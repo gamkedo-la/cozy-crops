@@ -88,8 +88,8 @@ function build (dialog) {
   const createButton = new ImageButton({
     imageManager: dialog.scene.managers.imageManager,
     id: 'createButton',
-    top: '456px', // hard-coded value to place where desired
-    left: '562px', // hard-coded value to place where desired
+    top: `${canvasRect.top + (canvasRect.height / 2) - (containerHeight / 2) + 84}px`,
+    left: `${canvasRect.left + (canvasRect.width / 2) - (inputWidth / 2) - 2}px`,
     imgDims: ConfirmButton,
     onClick: () => {
       dialog.scene.inputManager.ignoreInput(false)
@@ -112,8 +112,8 @@ function build (dialog) {
   const cancelButton = new ImageButton({
     imageManager: dialog.scene.managers.imageManager,
     id: 'cancelButton',
-    top: '456px', // hard-coded value to place where desired
-    left: '835px', // hard-coded value to place where desired
+    top: `${canvasRect.top + (canvasRect.height / 2) - (containerHeight / 2) + 84}px`,
+    left: `${canvasRect.left + (canvasRect.width / 2) - (inputWidth / 2) + 273}px`,
     imgDims: CancelButton,
     onClick: () => {
       dialog.scene.inputManager.ignoreInput(false)

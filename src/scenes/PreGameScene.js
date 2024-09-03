@@ -5,8 +5,12 @@ import Constants from '../globals/Constants.js'
 import Keys from '../globals/Keys.js'
 import NewGameDialog from '../components/NewGameDialog.js'
 import UIAttributes from '../globals/UIAttributes.js'
-import { Player1, Player2 } from '../globals/EntityTypes.js'
+import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
+import ImageButton from '../uiElements/ImageButton.js'
 import { CheatKeys } from '../globals/Debug.js'
+import { StartButton } from '../globals/UISpriteData.js'
+import PlayerImageData from '../globals/PlayerImageData.js'
+import { SteveIdleDown } from '../globals/Animations.js'
 
 export default class PreGameScene extends Scene {
   constructor (config) {
@@ -16,6 +20,12 @@ export default class PreGameScene extends Scene {
     this.startGameMenu = null
     this.showingNewGameDialog = false
     this.showCharacterCreation = false
+    this.startGameButton = null
+
+    this.player1SkinTone = null
+    this.player2SkinTone = null
+    this.player1Image = null
+    this.player2Image = null
   }
 
   start () {
@@ -35,6 +45,11 @@ export default class PreGameScene extends Scene {
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
     })
+
+    this.startGameButton = buildStartGameButton(this)
+    this.startGameButton.hide()
+
+    createPlayerImages(this)
   }
 
   update (deltaTime) {
@@ -123,7 +138,10 @@ function drawCharacterCreateScreen (scene) {
   drawPlayerControlsTitles(scene.game.canvas, scene.game.ctx)
   drawPlayerControlsOptions(scene.game.canvas, scene.game.ctx, scene.inputManager.getPlayerControls(Player1), scene.inputManager.getPlayerControls(Player2))
 
-  drawStartGameButton(scene)
+  if (scene.player1Image) drawPlayerImage(scene, Player1)
+  if (scene.player2Image) drawPlayerImage(scene, Player2)
+
+  scene.startGameButton.show()
 }
 
 function splitCharacterCreateScreen (canvas, ctx) {
@@ -135,8 +153,8 @@ function splitCharacterCreateScreen (canvas, ctx) {
 
   // Draw the vertical line
   ctx.beginPath()
-  ctx.moveTo(middleX, Constants.SceneTitleFontSize)
-  ctx.lineTo(middleX, canvas.height)
+  ctx.moveTo(middleX, Constants.SceneTitleFontSize - 20)
+  ctx.lineTo(middleX, canvas.height - Constants.MainMenuFontSize - 30)
   ctx.stroke()
 }
 
@@ -256,16 +274,68 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
   })
 }
 
-function drawStartGameButton (scene) {
+function drawPlayerImage (scene, player) {
+  const borderWidth = scene.game.canvas.width / 8
+  const offsetX = 40 + (scene.game.canvas.width / 8)
+  const playerX = player === Player1 ? (scene.game.canvas.width / 4 - borderWidth / 2 - offsetX) : (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
+  const borderY = (1.5 * Constants.SceneTitleFontSize) - 5
+
+  const playerImage = player === Player1 ? scene.player1Image : scene.player2Image
+  scene.game.ctx.drawImage(playerImage, playerX, borderY, 10 * SteveIdleDown.frameWidth, 10 * SteveIdleDown.frameHeight)
+}
+
+function buildStartGameButton (scene) {
   const borderY = scene.game.canvas.height - Constants.MainMenuFontSize
+  const canvasRect = scene.game.canvas.getBoundingClientRect()
 
-  scene.game.ctx.fillStyle = UIAttributes.UIColor
-  scene.game.ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
-  scene.game.ctx.textAlign = UIAttributes.CenterAlign
-  scene.game.ctx.fillText('Start Game', scene.game.canvas.width / 2, borderY)
+  const startGameButton = new ImageButton({
+    imageManager: scene.managers.imageManager,
+    id: 'startGameButton',
+    top: `${canvasRect.top + canvasRect.height - 1.25 * StartButton.height}px`,
+    left: `${canvasRect.left + (canvasRect.width / 2) - (StartButton.width)}px`,
+    imgDims: StartButton,
+    onClick: () => {
+      document.body.removeChild(startGameButton.element)
 
-  scene.game.ctx.lineWidth = 2
-  scene.game.ctx.strokeStyle = UIAttributes.UIColor
-  const textMetrics = scene.game.ctx.measureText('Start Game')
-  scene.game.ctx.strokeRect(scene.game.canvas.width / 2 - textMetrics.width / 2 - 5, borderY - 20, textMetrics.width + 10, 40)
+      scene.game.changeScene(Scenes.Game)
+    }
+  })
+
+  document.body.appendChild(startGameButton.element)
+
+  return startGameButton
+}
+
+async function createPlayerImages (scene) {
+  if (!scene.player1SkinTone) scene.player1SkinTone = PlayerImageData.Body.baseColor
+  if (!scene.player2SkinTone) scene.player2SkinTone = PlayerImageData.Body.baseColor
+
+  const basePlayerImage = scene.managers.imageManager.getPlayerImage(EntityTypes.Player1)
+
+  const body1Canvas = document.createElement('canvas')
+  const body1Ctx = body1Canvas.getContext('2d')
+  body1Canvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  body1Canvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  body1Ctx.drawImage(basePlayerImage, 0, 0, body1Canvas.width, body1Canvas.height, 0, 0, body1Canvas.width, body1Canvas.height)
+  body1Ctx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, body1Canvas.width, body1Canvas.height, 0, 0, body1Canvas.width, body1Canvas.height)
+
+  const body2Canvas = document.createElement('canvas')
+  const body2Ctx = body2Canvas.getContext('2d')
+  body2Canvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  body2Canvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  body2Ctx.drawImage(basePlayerImage, 0, 0, body2Canvas.width, body2Canvas.height, 0, 0, body2Canvas.width, body2Canvas.height)
+  body2Ctx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, body2Canvas.width, body2Canvas.height, 0, 0, body2Canvas.width, body2Canvas.height)
+
+  scene.player1Image = body1Canvas // bodyImage
+  scene.player2Image = body2Canvas // bodyImage
+}
+
+async function updatePlayerSkinTone (scene, player, newSkinTone) {
+  if (player === EntityTypes.Player1) {
+    scene.player1SkinTone = newSkinTone
+    scene.player1Image = await createPlayerImage(scene, player)
+  } else {
+    scene.player2SkinTone = newSkinTone
+    scene.player2Image = await createPlayerImage(scene, player)
+  }
 }
