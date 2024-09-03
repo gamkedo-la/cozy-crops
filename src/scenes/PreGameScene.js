@@ -6,6 +6,7 @@ import Keys from '../globals/Keys.js'
 import NewGameDialog from '../components/NewGameDialog.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
+import { CheatKeys } from '../globals/Debug.js'
 
 export default class PreGameScene extends Scene {
   constructor (config) {
@@ -83,7 +84,7 @@ export default class PreGameScene extends Scene {
 function manageInput (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
-  if (justDownKeys.includes(Keys.C)) {
+  if (CheatKeys &&  justDownKeys.includes(Keys.C)) {
     const saveSlots = scene.managers.gameManager.getSaveSlots()
     for (const slot of saveSlots) {
       scene.gameManager.clearSaveSlot(slot)

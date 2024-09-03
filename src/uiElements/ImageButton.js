@@ -38,5 +38,19 @@ function build (button) {
 
   createButton.onclick = button.onClick
 
+  //  add a dropshadow effect when the button is hovered over or focused
+  createButton.onmouseover = () => {
+    createButton.style.boxShadow = '0px 0px 5px 2px rgba(0, 0, 0, 0.5)'
+  }
+  createButton.onmouseout = () => {
+    createButton.style.boxShadow = 'none'
+  }
+  createButton.onfocus = () => {
+    createButton.style.boxShadow = '0px 0px 5px 2px rgba(0, 0, 0, 0.5)'
+  }
+  createButton.onblur = () => {
+    createButton.style.boxShadow = 'none'
+  }
+
   return createButton
 }
