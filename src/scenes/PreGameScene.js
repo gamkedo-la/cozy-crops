@@ -7,10 +7,12 @@ import NewGameDialog from '../components/NewGameDialog.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import ImageButton from '../uiElements/ImageButton.js'
+import ColorButton from '../uiElements/ColorButton.js'
 import { CheatKeys } from '../globals/Debug.js'
-import { StartButton } from '../globals/UISpriteData.js'
+import { StartButton, StandardUIBox } from '../globals/UISpriteData.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { SteveIdleDown } from '../globals/Animations.js'
+import Colors from '../globals/Colors.js'
 
 export default class PreGameScene extends Scene {
   constructor (config) {
@@ -20,7 +22,9 @@ export default class PreGameScene extends Scene {
     this.startGameMenu = null
     this.showingNewGameDialog = false
     this.showCharacterCreation = false
+
     this.startGameButton = null
+    this.skinToneButtons = []
 
     this.player1SkinTone = null
     this.player2SkinTone = null
@@ -48,6 +52,8 @@ export default class PreGameScene extends Scene {
 
     this.startGameButton = buildStartGameButton(this)
     this.startGameButton.hide()
+    this.skinToneButtons = buildSkinToneButtons(this)
+    this.skinToneButtons.forEach(button => button.hide())
 
     createPlayerImages(this)
   }
@@ -142,6 +148,7 @@ function drawCharacterCreateScreen (scene) {
   if (scene.player2Image) drawPlayerImage(scene, Player2)
 
   scene.startGameButton.show()
+  scene.skinToneButtons.forEach(button => button.show())
 }
 
 function splitCharacterCreateScreen (canvas, ctx) {
@@ -211,7 +218,7 @@ function drawCharacterCreateOptions (canvas, ctx) {
   const borderY = 1.5 * Constants.SceneTitleFontSize + UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) / 2 // 1.5 * title font size - 1 * UI font size
   const optionsX = player1X + borderWidth + 5 // 5px offset to the right of the border
   const optionsYStart = borderY
-  const lineHeight = 1.5 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) // Space between each option
+  const lineHeight = 2.25 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) // Space between each option
 
   // Draw the options for Player 1
   options.forEach((option, index) => {
@@ -226,13 +233,13 @@ function drawCharacterCreateOptions (canvas, ctx) {
 }
 
 function drawPlayerControlsTitles (canvas, ctx) {
-  const borderY = (1.5 * Constants.SceneTitleFontSize) + (canvas.width / 4) + (2 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize))
+  const borderY = (3 * canvas.height / 4)
 
   ctx.fillStyle = UIAttributes.UIColor
   ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
   ctx.textAlign = UIAttributes.CenterAlign
-  ctx.fillText('Controls', canvas.width / 4, borderY)
-  ctx.fillText('Controls', 3 * canvas.width / 4, borderY)
+  ctx.fillText('Controls', (canvas.width / 4), borderY)
+  ctx.fillText('Controls', 3 * (canvas.width / 4), borderY)
 }
 
 function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Controls) {
@@ -240,7 +247,7 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
   const offsetX = 40 + canvas.width / 8
   const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
   const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
-  const borderY = (1.5 * Constants.SceneTitleFontSize) + (canvas.width / 4) + (3 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize))
+  const borderY = (3 * canvas.height / 4)
 
   ctx.font = UIAttributes.UIFontSize
   ctx.fillStyle = UIAttributes.UIColor
@@ -254,11 +261,17 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
     `Action: ${player1Controls.Action}`.toUpperCase()
   ]
 
-  const optionsYStart = borderY + UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) / 2
+  const optionsYStart = borderY + 1.5 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
   const lineHeight = 1.5 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
 
   player1Options.forEach((option, index) => {
-    ctx.fillText(option, player1X, optionsYStart + index * lineHeight)
+    if (index < 2) {
+      ctx.fillText(option, player1X, optionsYStart + index * lineHeight)
+    } else if (index < 4) {
+      ctx.fillText(option, player1X + 325, optionsYStart + (index - 2) * lineHeight)
+    } else {
+      ctx.fillText(option, player1X + 235, optionsYStart + (index - 2) * lineHeight)
+    }
   })
 
   const player2Options = [
@@ -270,7 +283,13 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
   ]
 
   player2Options.forEach((option, index) => {
-    ctx.fillText(option, player2X, optionsYStart + index * lineHeight)
+    if (index < 2) {
+      ctx.fillText(option, player2X, optionsYStart + index * lineHeight)
+    } else if (index < 4) {
+      ctx.fillText(option, player2X + 325, optionsYStart + (index - 2) * lineHeight)
+    } else {
+      ctx.fillText(option, player2X + 235, optionsYStart + (index - 2) * lineHeight)
+    }
   })
 }
 
@@ -285,7 +304,6 @@ function drawPlayerImage (scene, player) {
 }
 
 function buildStartGameButton (scene) {
-  const borderY = scene.game.canvas.height - Constants.MainMenuFontSize
   const canvasRect = scene.game.canvas.getBoundingClientRect()
 
   const startGameButton = new ImageButton({
@@ -296,6 +314,7 @@ function buildStartGameButton (scene) {
     imgDims: StartButton,
     onClick: () => {
       document.body.removeChild(startGameButton.element)
+      scene.skinToneButtons.forEach(button => document.body.removeChild(button.element))
 
       scene.game.changeScene(Scenes.Game)
     }
@@ -304,6 +323,31 @@ function buildStartGameButton (scene) {
   document.body.appendChild(startGameButton.element)
 
   return startGameButton
+}
+
+function buildSkinToneButtons (scene) {
+  const skinToneButtons = []
+  const canvasRect = scene.game.canvas.getBoundingClientRect()
+
+  Colors.Skin.forEach((color, index) => {
+    const skinToneButton = new ColorButton({
+      imageManager: scene.managers.imageManager,
+      id: `skinToneButton${color}`,
+      top: `${(canvasRect.top + 115) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 400 + (index % 4) * (2 * StandardUIBox.width)}px`,
+      imgDims: StandardUIBox,
+      color: color,
+      onClick: () => {
+        updatePlayerSkinTone(scene, Player1, color)
+      }
+    })
+
+    skinToneButtons.push(skinToneButton)
+  })
+
+  skinToneButtons.forEach(button => document.body.appendChild(button.element))
+
+  return skinToneButtons
 }
 
 async function createPlayerImages (scene) {
@@ -332,10 +376,10 @@ async function createPlayerImages (scene) {
 
 async function updatePlayerSkinTone (scene, player, newSkinTone) {
   if (player === EntityTypes.Player1) {
+    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, scene.player1SkinTone, newSkinTone)
     scene.player1SkinTone = newSkinTone
-    scene.player1Image = await createPlayerImage(scene, player)
   } else {
+    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, scene.player2SkinTone, newSkinTone)
     scene.player2SkinTone = newSkinTone
-    scene.player2Image = await createPlayerImage(scene, player)
   }
 }

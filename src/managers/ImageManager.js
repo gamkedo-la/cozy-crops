@@ -102,7 +102,7 @@ export default class ImageManager {
   
       // Loop through the image data and replace the old color with the new color
       for (let i = 0; i < data.length; i += 4) {
-        if (data[i] === oldR && data[i + 1] === oldG && data[i + 2] === oldB && data[i + 3] === oldA) {
+        if (data[i] === oldR && data[i + 1] === oldG && data[i + 2] === oldB && (data[i + 3] === oldA || data[i + 3] - 5 === oldA)) {
           data[i] = newR
           data[i + 1] = newG
           data[i + 2] = newB
