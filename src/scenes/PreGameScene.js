@@ -54,6 +54,8 @@ export default class PreGameScene extends Scene {
     this.startGameButton.hide()
     this.skinToneButtons = buildSkinToneButtons(this)
     this.skinToneButtons.forEach(button => button.hide())
+    this.hairColorButtons = buildHairColorButtons(this)
+    this.hairColorButtons.forEach(button => button.hide())
 
     createPlayerImages(this)
   }
@@ -149,6 +151,7 @@ function drawCharacterCreateScreen (scene) {
 
   scene.startGameButton.show()
   scene.skinToneButtons.forEach(button => button.show())
+  scene.hairColorButtons.forEach(button => button.show())
 }
 
 function splitCharacterCreateScreen (canvas, ctx) {
@@ -315,6 +318,7 @@ function buildStartGameButton (scene) {
     onClick: () => {
       document.body.removeChild(startGameButton.element)
       scene.skinToneButtons.forEach(button => document.body.removeChild(button.element))
+      scene.hairColorButtons.forEach(button => document.body.removeChild(button.element))
 
       scene.game.changeScene(Scenes.Game)
     }
@@ -334,7 +338,7 @@ function buildSkinToneButtons (scene) {
       imageManager: scene.managers.imageManager,
       id: `skinToneButton${color}`,
       top: `${(canvasRect.top + 115) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 400 + (index % 4) * (2 * StandardUIBox.width)}px`,
+      left: `${canvasRect.left + 392 + (index % 4) * (2 * StandardUIBox.width)}px`,
       imgDims: StandardUIBox,
       color: color,
       onClick: () => {
@@ -348,6 +352,31 @@ function buildSkinToneButtons (scene) {
   skinToneButtons.forEach(button => document.body.appendChild(button.element))
 
   return skinToneButtons
+}
+
+function buildHairColorButtons (scene) {
+  const hairColorButtons = []
+  const canvasRect = scene.game.canvas.getBoundingClientRect()
+
+  Colors.Hair.forEach((color, index) => {
+    const hairColorButton = new ColorButton({
+      imageManager: scene.managers.imageManager,
+      id: `hairColorButton${color}`,
+      top: `${(canvasRect.top + 200) + Math.floor(index / 6) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 392 + (index % 6) * (2 * StandardUIBox.width)}px`,
+      imgDims: StandardUIBox,
+      color: color,
+      onClick: () => {
+        updatePlayerSkinTone(scene, Player1, color)
+      }
+    })
+
+    hairColorButtons.push(hairColorButton)
+  })
+
+  hairColorButtons.forEach(button => document.body.appendChild(button.element))
+
+  return hairColorButtons
 }
 
 async function createPlayerImages (scene) {
