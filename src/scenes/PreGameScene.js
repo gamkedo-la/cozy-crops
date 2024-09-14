@@ -56,6 +56,10 @@ export default class PreGameScene extends Scene {
     this.skinToneButtons.forEach(button => button.hide())
     this.hairColorButtons = buildHairColorButtons(this)
     this.hairColorButtons.forEach(button => button.hide())
+    this.shirtColorButtons = buildShirtColorButtons(this)
+    this.shirtColorButtons.forEach(button => button.hide())
+    this.pantsColorButtons = buildPantsColorButtons(this)
+    this.pantsColorButtons.forEach(button => button.hide())
 
     createPlayerImages(this)
   }
@@ -152,6 +156,8 @@ function drawCharacterCreateScreen (scene) {
   scene.startGameButton.show()
   scene.skinToneButtons.forEach(button => button.show())
   scene.hairColorButtons.forEach(button => button.show())
+  scene.shirtColorButtons.forEach(button => button.show())
+  scene.pantsColorButtons.forEach(button => button.show())
 }
 
 function splitCharacterCreateScreen (canvas, ctx) {
@@ -319,6 +325,8 @@ function buildStartGameButton (scene) {
       document.body.removeChild(startGameButton.element)
       scene.skinToneButtons.forEach(button => document.body.removeChild(button.element))
       scene.hairColorButtons.forEach(button => document.body.removeChild(button.element))
+      scene.shirtColorButtons.forEach(button => document.body.removeChild(button.element))
+      scene.pantsColorButtons.forEach(button => document.body.removeChild(button.element))
 
       scene.game.changeScene(Scenes.Game)
     }
@@ -367,7 +375,7 @@ function buildHairColorButtons (scene) {
       imgDims: StandardUIBox,
       color: color,
       onClick: () => {
-        updatePlayerSkinTone(scene, Player1, color)
+        updatePlayerHairColor(scene, Player1, color)
       }
     })
 
@@ -377,6 +385,56 @@ function buildHairColorButtons (scene) {
   hairColorButtons.forEach(button => document.body.appendChild(button.element))
 
   return hairColorButtons
+}
+
+function buildShirtColorButtons (scene) {
+  const shirColorButtons = []
+  const canvasRect = scene.game.canvas.getBoundingClientRect()
+
+  Colors.Shirt.forEach((color, index) => {
+    const shirtColorButton = new ColorButton({
+      imageManager: scene.managers.imageManager,
+      id: `shirtColorButton${color}`,
+      top: `${(canvasRect.top + 340) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 392 + (index % 4) * (2 * StandardUIBox.width)}px`,
+      imgDims: StandardUIBox,
+      color: color,
+      onClick: () => {
+        updatePlayerShirtColor(scene, Player1, color)
+      }
+    })
+
+    shirColorButtons.push(shirtColorButton)
+  })
+
+  shirColorButtons.forEach(button => document.body.appendChild(button.element))
+
+  return shirColorButtons
+}
+
+function buildPantsColorButtons (scene) {
+  const pantsColorButtons = []
+  const canvasRect = scene.game.canvas.getBoundingClientRect()
+
+  Colors.Pants.forEach((color, index) => {
+    const pantsColorButton = new ColorButton({
+      imageManager: scene.managers.imageManager,
+      id: `pantsColorButton${color}`,
+      top: `${(canvasRect.top + 480) + Math.floor(index / 3) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 410 + (index % 3) * (2 * StandardUIBox.width)}px`,
+      imgDims: StandardUIBox,
+      color: color,
+      onClick: () => {
+        updatePlayerPantsColor(scene, Player1, color)
+      }
+    })
+
+    pantsColorButtons.push(pantsColorButton)
+  })
+
+  pantsColorButtons.forEach(button => document.body.appendChild(button.element))
+
+  return pantsColorButtons
 }
 
 async function createPlayerImages (scene) {
@@ -410,5 +468,29 @@ async function updatePlayerSkinTone (scene, player, newSkinTone) {
   } else {
     scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, scene.player2SkinTone, newSkinTone)
     scene.player2SkinTone = newSkinTone
+  }
+}
+
+async function updatePlayerHairColor (scene, player, newHairColor) {
+  if (player === EntityTypes.Player1) {
+    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, PlayerImageData.Hair.baseColor, newHairColor)
+  } else {
+    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, PlayerImageData.Hair.baseColor, newHairColor)
+  }
+}
+
+async function updatePlayerShirtColor (scene, player, newShirtColor) {
+  if (player === EntityTypes.Player1) {
+    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, PlayerImageData.Shirt.baseColor, newShirtColor)
+  } else {
+    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, PlayerImageData.Shirt.baseColor, newShirtColor)
+  }
+}
+
+async function updatePlayerPantsColor (scene, player, newPantsColor) {
+  if (player === EntityTypes.Player1) {
+    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, PlayerImageData.Pants.baseColor, newPantsColor)
+  } else {
+    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, PlayerImageData.Pants.baseColor, newPantsColor)
   }
 }
