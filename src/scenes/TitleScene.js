@@ -41,13 +41,13 @@ export default class TitleScene extends Scene {
     // clean up resources
   }
 
-  async clicked (selection) {
+  clicked (selection) {
     if (selection === 'Start') {
-      await this.game.changeScene(Scenes.PreGame)
+      this.game.changeScene(Scenes.PreGame)
     } else if (selection === 'Options') {
-      await this.game.changeScene(Scenes.Options)
+      this.game.changeScene(Scenes.Options)
     } else if (selection === 'Credits') {
-      await this.game.changeScene(Scenes.Credits)
+      this.game.changeScene(Scenes.Credits)
     }
   }
 }
@@ -59,17 +59,17 @@ function drawTitle (title) {
   title.game.ctx.fillText('Cozy Crops', title.game.canvas.width / 2, title.game.canvas.height / 4)
 }
 
-async function manageInput (scene) {
+function manageInput (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
   if (justDownKeys.includes(Keys.ENTER) || justDownKeys.includes(Keys.SPACE)) {
     if (scene.menu.getCurrentSelection() === 'Start') {
       scene.managers.gameManager.loadGame(1)
-      await scene.game.changeScene(Scenes.Game)
+      scene.game.changeScene(Scenes.Game)
     } else if (scene.menu.getCurrentSelection() === 'Options') {
-      await scene.game.changeScene(Scenes.Options)
+      scene.game.changeScene(Scenes.Options)
     } else if (scene.menu.getCurrentSelection() === 'Credits') {
-      await scene.game.changeScene(Scenes.Credits)
+      scene.game.changeScene(Scenes.Credits)
     }
   } else if (justDownKeys.includes(Keys.ARROW_UP) || justDownKeys.includes(Keys.W) || justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.A)) {
     scene.menu.moveUp()

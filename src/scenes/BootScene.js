@@ -55,8 +55,8 @@ export default class BootScene extends Scene {
 }
 
 function registerForEvents(boot) {
-  boot.eventManager.on(Events.LoadingComplete, async () => {
-    await boot.sceneManager.changeScene(Scenes.Title)
+  boot.eventManager.on(Events.LoadingComplete, () => {
+    boot.sceneManager.changeScene(Scenes.Title)
   })
 }
 

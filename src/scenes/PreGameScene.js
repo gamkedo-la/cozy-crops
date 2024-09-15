@@ -26,10 +26,47 @@ export default class PreGameScene extends Scene {
     this.startGameButton = null
     this.skinToneButtons = []
 
-    this.player1SkinTone = null
-    this.player2SkinTone = null
-    this.player1Image = null
-    this.player2Image = null
+    this.player1 = {
+      colors: {
+        skinTone: null,
+        hairColor: null,
+        shirtColor: null,
+        pantsColor: null
+      },
+      styles: {
+        hairStyle: null,
+        shirtStyle: null,
+        pantsStyle: null
+      },
+      images: {
+        composite: null,
+        body: null,
+        hair: null,
+        shirt: null,
+        pants: null
+      }
+    }
+
+    this.player2 = {
+      colors: {
+        composite: null,
+        skinTone: null,
+        hairColor: null,
+        shirtColor: null,
+        pantsColor: null
+      },
+      styles: {
+        hairStyle: null,
+        shirtStyle: null,
+        pantsStyle: null
+      },
+      images: {
+        body: null,
+        hair: null,
+        shirt: null,
+        pants: null
+      }
+    }
   }
 
   start () {
@@ -52,14 +89,11 @@ export default class PreGameScene extends Scene {
 
     this.startGameButton = buildStartGameButton(this)
     this.startGameButton.hide()
+
     this.skinToneButtons = buildSkinToneButtons(this)
-    this.skinToneButtons.forEach(button => button.hide())
     this.hairColorButtons = buildHairColorButtons(this)
-    this.hairColorButtons.forEach(button => button.hide())
     this.shirtColorButtons = buildShirtColorButtons(this)
-    this.shirtColorButtons.forEach(button => button.hide())
     this.pantsColorButtons = buildPantsColorButtons(this)
-    this.pantsColorButtons.forEach(button => button.hide())
 
     createPlayerImages(this)
   }
@@ -89,12 +123,12 @@ export default class PreGameScene extends Scene {
     // clean up resources
   }
 
-  async clicked (selection) {
+  clicked (selection) {
     if (selection === 'New Game') {
       showNewGameDialog(this)
     } else {
       this.managers.gameManager.loadGame(selection)
-      await this.game.changeScene(Scenes.Game)
+      this.game.changeScene(Scenes.Game)
     }
   }
 
@@ -150,8 +184,15 @@ function drawCharacterCreateScreen (scene) {
   drawPlayerControlsTitles(scene.game.canvas, scene.game.ctx)
   drawPlayerControlsOptions(scene.game.canvas, scene.game.ctx, scene.inputManager.getPlayerControls(Player1), scene.inputManager.getPlayerControls(Player2))
 
-  if (scene.player1Image) drawPlayerImage(scene, Player1)
-  if (scene.player2Image) drawPlayerImage(scene, Player2)
+  const borderWidth = scene.game.canvas.width / 8
+  const offsetX = 40 + (scene.game.canvas.width / 8)
+  const borderY = (1.5 * Constants.SceneTitleFontSize) - 5
+
+  const player1X = (scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
+  if (scene.player1.images.composite) drawPlayerImage(scene, scene.player1.images.composite, player1X, borderY)
+
+    const player2X = (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
+  if (scene.player2.images.composite) drawPlayerImage(scene, scene.player2.images.composite, player2X, borderY)
 
   scene.startGameButton.show()
   scene.skinToneButtons.forEach(button => button.show())
@@ -302,13 +343,7 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
   })
 }
 
-function drawPlayerImage (scene, player) {
-  const borderWidth = scene.game.canvas.width / 8
-  const offsetX = 40 + (scene.game.canvas.width / 8)
-  const playerX = player === Player1 ? (scene.game.canvas.width / 4 - borderWidth / 2 - offsetX) : (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
-  const borderY = (1.5 * Constants.SceneTitleFontSize) - 5
-
-  const playerImage = player === Player1 ? scene.player1Image : scene.player2Image
+function drawPlayerImage (scene, playerImage, playerX, borderY) {
   scene.game.ctx.drawImage(playerImage, playerX, borderY, 10 * SteveIdleDown.frameWidth, 10 * SteveIdleDown.frameHeight)
 }
 
@@ -357,7 +392,10 @@ function buildSkinToneButtons (scene) {
     skinToneButtons.push(skinToneButton)
   })
 
-  skinToneButtons.forEach(button => document.body.appendChild(button.element))
+  skinToneButtons.forEach(button => {
+    document.body.appendChild(button.element)
+    button.hide()
+  })
 
   return skinToneButtons
 }
@@ -382,7 +420,10 @@ function buildHairColorButtons (scene) {
     hairColorButtons.push(hairColorButton)
   })
 
-  hairColorButtons.forEach(button => document.body.appendChild(button.element))
+  hairColorButtons.forEach(button => {
+    document.body.appendChild(button.element)
+    button.hide()
+  })
 
   return hairColorButtons
 }
@@ -407,7 +448,10 @@ function buildShirtColorButtons (scene) {
     shirColorButtons.push(shirtColorButton)
   })
 
-  shirColorButtons.forEach(button => document.body.appendChild(button.element))
+  shirColorButtons.forEach(button => {
+    document.body.appendChild(button.element)
+    button.hide()
+  })
 
   return shirColorButtons
 }
@@ -432,65 +476,161 @@ function buildPantsColorButtons (scene) {
     pantsColorButtons.push(pantsColorButton)
   })
 
-  pantsColorButtons.forEach(button => document.body.appendChild(button.element))
+  pantsColorButtons.forEach(button => {
+    document.body.appendChild(button.element)
+    button.hide()
+  })
 
   return pantsColorButtons
 }
 
-async function createPlayerImages (scene) {
-  if (!scene.player1SkinTone) scene.player1SkinTone = PlayerImageData.Body.baseColor
-  if (!scene.player2SkinTone) scene.player2SkinTone = PlayerImageData.Body.baseColor
-
+function createPlayerImages (scene) {
   const basePlayerImage = scene.managers.imageManager.getPlayerImage(EntityTypes.Player1)
 
-  const body1Canvas = document.createElement('canvas')
-  const body1Ctx = body1Canvas.getContext('2d')
-  body1Canvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
-  body1Canvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
-  body1Ctx.drawImage(basePlayerImage, 0, 0, body1Canvas.width, body1Canvas.height, 0, 0, body1Canvas.width, body1Canvas.height)
-  body1Ctx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, body1Canvas.width, body1Canvas.height, 0, 0, body1Canvas.width, body1Canvas.height)
+  scene.player1.images.body = createPlayerBodyImage(scene, basePlayerImage)
+  scene.player2.images.body = createPlayerBodyImage(scene, basePlayerImage)
 
-  const body2Canvas = document.createElement('canvas')
-  const body2Ctx = body2Canvas.getContext('2d')
-  body2Canvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
-  body2Canvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
-  body2Ctx.drawImage(basePlayerImage, 0, 0, body2Canvas.width, body2Canvas.height, 0, 0, body2Canvas.width, body2Canvas.height)
-  body2Ctx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, body2Canvas.width, body2Canvas.height, 0, 0, body2Canvas.width, body2Canvas.height)
+  scene.player1.images.hair = createPlayerHairImage(scene, basePlayerImage)
+  scene.player2.images.hair = createPlayerHairImage(scene, basePlayerImage)
 
-  scene.player1Image = body1Canvas // bodyImage
-  scene.player2Image = body2Canvas // bodyImage
+  scene.player1.images.shirt = createPlayerShirtImage(scene, basePlayerImage)
+  scene.player2.images.shirt = createPlayerShirtImage(scene, basePlayerImage)
+
+  scene.player1.images.pants = createPlayerPantsImage(scene, basePlayerImage)
+  scene.player2.images.pants = createPlayerPantsImage(scene, basePlayerImage)
+
+  scene.player1.images.composite = createCompositePlayerImage(scene.player1)
+  scene.player2.images.composite = createCompositePlayerImage(scene.player2)
 }
 
-async function updatePlayerSkinTone (scene, player, newSkinTone) {
+function createPlayerBodyImage (scene, basePlayerImage) {
+  if (!scene.player1.colors.skinTone) scene.player1.colors.skinTone = PlayerImageData.Body.baseColor
+  if (!scene.player2.colors.skinTone) scene.player2.colors.skinTone = PlayerImageData.Body.baseColor
+
+  const bodyCanvas = document.createElement('canvas')
+  const body1Ctx = bodyCanvas.getContext('2d')
+  bodyCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  bodyCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  body1Ctx.drawImage(basePlayerImage, 0, 0, bodyCanvas.width, bodyCanvas.height, 0, 0, bodyCanvas.width, bodyCanvas.height)
+  body1Ctx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, bodyCanvas.width, bodyCanvas.height, 0, 0, bodyCanvas.width, bodyCanvas.height)
+
+  return bodyCanvas
+}
+
+function createPlayerHairImage (scene, basePlayerImage) {
+  if (!scene.player1.colors.hairColor) scene.player1.colors.hairColor = PlayerImageData.Hair.baseColor
+  if (!scene.player2.colors.hairColor) scene.player2.colors.hairColor = PlayerImageData.Hair.baseColor
+
+  const hairCanvas = document.createElement('canvas')
+  const hairCtx = hairCanvas.getContext('2d')
+  hairCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  hairCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  hairCtx.drawImage(basePlayerImage, PlayerImageData.Hair.x, PlayerImageData.Hair.y, hairCanvas.width, hairCanvas.height, 0, 0, hairCanvas.width, hairCanvas.height)
+
+  return hairCanvas
+}
+
+function createPlayerShirtImage (scene, basePlayerImage) {
+  if (!scene.player1.colors.shirtColor) scene.player1.colors.shirtColor = PlayerImageData.Shirt.baseColor
+  if (!scene.player2.colors.shirtColor) scene.player2.colors.shirtColor = PlayerImageData.Shirt.baseColor
+
+  const shirtCanvas = document.createElement('canvas')
+  const shirtCtx = shirtCanvas.getContext('2d')
+  shirtCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  shirtCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  shirtCtx.drawImage(basePlayerImage, PlayerImageData.Shirt.x, PlayerImageData.Shirt.y, shirtCanvas.width, shirtCanvas.height, 0, 0, shirtCanvas.width, shirtCanvas.height)
+
+  return shirtCanvas
+}
+
+function createPlayerPantsImage (scene, basePlayerImage) {
+  if (!scene.player1.colors.pantsColor) scene.player1.colors.pantsColor = PlayerImageData.Pants.baseColor
+  if (!scene.player2.colors.pantsColor) scene.player2.colors.pantsColor = PlayerImageData.Pants.baseColor
+
+  const pantsCanvas = document.createElement('canvas')
+  const pantsCtx = pantsCanvas.getContext('2d')
+  pantsCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  pantsCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  pantsCtx.drawImage(basePlayerImage, PlayerImageData.Pants.x, PlayerImageData.Pants.y, pantsCanvas.width, pantsCanvas.height, 0, 0, pantsCanvas.width, pantsCanvas.height)
+
+  return pantsCanvas
+}
+
+function createCompositePlayerImage (player) {
+  const compositeCanvas = document.createElement('canvas')
+  const compositeCtx = compositeCanvas.getContext('2d')
+  compositeCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  compositeCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  compositeCtx.drawImage(player.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+  compositeCtx.drawImage(player.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+  compositeCtx.drawImage(player.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+  compositeCtx.drawImage(player.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+
+  return compositeCanvas
+}
+
+function updatePlayerSkinTone (scene, player, newSkinTone) {
   if (player === EntityTypes.Player1) {
-    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, scene.player1SkinTone, newSkinTone)
-    scene.player1SkinTone = newSkinTone
+    scene.player1.images.body = scene.imageManager.replaceColorInImage(scene.player1.images.body, scene.player1.colors.skinTone, newSkinTone)
+    scene.player1.colors.skinTone = newSkinTone
   } else {
-    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, scene.player2SkinTone, newSkinTone)
-    scene.player2SkinTone = newSkinTone
+    scene.player2.images.body = scene.imageManager.replaceColorInImage(scene.player2.images.body, scene.player2.colors.skinTone, newSkinTone)
+    scene.player2.images.skinTone = newSkinTone
   }
+
+  updateCompositePlayerImage(scene, player)
 }
 
-async function updatePlayerHairColor (scene, player, newHairColor) {
+function updatePlayerHairColor (scene, player, newHairColor) {
   if (player === EntityTypes.Player1) {
-    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, PlayerImageData.Hair.baseColor, newHairColor)
+    scene.player1.images.hair = scene.imageManager.replaceColorInImage(scene.player1.images.hair, scene.player1.colors.hairColor, newHairColor)
+    scene.player1.colors.hairColor = newHairColor
   } else {
-    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, PlayerImageData.Hair.baseColor, newHairColor)
+    scene.player2.images.hair = scene.imageManager.replaceColorInImage(scene.player2.images.hair, scene.player2.colors.hairColor, newHairColor)
+    scene.player2.colors.hairColor = newHairColor
   }
+
+  updateCompositePlayerImage(scene, player)
 }
 
-async function updatePlayerShirtColor (scene, player, newShirtColor) {
+function updatePlayerShirtColor (scene, player, newShirtColor) {
   if (player === EntityTypes.Player1) {
-    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, PlayerImageData.Shirt.baseColor, newShirtColor)
+    scene.player1.images.shirt = scene.imageManager.replaceColorInImage(scene.player1.images.shirt, scene.player1.colors.shirtColor, newShirtColor)
+    scene.player1.colors.shirtColor = newShirtColor
   } else {
-    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, PlayerImageData.Shirt.baseColor, newShirtColor)
+    scene.player2.images.shirt = scene.imageManager.replaceColorInImage(scene.player2.images.shirt, scene.player2.colors.shirtColor, newShirtColor)
+    scene.player2.colors.shirtColor = newShirtColor
   }
+
+  updateCompositePlayerImage(scene, player)
 }
 
-async function updatePlayerPantsColor (scene, player, newPantsColor) {
+function updatePlayerPantsColor (scene, player, newPantsColor) {
   if (player === EntityTypes.Player1) {
-    scene.player1Image = await scene.imageManager.replaceColorInImage(scene.player1Image, PlayerImageData.Pants.baseColor, newPantsColor)
+    scene.player1.images.pants = scene.imageManager.replaceColorInImage(scene.player1.images.pants, scene.player1.colors.pantsColor, newPantsColor)
+    scene.player1.colors.pantsColor = newPantsColor
   } else {
-    scene.player2Image = await scene.imageManager.replaceColorInImage(scene.player2Image, PlayerImageData.Pants.baseColor, newPantsColor)
+    scene.player2.images.pants = scene.imageManager.replaceColorInImage(scene.player2.images.pants, scene.player2.colors.pantsColor, newPantsColor)
+    scene.player2.colors.pantsColor = newPantsColor
+  }
+
+  updateCompositePlayerImage(scene, player)
+}
+
+function updateCompositePlayerImage (scene, player) {
+  if (player === EntityTypes.Player1) {
+    const compositeCanvas = scene.player1.images.composite
+    const compositeCtx = compositeCanvas.getContext('2d')
+    compositeCtx.drawImage(scene.player1.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player1.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player1.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player1.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+  } else {
+    const compositeCanvas = scene.player2.images.composite
+    const compositeCtx = compositeCanvas.getContext('2d')
+    compositeCtx.drawImage(scene.player2.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player2.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player2.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player2.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
   }
 }

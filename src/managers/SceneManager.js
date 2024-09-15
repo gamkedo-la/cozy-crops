@@ -73,15 +73,15 @@ export default class SceneManager {
     this.scenes[scene.name] = scene
   }
 
-  async start () {
-    await this.currentScene.start()
+  start () {
+    this.currentScene.start()
     this.startedScenes[Scenes.Boot] = true
   }
 
-  async changeScene (sceneName) {
+  changeScene (sceneName) {
     if (this.scenes[sceneName]) {
       if (!this.startedScenes[sceneName]) {
-        await this.scenes[sceneName].start()
+        this.scenes[sceneName].start()
         this.startedScenes[sceneName] = true
       }
 
@@ -92,7 +92,7 @@ export default class SceneManager {
 
     if (this.currentScene.name === Scenes.Game) {
       if (this.scenes[Scenes.UIScene]) {
-        await this.scenes[Scenes.UIScene].start()
+        this.scenes[Scenes.UIScene].start()
         this.startedScenes[Scenes.UIScene] = true
       }
     } else {

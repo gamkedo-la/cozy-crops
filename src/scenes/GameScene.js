@@ -30,7 +30,7 @@ export default class GameScene extends Scene {
     insertEntity(this, entity)
   }
 
-  async start () {
+  start () {
     this.mapManager.start()
     this.collisionManager = new CollisionManager({
       game: this.game,
@@ -39,7 +39,7 @@ export default class GameScene extends Scene {
 
     this.inputManager.setPlayerKeys()
 
-    await addPlayers(this)
+    addPlayers(this)
     const cameraConfig = {
       game: this.game,
       imageManager: this.imageManager,
@@ -117,7 +117,7 @@ function insertEntity (scene, entity) {
   scene.drawList.splice(low, 0, entity)
 }
 
-async function addPlayers (scene) {
+function addPlayers (scene) {
   const player1Start =  scene.mapManager.getPlayerStart(Player1)
   scene.steve = new Player({
     type: Player1,
@@ -135,7 +135,7 @@ async function addPlayers (scene) {
     controls: scene.managers.gameManager.getPlayerControls(Player1)
   })
 
-  await scene.steve.init()
+  scene.steve.init()
 
   scene.addEntity(scene.steve)
 }

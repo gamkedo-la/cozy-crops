@@ -81,25 +81,25 @@ export default class ImageManager {
     this.internalCtx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height)
   }
 
-  async replaceColorInImage(image, oldColor, newColor) {
-    return new Promise((resolve, reject) => {
+  replaceColorInImage(image, oldColor, newColor) {
+    try {
       // Create a temporary canvas
       const tempCanvas = document.createElement('canvas')
       const tempCtx = tempCanvas.getContext('2d')
       tempCanvas.width = image.width
       tempCanvas.height = image.height
-  
+
       // Draw the image onto the temporary canvas
       tempCtx.drawImage(image, 0, 0)
-  
+
       // Get the image data
       const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height)
       const data = imageData.data
-  
+
       // Define the old and new colors
       const [oldR, oldG, oldB, oldA] = oldColor
       const [newR, newG, newB, newA] = newColor
-  
+
       // Loop through the image data and replace the old color with the new color
       for (let i = 0; i < data.length; i += 4) {
         if (data[i] === oldR && data[i + 1] === oldG && data[i + 2] === oldB && (data[i + 3] === oldA || data[i + 3] - 5 === oldA)) {
@@ -109,17 +109,14 @@ export default class ImageManager {
           data[i + 3] = newA
         }
       }
-  
+
       // Put the modified image data back onto the canvas
       tempCtx.putImageData(imageData, 0, 0)
-  
-      // Create a new Image object
-      const newImage = new Image()
-      newImage.src = tempCanvas.toDataURL()
-  
-      // Resolve the promise when the new image is loaded
-      newImage.onload = () => resolve(newImage)
-      newImage.onerror = reject
-    })
+
+      return tempCanvas
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
   }
 }

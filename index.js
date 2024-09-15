@@ -1,8 +1,8 @@
 import Game from './src/Game.js'
 
-async function main () {
+function main () {
   const game = new Game()
-  await game.start()
+  game.start()
 }
 
 main()

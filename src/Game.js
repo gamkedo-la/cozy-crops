@@ -115,9 +115,9 @@ export default class Game {
    */
   calendarManager;
 
-  async start () {
+  start () {
     // Do any one-time setup here, then call update()
-    await this.sceneManager.start()
+    this.sceneManager.start()
 
     this.update(this.lastTime)
   }
@@ -132,8 +132,8 @@ export default class Game {
     requestAnimationFrame(timestamp => this.update(timestamp))
   }
 
-  async changeScene (scene) {
-    await this.sceneManager.changeScene(scene)
+  changeScene (scene) {
+    this.sceneManager.changeScene(scene)
   }
 }
 

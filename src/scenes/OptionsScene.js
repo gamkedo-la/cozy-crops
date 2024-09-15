@@ -48,9 +48,9 @@ export default class OptionsScene extends Scene {
     // clean up resources
   }
 
-  async clicked (selection) {
+  clicked (selection) {
     if (selection === 'Back') {
-      await this.game.changeScene(Scenes.Title)
+      this.game.changeScene(Scenes.Title)
     }
   }
 }
@@ -62,12 +62,12 @@ function drawTitle (title) {
   title.game.ctx.fillText('Options', title.game.canvas.width / 2, Constants.SceneTitleFontSize / 2)
 }
 
-async function manageInput (scene) {
+function manageInput (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
   if (justDownKeys.includes(Keys.ENTER) || justDownKeys.includes(Keys.SPACE)) {
     if (scene.menu.getCurrentSelection() === 'Back') {
-      await scene.game.changeScene(Scenes.Title)
+      scene.game.changeScene(Scenes.Title)
     }
   } else if (justDownKeys.includes(Keys.ARROW_UP) || justDownKeys.includes(Keys.W) || justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.A)) {
     scene.menu.moveUp()
