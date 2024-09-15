@@ -1,14 +1,40 @@
 const LocalStorageKeys = {
-  Player1Controls: 'Player1Controls',
-  Player2Controls: 'Player2Controls',
+  Player1: {
+    Colors: {
+      Body: 'Player1Body',
+      Hair: 'Player1Hair',
+      Shirt: 'Player1Shirt',
+      Pants: 'Player1Pants'
+    },
+    Syles: {
+      Hair: 'Player1HairStyle',
+      Shirt: 'Player1ShirtStyle',
+      Pants: 'Player1PantsStyle'
+    },
+    Controls: 'Player1Controls'
+  },
+  Player2: {
+    Colors: {
+      Body: 'Player2Body',
+      Hair: 'Player2Hair',
+      Shirt: 'Player2Shirt',
+      Pants: 'Player2Pants'
+    },
+    Syles: {
+      Hair: 'Player2HairStyle',
+      Shirt: 'Player2ShirtStyle',
+      Pants: 'Player2PantsStyle'
+    },
+    Controls: 'Player2Controls'
+  },
   SaveSlot: 'SaveSlot',
   SlotList: 'SlotList'
 }
 
 export default LocalStorageKeys
 export const {
-  Player1Controls,
-  Player2Controls,
+  Player1,
+  Player2,
   SaveSlot,
   SlotList
 } = LocalStorageKeys

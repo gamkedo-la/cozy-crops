@@ -86,16 +86,6 @@ export default class PreGameScene extends Scene {
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
     })
-
-    this.startGameButton = buildStartGameButton(this)
-    this.startGameButton.hide()
-
-    this.skinToneButtons = buildSkinToneButtons(this)
-    this.hairColorButtons = buildHairColorButtons(this)
-    this.shirtColorButtons = buildShirtColorButtons(this)
-    this.pantsColorButtons = buildPantsColorButtons(this)
-
-    createPlayerImages(this)
   }
 
   update (deltaTime) {
@@ -139,6 +129,17 @@ export default class PreGameScene extends Scene {
   newGameDialogDismissed (created) {
     this.showingNewGameDialog = false
     this.showCharacterCreation = created
+    if (created) {
+      this.startGameButton = buildStartGameButton(this)
+      this.startGameButton.hide()
+  
+      this.skinToneButtons = buildSkinToneButtons(this)
+      this.hairColorButtons = buildHairColorButtons(this)
+      this.shirtColorButtons = buildShirtColorButtons(this)
+      this.pantsColorButtons = buildPantsColorButtons(this)
+  
+      createPlayerImages(this)
+    }
   }
 }
 
@@ -504,8 +505,8 @@ function createPlayerImages (scene) {
 }
 
 function createPlayerBodyImage (scene, basePlayerImage) {
-  if (!scene.player1.colors.skinTone) scene.player1.colors.skinTone = PlayerImageData.Body.baseColor
-  if (!scene.player2.colors.skinTone) scene.player2.colors.skinTone = PlayerImageData.Body.baseColor
+  if (!scene.player1.colors.skinTone) scene.player1.colors.skinTone = scene.gameManager.getPlayerColor(Player1, 'Body') // PlayerImageData.Body.baseColor
+  if (!scene.player2.colors.skinTone) scene.player2.colors.skinTone = scene.gameManager.getPlayerColor(Player2, 'Body') // PlayerImageData.Body.baseColor
 
   const bodyCanvas = document.createElement('canvas')
   const body1Ctx = bodyCanvas.getContext('2d')
@@ -518,8 +519,8 @@ function createPlayerBodyImage (scene, basePlayerImage) {
 }
 
 function createPlayerHairImage (scene, basePlayerImage) {
-  if (!scene.player1.colors.hairColor) scene.player1.colors.hairColor = PlayerImageData.Hair.baseColor
-  if (!scene.player2.colors.hairColor) scene.player2.colors.hairColor = PlayerImageData.Hair.baseColor
+  if (!scene.player1.colors.hairColor) scene.player1.colors.hairColor = scene.gameManager.getPlayerColor(Player1, 'Hair')
+  if (!scene.player2.colors.hairColor) scene.player2.colors.hairColor = scene.gameManager.getPlayerColor(Player2, 'Hair')
 
   const hairCanvas = document.createElement('canvas')
   const hairCtx = hairCanvas.getContext('2d')
@@ -531,8 +532,8 @@ function createPlayerHairImage (scene, basePlayerImage) {
 }
 
 function createPlayerShirtImage (scene, basePlayerImage) {
-  if (!scene.player1.colors.shirtColor) scene.player1.colors.shirtColor = PlayerImageData.Shirt.baseColor
-  if (!scene.player2.colors.shirtColor) scene.player2.colors.shirtColor = PlayerImageData.Shirt.baseColor
+  if (!scene.player1.colors.shirtColor) scene.player1.colors.shirtColor = scene.gameManager.getPlayerColor(Player1, 'Shirt')
+  if (!scene.player2.colors.shirtColor) scene.player2.colors.shirtColor = scene.gameManager.getPlayerColor(Player2, 'Shirt')
 
   const shirtCanvas = document.createElement('canvas')
   const shirtCtx = shirtCanvas.getContext('2d')
@@ -544,8 +545,8 @@ function createPlayerShirtImage (scene, basePlayerImage) {
 }
 
 function createPlayerPantsImage (scene, basePlayerImage) {
-  if (!scene.player1.colors.pantsColor) scene.player1.colors.pantsColor = PlayerImageData.Pants.baseColor
-  if (!scene.player2.colors.pantsColor) scene.player2.colors.pantsColor = PlayerImageData.Pants.baseColor
+  if (!scene.player1.colors.pantsColor) scene.player1.colors.pantsColor = scene.gameManager.getPlayerColor(Player1, 'Pants')
+  if (!scene.player2.colors.pantsColor) scene.player2.colors.pantsColor = scene.gameManager.getPlayerColor(Player1, 'Pants')
 
   const pantsCanvas = document.createElement('canvas')
   const pantsCtx = pantsCanvas.getContext('2d')
@@ -579,6 +580,7 @@ function updatePlayerSkinTone (scene, player, newSkinTone) {
   }
 
   updateCompositePlayerImage(scene, player)
+  scene.gameManager.setPlayerColor(player, 'Body', newSkinTone)
 }
 
 function updatePlayerHairColor (scene, player, newHairColor) {
@@ -591,6 +593,7 @@ function updatePlayerHairColor (scene, player, newHairColor) {
   }
 
   updateCompositePlayerImage(scene, player)
+  scene.gameManager.setPlayerColor(player, 'Hair', newHairColor)
 }
 
 function updatePlayerShirtColor (scene, player, newShirtColor) {
@@ -603,6 +606,7 @@ function updatePlayerShirtColor (scene, player, newShirtColor) {
   }
 
   updateCompositePlayerImage(scene, player)
+  scene.gameManager.setPlayerColor(player, 'Shirt', newShirtColor)
 }
 
 function updatePlayerPantsColor (scene, player, newPantsColor) {
@@ -615,6 +619,7 @@ function updatePlayerPantsColor (scene, player, newPantsColor) {
   }
 
   updateCompositePlayerImage(scene, player)
+  scene.gameManager.setPlayerColor(player, 'Pants', newPantsColor)
 }
 
 function updateCompositePlayerImage (scene, player) {

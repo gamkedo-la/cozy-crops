@@ -1,6 +1,7 @@
 import LocalStorageKeys from '../globals/LocalStorageKeys.js'
 import EntityTypes from '../globals/EntityTypes.js'
-import { ArrowKeys, Player1Keys, Player2Keys, WASDKeys, Y } from '../globals/Keys.js'
+import PlayerImageData from '../globals/PlayerImageData.js'
+import { ArrowKeys, WASDKeys } from '../globals/Keys.js'
 
 // GameManager is responsible for keeping track of the game state and saving it to local storage.
 // It is also responsible for loading the game state from local storage when the game is started.
@@ -60,7 +61,7 @@ export default class GameManager {
       this.state = JSON.parse(gameState)
     } else {
       // If the game state does not exist, initialize a new game
-      this.initializeNewGame(saveSlot)
+      initializeNewGame(this, saveSlot)
     }
   }
 
@@ -69,39 +70,65 @@ export default class GameManager {
     localStorage.setItem(`${LocalStorageKeys.SaveSlot}${this.saveSlot}`, JSON.stringify(this.state))
   }
 
-  initializeNewGame (saveSlot) {
-    // If the game state does not exist, initialize a new game
-    // Initialize game state
-    this.saveSlot = saveSlot
-    this.state = {
-      Player1Controls: ArrowKeys,
-      Player2Controls: WASDKeys,
-      Calendar: {
-        Year: 1,
-        Season: 1,
-        Week: 1,
-        Day: 1
-      }
+  getPlayerColors (player) {
+    if (player === EntityTypes.Player1) {
+      return this.state.Player1.Colors
+    } else if (player === EntityTypes.Player2) {
+      return this.state.Player2.Colors
     }
+  }
 
-    this.saveGame()
+  getPlayerColor (player, part) {
+    if (player === EntityTypes.Player1) {
+      return this.state.Player1.Colors[part]
+    } else if (player === EntityTypes.Player2) {
+      return this.state.Player2.Colors[part]
+    }
+  }
+
+  setPlayerColor (player, part, color) {
+    if (player === EntityTypes.Player1) {
+      this.state.Player1.Colors[part] = color
+      localStorage.setItem(LocalStorageKeys.Player1.Colors[part], color)
+    } else if (player === EntityTypes.Player2) {
+      this.state.Player2.Colors[part] = color
+      localStorage.setItem(LocalStorageKeys.Player2.Colors[part], color)
+    }
+  }
+
+  getPlayerStyles (player) {
+    if (player === EntityTypes.Player1) {
+      return this.state.Player1.Styles
+    } else if (player === EntityTypes.Player2) {
+      return this.state.Player2.Styles
+    }
+  }
+
+  setPlayerStyles (player, part, style) {
+    if (player === EntityTypes.Player1) {
+      this.state.Player1.Styles[part] = style
+      localStorage.setItem(LocalStorageKeys.Player1.Styles[part], style)
+    } else if (player === EntityTypes.Player2) {
+      this.state.Player2.Styles[part] = style
+      localStorage.setItem(LocalStorageKeys.Player2.Styles[part], style)
+    }
   }
 
   getPlayerControls (player) {
     if (player === EntityTypes.Player1) {
-      return this.state.Player1Controls
+      return this.state.Player1.Controls
     } else if (player === EntityTypes.Player2) {
-      return this.state.Player2Controls
+      return this.state.Player2.Controls
     }
   }
 
   setPlayerControls (player, control, key) {
     if (player === EntityTypes.Player1) {
-      this.state.Player1Controls[control] = key
-      localStorage.setItem(LocalStorageKeys.Player1Controls, JSON.stringify(this.state.Player1Controls))
+      this.state.Player1.Controls[control] = key
+      localStorage.setItem(LocalStorageKeys.Player1.Controls, JSON.stringify(this.state.Player1.Controls))
     } else if (player === EntityTypes.Player2) {
-      this.state.Player2Controls[control] = key
-      localStorage.setItem(LocalStorageKeys.Player2Controls, JSON.stringify(this.state.Player2Controls))
+      this.state.Player2.Controls[control] = key
+      localStorage.setItem(LocalStorageKeys.Player2.Controls, JSON.stringify(this.state.Player2.Controls))
     }
   }
 
@@ -118,4 +145,56 @@ export default class GameManager {
     this.state.Calendar = date
     this.saveGame()
   }
+}
+
+function initializeNewGame (manager, saveSlot) {
+  // If the game state does not exist, initialize a new game
+  // Initialize game state
+  manager.saveSlot = saveSlot
+  manager.state = {
+    Player1: {
+      Controls: ArrowKeys,
+      Colors: {
+        Body: PlayerImageData.Body.baseColor,
+        Hair: PlayerImageData.Hair.baseColor,
+        Shirt: PlayerImageData.Shirt.baseColor,
+        Pants: PlayerImageData.Pants.baseColor
+      },
+      Styles: {
+        Hair: 'Short',
+        Shirt: 'Tee',
+        Pants: 'Jeans'
+      },
+      Location: {
+        X: 0,
+        Y: 0
+      }
+    },
+    Player2: {
+      Controls: WASDKeys,
+      Colors: {
+        Body: PlayerImageData.Body.baseColor,
+        Hair: PlayerImageData.Hair.baseColor,
+        Shirt: PlayerImageData.Shirt.baseColor,
+        Pants: PlayerImageData.Pants.baseColor
+      },
+      Styles: {
+        Hair: 'Short',
+        Shirt: 'Tee',
+        Pants: 'Jeans'
+      },
+      Location: {
+        X: 0,
+        Y: 0
+      }
+    },
+    Calendar: {
+      Year: 1,
+      Season: 1,
+      Week: 1,
+      Day: 1
+    }
+  }
+
+  manager.saveGame()
 }

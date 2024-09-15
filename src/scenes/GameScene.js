@@ -127,11 +127,11 @@ function addPlayers (scene) {
     x: player1Start.x,
     y: player1Start.y,
     // TODO: Get these colors from the player's saved data or from the player's selection
-    skinColor: Colors.Skin[0],
-    shirtColor: Colors.Shirt[0],
-    pantsColor: Colors.Pants[0],
-    accessoriesColor: Colors.Shirt[0],
-    hairColor: Colors.Hair[0],
+    skinColor: scene.gameManager.getPlayerColor(Player1, 'Body'),
+    hairColor: scene.gameManager.getPlayerColor(Player1, 'Hair'),
+    shirtColor: scene.gameManager.getPlayerColor(Player1, 'Shirt'),
+    pantsColor: scene.gameManager.getPlayerColor(Player1, 'Pants'),
+    accessoriesColor: Colors.Shirt[0], // accessories not implemented yet
     controls: scene.managers.gameManager.getPlayerControls(Player1)
   })
 
