@@ -56,7 +56,7 @@ export default class CalendarManager {
   }
 
   getDate () {
-    return { year: this.year, season: this.season, seasonDisplay: this.seasonDisplay, week: this.week, day: this.day }
+    return { year: this.year, season: this.season, seasonDisplay: this.seasonDisplay, week: this.week, day: this.day, totalDays: this.day + (this.week - 1) * Calendar.DaysPerWeek + (this.season - 1) * Calendar.DaysPerWeek * Calendar.WeeksPerSeason + (this.year - 1) * Calendar.DaysPerWeek * Calendar.WeeksPerSeason * Calendar.SeasonsPerYear }
   }
 
   update (deltaTime) {
