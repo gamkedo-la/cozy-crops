@@ -50,6 +50,15 @@ export const Building33 = 37
 export const Building34 = 41
 export const Building35 = 63
 export const Building36 = 36
+export const Building37 = 59
+export const Building38 = 60
+export const Building39 = 61
+export const Building40 = 33
+export const Building41 = 62
+export const Building42 = 32
+export const Building43 = 34
+export const Building44 = 35
+
 export const Door = 12
 
 export const TileNames = {
@@ -105,7 +114,15 @@ export const TileNames = {
 [Building34]: 'Building34',
 [Building35]: 'Building35',
 [Building36]: 'Building36',
+[Building37]: 'Building37',
+[Building38]: 'Building38',
+[Building39]: 'Building39',
+[Building40]: 'Building40',
+[Building41]: 'Building41',
+[Building42]: 'Building42',
+[Building43]: 'Building43',
+[Building44]: 'Building44',
 [Door]: 'Door',
 
 }
-export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, Building32, Building33, Building34, Building35, Building36, Door]
+export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, Building44, Door]
