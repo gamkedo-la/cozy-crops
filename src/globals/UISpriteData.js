@@ -1,16 +1,30 @@
 const UISpriteData = {
+  BackButton: {
+    x: 206,
+    y: 70,
+    width: 56,
+    height: 25,
+    padding: 1
+  },
   CancelButton: {
     x: 0,
     y: 20,
     width: 56,
-    height: 45,
+    height: 25,
     padding: 1
   },
   ConfirmButton: {
     x: 112,
     y: 20,
     width: 56,
-    height: 45,
+    height: 25,
+    padding: 1
+  },
+  CreditsButton: {
+    x: 206,
+    y: 95,
+    width: 56,
+    height: 25,
     padding: 1
   },
   DayTransitionBanner: {
@@ -24,7 +38,7 @@ const UISpriteData = {
     x: 56,
     y: 20,
     width: 56,
-    height: 45,
+    height: 25,
     padding: 1
   },
   EndOfDayText: {
@@ -104,6 +118,13 @@ const UISpriteData = {
     height: 11,
     padding: 1
   },
+  OptionsButton: {
+    x: 206,
+    y: 45,
+    width: 56,
+    height: 25,
+    padding: 1
+  },
   Scoreboard: {
     x: 0,
     y: 45,
@@ -171,7 +192,7 @@ const UISpriteData = {
     x: 168,
     y: 20,
     width: 56,
-    height: 45,
+    height: 25,
     padding: 1
   }
 }

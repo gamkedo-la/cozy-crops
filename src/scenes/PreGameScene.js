@@ -354,7 +354,7 @@ function buildStartGameButton (scene) {
   const startGameButton = new ImageButton({
     imageManager: scene.managers.imageManager,
     id: 'startGameButton',
-    top: `${canvasRect.top + canvasRect.height - 1.25 * StartButton.height}px`,
+    top: `${canvasRect.top + canvasRect.height - 2 * StartButton.height}px`,
     left: `${canvasRect.left + (canvasRect.width / 2) - (StartButton.width)}px`,
     imgDims: StartButton,
     onClick: () => {

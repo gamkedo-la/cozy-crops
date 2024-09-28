@@ -9,6 +9,13 @@ export default class OptionsScene extends Scene {
   constructor (config) {
     super(config)
 
+    this.menu = null
+  }
+
+  start () {
+    super.start() // Call the start method of the parent class
+
+    // setup resources
     this.menu = new Menu({
       x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
       y: this.game.canvas.height - Constants.MainMenuFontSize * 1.5,
@@ -19,12 +26,6 @@ export default class OptionsScene extends Scene {
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
     })
-  }
-
-  start () {
-    super.start() // Call the start method of the parent class
-
-    // setup resources
   }
 
   update (deltaTime) {

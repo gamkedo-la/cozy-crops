@@ -1,3 +1,6 @@
+import UISpriteData from '../globals/UISpriteData.js'
+import ImageButton from './ImageButton.js'
+
 export default class Menu {
   /**
    * 
@@ -16,15 +19,36 @@ export default class Menu {
     this.game.ctx.textAlign = 'left'
   
     this.options.forEach((selection, index) => {
-      const metrics = this.game.ctx.measureText(selection)
-      this.menuItems.push({
-        selection,
-        x: this.x,
-        y: this.y + (index * this.fontSize * 1.5) - (this.fontSize * 0.25),
-        width: metrics.width,
-        height: this.fontSize * 1.5
-      })
-      this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)
+      const buttonData = getSpriteDataFromName(selection)
+      if (buttonData) {
+        const button = new ImageButton({
+          imageManager: this.scene.managers.imageManager,
+          id: selection,
+          top: `${this.y + (index * buttonData.height * 2) - (buttonData.height)}px`,
+          left: `${this.x + 2 * buttonData.width}px`,
+          imgDims: buttonData,
+          onClick: () => {
+            this.scene.clicked(selection)
+            this.menuItems.forEach(item => {
+              if (item.element) document.body.removeChild(item.element)
+            })
+          }
+        })
+
+        document.body.appendChild(button.element)
+        this.menuItems.push(button)
+        button.show()
+      } else {
+        const metrics = this.game.ctx.measureText(selection)
+        this.menuItems.push({
+          selection,
+          x: this.x,
+          y: this.y + (index * this.fontSize * 1.5) - (this.fontSize * 0.25),
+          width: metrics.width,
+          height: this.fontSize * 1.5
+        })
+        this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)  
+      }
     })
   }
 
@@ -56,8 +80,13 @@ export default class Menu {
     this.game.ctx.font = `${this.fontSize}px ${this.fontFamily}`
     this.game.ctx.textAlign = 'left'
   
-    this.options.forEach((selection, index) => {
-      this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)
+    // this.options.forEach((selection, index) => {
+    //   this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)
+    // })
+    this.menuItems.forEach((menuItem, index) => {
+      if (!menuItem.element) {
+        this.game.ctx.fillText(menuItem.selection, this.x, this.y + index * this.fontSize * 1.5)
+      }
     })
   
     if (this.marker) {
@@ -71,13 +100,35 @@ export default class Menu {
 function handleMouse (menu, mousePos) {
   let overButton = false
   menu.menuItems.forEach((menuItem, index) => {
-    if (mousePos.x > menuItem.x && mousePos.x < menuItem.x + menuItem.width && mousePos.y > menuItem.y && mousePos.y < menuItem.y + menuItem.height) {
-      menu.selectionIndex = index
-      overButton = true
+    if (menuItem.element) {
+      const canvasRect = menu.game.canvas.getBoundingClientRect()
+      const rect = menuItem.element.getBoundingClientRect()
+      if (mousePos.x > rect.x - canvasRect.x && mousePos.x < rect.x + rect.width - canvasRect.x && mousePos.y > rect.y - canvasRect.y && mousePos.y < rect.y + rect.height - canvasRect.y) {
+        menu.selectionIndex = index
+        overButton = true
+      }
+    } else {
+      if (mousePos.x > menuItem.x && mousePos.x < menuItem.x + menuItem.width && mousePos.y > menuItem.y && mousePos.y < menuItem.y + menuItem.height) {
+        menu.selectionIndex = index
+        overButton = true
+      }  
     }
   })
 
   if (mousePos.justDown && overButton) {
     menu.scene.clicked(menu.options[menu.selectionIndex])
+  }
+}
+
+function getSpriteDataFromName (name) {
+  switch (name) {
+    case 'Back': return UISpriteData.BackButton
+    case 'Cancel': return UISpriteData.CancelButton
+    case 'Confirm': return UISpriteData.ConfirmButton
+    case 'Credits': return UISpriteData.CreditsButton
+    case 'Drop': return UISpriteData.DropButton
+    case 'Options': return UISpriteData.OptionsButton
+    case 'Start': return UISpriteData.StartButton
+    default: return null
   }
 }

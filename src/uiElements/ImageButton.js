@@ -18,17 +18,17 @@ export default class ImageButton {
 
 function build (button) {
   const btnCanvas = document.createElement('canvas')
-  btnCanvas.width = 2 * button.imgDims.width - 4
-  btnCanvas.height = 2 * button.imgDims.height + 2
+  btnCanvas.width = 2 * button.imgDims.width
+  btnCanvas.height = 2 * button.imgDims.height
   const btnCtx = btnCanvas.getContext('2d')
-  btnCtx.drawImage(button.imageManager.getImageWithSrc(UISprites), button.imgDims.x, button.imgDims.y, 2 * button.imgDims.width, 2 * button.imgDims.height, 0, 0, 2 * button.imgDims.width, 2 * button.imgDims.height)
+  btnCtx.drawImage(button.imageManager.getImageWithSrc(UISprites), button.imgDims.x, button.imgDims.y, button.imgDims.width, button.imgDims.height, 0, 0, button.imgDims.width, button.imgDims.height)
   const dataURL = btnCanvas.toDataURL()
 
   const btn = document.createElement('button')
   btn.id = button.id
   btn.style.position = 'absolute'
   const buttonWidth = 2 * button.imgDims.width
-  const buttonHeight = button.imgDims.height
+  const buttonHeight = 2 * (button.imgDims.height - 3 * button.imgDims.padding)
   btn.style.top = button.top
   btn.style.left = button.left
   btn.style.width = `${buttonWidth}px`
@@ -36,8 +36,8 @@ function build (button) {
   btn.style.textAlign = 'center'
   btn.style.borderRadius = '2px'
   btn.style.backgroundImage = `url(${dataURL})`
-  btn.style.backgroundPosition = `-${2 * button.imgDims.padding}px -${2 * button.imgDims.padding}px`
-  btn.style.backgroundSize = `${2 * (btnCanvas.width + 4 * button.imgDims.padding)}px ${2 * (btnCanvas.height - 2 * button.imgDims.padding)}px`
+  btn.style.backgroundPosition = `-${2 * button.imgDims.padding}px -${2 * button.imgDims.padding}px` // '{0px 0px}' // 
+  btn.style.backgroundSize = `${2 * (btnCanvas.width + 4 * button.imgDims.padding)}px ${2 * (btnCanvas.height - 2 * button.imgDims.padding)}px` // `{${btnCanvas.width}px ${btnCanvas.height}px}` // 
   btn.style.border = 'none'
   btn.style.outline = 'none'
   btn.style.color = 'white'

@@ -9,6 +9,13 @@ export default class CreditsScene extends Scene {
   constructor (config) {
     super(config)
 
+    this.menu = null
+  }
+
+  start () {
+    super.start() // Call the start method of the parent class
+
+    // initialize resources
     this.menu = new Menu({
       x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
       y: 100 + this.game.canvas.height / (2 * Constants.CanvasScale),
