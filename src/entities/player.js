@@ -11,6 +11,7 @@ export default class Player {
     this.animations = {}
     this.animation = null // Initialize once animations are built
     this.speed = 2
+    this.stamina = 100
 
     this.collisionPoint = {
       x: 0, // Initialize once animations are built
@@ -31,6 +32,7 @@ export default class Player {
 
   update (deltaTime) {
     handleInput(this)
+    updateStamina(this)
     this.animation.update(deltaTime)
     this.collisionPoint = {
       x: this.x + this.animation.width / 2, // Center of the player
@@ -161,4 +163,14 @@ function handleInput (player) {
       player.animation = player.animations.SteveIdleRight
     }
   }
+}
+
+function updateStamina (player) {
+  player.stamina -= 0.01
+
+  if (player.stamina < 0) {
+    player.stamina = 0
+  }
+
+  player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }

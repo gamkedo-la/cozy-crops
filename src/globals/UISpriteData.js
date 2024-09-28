@@ -153,6 +153,13 @@ const UISpriteData = {
     height: 13,
     padding: 1
   },
+  Stamina: {
+    x: 224,
+    y: 0,
+    width: 12,
+    height: 43,
+    padding: 1
+  },
   StandardUIBox: {
     x: 0,
     y: 0,
@@ -193,6 +200,7 @@ export const {
   SeasonTextCool,
   SeasonTextHot,
   SeasonTextRainy,
+  Stamina,
   StandardUIBox,
   StartButton
 } = UISpriteData

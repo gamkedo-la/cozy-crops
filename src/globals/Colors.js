@@ -39,7 +39,10 @@ const Colors = {
     [255, 242, 0, 255],
     [90, 4, 113, 255],
     [12, 230, 235, 255],
-  ]
+  ],
+  StaminaRested: [0, 255, 0, 255],
+  StaminaTired: [255, 255, 0, 255],
+  StaminaExhausted: [255, 0, 0, 255],
 }
 
 export default Colors

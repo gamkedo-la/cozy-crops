@@ -2,10 +2,12 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 // import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
+import Colors from '../globals/Colors.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys, { U } from '../globals/Keys.js'
 import { UISprites } from '../globals/Images.js'
 import UISpriteData from '../globals/UISpriteData.js'
+import { Player1 } from '../globals/EntityTypes.js'
 
 export default class UIScene extends Scene {
   constructor (config) {
@@ -26,7 +28,8 @@ export default class UIScene extends Scene {
     this.game.ctx.textAlign = UIAttributes.CenterAlign
     this.game.ctx.fillText('UI Test', this.game.canvas.width / 2, this.game.canvas.height - Constants.TitleFontSize / 16)
 
-    drawScoreboard(this)
+    const scoreboardRect = drawScoreboard(this)
+    drawStamina(this, scoreboardRect)
   }
 
   stop () {
@@ -72,4 +75,18 @@ function drawScoreboard (scene) {
 
   const seasonData = UISpriteData[`Season${date.seasonDisplay}`]
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), seasonData.x, seasonData.y, seasonData.width, seasonData.height, scoreboardLeft + 98, scoreboardTop + 70, 2 * seasonData.width, 2 * seasonData.height)
+
+  return { left: scoreboardLeft, top: scoreboardTop, width: 2 * UISpriteData.Scoreboard.width, height: 2 * UISpriteData.Scoreboard.height }
+}
+
+function drawStamina (scene, rect) {
+  const staminaLeft = rect.left - (2 * UISpriteData.Stamina.width) - 5
+  const staminaTop = rect.top
+  scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.Stamina.x, UISpriteData.Stamina.y, UISpriteData.Stamina.width, UISpriteData.Stamina.height, staminaLeft, staminaTop, 2 * UISpriteData.Stamina.width, 2 * UISpriteData.Stamina.height)
+
+  const stamina = scene.gameManager.getPlayerStamina(Player1)
+  const color = stamina < 20 ? Colors.StaminaExhausted : stamina < 50 ? Colors.StaminaTired : Colors.StaminaRested
+
+  scene.game.ctx.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`
+  scene.game.ctx.fillRect(staminaLeft + 8, staminaTop + 78 - (stamina * 70 / 100), 8, stamina * 70 / 100)
 }

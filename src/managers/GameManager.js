@@ -132,6 +132,24 @@ export default class GameManager {
     }
   }
 
+  setPlayerStamina (player, stamina) {
+    if (player === EntityTypes.Player1) {
+      this.state.Player1.Stamina = stamina
+      localStorage.setItem(LocalStorageKeys.Player1.Stamina, stamina)
+    } else if (player === EntityTypes.Player2) {
+      this.state.Player2.Stamina = stamina
+      localStorage.setItem(LocalStorageKeys.Player2.Stamina, stamina)
+    }
+  }
+
+  getPlayerStamina (player) {
+    if (player === EntityTypes.Player1) {
+      return this.state.Player1.Stamina
+    } else if (player === EntityTypes.Player2) {
+      return this.state.Player2.Stamina
+    }
+  }
+
   getDate () {
     return this.state.Calendar
   }
@@ -143,6 +161,7 @@ export default class GameManager {
 
   newDaySave (date) {
     this.state.Calendar = date
+    this.state.Player1.Stamina = 100 // TODO: If player didn't make it back to bed, they don't get 100% stamina back
     this.saveGame()
   }
 }
@@ -168,7 +187,8 @@ function initializeNewGame (manager, saveSlot) {
       Location: {
         X: 0,
         Y: 0
-      }
+      },
+      Stamina: 100
     },
     Player2: {
       Controls: WASDKeys,

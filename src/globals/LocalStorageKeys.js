@@ -11,7 +11,8 @@ const LocalStorageKeys = {
       Shirt: 'Player1ShirtStyle',
       Pants: 'Player1PantsStyle'
     },
-    Controls: 'Player1Controls'
+    Controls: 'Player1Controls',
+    Stamina: 'Player1Stamina'
   },
   Player2: {
     Colors: {
@@ -25,7 +26,8 @@ const LocalStorageKeys = {
       Shirt: 'Player2ShirtStyle',
       Pants: 'Player2PantsStyle'
     },
-    Controls: 'Player2Controls'
+    Controls: 'Player2Controls',
+    Stamina: 'Player2Stamina'
   },
   SaveSlot: 'SaveSlot',
   SlotList: 'SlotList'
