@@ -10,11 +10,11 @@ export default class CalendarManager {
    */
   constructor(config) {
     Object.assign(this, config)
-    this.year = 1
-    this.season = 1
+    this.year = 0
+    this.season = 0
     this.seasonDisplay = Calendar.SeasonNames[this.season]
-    this.week = 1
-    this.day = 1
+    this.week = 0
+    this.day = 0
     this.elapsedTime = 0
   }
 
@@ -56,7 +56,7 @@ export default class CalendarManager {
   }
 
   getDate () {
-    return { year: this.year, season: this.season, seasonDisplay: this.seasonDisplay, week: this.week, day: this.day, totalDays: this.day + (this.week - 1) * Calendar.DaysPerWeek + (this.season - 1) * Calendar.DaysPerWeek * Calendar.WeeksPerSeason + (this.year - 1) * Calendar.DaysPerWeek * Calendar.WeeksPerSeason * Calendar.SeasonsPerYear }
+    return { year: this.year + 1, season: this.season + 1, seasonDisplay: this.seasonDisplay, week: this.week + 1, day: this.day + 1, dayOfSeason: (this.week * Calendar.DaysPerWeek) + this.day + 1 }
   }
 
   update (deltaTime) {
@@ -73,29 +73,23 @@ export default class CalendarManager {
 function dateCheck(manager) {
   if (manager.day >= (Calendar.DaysPerWeek)) { //season length +1, since we're starting days at 1, we're adding 1 to the season length
     manager.week++
-    manager.day = 1
+    manager.day = 0
   }
 
-  if (manager.week > Calendar.WeeksPerSeason) {
+  if (manager.week >= Calendar.WeeksPerSeason) {
     manager.season++
-    manager.week = 1
+    manager.week = 0
   }
+
+  if (manager.season >= Calendar.SeasonsPerYear) {
+    manager.year++
+    manager.season = 0
+  }
+
+  manager.seasonDisplay = Calendar.SeasonNames[manager.season]
 
   if (manager.season > Calendar.SeasonsPerYear) {
     manager.year++
-    manager.season = 1
-  }
-
-  convertSeason(manager)
-}
-
-function convertSeason (manager) {
-  switch(manager.season) {
-  case 1: manager.seasonDisplay = "Cool"
-    break
-  case 2: manager.seasonDisplay = "Hot"
-    break
-  case 3: manager.seasonDisplay = "Rainy"
-    break
+    manager.season = 0
   }
 }

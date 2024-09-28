@@ -13,11 +13,25 @@ const UISpriteData = {
     height: 45,
     padding: 1
   },
+  DayTransitionBanner: {
+    x: 83,
+    y: 45,
+    width: 123,
+    height: 25,
+    padding: 1
+  },
   DropButton: {
     x: 56,
     y: 20,
     width: 56,
     height: 45,
+    padding: 1
+  },
+  EndOfDayText: {
+    x: 93,
+    y: 70,
+    width: 16,
+    height: 26,
     padding: 1
   },
   Number0: {
@@ -118,6 +132,27 @@ const UISpriteData = {
     height: 15,
     padding: 1
   },
+  SeasonTextCool: {
+    x: 142,
+    y: 70,
+    width: 24,
+    height: 13,
+    padding: 1
+  },
+  SeasonTextHot: {
+    x: 142,
+    y: 83,
+    width: 24,
+    height: 13,
+    padding: 1
+  },
+  SeasonTextRainy: {
+    x: 142,
+    y: 95,
+    width: 24,
+    height: 13,
+    padding: 1
+  },
   StandardUIBox: {
     x: 0,
     y: 0,
@@ -138,7 +173,9 @@ export default UISpriteData
 export const {
   CancelButton,
   ConfirmButton,
+  DayTransitionBanner,
   DropButton,
+  EndOfDayText,
   Number0,
   Number1,
   Number2,
@@ -153,6 +190,9 @@ export const {
   SeasonCool,
   SeasonHot,
   SeasonRainy,
+  SeasonTextCool,
+  SeasonTextHot,
+  SeasonTextRainy,
   StandardUIBox,
   StartButton
 } = UISpriteData

@@ -4,11 +4,7 @@ export const Seasons = {
   Rainy: 3
 }
 
-export const SeasonNames = {
-  1: 'Cool',
-  2: 'Hot',
-  3: 'Rainy'
-}
+export const SeasonNames =  ['Cool', 'Hot', 'Rainy']
 
 export const LengthOfDay = 5 * 60 * 1000 // 5 minutes converted to milliseconds
 export const DaysPerWeek = 3
