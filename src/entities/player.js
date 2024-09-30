@@ -1,5 +1,5 @@
 import { Player1, Player2 } from '../globals/EntityTypes.js'
-import Animations from '../globals/Animations.js'
+import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import { Player1Keys, Player2Keys } from '../globals/Keys.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
@@ -8,6 +8,8 @@ export default class Player {
   constructor (config) {
     Object.assign(this, config)
 
+    this.width = 0 // Initialize once animations are built
+    this.height = 0 // Initialize once animations are built
     this.animations = {}
     this.animation = null // Initialize once animations are built
     this.speed = 2
@@ -28,6 +30,9 @@ export default class Player {
       x: this.x + this.animation.width / 2, // Center of the player
       y: this.y + this.animation.height // Bottom of the player
     }
+
+    this.width = this.animation.width
+    this.height = this.animation.height
   }
 
   update (deltaTime) {
@@ -47,8 +52,9 @@ export default class Player {
 
 function buildAnimations (player) {
   const playerCanvas = buildSpritesheet(player)
-  for (const animation of Object.values(Animations)) {
+  for (const animation of Object.values(PlayerAnimations)) {
     const animationConfig = Object.assign({}, animation)
+    animationConfig.owner = player
     animationConfig.game = player.game
     animationConfig.imageManager = player.imageManager
     animationConfig.imageSrc = animation.spritesheet

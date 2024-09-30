@@ -11,7 +11,7 @@ import ColorButton from '../uiElements/ColorButton.js'
 import { CheatKeys } from '../globals/Debug.js'
 import { StartButton, StandardUIBox } from '../globals/UISpriteData.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
-import { SteveIdleDown } from '../globals/Animations.js'
+import { SteveIdleDown } from '../globals/PlayerAnimations.js'
 import Colors from '../globals/Colors.js'
 
 export default class PreGameScene extends Scene {

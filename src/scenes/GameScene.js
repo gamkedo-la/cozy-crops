@@ -7,6 +7,7 @@ import { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
+import Cabbage from '../entities/crops/Cabbage.js'
 
 let day = 1
 let season = 1
@@ -53,6 +54,89 @@ export default class GameScene extends Scene {
     this.imageManager.setCamera(this.camera)
     const date = this.gameManager.getDate()
     this.calendarManager.setStartDate(date.year, date.season, date.week, date.day)
+
+    // TODO: Remove this once the systems are fully implemented
+    let deltaY = 0
+    const cabbageSeedling = new Cabbage({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 460,
+      y: 364
+    })
+
+    cabbageSeedling.init()
+    insertEntity(this, cabbageSeedling)
+
+    deltaY += 16
+
+    const cabbageYoungSprout = new Cabbage({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 460,
+      y: 364 + deltaY
+    })
+
+    cabbageYoungSprout.currentGrowthStage = 1
+    cabbageYoungSprout.init()
+    insertEntity(this, cabbageYoungSprout)
+
+    deltaY += 16
+
+    const cabbageSprout = new Cabbage({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 460,
+      y: 364 + deltaY
+    })
+
+    cabbageSprout.currentGrowthStage = 2
+    cabbageSprout.init()
+    insertEntity(this, cabbageSprout)
+
+    deltaY += 16
+
+    const cabbageYoungPlant = new Cabbage({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 460,
+      y: 364 + deltaY
+    })
+
+    cabbageYoungPlant.currentGrowthStage = 3
+    cabbageYoungPlant.init()
+    insertEntity(this, cabbageYoungPlant)
+
+    deltaY += 16
+
+    const cabbageMature = new Cabbage({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 460,
+      y: 364 + deltaY
+    })
+
+    cabbageMature.currentGrowthStage = 4
+    cabbageMature.init()
+    insertEntity(this, cabbageMature)
+
+    deltaY += 16
+
+    const cabbageHarvest = new Cabbage({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 460,
+      y: 364 + deltaY
+    })
+
+    cabbageHarvest.currentGrowthStage = 5
+    cabbageHarvest.init()
+    insertEntity(this, cabbageHarvest)
   }
 
   update (deltaTime) {
@@ -72,6 +156,8 @@ export default class GameScene extends Scene {
     super.draw() // Call the draw method of the parent class
 
     this.mapManager.drawMap()
+    removeEntity(this, this.steve)
+    insertEntity(this, this.steve)
     for (const entity of this.drawList) {
       entity.draw()
     }
@@ -107,7 +193,7 @@ function insertEntity (scene, entity) {
 
   while (low < high) {
     const mid = Math.floor((low + high) / 2)
-    if (scene.drawList[mid].y < entity.y) {
+    if (scene.drawList[mid].y + scene.drawList[mid].height < entity.y + entity.height) {
       low = mid + 1
     } else {
       high = mid
@@ -115,6 +201,13 @@ function insertEntity (scene, entity) {
   }
 
   scene.drawList.splice(low, 0, entity)
+}
+
+function removeEntity (scene, entity) {
+  const index = scene.drawList.indexOf(entity)
+  if (index > -1) {
+    scene.drawList.splice(index, 1)
+  }
 }
 
 function addPlayers (scene) {
@@ -137,7 +230,7 @@ function addPlayers (scene) {
 
   scene.steve.init()
 
-  scene.addEntity(scene.steve)
+  // scene.addEntity(scene.steve)
 }
 
 function checkCheatKeys (scene) {
