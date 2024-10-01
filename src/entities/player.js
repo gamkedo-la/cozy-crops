@@ -174,16 +174,12 @@ function handleInput (player) {
   }
   //cheat for Max Stamina
   const justDownKeys = player.game.inputManager.getJustDownKeys()
-  if(justDownKeys == K )
-  {
-    player.stamina += 100
-    if(player.stamina >= 100)
-      player.stamina = 100
-  player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
-  console.log(player.stamina)
+  if(justDownKeys.includes(K)) {
+    setMaxStamina(player)
+    console.log(player.stamina)
   }
-  if(justDownKeys == M )
-  {
+
+  if(justDownKeys.includes(M)) {
     updateMoney(player)
   }
 }
@@ -198,7 +194,12 @@ function updateStamina (player) {
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }
 
-function updateMoney(player){
+function setMaxStamina(player) {
+  player.stamina = 100
+  player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
+}
+
+function updateMoney(player) {
   player.scene.gameManager.setMoney(player.scene.gameManager.getMoney() + 10)
   console.log(player.scene.gameManager.getMoney())
 }
