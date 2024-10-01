@@ -6,8 +6,8 @@ import Colors from '../globals/Colors.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys, { U } from '../globals/Keys.js'
 import { UISprites } from '../globals/Images.js'
-import UISpriteData from '../globals/UISpriteData.js'
 import { Player1 } from '../globals/EntityTypes.js'
+import UISpriteData from '../globals/UISpriteData.js'
 
 export default class UIScene extends Scene {
   constructor (config) {
@@ -30,6 +30,7 @@ export default class UIScene extends Scene {
 
     const scoreboardRect = drawScoreboard(this)
     drawStamina(this, scoreboardRect)
+    drawMoney(this, scoreboardRect)
   }
 
   stop () {
@@ -68,7 +69,7 @@ function drawScoreboard (scene) {
 
   const dayLeft = scoreboardLeft + 106
   const dayString = date.dayOfSeason.toString().padStart(4, '0')
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < dayString.length; i++) {
     const dayData = UISpriteData[`Number${dayString[i]}`]
     scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), dayData.x, dayData.y, dayData.width, dayData.height, dayLeft + (i * (dayData.width + 5)), calendarY, 2 * dayData.width, 2 * dayData.height)
   }
@@ -77,6 +78,17 @@ function drawScoreboard (scene) {
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), seasonData.x, seasonData.y, seasonData.width, seasonData.height, scoreboardLeft + 98, scoreboardTop + 70, 2 * seasonData.width, 2 * seasonData.height)
 
   return { left: scoreboardLeft, top: scoreboardTop, width: 2 * UISpriteData.Scoreboard.width, height: 2 * UISpriteData.Scoreboard.height }
+}
+
+function drawMoney(scene, rect)
+{
+  const moneyY = rect.top + 126
+  const moneyLeft = rect.left + 28
+  const moneyString = scene.gameManager.getMoney().toString().padStart(8, '0')
+  for (let i = 0; i < moneyString.length; i++) {
+    const moneyData = UISpriteData[`Number${moneyString[i]}`]
+    scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), moneyData.x, moneyData.y, moneyData.width, moneyData.height, moneyLeft + (i * (moneyData.width + 9)), moneyY, 2 * moneyData.width, 2 * moneyData.height)
+  }
 }
 
 function drawStamina (scene, rect) {

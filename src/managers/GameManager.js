@@ -150,6 +150,15 @@ export default class GameManager {
     }
   }
 
+  setMoney (money) {
+    this.state.Money = money
+      localStorage.setItem(LocalStorageKeys.Money, money)
+  }
+
+  getMoney () {
+    return this.state.Money
+  }
+
   getDate () {
     return this.state.Calendar
   }
@@ -213,7 +222,8 @@ function initializeNewGame (manager, saveSlot) {
       Season: 1,
       Week: 1,
       Day: 1
-    }
+    },
+   Money: 100
   }
 
   manager.saveGame()

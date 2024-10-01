@@ -19,7 +19,7 @@ const Calendar = {
   SeasonLength,
   SeasonsPerYear,
   Seasons,
-  SeasonNames
+  SeasonNames,
 }
 
 export default Calendar

@@ -194,7 +194,7 @@ const UISpriteData = {
     width: 56,
     height: 25,
     padding: 1
-  }
+  },
 }
 
 export default UISpriteData
@@ -223,5 +223,5 @@ export const {
   SeasonTextRainy,
   Stamina,
   StandardUIBox,
-  StartButton
+  StartButton,
 } = UISpriteData

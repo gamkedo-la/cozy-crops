@@ -3,7 +3,9 @@ import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import { P, Player1Keys, Player2Keys } from '../globals/Keys.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
-import {K} from '../globals/Keys.js'
+//These are for Cheats
+import {K, M} from '../globals/Keys.js'
+import GameManager from '../managers/GameManager.js'
 
 export default class Player {
   constructor (config) {
@@ -180,7 +182,10 @@ function handleInput (player) {
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
   console.log(player.stamina)
   }
-
+  if(justDownKeys == M )
+  {
+    updateMoney(player)
+  }
 }
 
 function updateStamina (player) {
@@ -191,4 +196,9 @@ function updateStamina (player) {
   }
 
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
+}
+
+function updateMoney(player){
+  player.scene.gameManager.setMoney(player.scene.gameManager.getMoney() + 10)
+  console.log(player.scene.gameManager.getMoney())
 }
