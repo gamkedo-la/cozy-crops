@@ -4,7 +4,8 @@ import Animation from '../components/Animation.js'
 import { P, Player1Keys, Player2Keys } from '../globals/Keys.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 //These are for Cheats
-import {K, M} from '../globals/Keys.js'
+import { K, M } from '../globals/Keys.js'
+import { CheatKeys } from '../globals/Debug.js'
 import GameManager from '../managers/GameManager.js'
 
 export default class Player {
@@ -174,13 +175,15 @@ function handleInput (player) {
   }
   //cheat for Max Stamina
   const justDownKeys = player.game.inputManager.getJustDownKeys()
-  if(justDownKeys.includes(K)) {
-    setMaxStamina(player)
-    console.log(player.stamina)
-  }
-
-  if(justDownKeys.includes(M)) {
-    updateMoney(player)
+  if (CheatKeys) {
+    if(justDownKeys.includes(K)) {
+      setMaxStamina(player)
+      console.log(player.stamina)
+    }
+  
+    if(justDownKeys.includes(M)) {
+      updateMoney(player)
+    }
   }
 }
 
