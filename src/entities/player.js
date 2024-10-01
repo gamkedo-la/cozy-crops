@@ -1,8 +1,9 @@
 import { Player1, Player2 } from '../globals/EntityTypes.js'
 import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
-import { Player1Keys, Player2Keys } from '../globals/Keys.js'
+import { P, Player1Keys, Player2Keys } from '../globals/Keys.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
+import {K} from '../globals/Keys.js'
 
 export default class Player {
   constructor (config) {
@@ -169,6 +170,17 @@ function handleInput (player) {
       player.animation = player.animations.SteveIdleRight
     }
   }
+  //cheat for Max Stamina
+  const justDownKeys = player.game.inputManager.getJustDownKeys()
+  if(justDownKeys == K )
+  {
+    player.stamina += 100
+    if(player.stamina >= 100)
+      player.stamina = 100
+  player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
+  console.log(player.stamina)
+  }
+
 }
 
 function updateStamina (player) {
