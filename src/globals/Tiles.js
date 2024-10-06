@@ -58,6 +58,22 @@ export const Building41 = 62
 export const Building42 = 32
 export const Building43 = 34
 export const Building44 = 35
+export const Splice1 = 70
+export const Splice2 = 71
+export const Splice3 = 72
+export const Splice4 = 73
+export const Splice5 = 78
+export const Splice6 = 79
+export const Splice7 = 80
+export const Splice8 = 81
+export const Splice9 = 82
+export const Splice10 = 83
+export const Splice11 = 84
+export const Splice12 = 85
+export const Splice13 = 86
+export const Splice14 = 87
+export const Splice15 = 88
+export const Splice16 = 89
 
 export const Door = 12
 
@@ -123,6 +139,26 @@ export const TileNames = {
 [Building43]: 'Building43',
 [Building44]: 'Building44',
 [Door]: 'Door',
+[Splice1]: 'Splice1',
+[Splice2]: 'Splice2',
+[Splice3]: 'Splice3',
+[Splice4]: 'Splice4',
+[Splice5]: 'Splice5',
+[Splice6]: 'Splice6',
+[Splice7]: 'Splice7',
+[Splice8]: 'Splice8',
+[Splice9]: 'Splice9',
+[Splice10]: 'Splice10',
+[Splice11]: 'Splice11',
+[Splice12]: 'Splice12',
+[Splice13]: 'Splice13',
+[Splice14]: 'Splice14',
+[Splice15]: 'Splice15',
+[Splice16]: 'Splice16',
 
 }
-export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, Building44, Door]
+export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, 
+  Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, 
+  Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, 
+  Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
+  Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16]
