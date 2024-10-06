@@ -195,6 +195,13 @@ const UISpriteData = {
     height: 25,
     padding: 1
   },
+  InventoryIcons:{
+    x: 1,
+    y: 1,
+    width: 198,
+    height: 18,
+    padding: 1
+  }
 }
 
 export default UISpriteData
@@ -224,4 +231,5 @@ export const {
   Stamina,
   StandardUIBox,
   StartButton,
+  InventoryIcons,
 } = UISpriteData

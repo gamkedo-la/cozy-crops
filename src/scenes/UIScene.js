@@ -26,11 +26,12 @@ export default class UIScene extends Scene {
     this.game.ctx.fillStyle = Constants.TitleTextColor
     this.game.ctx.font = `${Constants.TitleFontSize / 4}px ${Constants.TitleFontFamily}`
     this.game.ctx.textAlign = UIAttributes.CenterAlign
-    this.game.ctx.fillText('UI Test', this.game.canvas.width / 2, this.game.canvas.height - Constants.TitleFontSize / 16)
+    //this.game.ctx.fillText('UI Test', this.game.canvas.width / 2, this.game.canvas.height - Constants.TitleFontSize / 16)
 
     const scoreboardRect = drawScoreboard(this)
     drawStamina(this, scoreboardRect)
     drawMoney(this, scoreboardRect)
+    drawInventory(this,scoreboardRect)
   }
 
   stop () {
@@ -90,6 +91,14 @@ function drawMoney(scene, rect)
     scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), moneyData.x, moneyData.y, moneyData.width, moneyData.height, moneyLeft + (i * (moneyData.width + 9)), moneyY, 2 * moneyData.width, 2 * moneyData.height)
   }
 }
+
+function drawInventory(scene, rect)
+{
+  const inventoryLeft = scene.game.canvas.width - (2 *  UISpriteData.InventoryIcons.width) -450
+  const inventoryY = 850
+  scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.InventoryIcons.x, UISpriteData.InventoryIcons.y, UISpriteData.InventoryIcons.width, UISpriteData.InventoryIcons.height, inventoryLeft, inventoryY, 2 * UISpriteData.InventoryIcons.width, 2 * UISpriteData.InventoryIcons.height)
+}
+
 
 function drawStamina (scene, rect) {
   const staminaLeft = rect.left - (2 * UISpriteData.Stamina.width) - 5
