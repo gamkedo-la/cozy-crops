@@ -20,12 +20,14 @@ export default class Menu {
   
     this.options.forEach((selection, index) => {
       const buttonData = getSpriteDataFromName(selection)
+      const canvasRect = this.game.canvas.getBoundingClientRect()
+
       if (buttonData) {
         const button = new ImageButton({
           imageManager: this.scene.managers.imageManager,
           id: selection,
-          top: `${this.y + (index * buttonData.height * 2) - (buttonData.height)}px`,
-          left: `${this.x + 2 * buttonData.width}px`,
+          top: `${canvasRect.top + (canvasRect.height / 2) + (index * buttonData.height * 2) - (buttonData.height)}px`,
+          left: `${canvasRect.left + (canvasRect.width / 2) - buttonData.width}px`,
           imgDims: buttonData,
           onClick: () => {
             this.scene.clicked(selection)
@@ -49,6 +51,17 @@ export default class Menu {
         })
         this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)  
       }
+    })
+
+    window.addEventListener('resize', () => {
+      this.menuItems.forEach((menuItem, index) => {
+        if (menuItem.element) {
+          const buttonData = getSpriteDataFromName(menuItem.element.id)
+          const canvasRect = this.game.canvas.getBoundingClientRect()
+          menuItem.element.style.top = `${canvasRect.top + (canvasRect.height / 2) + (index * buttonData.height * 2) - (buttonData.height)}px`
+          menuItem.element.style.left = `${canvasRect.left + (canvasRect.width / 2) - buttonData.width}px`
+        }
+      })
     })
   }
 
@@ -80,19 +93,24 @@ export default class Menu {
     this.game.ctx.font = `${this.fontSize}px ${this.fontFamily}`
     this.game.ctx.textAlign = 'left'
   
-    // this.options.forEach((selection, index) => {
-    //   this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)
-    // })
     this.menuItems.forEach((menuItem, index) => {
       if (!menuItem.element) {
         this.game.ctx.fillText(menuItem.selection, this.x, this.y + index * this.fontSize * 1.5)
       }
     })
   
+    const canvasRect = this.game.canvas.getBoundingClientRect()
+
     if (this.marker) {
       this.game.imageManager.draw(this.marker, this.x - this.fontSize * 1.5, this.y + this.selectionIndex * this.fontSize * 1.5)
     } else {
-      this.game.ctx.fillText('>', this.x - this.fontSize, this.y + this.selectionIndex * this.fontSize * 1.5)
+      const selectedMenuItem = this.menuItems[this.selectionIndex]
+      const selectedRect = selectedMenuItem.element ? selectedMenuItem.element.getBoundingClientRect() : { x: selectedMenuItem.x, y: selectedMenuItem.y, width: selectedMenuItem.width, height: selectedMenuItem.height }
+
+      this.game.ctx.fillText('>',
+        selectedRect.left - canvasRect.left - selectedRect.width / 4,
+        selectedRect.top + selectedRect.height / 2
+      )
     }
   }
 }

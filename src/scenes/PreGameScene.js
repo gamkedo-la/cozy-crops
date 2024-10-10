@@ -86,6 +86,25 @@ export default class PreGameScene extends Scene {
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
     })
+
+    window.addEventListener('resize', () => {
+      this.startGameMenu.x = (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15
+      this.startGameMenu.y = this.game.canvas.height / (2 * Constants.CanvasScale)
+
+      const canvasRect = this.game.canvas.getBoundingClientRect()
+
+      if (this.startGameButton) {
+        this.startGameButton.top = `${canvasRect.top + canvasRect.height - 2 * StartButton.height}px`
+        this.startGameButton.left = `${canvasRect.left + (canvasRect.width / 2) - StartButton.width}px`  
+      }
+
+      if (this.skinToneButtons) {
+        this.skinToneButtons.forEach((button, index) => {
+          button.top = `${(canvasRect.top + 115) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`
+          button.left = `${canvasRect.left + 392 + (index % 4) * (2 * StandardUIBox.width)}px`
+        })  
+      }
+    })
   }
 
   update (deltaTime) {
