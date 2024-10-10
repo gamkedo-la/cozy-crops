@@ -77,7 +77,7 @@ export default class PreGameScene extends Scene {
     if (!this.saveSlots) this.saveSlots = []
     this.saveSlots.push('New Game')
     this.startGameMenu = new Menu({
-      x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
+      x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 65,
       y: this.game.canvas.height / (2 * Constants.CanvasScale),
       game: this.game,
       scene: this,
@@ -88,7 +88,7 @@ export default class PreGameScene extends Scene {
     })
 
     window.addEventListener('resize', () => {
-      this.startGameMenu.x = (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15
+      this.startGameMenu.x = (this.game.canvas.width / (2 * Constants.CanvasScale)) - 65
       this.startGameMenu.y = this.game.canvas.height / (2 * Constants.CanvasScale)
 
       const canvasRect = this.game.canvas.getBoundingClientRect()
