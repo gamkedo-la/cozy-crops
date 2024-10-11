@@ -74,6 +74,22 @@ export const Splice13 = 86
 export const Splice14 = 87
 export const Splice15 = 88
 export const Splice16 = 89
+export const Museum90 = 90
+export const Museum91 = 91
+export const Museum92 = 92
+export const Museum93 = 93
+export const Museum94 = 94
+export const Museum95 = 95
+export const Museum96 = 96
+export const Museum97 = 97
+export const Museum98 = 98
+export const Museum99 = 99
+export const Museum100 = 100
+export const Museum101 = 101
+export const Museum102 = 102
+export const Museum103 = 103
+export const Museum104 = 104
+export const Museum105 = 105
 
 export const Door = 12
 
@@ -155,10 +171,27 @@ export const TileNames = {
 [Splice14]: 'Splice14',
 [Splice15]: 'Splice15',
 [Splice16]: 'Splice16',
+[Museum90]: 'Museum90',
+[Museum91]: 'Museum91',
+[Museum92]: 'Museum92',
+[Museum93]: 'Museum93',
+[Museum94]: 'Museum94',
+[Museum95]: 'Museum95',
+[Museum96]: 'Museum96',
+[Museum97]: 'Museum97',
+[Museum98]: 'Museum98',
+[Museum99]: 'Museum99',
+[Museum100]: 'Museum100',
+[Museum101]: 'Museum101',
+[Museum102]: 'Museum102',
+[Museum103]: 'Museum103',
+[Museum104]: 'Museum104',
+[Museum105]: 'Museum105',
 
 }
 export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, 
   Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, 
   Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, 
   Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
-  Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16]
+  Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
+  Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,Museum103,Museum104,Museum105]
