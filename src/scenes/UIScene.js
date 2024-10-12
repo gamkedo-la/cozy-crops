@@ -32,6 +32,7 @@ export default class UIScene extends Scene {
     drawStamina(this, scoreboardRect)
     drawMoney(this, scoreboardRect)
     drawInventory(this,scoreboardRect)
+    drawDayNightUI(this, scoreboardRect)
   }
 
   stop () {
@@ -95,14 +96,14 @@ function drawMoney(scene, rect)
 function drawInventory(scene, rect)
 {
   const inventoryLeft = scene.game.canvas.width - (2 *  UISpriteData.InventoryIcons.width) -450
-  const inventoryY = 850
+  const inventoryY = 825
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.InventoryIcons.x, UISpriteData.InventoryIcons.y, UISpriteData.InventoryIcons.width, UISpriteData.InventoryIcons.height, inventoryLeft, inventoryY, 2 * UISpriteData.InventoryIcons.width, 2 * UISpriteData.InventoryIcons.height)
 }
 
 
 function drawStamina (scene, rect) {
-  const staminaLeft = rect.left - (2 * UISpriteData.Stamina.width) - 5
-  const staminaTop = rect.top
+  const staminaLeft = scene.game.canvas.width - (2 *  UISpriteData.Stamina.width) -375
+  const staminaTop = 800
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.Stamina.x, UISpriteData.Stamina.y, UISpriteData.Stamina.width, UISpriteData.Stamina.height, staminaLeft, staminaTop, 2 * UISpriteData.Stamina.width, 2 * UISpriteData.Stamina.height)
 
   const stamina = scene.gameManager.getPlayerStamina(Player1)
@@ -110,4 +111,10 @@ function drawStamina (scene, rect) {
 
   scene.game.ctx.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`
   scene.game.ctx.fillRect(staminaLeft + 8, staminaTop + 78 - (stamina * 70 / 100), 8, stamina * 70 / 100)
+}
+
+function drawDayNightUI (scene, rect) {
+  const staminaLeft = rect.left - (2 * UISpriteData.DayNightUI.width) - 20
+  const staminaTop = rect.top + 30
+  scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.DayNightUI.x, UISpriteData.DayNightUI.y, UISpriteData.DayNightUI.width, UISpriteData.DayNightUI.height, staminaLeft, staminaTop, 2 * UISpriteData.DayNightUI.width, 2 * UISpriteData.DayNightUI.height)
 }
