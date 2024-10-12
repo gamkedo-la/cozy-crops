@@ -33,6 +33,7 @@ export default class UIScene extends Scene {
     drawMoney(this, scoreboardRect)
     drawInventory(this,scoreboardRect)
     drawDayNightUI(this, scoreboardRect)
+    drawTimeOfDayUI(this, scoreboardRect)
   }
 
   stop () {
@@ -117,4 +118,10 @@ function drawDayNightUI (scene, rect) {
   const staminaLeft = rect.left - (2 * UISpriteData.DayNightUI.width) - 20
   const staminaTop = rect.top + 30
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.DayNightUI.x, UISpriteData.DayNightUI.y, UISpriteData.DayNightUI.width, UISpriteData.DayNightUI.height, staminaLeft, staminaTop, 2 * UISpriteData.DayNightUI.width, 2 * UISpriteData.DayNightUI.height)
+}
+
+function drawTimeOfDayUI (scene, rect) {
+  const staminaLeft = rect.left - (2 * UISpriteData.TimeOfDay.width) - 18
+  const staminaTop = rect.top + 30
+  scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.TimeOfDay.x, UISpriteData.TimeOfDay.y, UISpriteData.TimeOfDay.width, UISpriteData.TimeOfDay.height, staminaLeft, staminaTop, 2 * UISpriteData.TimeOfDay.width, 2 * UISpriteData.TimeOfDay.height)
 }

@@ -209,6 +209,13 @@ const UISpriteData = {
     height: 43,
     padding: 1
   },
+  TimeOfDay:{
+    x: 272,
+    y: 1,
+    width: 25,
+    height: 7,
+    padding: 1
+  },
 }
 
 export default UISpriteData
