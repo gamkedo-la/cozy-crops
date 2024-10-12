@@ -100,23 +100,7 @@ export default class EntityManager {
         return false
     }
   }
-  
-  isTree (entity) {
-    switch (entity.type) {
-      case EntityTypes.AppleTree:
-      case EntityTypes.CherryTree:
-      case EntityTypes.LemonTree:
-      case EntityTypes.LimeTree:
-      case EntityTypes.MapleTree:
-      case EntityTypes.OakTree:
-      case EntityTypes.OrangeTree:
-      case EntityTypes.PineTree:
-        return true
-      default:
-        return false
-    }
-  }
-  
+
   isFish (entity) {
     switch (entity.type) {
       case EntityTypes.Catfish:
@@ -154,6 +138,78 @@ export default class EntityManager {
       case EntityTypes.Tulip:
       case EntityTypes.WildGarlic:
       case EntityTypes.WildRose:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isSeed (entity) {
+    switch (entity.type) {
+      case EntityTypes.AppleSeed:
+      case EntityTypes.CarrotSeed:
+      case EntityTypes.CherrySeed:
+      case EntityTypes.CornSeed:
+      case EntityTypes.EggplantSeed:
+      case EntityTypes.LemonSeed:
+      case EntityTypes.LettuceSeed:
+      case EntityTypes.LimeSeed:
+      case EntityTypes.MapleSeed:
+      case EntityTypes.OakSeed:
+      case EntityTypes.OnionSeed:
+      case EntityTypes.OrangeSeed:
+      case EntityTypes.PepperSeed:
+      case EntityTypes.PineSeed:
+      case EntityTypes.PlumSeed:
+      case EntityTypes.PotatoSeed:
+      case EntityTypes.PumpkinSeed:
+      case EntityTypes.RadishSeed:
+      case EntityTypes.StrawberrySeed:
+      case EntityTypes.TomatoSeed:
+      case EntityTypes.WatermelonSeed:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isTool (entity) {
+    switch (entity.type) {
+      case EntityTypes.AxeCopper:
+      case EntityTypes.AxeSteel:
+      case EntityTypes.AxeTitanium:
+      case EntityTypes.FishingRodBamboo:
+      case EntityTypes.FishingRodFiberglass:
+      case EntityTypes.FishingRodSteel:
+      case EntityTypes.HoeCopper:
+      case EntityTypes.HoeSteel:
+      case EntityTypes.HoeWooden:
+      case EntityTypes.PickaxeCopper:
+      case EntityTypes.PickaxeSteel:
+      case EntityTypes.PickaxeTitanium:
+      case EntityTypes.ShovelCopper:
+      case EntityTypes.ShovelSteel:
+      case EntityTypes.ShovelWooden:
+      case EntityTypes.WateringCanCopper:
+      case EntityTypes.WateringCanSteel:
+      case EntityTypes.WateringCanWooden:
+        return true
+      default:
+        return false
+    }
+  }
+  
+  isTree (entity) {
+    switch (entity.type) {
+      case EntityTypes.AppleTree:
+      case EntityTypes.CherryTree:
+      case EntityTypes.LemonTree:
+      case EntityTypes.LimeTree:
+      case EntityTypes.MapleTree:
+      case EntityTypes.OakTree:
+      case EntityTypes.OrangeTree:
+      case EntityTypes.PineTree:
+      case EntityTypes.PlumTree:
         return true
       default:
         return false

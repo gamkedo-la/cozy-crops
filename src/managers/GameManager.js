@@ -159,6 +159,36 @@ export default class GameManager {
     return this.state.Money
   }
 
+  setInventory (inventory) {
+    this.state.Inventory = inventory
+    localStorage.setItem(LocalStorageKeys.Inventory, JSON.stringify(inventory))
+  }
+
+  addToInventory (item, quantity) {
+    const existingItem = this.state.Inventory.find(i => i.item === item)
+    if (existingItem) {
+      existingItem.quantity += quantity
+    } else {
+      this.state.Inventory.push({ item, quantity })
+    }
+    this.saveGame()
+  }
+
+  removeFromInventory (item, quantity) {
+    const existingItem = this.state.Inventory.find(i => i.item === item)
+    if (existingItem) {
+      existingItem.quantity--
+      if (existingItem.quantity <= 0) {
+        this.state.Inventory = this.state.Inventory.filter(i => i.item !== item)
+      }
+    }
+    this.saveGame()
+  }
+
+  getInventory () {
+    return this.state.Inventory
+  }
+
   getDate () {
     return this.state.Calendar
   }
@@ -223,7 +253,12 @@ function initializeNewGame (manager, saveSlot) {
       Week: 1,
       Day: 1
     },
-   Money: 100
+    Inventory: [
+      { item: EntityTypes.ShovelWooden, quantity: 1 },
+      { item: EntityTypes.WateringCanWooden, quantity: 1 },
+      { item: EntityTypes.HoeWooden, quantity: 1 }
+    ],
+    Money: 100
   }
 
   manager.saveGame()

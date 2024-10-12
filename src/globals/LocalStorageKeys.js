@@ -29,6 +29,7 @@ const LocalStorageKeys = {
     Controls: 'Player2Controls',
     Stamina: 'Player2Stamina'
   },
+  Inventory: 'Inventory',
   Money: 'Money',
   SaveSlot: 'SaveSlot',
   SlotList: 'SlotList'
@@ -38,6 +39,8 @@ export default LocalStorageKeys
 export const {
   Player1,
   Player2,
+  Inventory,
+  Money,
   SaveSlot,
   SlotList
 } = LocalStorageKeys
