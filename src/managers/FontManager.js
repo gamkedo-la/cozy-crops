@@ -21,7 +21,6 @@ export default class FontManager {
     return new Promise((resolve, reject) => {
       WebFont.load({
         custom: {
-          // families: [FontFamilies.MedievalSharpRegular, FontFamilies.TangerineRegular, FontFamilies.TangerineBold]
           families: Object.values(FontFamilies)
         },
         active: () => {

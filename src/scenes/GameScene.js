@@ -1,5 +1,4 @@
 import Scene from './Scene.js'
-import Scenes from '../globals/Scenes.js'
 import Player from '../entities/Player.js'
 import Keys from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
@@ -9,17 +8,10 @@ import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
 import Cabbage from '../entities/crops/Cabbage.js'
 
-let day = 1
-let season = 1
-let year = 1
-let seasonLength = 9
-let seasonDisplay = 'Empty'
-
 export default class GameScene extends Scene {
   constructor (config) {
     super(config)
     
-    this.drawList = []
     this.camera = null
     this.steve = null
     this.steve2 = null
@@ -28,7 +20,7 @@ export default class GameScene extends Scene {
   }
 
   addEntity (entity) {
-    insertEntity(this, entity)
+    this.entityManager.addEntity(entity)
   }
 
   start () {
@@ -46,9 +38,11 @@ export default class GameScene extends Scene {
       imageManager: this.imageManager,
       player1: this.steve
     }
+    this.entityManager.addEntity(this.steve, true)
     // If there is a second player, add it to the camera config
     if (this.steve2) {
       cameraConfig.player2 = this.steve2
+      this.entityManager.addEntity(this.steve2, true)
     }
     this.camera = new Camera(cameraConfig)
     this.imageManager.setCamera(this.camera)
@@ -66,7 +60,7 @@ export default class GameScene extends Scene {
     })
 
     cabbageSeedling.init()
-    insertEntity(this, cabbageSeedling)
+    this.entityManager.addEntity(cabbageSeedling)
 
     deltaY += 16
 
@@ -80,7 +74,7 @@ export default class GameScene extends Scene {
 
     cabbageYoungSprout.currentGrowthStage = 1
     cabbageYoungSprout.init()
-    insertEntity(this, cabbageYoungSprout)
+    this.entityManager.addEntity(cabbageYoungSprout)
 
     deltaY += 16
 
@@ -94,7 +88,7 @@ export default class GameScene extends Scene {
 
     cabbageSprout.currentGrowthStage = 2
     cabbageSprout.init()
-    insertEntity(this, cabbageSprout)
+    this.entityManager.addEntity(cabbageSprout)
 
     deltaY += 16
 
@@ -108,7 +102,7 @@ export default class GameScene extends Scene {
 
     cabbageYoungPlant.currentGrowthStage = 3
     cabbageYoungPlant.init()
-    insertEntity(this, cabbageYoungPlant)
+    this.entityManager.addEntity(cabbageYoungPlant)
 
     deltaY += 16
 
@@ -122,7 +116,7 @@ export default class GameScene extends Scene {
 
     cabbageMature.currentGrowthStage = 4
     cabbageMature.init()
-    insertEntity(this, cabbageMature)
+    this.entityManager.addEntity(cabbageMature)
 
     deltaY += 16
 
@@ -136,16 +130,14 @@ export default class GameScene extends Scene {
 
     cabbageHarvest.currentGrowthStage = 5
     cabbageHarvest.init()
-    insertEntity(this, cabbageHarvest)
+    this.entityManager.addEntity(cabbageHarvest)
   }
 
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
     manageInput(this)
-    for (const entity of this.drawList) {
-      entity.update(deltaTime)
-    }
+    this.entityManager.update(deltaTime)
 
     this.calendarManager.update(deltaTime)
     this.camera.update(deltaTime)
@@ -156,11 +148,7 @@ export default class GameScene extends Scene {
     super.draw() // Call the draw method of the parent class
 
     this.mapManager.drawMap()
-    removeEntity(this, this.steve)
-    insertEntity(this, this.steve)
-    for (const entity of this.drawList) {
-      entity.draw()
-    }
+    this.entityManager.draw()
   
     this.imageManager.render()
   }
@@ -187,29 +175,6 @@ function manageInput (scene) {
   if (CheatKeys) checkCheatKeys(scene)
 }
 
-function insertEntity (scene, entity) {
-  let low = 0
-  let high = scene.drawList.length
-
-  while (low < high) {
-    const mid = Math.floor((low + high) / 2)
-    if (scene.drawList[mid].y + scene.drawList[mid].height < entity.y + entity.height) {
-      low = mid + 1
-    } else {
-      high = mid
-    }
-  }
-
-  scene.drawList.splice(low, 0, entity)
-}
-
-function removeEntity (scene, entity) {
-  const index = scene.drawList.indexOf(entity)
-  if (index > -1) {
-    scene.drawList.splice(index, 1)
-  }
-}
-
 function addPlayers (scene) {
   const player1Start =  scene.mapManager.getPlayerStart(Player1)
   scene.steve = new Player({
@@ -219,7 +184,6 @@ function addPlayers (scene) {
     imageManager: scene.imageManager,
     x: player1Start.x,
     y: player1Start.y,
-    // TODO: Get these colors from the player's saved data or from the player's selection
     skinColor: scene.gameManager.getPlayerColor(Player1, 'Body'),
     hairColor: scene.gameManager.getPlayerColor(Player1, 'Hair'),
     shirtColor: scene.gameManager.getPlayerColor(Player1, 'Shirt'),
@@ -229,8 +193,6 @@ function addPlayers (scene) {
   })
 
   scene.steve.init()
-
-  // scene.addEntity(scene.steve)
 }
 
 function checkCheatKeys (scene) {

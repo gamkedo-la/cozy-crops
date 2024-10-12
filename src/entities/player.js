@@ -1,12 +1,10 @@
-import { Player1, Player2 } from '../globals/EntityTypes.js'
 import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
-import { P, Player1Keys, Player2Keys } from '../globals/Keys.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
+
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
 import { CheatKeys } from '../globals/Debug.js'
-import GameManager from '../managers/GameManager.js'
 
 export default class Player {
   constructor (config) {

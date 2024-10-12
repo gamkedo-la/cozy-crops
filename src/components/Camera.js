@@ -8,8 +8,6 @@ export default class Camera {
   }
 
   update (deltaTime) {
-    // this.x = ((this.player1.x + (this.player2 ? this.player2.x : 0)) / 2)
-    // this.y = ((this.player1.y + (this.player2 ? this.player2.y : 0)) / 2)
     this.x = this.player1.x - this.imageManager.internalCanvas.width / (2 * ImageScale)
     this.y = this.player1.y - this.imageManager.internalCanvas.height / (2 * ImageScale)
   }

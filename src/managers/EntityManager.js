@@ -18,9 +18,23 @@ export default class EntityManager {
 
   getDrawList () {
     const drawList = [...this.entities]
-    for (const entity of this.movingEntities) {
-      insertEntity(drawList, entity)
-    }
+    const movingEntitiesToAdd = [...this.movingEntities]
+
+    let low = 0
+    let high = drawList.length
+  
+    movingEntitiesToAdd.forEach(entity => {
+      while (low < high) {
+        const mid = Math.floor((low + high) / 2)
+        if ((drawList[mid].collisionPoint?.y || drawList[mid].y) < (entity.collisionPoint?.y || entity.y)) {
+          low = mid + 1
+        } else {
+          high = mid
+        }
+      }
+    
+      drawList.splice(low, 0, entity)  
+    })
 
     return drawList
   }
@@ -34,6 +48,23 @@ export default class EntityManager {
     const movingIndex = this.movingEntities.indexOf(entity)
     if (movingIndex !== -1) {
       this.movingEntities.splice(movingIndex, 1)
+    }
+  }
+
+  update (deltaTime) {
+    this.entities.forEach(entity => {
+      entity.update(deltaTime)
+    })
+
+    this.movingEntities.forEach(entity => {
+      entity.update(deltaTime)
+    })
+  }
+
+  draw () {
+    const drawList = this.getDrawList()
+    for (const entity of drawList) {
+      entity.draw()
     }
   }
 
@@ -136,7 +167,7 @@ function insertEntity (entities, entity) {
 
   while (low < high) {
     const mid = Math.floor((low + high) / 2)
-    if (entities[mid].y < entity.y) {
+    if (entities[mid].y < (entity.collisionPoint?.y || entity.y)) {
       low = mid + 1
     } else {
       high = mid

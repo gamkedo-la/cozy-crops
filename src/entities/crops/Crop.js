@@ -11,6 +11,10 @@ export default class Crop {
     this.height = 0 // Initialize once animations are built
     this.animations = {}
     this.currentAnimation = null // Initialize once animations are built
+    this.collisionPoint = {
+      x: 0, // Initialize once animations are built
+      y: 0 // Initialize once animations are built
+    }
   }
 
   init () {
@@ -20,6 +24,11 @@ export default class Crop {
 
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
+
+    this.collisionPoint = {
+      x: this.x + this.currentAnimation.width / 2, // Center of the player
+      y: this.y + this.currentAnimation.height / 2 // Bottom of the player
+    }
   }
 
   buildAnimations () {
@@ -32,6 +41,10 @@ export default class Crop {
 
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
+    this.collisionPoint = {
+      x: this.x + this.currentAnimation.width / 2, // Center of the player
+      y: this.y + this.currentAnimation.height / 2 // Bottom of the player
+    }
   }
 
   draw (camera) {
