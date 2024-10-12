@@ -164,22 +164,22 @@ export default class GameManager {
     localStorage.setItem(LocalStorageKeys.Inventory, JSON.stringify(inventory))
   }
 
-  addToInventory (item, quantity) {
-    const existingItem = this.state.Inventory.find(i => i.item === item)
+  addToInventory (type, quantity) {
+    const existingItem = this.state.Inventory.find(i => i.type === type)
     if (existingItem) {
       existingItem.quantity += quantity
     } else {
-      this.state.Inventory.push({ item, quantity })
+      this.state.Inventory.push({ type, quantity })
     }
     this.saveGame()
   }
 
-  removeFromInventory (item, quantity) {
-    const existingItem = this.state.Inventory.find(i => i.item === item)
+  removeFromInventory (type, quantity) {
+    const existingItem = this.state.Inventory.find(i => i.type === type)
     if (existingItem) {
-      existingItem.quantity--
+      existingItem.quantity -= quantity
       if (existingItem.quantity <= 0) {
-        this.state.Inventory = this.state.Inventory.filter(i => i.item !== item)
+        this.state.Inventory = this.state.Inventory.filter(i => i.type !== type)
       }
     }
     this.saveGame()
@@ -254,9 +254,9 @@ function initializeNewGame (manager, saveSlot) {
       Day: 1
     },
     Inventory: [
-      { item: EntityTypes.ShovelWooden, quantity: 1 },
-      { item: EntityTypes.WateringCanWooden, quantity: 1 },
-      { item: EntityTypes.HoeWooden, quantity: 1 }
+      // { type: EntityTypes.ShovelWooden, quantity: 1 },
+      { type: EntityTypes.WateringCanWooden, quantity: 1 },
+      // { type: EntityTypes.HoeWooden, quantity: 1 }
     ],
     Money: 100
   }

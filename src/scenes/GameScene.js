@@ -25,6 +25,8 @@ export default class GameScene extends Scene {
 
   start () {
     this.mapManager.start()
+    this.inventoryManager.start()
+
     this.collisionManager = new CollisionManager({
       game: this.game,
       scene: this

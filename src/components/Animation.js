@@ -33,6 +33,17 @@ export default class Animation {
   }
 
   getCurrentFrame () {
-    return this.currentFrame
+    return {
+      index: this.currentFrameIndex,
+      x: (this.frames[this.currentFrameIndex] * this.frameWidth) % this.spritesheet.width,
+      y: Math.floor((this.frames[this.currentFrameIndex] * this.frameWidth) / this.spritesheet.width) * this.frameHeight,
+      width: this.frameWidth,
+      height: this.frameHeight
+    }
+    return 
+  }
+
+  getInitialFrame () {
+    
   }
 }

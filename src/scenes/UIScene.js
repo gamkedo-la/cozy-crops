@@ -26,12 +26,11 @@ export default class UIScene extends Scene {
     this.game.ctx.fillStyle = Constants.TitleTextColor
     this.game.ctx.font = `${Constants.TitleFontSize / 4}px ${Constants.TitleFontFamily}`
     this.game.ctx.textAlign = UIAttributes.CenterAlign
-    //this.game.ctx.fillText('UI Test', this.game.canvas.width / 2, this.game.canvas.height - Constants.TitleFontSize / 16)
 
     const scoreboardRect = drawScoreboard(this)
     drawStamina(this, scoreboardRect)
     drawMoney(this, scoreboardRect)
-    drawInventory(this,scoreboardRect)
+    this.inventoryManager.draw()
     drawDayNightUI(this, scoreboardRect)
     drawTimeOfDayUI(this, scoreboardRect)
   }
@@ -83,8 +82,7 @@ function drawScoreboard (scene) {
   return { left: scoreboardLeft, top: scoreboardTop, width: 2 * UISpriteData.Scoreboard.width, height: 2 * UISpriteData.Scoreboard.height }
 }
 
-function drawMoney(scene, rect)
-{
+function drawMoney(scene, rect) {
   const moneyY = rect.top + 126
   const moneyLeft = rect.left + 28
   const moneyString = scene.gameManager.getMoney().toString().padStart(8, '0')
@@ -93,14 +91,6 @@ function drawMoney(scene, rect)
     scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), moneyData.x, moneyData.y, moneyData.width, moneyData.height, moneyLeft + (i * (moneyData.width + 9)), moneyY, 2 * moneyData.width, 2 * moneyData.height)
   }
 }
-
-function drawInventory(scene, rect)
-{
-  const inventoryLeft = scene.game.canvas.width - (2 *  UISpriteData.InventoryIcons.width) -450
-  const inventoryY = 825
-  scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.InventoryIcons.x, UISpriteData.InventoryIcons.y, UISpriteData.InventoryIcons.width, UISpriteData.InventoryIcons.height, inventoryLeft, inventoryY, 2 * UISpriteData.InventoryIcons.width, 2 * UISpriteData.InventoryIcons.height)
-}
-
 
 function drawStamina (scene, rect) {
   const staminaLeft = scene.game.canvas.width - (2 *  UISpriteData.Stamina.width) -375

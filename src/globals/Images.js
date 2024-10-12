@@ -3,6 +3,7 @@ const Images = {
   Crops: '../../img/Crops.png',
   Steve: '../../img/PlaceholderSteve.png',
   TileSet: '../../img/tileset.png',
+  Tools: '../../img/Tools.png',
   UISprites: '../../img/UISprites.png'
 }
 
@@ -12,5 +13,6 @@ export const {
   Crops,
   Steve,
   TileSet,
+  Tools,
   UISprites
 } =  Images

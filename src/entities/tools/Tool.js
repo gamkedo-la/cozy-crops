@@ -1,20 +1,14 @@
-import CropAnimations from '../../globals/CropAnimations.js'
+import ToolAnimations from '../../globals/ToolAnimations.js'
 import Animation from '../../components/Animation.js'
 
-export default class Crop {
+export default class Tool {
   constructor (config) {
     Object.assign(this, config)
 
-    this.growthStages = ['Seedling', 'YoungSprout', 'Sprout', 'YoungPlant', 'MaturePlant', 'Dead']
-    this.currentGrowthStage = config.currentGrowthStage || 0
     this.width = 0 // Initialize once animations are built
     this.height = 0 // Initialize once animations are built
     this.animations = {}
     this.currentAnimation = null // Initialize once animations are built
-    this.collisionPoint = {
-      x: 0, // Initialize once animations are built
-      y: 0 // Initialize once animations are built
-    }
   }
 
   init () {
@@ -24,11 +18,6 @@ export default class Crop {
 
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
-
-    this.collisionPoint = {
-      x: this.x + this.currentAnimation.width / 2, // Center of the player
-      y: this.y + this.currentAnimation.height / 2 // Bottom of the player
-    }
   }
 
   buildAnimations () {
@@ -41,13 +30,14 @@ export default class Crop {
 
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
-    this.collisionPoint = {
-      x: this.x + this.currentAnimation.width / 2, // Center of the player
-      y: this.y + this.currentAnimation.height / 2 // Bottom of the player
-    }
   }
 
   draw (camera) {
     this.currentAnimation?.draw(this.x, this.y, camera)
+  }
+
+  drawAsInventory (x, y, width, height) {
+    const frame = this.animations['Inventory'].getCurrentFrame()
+    this.game.ctx.drawImage(this.currentAnimation.spritesheet, frame.x, frame.y, frame.width, frame.height, x, y, width, height)
   }
 }

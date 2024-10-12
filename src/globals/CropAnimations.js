@@ -83,8 +83,8 @@ export const Cabbage = {
   }
 }
 
-const Animations = {
+const CropAnimations = {
   Cabbage
 }
 
-export default Animations
+export default CropAnimations

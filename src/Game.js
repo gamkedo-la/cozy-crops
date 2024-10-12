@@ -8,6 +8,7 @@ import FontManager from './managers/FontManager.js'
 import SceneManager from './managers/SceneManager.js'
 import InputManager from './managers/InputManager.js'
 import EntityManager from './managers/EntityManager.js'
+import InventoryManager from './managers/InventoryManager.js'
 import MapManager from './managers/MapManager.js'
 import CalendarManager from './managers/CalendarManager.js'
 
@@ -32,88 +33,11 @@ export default class Game {
     this.sceneManager = null
     this.inputManager = null
     this.entityManager = null
+    this.inventoryManager = null
     this.mapManager = null
     this.calendarManager = null
     buildManagers(this)
   }
-
-  /**
-   * The primary game canvas.
-   * @type {HTMLCanvasElement}
-   */
-  canvas;
-
-  /**
-   * The 2D rendering context for the game canvas.
-   * @type {CanvasRenderingContext2D}
-   */
-  ctx;
-
-  /**
-   * The timestamp of the last frame. Used to calculate deltaTime for the update function.
-   * @type {number}
-   */
-  lastTime;
-
-  /**
-   * The event manager for handling game events. There should only be one instance of this class.
-   * @type {EventManager|null}
-   */
-  eventManager;
-
-  /**
-   * The load manager for handling game assets loading. There should only be one instance of this class.
-   * @type {LoadManager|null}
-   */
-  loadManager;
-
-  /**
-   * The image manager for handling game images.  There should only be one instance of this class.
-   * @type {ImageManager|null}
-   */
-  imageManager;
-
-  /**
-   * The audio manager for handling game audio.  There should only be one instance of this class.
-   * @type {AudioManager|null}
-   */
-  audioManager;
-
-  /**
-   * The font manager for handling game fonts.  There should only be one instance of this class.
-   * @type {FontManager|null}
-   */
-  fontManager;
-
-  /**
-   * The scene manager for handling game scenes.  There should only be one instance of this class.
-   * @type {SceneManager|null}
-   */
-  sceneManager;
-
-  /**
-   * The input manager for handling user input.  There should only be one instance of this class.
-   * @type {InputManager|null}
-   */
-  inputManager;
-
-  /**
-   * The entity manager for handling game entities.  There should only be one instance of this class.
-   * @type {EntityManager|null}
-   */
-  entityManager;
-
-  /**
-   * The map manager for handling game maps.  There should only be one instance of this class.
-   * @type {MapManager|null}
-   */
-  mapManager;
-
-  /**
-   * The calendar manager for handling game time.  There should only be one instance of this class.
-   * @type {CalendarManager|null}
-   */
-  calendarManager;
 
   start () {
     // Do any one-time setup here, then call update()
@@ -166,6 +90,7 @@ function buildManagers (game) {
 
   game.entityManager = new EntityManager({ ...managerConfig })
   game.imageManager = new ImageManager({ ...managerConfig })
+  game.inventoryManager = new InventoryManager({ ...managerConfig, entityManager: game.entityManager, imageManager: game.imageManager })
   game.mapManager = new MapManager({ ...managerConfig, imageManager: game.imageManager })
   game.audioManager = new AudioManager({ ...managerConfig })
   game.fontManager = new FontManager({ ...managerConfig })
@@ -191,6 +116,7 @@ function buildManagers (game) {
       inputManager: game.inputManager,
       calendarManager: game.calendarManager,
       entityManager: game.entityManager,
+      inventoryManager: game.inventoryManager,
       mapManager: game.mapManager
     }
   })
