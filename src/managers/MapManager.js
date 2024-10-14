@@ -2,6 +2,7 @@ import MapData, { Player1Start, Player2Start } from '../globals/Map.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
+import { TileNames } from '../globals/Tiles.js'
 
 export default class MapManager {
   constructor (config) {
@@ -60,6 +61,9 @@ export default class MapManager {
   }
 
   updateTileAtPixelPos (x, y, tileIndex) {
+    if (isNaN(tileIndex)) {
+      tileIndex = getTileIndexByName(tileIndex)
+    }
     const tileX = Math.floor(x / TileWidth)
     const tileY = Math.floor(y / TileHeight)
     this.updateTileAtXY(tileX, tileY, tileIndex)
@@ -74,4 +78,13 @@ export default class MapManager {
     const tileY = Math.floor(y / TileHeight)
     return this.getTileAtXY(tileX, tileY)
   }
+
+  getTileTypeAtPixelPos (x, y) {
+    const tileIndex = this.getTileAtPixelPos(x, y)
+    return TileNames[tileIndex]
+  }
+}
+
+function getTileIndexByName(index) {
+  return Object.keys(TileNames).find(key => TileNames[key] === index) || null
 }

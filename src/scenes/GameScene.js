@@ -161,9 +161,38 @@ export default class GameScene extends Scene {
     // clean up resources
   }
 
-  playerCanWalk(newPosition) {
+  playerCanWalk (newPosition) {
     const tileIndex = this.mapManager.getTileAtPixelPos(newPosition.x, newPosition.y)
     return this.collisionManager.playerCanWalk(tileIndex)
+  }
+
+  getAvailableMapActions (x, y) {
+    const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
+    switch (tileType) {
+      case 'Grass1':
+      case 'Grass2':
+      case 'Grass3':
+      case 'Grass4':
+        return ['Walk', 'Till']
+      case 'Door':
+        return ['Open Door']
+      case 'Sand':
+        return ['Walk', 'Plant']
+      case 'Water':
+        return ['Fish']
+      case 'RockyGround':
+        return []
+      case 'Chest':
+        return ['Open']
+      case 'Bed':
+        return ['Sleep']
+      default:
+        return []
+    }
+  }
+
+  tillGround (x, y) {
+    this.mapManager.updateTileAtPixelPos(x, y, 'Sand')
   }
 }
 

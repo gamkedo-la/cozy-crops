@@ -127,8 +127,30 @@ function buildSpritesheet (player) {
 
 function handleInput (player) {
   const downKeys = player.game.inputManager.getDownKeys(player.type)
+  const playerJustDownKeys = player.game.inputManager.getJustDownKeys(player.type)
 
-  if (downKeys.includes(player.controls.Up)) {
+  if (playerJustDownKeys.includes(player.controls.Action)) {
+    // Need to check if player is near a bed, a door, or a person
+    // If not, player action is determined by the tool they have selected (pick, axe, hoe, etc.)
+    // If they have no tool selected, they can't perform any actions
+    const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y -2 }
+    const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y) // -2 to check the tile just above the bottom of th player's feet
+    if (mapActions.includes('Sleep')) {
+      console.log('Sleep')
+      // player.scene.gameManager.newDaySave(player.scene.gameManager.getDate())
+    } else if (mapActions.includes('Open Door')) {
+      console.log('Open Door')
+      // player.scene.gameManager.openDoor()
+    } else if (mapActions.includes('Till')) {
+      console.log('Till')
+      // if (player.tool === 'Hoe') { // TODO: Need to restore this if statement once the player can actually hold a tool
+        player.scene.tillGround(groundPoint.x, groundPoint.y)
+      // }
+    } else if  (mapActions.includes('Plant')) {
+      console.log('Plant')
+      // player.scene.gameManager.plantSeeds()
+    }
+  } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {
       player.y -= player.speed
     }
