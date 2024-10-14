@@ -13,7 +13,7 @@ export default class MapManager {
     this.mapCtx = null
   }
 
-  start () {
+  start (modifiedTiles) {
     this.tileImage = this.imageManager.getImageWithSrc(TileSet)
     this.tilesPerRow = this.tileImage.width / TileWidth
 
@@ -34,6 +34,10 @@ export default class MapManager {
           x * TileWidth, y * TileHeight, TileWidth, TileHeight
         )
       }
+    }
+
+    for (const tile of modifiedTiles) {
+      this.updateTileAtXY(tile.x, tile.y, tile.tileIndex)
     }
   }
 
@@ -67,6 +71,7 @@ export default class MapManager {
     const tileX = Math.floor(x / TileWidth)
     const tileY = Math.floor(y / TileHeight)
     this.updateTileAtXY(tileX, tileY, tileIndex)
+    this.gameManager.setModifiedTile(tileX, tileY, tileIndex)
   }
 
   getTileAtXY (x, y) {

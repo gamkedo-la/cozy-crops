@@ -24,7 +24,8 @@ export default class GameScene extends Scene {
   }
 
   start () {
-    this.mapManager.start()
+    const modifiedTiles = this.gameManager.getModifiedTiles()
+    this.mapManager.start(modifiedTiles)
     this.inventoryManager.start()
 
     this.collisionManager = new CollisionManager({

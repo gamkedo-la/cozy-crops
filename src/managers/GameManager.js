@@ -203,6 +203,20 @@ export default class GameManager {
     this.state.Player1.Stamina = 100 // TODO: If player didn't make it back to bed, they don't get 100% stamina back
     this.saveGame()
   }
+
+  getModifiedTiles () {
+    return this.state.Map.ModifiedTiles || []
+  }
+  
+  setModifiedTile (x, y, tileIndex) {
+    const existingTile = this.state.Map.ModifiedTiles.find(t => t.x === x && t.y === y)
+    if (existingTile) {
+      existingTile.tileIndex = tileIndex
+    } else {
+      this.state.Map.ModifiedTiles.push({ x, y, tileIndex })
+    }
+    this.saveGame()
+  }
 }
 
 function initializeNewGame (manager, saveSlot) {
@@ -258,6 +272,18 @@ function initializeNewGame (manager, saveSlot) {
       { type: EntityTypes.WateringCanWooden, quantity: 1 },
       // { type: EntityTypes.HoeWooden, quantity: 1 }
     ],
+    Map: {
+      Achievements: [
+        { name: 'Name Your Farm', description: 'Give your farm a memorable name.', complete: true },
+        // { name: 'First Crop', description: 'Plant your first crop', complete: false }
+      ],
+      Crops: [
+        // { x: 0, y: 0, type: EntityTypes.CropCarrot, growth: 0 }
+      ],
+      ModifiedTiles: [
+        // { x: 0, y: 0, tileIndex: 0 }
+      ]
+    },
     Money: 100
   }
 
