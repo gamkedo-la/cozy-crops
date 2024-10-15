@@ -1,6 +1,7 @@
 import { UISprites } from '../globals/Images.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import EntityTypes from '../globals/EntityTypes.js'
+import Hoe from '../entities/tools/Hoe.js'
 import WateringCan from '../entities/tools/WateringCan.js'
 
 export default class InventoryManager {
@@ -26,6 +27,19 @@ export default class InventoryManager {
       switch (inventoryItem.type) {
         case EntityTypes.WateringCanWooden:
           item = new WateringCan({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: inventoryItem.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.HoeWooden:
+          item = new Hoe({
             game: this.game,
             imageManager: this.imageManager,
             type: inventoryItem.type,

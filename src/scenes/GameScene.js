@@ -187,6 +187,8 @@ export default class GameScene extends Scene {
         return ['Open Door']
       case 'Sand':
         return ['Plant', 'Water', 'Till', 'Harvest']
+      case 'WetSand':
+        return ['Plant', 'Water', 'Harvest']
       case 'Water':
         return ['Fish']
       case 'RockyGround':
