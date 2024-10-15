@@ -23,6 +23,7 @@ export default class InputManager {
     this.player1KeyValues = null
     this.player2KeyValues = null
     this.ignore = false
+    this.activeGamepad = null
 
     this.mouse = {
       x: 0,
@@ -38,6 +39,39 @@ export default class InputManager {
     window.addEventListener('mousemove', this.handleMouseMove.bind(this))
     window.addEventListener('mousedown', this.handleMouseDown.bind(this))
     window.addEventListener('mouseup', this.handleMouseUp.bind(this))
+    window.addEventListener("gamepadconnected", this.handleGamepadConnected.bind(this))
+    window.addEventListener("gamepaddisconnected", this.handleGamepadConnected.bind(this))
+  }
+
+  handleGamepadConnected (event) {
+    console.log("Gamepad connected:")
+    console.log(event.gamepad)
+    this.activeGamepad = event.gamepad
+  }
+
+  handleGamepadDisconnected (event) {
+    console.log("Gamepad disconnected:")
+    console.log(event.gamepad)
+    this.activeGamepad = null
+  }
+
+  // work in progress
+  // because gamepads do not fire browser events, we have to "ask" every frame
+  pollGamepad () {
+    if (!this.activeGamepad) return;
+    const deadZone = 0.1 // avoid drift (we never get exactly zero)
+    const left = this.activeGamepad.axes[0] < -deadZone
+    const right = this.activeGamepad.axes[0] > deadZone
+    const up = this.activeGamepad.axes[1] < -deadZone
+    const down = this.activeGamepad.axes[1] > deadZone
+    const action = // for now, allow using ANY of the four buttons
+      this.activeGamepad.buttons[0].value // (A)
+      || this.activeGamepad.buttons[1].value // (B)
+      || this.activeGamepad.buttons[2].value // (X)
+      || this.activeGamepad.buttons[3].value // (Y)
+    // TODO: process the result and change the stilldown and justdown arrays
+    // by comparing current to previous polled state to detect "justs"
+    // console.log("gamepad state: "+(up?"⬆":"")+(down?"⬇":"")+(left?"⬅":"")+(right?"➡":"")+(action?"💥":""))
   }
 
   setPlayerKeys () {
@@ -67,6 +101,7 @@ export default class InputManager {
     this.justUp = {}
     this.mouse.justDown = false
     this.mouse.justUp = false
+    this.pollGamepad()
   }
 
   handleKeyDown (event) {
@@ -165,4 +200,5 @@ export default class InputManager {
     const rect = element.getBoundingClientRect()
     return this.mouse.x >= rect.left && this.mouse.x <= rect.right && this.mouse.y >= rect.top && this.mouse.y <= rect.bottom
   }
+
 }

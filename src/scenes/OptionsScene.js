@@ -40,7 +40,7 @@ export default class OptionsScene extends Scene {
 
     drawTitle(this)
     this.menu.draw()
-    this.player1Controls.draw()
+    this.player1Controls?.draw() // the ? here avoids an error when it's undefined
   }
 
   stop () {
