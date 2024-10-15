@@ -30,17 +30,30 @@ export default class InventoryManager {
             imageManager: this.imageManager,
             type: inventoryItem.type,
             x: 0,
-            y: 0
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight
           })
           item.init()
           this.inventory.push(item)
           break
       }
     }
+
+    this.updateInventoryPlacement()
   }
 
   getInventory () {
     return [...this.inventory]
+  }
+
+  setInventory (inventory) {}
+
+  updateInventoryPlacement () {
+    this.inventory.forEach((item, index) => {
+      item.x = this.x + (index * this.itemWidth) - 2
+      item.y = this.y + (Math.floor(index / this.itemsPerRow) * this.itemHeight) - 2
+    })
   }
 
   getTools () {
@@ -53,13 +66,25 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isSeed(item))
   }
 
+  getClikedItem (x, y) {
+    const clickedItem = this.inventory.find(item => {
+      return (
+        x >= item.x &&
+        x <= item.x + item.width &&
+        y >= item.y &&
+        y <= item.y + item.height
+      )
+    })
+    return clickedItem
+  }
+
   draw () {
     this.game.ctx.drawImage(this.imageManager.getImageWithSrc(UISprites), UISpriteData.InventoryIcons.x, UISpriteData.InventoryIcons.y, UISpriteData.InventoryIcons.width, UISpriteData.InventoryIcons.height, this.x, this.y, 2 * UISpriteData.InventoryIcons.width, 2 * UISpriteData.InventoryIcons.height)
   
     this.getTools().forEach((tool, index) => {
       tool.drawAsInventory(
-        this.x + (index * this.itemWidth) - 4,
-        this.y + (Math.floor(index / this.itemsPerRow) * this.itemHeight) - 4,
+        tool.x,
+        tool.y,
         this.itemWidth,
         this.itemHeight
       )

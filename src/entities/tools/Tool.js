@@ -5,8 +5,6 @@ export default class Tool {
   constructor (config) {
     Object.assign(this, config)
 
-    this.width = 0 // Initialize once animations are built
-    this.height = 0 // Initialize once animations are built
     this.animations = {}
     this.currentAnimation = null // Initialize once animations are built
   }

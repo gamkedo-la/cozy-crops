@@ -1,10 +1,7 @@
 import Scene from './Scene.js'
-import Scenes from '../globals/Scenes.js'
-// import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
 import Colors from '../globals/Colors.js'
 import UIAttributes from '../globals/UIAttributes.js'
-import Keys, { U } from '../globals/Keys.js'
 import { UISprites } from '../globals/Images.js'
 import { Player1 } from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
@@ -12,6 +9,12 @@ import UISpriteData from '../globals/UISpriteData.js'
 export default class UIScene extends Scene {
   constructor (config) {
     super(config)
+    this.gameScene = null
+  }
+
+  start (gameScene) {
+    super.start() // Call the start method of the parent class
+    this.gameScene = gameScene
   }
 
   update (deltaTime) {
@@ -43,8 +46,9 @@ export default class UIScene extends Scene {
 }
 
 function checkMouseClick (scene, x, y) {
-  if (x > scene.game.canvas.width / 4 && x < 3 * scene.game.canvas.width / 4 && y > 3 * scene.game.canvas.height / 4  && y < scene.game.canvas.height) {
-    console.log('Clicked on the UI')
+  const clickedInventoryItem = scene.inventoryManager.getClikedItem(x, y)
+  if (clickedInventoryItem) {
+    scene.gameScene.handleInventoryItemClick(clickedInventoryItem)
   }
 }
 

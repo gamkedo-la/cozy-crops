@@ -162,6 +162,14 @@ export default class GameScene extends Scene {
     // clean up resources
   }
 
+  handleInventoryItemClick (item) {
+    if (this.steve) {
+      if (this.entityManager.isTool(item)) {
+        this.steve.setActiveTool(item)
+      }
+    }
+  }
+
   playerCanWalk (newPosition) {
     const tileIndex = this.mapManager.getTileAtPixelPos(newPosition.x, newPosition.y)
     return this.collisionManager.playerCanWalk(tileIndex)
@@ -174,11 +182,11 @@ export default class GameScene extends Scene {
       case 'Grass2':
       case 'Grass3':
       case 'Grass4':
-        return ['Walk', 'Till']
+        return ['Till']
       case 'Door':
         return ['Open Door']
       case 'Sand':
-        return ['Walk', 'Plant']
+        return ['Plant', 'Water', 'Till', 'Harvest']
       case 'Water':
         return ['Fish']
       case 'RockyGround':

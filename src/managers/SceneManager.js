@@ -92,7 +92,7 @@ export default class SceneManager {
 
     if (this.currentScene.name === Scenes.Game) {
       if (this.scenes[Scenes.UIScene]) {
-        this.scenes[Scenes.UIScene].start()
+        this.scenes[Scenes.UIScene].start(this.currentScene)
         this.startedScenes[Scenes.UIScene] = true
       }
     } else {

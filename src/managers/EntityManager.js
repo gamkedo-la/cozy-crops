@@ -198,6 +198,72 @@ export default class EntityManager {
         return false
     }
   }
+
+  isAxe (entity) {
+    switch (entity.type) {
+      case EntityTypes.AxeCopper:
+      case EntityTypes.AxeSteel:
+      case EntityTypes.AxeTitanium:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isFishingRod (entity) {
+    switch (entity.type) {
+      case EntityTypes.FishingRodBamboo:
+      case EntityTypes.FishingRodFiberglass:
+      case EntityTypes.FishingRodSteel:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isHoe (entity) {
+    switch (entity.type) {
+      case EntityTypes.HoeCopper:
+      case EntityTypes.HoeSteel:
+      case EntityTypes.HoeWooden:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isPickaxe (entity) {
+    switch (entity.type) {
+      case EntityTypes.PickaxeCopper:
+      case EntityTypes.PickaxeSteel:
+      case EntityTypes.PickaxeTitanium:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isShovel (entity) {
+    switch (entity.type) {
+      case EntityTypes.ShovelCopper:
+      case EntityTypes.ShovelSteel:
+      case EntityTypes.ShovelWooden:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isWateringCan (entity) {
+    switch (entity.type) {
+      case EntityTypes.WateringCanCopper:
+      case EntityTypes.WateringCanSteel:
+      case EntityTypes.WateringCanWooden:
+        return true
+      default:
+        return false
+    }
+  }
   
   isTree (entity) {
     switch (entity.type) {

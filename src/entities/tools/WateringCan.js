@@ -8,9 +8,6 @@ export default class WateringCan extends Tool {
     this.buildAnimations()
 
     this.currentAnimation = this.getAnimation('Inventory')
-
-    this.width = this.currentAnimation.width
-    this.height = this.currentAnimation.height
   }
 
   buildAnimations () {

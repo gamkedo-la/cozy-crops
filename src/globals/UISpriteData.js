@@ -196,10 +196,10 @@ const UISpriteData = {
     padding: 1
   },
   InventoryIcons:{
-    x: 1,
-    y: 1,
-    width: 198,
-    height: 18,
+    x: 0,
+    y: 0,
+    width: 200,
+    height: 20,
     padding: 1
   },
   DayNightUI:{
