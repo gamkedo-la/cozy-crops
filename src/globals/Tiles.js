@@ -13,6 +13,7 @@ export const Grass4 = 11
 export const Empty2 = 12
 export const DarkStone = 13
 export const Seafoam = 14
+export const WetSand = 15
 export const Hilltop = 10
 export const Building1 = 45
 export const Building2 = 22
@@ -98,6 +99,7 @@ export const TileNames = {
   [Stone]: 'Stone',
   [Water]: 'Water',
   [Sand]: 'Sand',
+  [WetSand]: 'WetSand',
   [RockyGround]: 'RockyGround',
   [Grass1]: 'Grass1',
   [Pink]: 'Pink',

@@ -203,6 +203,10 @@ export default class GameScene extends Scene {
   tillGround (x, y) {
     this.mapManager.updateTileAtPixelPos(x, y, 'Sand')
   }
+
+  waterGround (x, y) {
+    this.mapManager.updateTileAtPixelPos(x, y, 'WetSand')
+  }
 }
 
 function manageInput (scene) {

@@ -156,8 +156,7 @@ function handleInput (player) {
       console.log('Plant')
       // player.scene.gameManager.plantSeeds()
     } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
-      console.log('Water')
-      // player.scene.gameManager.waterPlants()
+      player.scene.waterGround(groundPoint.x, groundPoint.y)
     }
   } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {

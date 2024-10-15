@@ -69,10 +69,14 @@ export default class EntityManager {
   }
 
   isPlayer (entity) {
+    if (!entity) return false
+
     return entity.type === EntityTypes.Player1 || entity.type === EntityTypes.Player2
   }
   
   isCrop (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.Apple:
       case EntityTypes.Carrot:
@@ -102,6 +106,8 @@ export default class EntityManager {
   }
 
   isFish (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.Catfish:
       case EntityTypes.Guppy:
@@ -119,6 +125,8 @@ export default class EntityManager {
   }
   
   isFlower (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.Daffodil:
       case EntityTypes.Sunflower:
@@ -131,6 +139,8 @@ export default class EntityManager {
   }
   
   isForageable (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.Daffodil:
       case EntityTypes.Sunflower:
@@ -145,6 +155,8 @@ export default class EntityManager {
   }
 
   isSeed (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.AppleSeed:
       case EntityTypes.CarrotSeed:
@@ -174,6 +186,8 @@ export default class EntityManager {
   }
 
   isTool (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.AxeCopper:
       case EntityTypes.AxeSteel:
@@ -200,6 +214,8 @@ export default class EntityManager {
   }
 
   isAxe (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.AxeCopper:
       case EntityTypes.AxeSteel:
@@ -211,6 +227,8 @@ export default class EntityManager {
   }
 
   isFishingRod (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.FishingRodBamboo:
       case EntityTypes.FishingRodFiberglass:
@@ -222,6 +240,8 @@ export default class EntityManager {
   }
 
   isHoe (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.HoeCopper:
       case EntityTypes.HoeSteel:
@@ -233,6 +253,8 @@ export default class EntityManager {
   }
 
   isPickaxe (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.PickaxeCopper:
       case EntityTypes.PickaxeSteel:
@@ -244,6 +266,8 @@ export default class EntityManager {
   }
 
   isShovel (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.ShovelCopper:
       case EntityTypes.ShovelSteel:
@@ -255,6 +279,8 @@ export default class EntityManager {
   }
 
   isWateringCan (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.WateringCanCopper:
       case EntityTypes.WateringCanSteel:
@@ -266,6 +292,8 @@ export default class EntityManager {
   }
   
   isTree (entity) {
+    if (!entity) return false
+
     switch (entity.type) {
       case EntityTypes.AppleTree:
       case EntityTypes.CherryTree:
