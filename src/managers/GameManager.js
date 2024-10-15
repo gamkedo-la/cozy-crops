@@ -2,6 +2,7 @@ import LocalStorageKeys from '../globals/LocalStorageKeys.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { ArrowKeys, WASDKeys } from '../globals/Keys.js'
+import { WetSand } from '../globals/Tiles.js'
 
 // GameManager is responsible for keeping track of the game state and saving it to local storage.
 // It is also responsible for loading the game state from local storage when the game is started.
@@ -208,14 +209,26 @@ export default class GameManager {
     return this.state.Map.ModifiedTiles || []
   }
   
-  setModifiedTile (x, y, tileIndex) {
+  setModifiedTile (x, y, tileIndex, replacement) {
     const existingTile = this.state.Map.ModifiedTiles.find(t => t.x === x && t.y === y)
     if (existingTile) {
       existingTile.tileIndex = tileIndex
+      existingTile.replacement = replacement
     } else {
-      this.state.Map.ModifiedTiles.push({ x, y, tileIndex })
+      this.state.Map.ModifiedTiles.push({ x, y, tileIndex, replacement })
     }
     this.saveGame()
+  }
+
+  updateTimeForModifiedTile (x, y, tileIndex, time) {
+    const existingTile = this.state.Map.ModifiedTiles.find(t => t.x === x && t.y === y)
+    if (existingTile) {
+      existingTile.replacement.time = time
+    }
+  }
+
+  getWateredTiles () {
+    return this.state.Map.ModifiedTiles.filter(tile => tile.tileIndex === WetSand)
   }
 }
 

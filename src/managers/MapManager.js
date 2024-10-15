@@ -2,7 +2,7 @@ import MapData, { Player1Start, Player2Start } from '../globals/Map.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
-import { TileNames } from '../globals/Tiles.js'
+import { TileNames, TileTimes } from '../globals/Tiles.js'
 
 export default class MapManager {
   constructor (config) {
@@ -41,6 +41,20 @@ export default class MapManager {
     }
   }
 
+  update (deltaTime) {
+    this.gameManager.getModifiedTiles().forEach(tile => {
+      if (!isNaN(tile.replacement.time)) {
+        tile.replacement.time -= deltaTime
+        if (tile.replacement.time <= 0) {
+          this.updateTileAtXY(tile.x, tile.y, tile.replacement.tileIndex)
+          this.gameManager.setModifiedTile(tile.x, tile.y, tile.replacement.tileIndex, getTimeForTileIndex(tile.replacement.tileIndex))
+        } else {
+          this.gameManager.updateTimeForModifiedTile(tile.x, tile.y, tile.replacement.tileIndex, tile.replacement.time)
+        }
+      }
+    })
+  }
+
   getPlayerStart (playerType) {
     if (playerType === Player1) {
       return Player1Start
@@ -71,7 +85,7 @@ export default class MapManager {
     const tileX = Math.floor(x / TileWidth)
     const tileY = Math.floor(y / TileHeight)
     this.updateTileAtXY(tileX, tileY, tileIndex)
-    this.gameManager.setModifiedTile(tileX, tileY, tileIndex)
+    this.gameManager.setModifiedTile(tileX, tileY, tileIndex, getTimeForTileIndex(tileIndex))
   }
 
   getTileAtXY (x, y) {
@@ -92,4 +106,18 @@ export default class MapManager {
 
 function getTileIndexByName(index) {
   return Object.keys(TileNames).find(key => TileNames[key] === index) || null
+}
+
+function getTimeForTileIndex (tileIndex) {
+  if (TileTimes[tileIndex]) {
+    return {
+      tileIndex: TileTimes[tileIndex].tileIndex,
+      time: TileTimes[tileIndex].time
+    }
+  } else {
+    return {
+      tileIndex,
+      time: 'permanent'
+    }
+  }
 }

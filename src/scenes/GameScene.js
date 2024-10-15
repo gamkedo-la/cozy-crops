@@ -143,6 +143,7 @@ export default class GameScene extends Scene {
     this.entityManager.update(deltaTime)
 
     this.calendarManager.update(deltaTime)
+    this.mapManager.update(deltaTime)
     this.camera.update(deltaTime)
     this.draw()
   }

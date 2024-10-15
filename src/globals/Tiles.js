@@ -197,3 +197,10 @@ export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Buildin
   Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
   Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
   Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,Museum103,Museum104,Museum105]
+
+export const TileTimes = {
+  [WetSand]: {
+    time: 1000, // milliseconds
+    tileIndex: Sand
+  }
+}
