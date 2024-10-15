@@ -1,4 +1,4 @@
-import { Player1Keys, Player2Keys } from '../globals/Keys.js'
+import { Player1Keys, Player2Keys, ArrowKeys } from '../globals/Keys.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
 
 /**
@@ -55,9 +55,10 @@ export default class InputManager {
     this.activeGamepad = null
   }
 
-  // work in progress
   // because gamepads do not fire browser events, we have to "ask" every frame
   pollGamepad () {
+    if (!navigator.getGamepads) return;
+    this.activeGamepad = navigator.getGamepads()[0]; // need a new obj every frame
     if (!this.activeGamepad) return;
     const deadZone = 0.1 // avoid drift (we never get exactly zero)
     const left = this.activeGamepad.axes[0] < -deadZone
@@ -69,8 +70,17 @@ export default class InputManager {
       || this.activeGamepad.buttons[1].value // (B)
       || this.activeGamepad.buttons[2].value // (X)
       || this.activeGamepad.buttons[3].value // (Y)
-    // TODO: process the result and change the stilldown and justdown arrays
-    // by comparing current to previous polled state to detect "justs"
+    // make the gamepad emulate arrow keys
+    if (left && !this.stillDown[ArrowKeys.Left]) this.handleKeyDown({key:ArrowKeys.Left,preventDefault:()=>{}});
+    if (!left && this.stillDown[ArrowKeys.Left]) this.handleKeyUp({key:ArrowKeys.Left,preventDefault:()=>{}});
+    if (right && !this.stillDown[ArrowKeys.Right]) this.handleKeyDown({key:ArrowKeys.Right,preventDefault:()=>{}});
+    if (!right && this.stillDown[ArrowKeys.Right]) this.handleKeyUp({key:ArrowKeys.Right,preventDefault:()=>{}});
+    if (up && !this.stillDown[ArrowKeys.Up]) this.handleKeyDown({key:ArrowKeys.Up,preventDefault:()=>{}});
+    if (!up && this.stillDown[ArrowKeys.Up]) this.handleKeyUp({key:ArrowKeys.Up,preventDefault:()=>{}});
+    if (down && !this.stillDown[ArrowKeys.Down]) this.handleKeyDown({key:ArrowKeys.Down,preventDefault:()=>{}});
+    if (!down && this.stillDown[ArrowKeys.Down]) this.handleKeyUp({key:ArrowKeys.Down,preventDefault:()=>{}});
+    if (action && !this.stillDown[ArrowKeys.Action]) this.handleKeyDown({key:ArrowKeys.Action,preventDefault:()=>{}});
+    if (!action && this.stillDown[ArrowKeys.Action]) this.handleKeyUp({key:ArrowKeys.Action,preventDefault:()=>{}});
     // console.log("gamepad state: "+(up?"⬆":"")+(down?"⬇":"")+(left?"⬅":"")+(right?"➡":"")+(action?"💥":""))
   }
 
