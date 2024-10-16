@@ -6,6 +6,7 @@ const EntityTypes = {
   AxeCopper: 'axeCopper',
   AxeSteel: 'axeSteel',
   AxeTitanium: 'axeTitanium',
+  Butterfly: 'butterfly',
   Carrot: 'carrot',
   CarrotSeed: 'carrotSeed',
   Catfish: 'catfish',

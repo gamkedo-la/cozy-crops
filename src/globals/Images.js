@@ -4,7 +4,8 @@ const Images = {
   Steve: '../../img/PlaceholderSteve.png',
   TileSet: '../../img/tileset.png',
   Tools: '../../img/Tools.png',
-  UISprites: '../../img/UISprites.png'
+  UISprites: '../../img/UISprites.png',
+  WildlifeSprites: '../../img/Wildlife.png'
 }
 
 export default Images
@@ -14,5 +15,6 @@ export const {
   Steve,
   TileSet,
   Tools,
-  UISprites
+  UISprites,
+  WildlifeSprites
 } =  Images
