@@ -51,7 +51,25 @@ export default class Insect {
   }
 
   draw (camera) {
-    this.currentAnimation?.draw(this.x, this.y, camera)
+    if (this.currentAnimation) {
+        
+        // FIXME: nothing seems to get rendered?
+        this.currentAnimation.draw(this.x, this.y, camera) 
+        
+        // debug check:
+        // result: nothing is drawn!?!?!?!
+        // ok maybe the image/canvas is blank or something.... =(
+        // this.game.ctx.drawImage(this.currentAnimation.spritesheet,this.scene.steve.x,this.scene.steve.y-20)
+        // nothing
+        // what am I doing wrong?
+        //this.game.ctx.fillStyle = "red"
+        //this.game.ctx.fillRect(this.scene.steve.x,this.scene.steve.y-20,200,200)
+        // still nothing!
+        //this.game.ctx.fillRect(0,0,10000,10000) // hmm still nothing.. 
+
+    } else {
+        console.log("error: missing animation for an insect at "+this.x+","+this.y)
+    }
   }
 
   drawAsInventory (x, y, width, height) {
