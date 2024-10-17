@@ -137,7 +137,7 @@ export default class GameScene extends Scene {
     cabbageHarvest.init()
     this.entityManager.addEntity(cabbageHarvest)
 
-    this.spawnButterflies(256)
+    this.spawnButterflies(4) // TODO: spawn way more than this. try 256!
   }
 
   spawnButterflies(howmany) {

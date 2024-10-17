@@ -5,8 +5,12 @@ import Animation from '../../components/Animation.js'
 
 export default class Butterfly extends Insect {
   init () {
+    // hmm do we need to call the super() functions? something is going wrong
     this.buildAnimations()
     this.currentAnimation = this.getAnimation('Flying')
+    this.width = this.currentAnimation.width
+    this.height = this.currentAnimation.height
+    console.log("Butterfly init complete. My animation is:",this.currentAnimation);
   }
 
   buildAnimations () {
