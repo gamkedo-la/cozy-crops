@@ -10,7 +10,7 @@ export default class Butterfly extends Insect {
     this.currentAnimation = this.getAnimation('Flying')
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
-    console.log("Butterfly init complete. My animation is:",this.currentAnimation);
+    //console.log("Butterfly init complete. My animation is:",this.currentAnimation);
   }
 
   buildAnimations () {

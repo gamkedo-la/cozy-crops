@@ -4,17 +4,17 @@ export const ButterflyAnimationData = {
   Flying: {
     name: 'ButterflyFlying',
     spritesheet: WildlifeSprites,
-    frames: [2],
+    frames: [0,1],
     frameWidth: 8,
     frameHeight: 8,
     padding: 0,
-    duration: 250,
+    duration: 250, // ideally we could have a slightly different duration for each butterfly so they don't all synch up
     loop: true
   },
   Idle: {
     name: 'ButterflyIdle',
     spritesheet: WildlifeSprites,
-    frames: [2],
+    frames: [0,1],
     frameWidth: 8,
     frameHeight: 8,
     padding: 0,
@@ -24,7 +24,7 @@ export const ButterflyAnimationData = {
   Inventory: {
     name: 'ButterflyInventory',
     spritesheet: WildlifeSprites,
-    frames: [2],
+    frames: [0,1],
     frameWidth: 8,
     frameHeight: 8,
     padding: 0,
