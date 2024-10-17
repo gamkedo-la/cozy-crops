@@ -19,6 +19,9 @@ export default class Butterfly extends Insect {
       config.imageManager = this.imageManager
       config.imageSrc = animationData[key].spritesheet
       config.canvas = this.imageManager.getImageWithSrc(animationData[key].spritesheet)
+      // omg this is so complex and convoluted
+      //console.log("my img url is: "+animationData[key].spritesheet);
+      //console.log("new butterfly with a canvas",config.canvas);
       this.animations[key] = new Animation(config)
     })
   }

@@ -1,4 +1,4 @@
-import ButterflyAnimations from '../../globals/ButterflyAnimations.js'
+import ButterflyAnimations from '../../globals/WildlifeAnimations.js'
 import Animation from '../../components/Animation.js'
 
 // a simple entity that flies back and forth while fluttering up and down
@@ -9,8 +9,8 @@ export default class Insect {
     this.animations = {}
     this.currentAnimation = null
     this.age = 0
-    this.spawnX = Math.random() * 4096
-    this.spawnY = Math.random() * 4096
+    this.spawnX = config.x, //Math.random() * 4096
+    this.spawnY = config.y, //Math.random() * 4096
     this.wobbleSpeed = 1024
     this.wobbleWidth = 256
     this.wobbleHeight = 32
@@ -38,14 +38,16 @@ export default class Insect {
     this.age += deltaTime
     
     // move in a large slow oval back and forth
-    this.x = this.spawnX + Math.cos(age / this.wobbleSpeed) * this.wobbleWidth;
-    this.y = this.spawnX + Math.sin(age / this.wobbleSpeed) * this.wobbleHeight;
+    this.x = this.spawnX + Math.cos(this.age / this.wobbleSpeed) * this.wobbleWidth;
+    this.y = this.spawnX + Math.sin(this.age / this.wobbleSpeed) * this.wobbleHeight;
 
     // tiny fast wobble up and down
-    this.y += Math.cos(age / this.flutterSpeed) * this.flutterHeight;
+    this.y += Math.cos(this.age / this.flutterSpeed) * this.flutterHeight;
 
     // flap your wings
     this.currentAnimation?.update(deltaTime)
+
+    //console.log("debug: player pos: "+this.scene.steve.x+","+this.scene.steve.y);
   }
 
   draw (camera) {

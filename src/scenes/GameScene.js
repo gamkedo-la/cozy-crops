@@ -8,7 +8,7 @@ import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
 import Cabbage from '../entities/crops/Cabbage.js'
 // FIXME: why does this make the game render nothingness with NO ERRORS in the console?
-//import Butterfly from '../entities/wildlife/Butterfly.js'
+import Butterfly from '../entities/wildlife/Butterfly.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -147,8 +147,8 @@ export default class GameScene extends Scene {
         game: this.game,
         scene: this,
         imageManager: this.imageManager,
-        x: Math.random() * 4096,
-        y: Math.random() * 4096
+        x: Math.random() * 2000,
+        y: Math.random() * 2000
       })
       bug.init()
       this.entityManager.addEntity(bug)
