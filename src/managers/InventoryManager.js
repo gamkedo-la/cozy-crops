@@ -1,9 +1,12 @@
 import { UISprites } from '../globals/Images.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import EntityTypes from '../globals/EntityTypes.js'
+import Axe from '../entities/tools/Axe.js'
+import FishingRod from '../entities/tools/FishingRod.js'
 import Hoe from '../entities/tools/Hoe.js'
-import WateringCan from '../entities/tools/WateringCan.js'
+import PickAxe from '../entities/tools/Pickaxe.js'
 import Shovel from '../entities/tools/Shovel.js'
+import WateringCan from '../entities/tools/WateringCan.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -22,51 +25,7 @@ export default class InventoryManager {
   }
 
   start () {
-    const inventoryData = this.gameManager.getInventory()
-    for (const inventoryItem of inventoryData) {
-      let item = null
-      switch (inventoryItem.type) {
-        case EntityTypes.WateringCanWooden:
-          item = new WateringCan({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: inventoryItem.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.HoeWooden:
-          item = new Hoe({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: inventoryItem.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.ShovelWooden:
-          item = new Shovel({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: inventoryItem.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-      }
-    }
+    buildInventory(this)
 
     this.updateInventoryPlacement()
   }
@@ -117,5 +76,104 @@ export default class InventoryManager {
         this.itemHeight
       )
     })
+  }
+}
+
+function buildInventory (inventoryManager) {
+  const inventoryData = inventoryManager.gameManager.getInventory()
+  for (const inventoryItem of inventoryData) {
+    let item = null
+    switch (inventoryItem.type) {
+      case EntityTypes.AxeCopper:
+      case EntityTypes.AxeSteel:
+      case EntityTypes.AxeTitanium:
+        item = new Axe({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.FishingRodBamboo:
+      case EntityTypes.FishingRodFiberglass:
+      case EntityTypes.FishingRodSteel:
+        item = new FishingRod({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.HoeCopper:
+      case EntityTypes.HoeSteel:
+      case EntityTypes.HoeWooden:
+        item = new Hoe({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.PickaxeCopper:
+      case EntityTypes.PickaxeSteel:
+      case EntityTypes.PickaxeTitanium:
+        item = new PickAxe({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.ShovelCopper:
+      case EntityTypes.ShovelSteel:
+      case EntityTypes.ShovelWooden:
+        item = new Shovel({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.WateringCanCopper:
+      case EntityTypes.WateringCanSteel:
+      case EntityTypes.WateringCanWooden:
+        item = new WateringCan({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break    
+    }
   }
 }

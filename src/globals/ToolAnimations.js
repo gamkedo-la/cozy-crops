@@ -1,5 +1,83 @@
 import { Tools } from './Images.js'
 
+export const AxeCopper = {
+  Inventory: {
+    name: 'AxeCopperInventory',
+    spritesheet: Tools,
+    frames: [3],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const AxeSteel = {
+  Inventory: {
+    name: 'AxeSteelInventory',
+    spritesheet: Tools,
+    frames: [3],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const AxeTitanium = {
+  Inventory: {
+    name: 'AxeTitaniumInventory',
+    spritesheet: Tools,
+    frames: [3],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const FishingRodBamboo = {
+  Inventory: {
+    name: 'FishingRodBambooInventory',
+    spritesheet: Tools,
+    frames: [5],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const FishingRodFiberglass = {
+  Inventory: {
+    name: 'FishingRodFiberglassInventory',
+    spritesheet: Tools,
+    frames: [5],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const FishingRodSteel = {
+  Inventory: {
+    name: 'FishingRodSteelInventory',
+    spritesheet: Tools,
+    frames: [5],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
 export const HoeCopper = {
   Inventory: {
     name: 'HoeCopperInventory',
@@ -31,6 +109,45 @@ export const HoeWooden = {
     name: 'HoeWoodenInventory',
     spritesheet: Tools,
     frames: [1],
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const PickaxeCopper = {
+  Inventory: {
+    name: 'PickaxeCopperInventory',
+    spritesheet: Tools,
+    frames: [4], // Don't think this is right
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const PickaxeSteel = {
+  Inventory: {
+    name: 'PickaxeSteelInventory',
+    spritesheet: Tools,
+    frames: [4], // Don't think this is right
+    frameWidth: 18,
+    frameHeight: 18,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const PickaxeTitanium = {
+  Inventory: {
+    name: 'PickaxeTitaniumInventory',
+    spritesheet: Tools,
+    frames: [4], // Don't think this is right
     frameWidth: 18,
     frameHeight: 18,
     padding: 1,
@@ -118,9 +235,18 @@ export const WateringCanWooden = {
 }
 
 const ToolAnimations = {
+  AxeCopper,
+  AxeSteel,
+  AxeTitanium,
+  FishingRodBamboo,
+  FishingRodFiberglass,
+  FishingRodSteel,
   HoeCopper,
   HoeSteel,
   HoeWooden,
+  PickaxeCopper,
+  PickaxeSteel,
+  PickaxeTitanium,
   ShovelCopper,
   ShovelSteel,
   ShovelWooden,
