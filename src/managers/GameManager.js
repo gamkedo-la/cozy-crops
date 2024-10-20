@@ -281,7 +281,7 @@ function initializeNewGame (manager, saveSlot) {
       Day: 1
     },
     Inventory: [
-      // { type: EntityTypes.ShovelWooden, quantity: 1 },
+      { type: EntityTypes.ShovelWooden, quantity: 1 },
       { type: EntityTypes.WateringCanWooden, quantity: 1 },
       { type: EntityTypes.HoeWooden, quantity: 1 }
     ],

@@ -3,6 +3,7 @@ import UISpriteData from '../globals/UISpriteData.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import Hoe from '../entities/tools/Hoe.js'
 import WateringCan from '../entities/tools/WateringCan.js'
+import Shovel from '../entities/tools/Shovel.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -51,6 +52,19 @@ export default class InventoryManager {
           item.init()
           this.inventory.push(item)
           break
+        case EntityTypes.ShovelWooden:
+          item = new Shovel({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: inventoryItem.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight
+          })
+          item.init()
+          this.inventory.push(item)
+          break
       }
     }
 
@@ -65,8 +79,8 @@ export default class InventoryManager {
 
   updateInventoryPlacement () {
     this.inventory.forEach((item, index) => {
-      item.x = this.x + (index * this.itemWidth) - 2
-      item.y = this.y + (Math.floor(index / this.itemsPerRow) * this.itemHeight) - 2
+      item.x = this.x + (index * this.itemWidth)
+      item.y = this.y + (Math.floor(index / this.itemsPerRow) * this.itemHeight)
     })
   }
 
