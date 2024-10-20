@@ -9,6 +9,7 @@ export const ButterflyAnimationData = {
     frameHeight: 8,
     padding: 0,
     duration: 250, // ideally we could have a slightly different duration for each butterfly so they don't all synch up
+    // Duration can be adjusted in the buildAnimations method of the Butterfly class so each butterfly has a slightly different duration
     loop: true
   },
   Idle: {
