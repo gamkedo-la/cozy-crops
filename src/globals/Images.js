@@ -1,6 +1,6 @@
 const Images = {
   BasePlayer: '../../img/BasePlayer.png',
-  Crops: '../../img/Crops.png',
+  Crops: '../../img/Crops.png', // FIXME: this is a temporary file, use TallCrops.png or ShortCrops.png
   Steve: '../../img/PlaceholderSteve.png',
   TileSet: '../../img/tileset.png',
   Tools: '../../img/Tools.png',
