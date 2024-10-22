@@ -26,8 +26,8 @@ export default class Butterfly extends Insect {
       config.imageManager = this.imageManager // make sure the animation has access to the image manager
       config.imageSrc = animationData[key].spritesheet // assign the image source to the animation config
 
-      // Adjust the animation duration here if you want to
-      // config.duration = config.duration + ((Math.random() * 100) - 50)
+      // randomize the framerate so butterflies don't all flap in synch
+      config.duration = config.duration + ((Math.random() * 100) - 50)
 
       // get the image from the image manager using the image source from the animation config
       config.canvas = this.imageManager.getImageWithSrc(animationData[key].spritesheet)
