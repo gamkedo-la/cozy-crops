@@ -5,6 +5,11 @@ export default class Bunny extends Animal {
 
   init() {
     this.buildAnimations(BunnyAnimationData)
+
+    this.width = this.currentAnimation.width
+    this.height = this.currentAnimation.height
+
+    this.collisionPoint = { x: this.x + this.width / 2, y: this.y + this.height }
   }
 
   update(deltaTime) {

@@ -6,10 +6,13 @@ export default class EntityManager {
 
     this.entities = []
     this.movingEntities = []
+    this.aboveGroundEntities = []
   }
 
-  addEntity (entity, canMove = false) {
-    if (canMove) {
+  addEntity (entity, canMove = false, isAboveGround = false) {
+    if (isAboveGround) {
+      this.aboveGroundEntities.push(entity)
+    } else if (canMove) {
       this.movingEntities.push(entity)
     } else {
       insertEntity(this.entities, entity)
@@ -34,9 +37,11 @@ export default class EntityManager {
       }
     
       drawList.splice(low, 0, entity)  
+      low = 0
+      high = drawList.length
     })
 
-    return drawList
+    return [...drawList, ...this.aboveGroundEntities]
   }
 
   removeEntity (entity) {
@@ -57,6 +62,10 @@ export default class EntityManager {
     })
 
     this.movingEntities.forEach(entity => {
+      entity.update(deltaTime)
+    })
+
+    this.aboveGroundEntities.forEach(entity => {
       entity.update(deltaTime)
     })
   }

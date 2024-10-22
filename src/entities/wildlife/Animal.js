@@ -19,6 +19,7 @@ export default class Animal {
     this.flutterHeight = 2 + Math.random()*4
     this.width = 1
     this.height = 1
+    this.collisionPoint = { x: 0, y: 0 }
   }
 
   init () {

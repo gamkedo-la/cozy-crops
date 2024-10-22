@@ -152,7 +152,7 @@ export default class GameScene extends Scene {
         y: Math.random() * 2400
       })
       bug.init()
-      this.entityManager.addEntity(bug)
+      this.entityManager.addEntity(bug, true, true)
     }
   }
 
@@ -169,7 +169,7 @@ export default class GameScene extends Scene {
         y: Math.random() * 2400
       })
       bun.init()
-      this.entityManager.addEntity(bun)
+      this.entityManager.addEntity(bun, true)
     }
   }
 
