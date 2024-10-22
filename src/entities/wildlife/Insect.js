@@ -1,3 +1,5 @@
+// TODO: refactor to use Animal class
+
 import ButterflyAnimations from '../../globals/WildlifeAnimations.js'
 import Animation from '../../components/Animation.js'
 
@@ -37,19 +39,17 @@ export default class Insect {
   }
 
   update (deltaTime) {
-
     this.age += deltaTime
-    
     // move in a large slow oval back and forth
     this.x = this.spawnX + Math.cos(this.age/1000000 * this.wobbleSpeed) * this.wobbleWidth;
     this.y = this.spawnY + Math.sin(this.age/1000000 * this.wobbleSpeed) * this.wobbleHeight;
-
     // tiny fast wobble up and down
     this.y += Math.cos(this.age/1000000 * this.flutterSpeed) * this.flutterHeight;
-
+    // snap to crisp pixels
+    this.x = Math.round(this.x)
+    this.y = Math.round(this.y)
     // flap your wings
     this.currentAnimation?.update(deltaTime)
-
     //console.log("debug: player pos: "+this.scene.steve.x+","+this.scene.steve.y);
   }
 

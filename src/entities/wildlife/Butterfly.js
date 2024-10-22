@@ -1,4 +1,6 @@
+// TODO: refactor to use Animal class
 import Insect from './Insect.js'
+
 import EntityTypes from '../../globals/EntityTypes.js'
 import { ButterflyAnimationData } from '../../globals/WildlifeAnimations.js'
 import Animation from '../../components/Animation.js'
