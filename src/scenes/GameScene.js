@@ -7,6 +7,8 @@ import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
 import Cabbage from '../entities/crops/Cabbage.js'
+import Onion from '../entities/crops/Onion.js'
+import Carrot from '../entities/crops/Carrot.js'
 import Butterfly from '../entities/wildlife/Butterfly.js'
 import Bunny from '../entities/wildlife/Bunny.js'
 
@@ -56,7 +58,7 @@ export default class GameScene extends Scene {
 
     // TODO: Remove this once the systems are fully implemented
     let deltaY = 0
-    const cabbageSeedling = new Cabbage({
+    const carrottSeedling = new Carrot({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -64,12 +66,12 @@ export default class GameScene extends Scene {
       y: 364
     })
 
-    cabbageSeedling.init()
-    this.entityManager.addEntity(cabbageSeedling)
+    carrottSeedling.init()
+    this.entityManager.addEntity(carrottSeedling)
 
     deltaY += 16
 
-    const cabbageYoungSprout = new Cabbage({
+    const carrottYoungSprout = new Carrot({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -77,13 +79,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    cabbageYoungSprout.currentGrowthStage = 1
-    cabbageYoungSprout.init()
-    this.entityManager.addEntity(cabbageYoungSprout)
+    carrottYoungSprout.currentGrowthStage = 1
+    carrottYoungSprout.init()
+    this.entityManager.addEntity(carrottYoungSprout)
 
     deltaY += 16
 
-    const cabbageSprout = new Cabbage({
+    const carrottSprout = new Carrot({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -91,13 +93,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    cabbageSprout.currentGrowthStage = 2
-    cabbageSprout.init()
-    this.entityManager.addEntity(cabbageSprout)
+    carrottSprout.currentGrowthStage = 2
+    carrottSprout.init()
+    this.entityManager.addEntity(carrottSprout)
 
     deltaY += 16
 
-    const cabbageYoungPlant = new Cabbage({
+    const carrottYoungPlant = new Carrot({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -105,13 +107,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    cabbageYoungPlant.currentGrowthStage = 3
-    cabbageYoungPlant.init()
-    this.entityManager.addEntity(cabbageYoungPlant)
+    carrottYoungPlant.currentGrowthStage = 3
+    carrottYoungPlant.init()
+    this.entityManager.addEntity(carrottYoungPlant)
 
     deltaY += 16
 
-    const cabbageMature = new Cabbage({
+    const carrottMature = new Carrot({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -119,13 +121,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    cabbageMature.currentGrowthStage = 4
-    cabbageMature.init()
-    this.entityManager.addEntity(cabbageMature)
+    carrottMature.currentGrowthStage = 4
+    carrottMature.init()
+    this.entityManager.addEntity(carrottMature)
 
     deltaY += 16
 
-    const cabbageHarvest = new Cabbage({
+    const carrottHarvest = new Carrot({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -133,9 +135,9 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    cabbageHarvest.currentGrowthStage = 5
-    cabbageHarvest.init()
-    this.entityManager.addEntity(cabbageHarvest)
+    carrottHarvest.currentGrowthStage = 5
+    carrottHarvest.init()
+    this.entityManager.addEntity(carrottHarvest)
 
     this.spawnButterflies(128)
     this.spawnBunnies(128)
