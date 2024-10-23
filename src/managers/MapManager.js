@@ -89,7 +89,13 @@ export default class MapManager {
   }
 
   getTileAtXY (x, y) {
-    return MapData[y][x]
+    try {
+      return MapData[y][x]      
+    } catch (error) {
+      console.log('Map Width in Tiles:', MapData[0].length)
+      console.log('Map Height in Tiles:', MapData.length)
+      console.error('Error getting tile at x, y:', x, y)
+    }
   }
 
   getTileAtPixelPos (x, y) {

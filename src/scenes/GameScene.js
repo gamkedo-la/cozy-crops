@@ -148,8 +148,8 @@ export default class GameScene extends Scene {
         game: this.game,
         scene: this,
         imageManager: this.imageManager,
-        x: Math.random() * 3200,
-        y: Math.random() * 2400
+        x: Math.random() * 1600,
+        y: Math.random() * 1200
       })
       bug.init()
       this.entityManager.addEntity(bug, true, true)
@@ -159,14 +159,33 @@ export default class GameScene extends Scene {
   // silent crashes with no error message and no console logs
   // this projects is impossible to debug
   spawnBunnies(howmany) {
-    console.log("spawning "+howmany+" bunnies...");
+    console.log("spawning "+howmany+" bunnies...")
     for (let i=0; i<howmany; i++) {
+      const bunnyPos = {
+        x: Math.random() * 1600,
+        y: Math.random() * 1200
+      }
+
+      let tile = this.mapManager.getTileAtPixelPos(bunnyPos.x, bunnyPos.y)
+      let tries = 0
+      while (this.collisionManager.playerCanWalk(tile) === false) {
+        tries++
+        if (tries > 100) {
+          console.log("couldn't find a place to spawn a bunny")
+          break
+        }
+
+        bunnyPos.x = Math.random() * 1600
+        bunnyPos.y = Math.random() * 1200
+        tile = this.mapManager.getTileAtPixelPos(bunnyPos.x, bunnyPos.y)
+      }
+  
       let bun = new Bunny({
         game: this.game,
         scene: this,
         imageManager: this.imageManager,
-        x: Math.random() * 3200,
-        y: Math.random() * 2400
+        x: bunnyPos.x,
+        y: bunnyPos.y
       })
       bun.init()
       this.entityManager.addEntity(bun, true)
