@@ -1,9 +1,9 @@
-import { Crops } from './Images.js'
+import { ShortCrops } from './Images.js'
 
 export const Cabbage = {
   Seedling: {
     name: 'CabbageSeedling',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [2],
     frameWidth: 16,
     frameHeight: 16,
@@ -13,7 +13,7 @@ export const Cabbage = {
   },
   YoungSprout: {
     name: 'CabbageYoungSprout',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [3],
     frameWidth: 16,
     frameHeight: 16,
@@ -23,7 +23,7 @@ export const Cabbage = {
   },
   Sprout: {
     name: 'CabbageSprout',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [4],
     frameWidth: 16,
     frameHeight: 16,
@@ -33,7 +33,7 @@ export const Cabbage = {
   },
   YoungPlantIdle: {
     name: 'CabbageYoungPlantIdle',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [5],
     frameWidth: 16,
     frameHeight: 16,
@@ -43,7 +43,7 @@ export const Cabbage = {
   },
   YoungPlantWind: {
     name: 'CabbageYoungPlantWind',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [5, 6, 7],
     frameWidth: 16,
     frameHeight: 16,
@@ -53,7 +53,7 @@ export const Cabbage = {
   },
   MaturePlantIdle: {
     name: 'CabbageMaturePlantIdle',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [8],
     frameWidth: 16,
     frameHeight: 16,
@@ -63,7 +63,7 @@ export const Cabbage = {
   },
   MaturePlantWind: {
     name: 'CabbageMaturePlantWind',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [8, 9, 10],
     frameWidth: 16,
     frameHeight: 16,
@@ -73,7 +73,7 @@ export const Cabbage = {
   },
   Dead: {
     name: 'CabbageDead',
-    spritesheet: Crops,
+    spritesheet: ShortCrops,
     frames: [11],
     frameWidth: 16,
     frameHeight: 16,

@@ -1,7 +1,8 @@
 const Images = {
   BasePlayer: '../../img/BasePlayer.png',
-  Crops: '../../img/Crops.png', // FIXME: this is a temporary file, use TallCrops.png or ShortCrops.png
+  ShortCrops: '../../img/ShortCrops.png',
   Steve: '../../img/PlaceholderSteve.png',
+  TallCrops: '../../img/TallCrops.png',
   TileSet: '../../img/tileset.png',
   Tools: '../../img/Tools.png',
   UISprites: '../../img/UISprites.png',
@@ -11,8 +12,9 @@ const Images = {
 export default Images
 export const {
   BasePlayer,
-  Crops,
+  ShortCrops,
   Steve,
+  TallCrops,
   TileSet,
   Tools,
   UISprites,
