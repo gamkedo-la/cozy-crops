@@ -1,4 +1,4 @@
-import { ShortCrops } from './Images.js'
+import { ShortCrops, TallCrops } from './Images.js'
 
 export const Cabbage = {
   Seedling: {
@@ -249,9 +249,103 @@ export const Onion = {
   }
 }
 
+export const Corn = {
+  Seedling: {
+    name: 'CornSeedling',
+    spritesheet: TallCrops,
+    frames: [44],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  YoungSprout: {
+    name: 'CornYoungSprout',
+    spritesheet: TallCrops,
+    frames: [45],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  Sprout: {
+    name: 'CornSprout',
+    spritesheet: TallCrops,
+    frames: [46],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  YoungPlantIdle: {
+    name: 'CornYoungPlantIdle',
+    spritesheet: TallCrops,
+    frames: [47],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  YoungPlantWind: {
+    name: 'CornYoungPlantWind',
+    spritesheet: TallCrops,
+    frames: [47, 48, 49],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: false
+  },
+  MaturePlantIdle: {
+    name: 'CornMaturePlantIdle',
+    spritesheet: TallCrops,
+    frames: [50],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  MaturePlantWind: {
+    name: 'CornMaturePlantWind',
+    spritesheet: TallCrops,
+    frames: [50, 51, 52],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: false
+  },
+  Dead: {
+    name: 'CornDead',
+    spritesheet: TallCrops,
+    frames: [53],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  Harvested: {
+    name: 'CornHarvested',
+    spritesheet: TallCrops,
+    frames: [54],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
 const CropAnimations = {
   Cabbage,
   Carrot,
+  Corn,
   Onion
 }
 

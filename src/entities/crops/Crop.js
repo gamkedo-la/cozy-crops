@@ -26,8 +26,8 @@ export default class Crop {
     this.height = this.currentAnimation.height
 
     this.collisionPoint = {
-      x: this.x + this.currentAnimation.width / 2, // Center of the player
-      y: this.y + this.currentAnimation.height / 2 // Bottom of the player
+      x: this.x + this.currentAnimation.width / 2,
+      y: this.y + this.currentAnimation.height
     }
   }
 
@@ -42,8 +42,8 @@ export default class Crop {
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
     this.collisionPoint = {
-      x: this.x + this.currentAnimation.width / 2, // Center of the player
-      y: this.y + this.currentAnimation.height / 2 // Bottom of the player
+      x: this.x + this.currentAnimation.width / 2,
+      y: this.y + this.currentAnimation.height
     }
   }
 

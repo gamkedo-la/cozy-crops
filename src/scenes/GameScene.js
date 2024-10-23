@@ -9,6 +9,7 @@ import { CheatKeys } from '../globals/Debug.js'
 import Cabbage from '../entities/crops/Cabbage.js'
 import Onion from '../entities/crops/Onion.js'
 import Carrot from '../entities/crops/Carrot.js'
+import Corn from '../entities/crops/Corn.js'
 import Butterfly from '../entities/wildlife/Butterfly.js'
 import Bunny from '../entities/wildlife/Bunny.js'
 
@@ -58,7 +59,7 @@ export default class GameScene extends Scene {
 
     // TODO: Remove this once the systems are fully implemented
     let deltaY = 0
-    const carrottSeedling = new Carrot({
+    const cornSeedling = new Corn({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -66,12 +67,12 @@ export default class GameScene extends Scene {
       y: 364
     })
 
-    carrottSeedling.init()
-    this.entityManager.addEntity(carrottSeedling)
+    cornSeedling.init()
+    this.entityManager.addEntity(cornSeedling)
 
     deltaY += 16
 
-    const carrottYoungSprout = new Carrot({
+    const cornYoungSprout = new Corn({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -79,13 +80,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    carrottYoungSprout.currentGrowthStage = 1
-    carrottYoungSprout.init()
-    this.entityManager.addEntity(carrottYoungSprout)
+    cornYoungSprout.currentGrowthStage = 1
+    cornYoungSprout.init()
+    this.entityManager.addEntity(cornYoungSprout)
 
     deltaY += 16
 
-    const carrottSprout = new Carrot({
+    const cornSprout = new Corn({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -93,13 +94,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    carrottSprout.currentGrowthStage = 2
-    carrottSprout.init()
-    this.entityManager.addEntity(carrottSprout)
+    cornSprout.currentGrowthStage = 2
+    cornSprout.init()
+    this.entityManager.addEntity(cornSprout)
 
     deltaY += 16
 
-    const carrottYoungPlant = new Carrot({
+    const cornYoungPlant = new Corn({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -107,13 +108,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    carrottYoungPlant.currentGrowthStage = 3
-    carrottYoungPlant.init()
-    this.entityManager.addEntity(carrottYoungPlant)
+    cornYoungPlant.currentGrowthStage = 3
+    cornYoungPlant.init()
+    this.entityManager.addEntity(cornYoungPlant)
 
     deltaY += 16
 
-    const carrottMature = new Carrot({
+    const cornMature = new Corn({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -121,13 +122,13 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    carrottMature.currentGrowthStage = 4
-    carrottMature.init()
-    this.entityManager.addEntity(carrottMature)
+    cornMature.currentGrowthStage = 4
+    cornMature.init()
+    this.entityManager.addEntity(cornMature)
 
     deltaY += 16
 
-    const carrottHarvest = new Carrot({
+    const cornHarvest = new Corn({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
@@ -135,9 +136,9 @@ export default class GameScene extends Scene {
       y: 364 + deltaY
     })
 
-    carrottHarvest.currentGrowthStage = 5
-    carrottHarvest.init()
-    this.entityManager.addEntity(carrottHarvest)
+    cornHarvest.currentGrowthStage = 5
+    cornHarvest.init()
+    this.entityManager.addEntity(cornHarvest)
 
     this.spawnButterflies(128)
     this.spawnBunnies(128)
