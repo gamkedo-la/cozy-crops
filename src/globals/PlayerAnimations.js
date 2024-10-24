@@ -1,8 +1,8 @@
-import { Steve } from './Images.js'
+import { BasePlayer } from './Images.js'
 
 export const SteveIdleUp = {
   name: 'SteveIdleUp',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [16, 17, 18, 19],
   frameWidth: 16,
   frameHeight: 32,
@@ -13,7 +13,7 @@ export const SteveIdleUp = {
 
 export const SteveIdleDown = {
   name: 'SteveIdleDown',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [0, 1, 2, 3],
   frameWidth: 16,
   frameHeight: 32,
@@ -24,7 +24,7 @@ export const SteveIdleDown = {
 
 export const SteveIdleLeft = {
   name: 'SteveIdleLeft',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [20, 21, 22, 23],
   frameWidth: 16,
   frameHeight: 32,
@@ -35,7 +35,7 @@ export const SteveIdleLeft = {
 
 export const SteveIdleRight = {
   name: 'SteveIdleRight',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [4, 5, 6, 7],
   frameWidth: 16,
   frameHeight: 32,
@@ -46,7 +46,7 @@ export const SteveIdleRight = {
 
 export const SteveWalkUp = {
   name: 'SteveWalkUp',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [24, 25, 26, 27],
   frameWidth: 16,
   frameHeight: 32,
@@ -57,7 +57,7 @@ export const SteveWalkUp = {
 
 export const SteveWalkDown = {
   name: 'SteveWalkDown',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [8, 9, 10, 11],
   frameWidth: 16,
   frameHeight: 32,
@@ -68,7 +68,7 @@ export const SteveWalkDown = {
 
 export const SteveWalkLeft = {
   name: 'SteveWalkLeft',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [28, 29, 30, 31],
   frameWidth: 16,
   frameHeight: 32,
@@ -79,7 +79,7 @@ export const SteveWalkLeft = {
 
 export const SteveWalkRight = {
   name: 'SteveWalkRight',
-  spritesheet: Steve,
+  spritesheet: BasePlayer,
   frames: [12, 13, 14, 15],
   frameWidth: 16,
   frameHeight: 32,
