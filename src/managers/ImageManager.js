@@ -16,6 +16,8 @@ export default class ImageManager {
     this.internalCanvas.height = this.game.canvas.height
     this.internalCtx = this.internalCanvas.getContext('2d')
     this.internalCtx.fillStyle = 'black'
+    this.isFading = false
+    this.isUnfading = false
   }
 
   async load () {
@@ -57,6 +59,84 @@ export default class ImageManager {
     return this.images[this.srcToKeyMap[src]]
   }
 
+  fadeToBlack() {
+    return new Promise((resolve) => {
+      console.log('Fading to black');
+      this.isFading = true;
+  
+      const duration = 1500; // Duration of the fade in milliseconds
+      const start = performance.now(); // Start time of the fade
+      const initialAlpha = 0; // Initial alpha value
+      const finalAlpha = 1; // Final alpha value
+  
+      const fade = (timestamp) => {
+        const elapsed = timestamp - start; // Time elapsed since the start of the fade
+        const progress = Math.min(elapsed / duration, 1); // Progress of the fade (0 to 1)
+        const alpha = initialAlpha + (finalAlpha - initialAlpha) * progress; // Current alpha value
+  
+        // Clear the canvas
+        this.internalCtx.clearRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
+  
+        // Set the fill style with the current alpha value
+        this.internalCtx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+  
+        // Fill the canvas with the current alpha value
+        this.internalCtx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
+  
+        if (progress < 1) {
+          // Continue the fade
+          requestAnimationFrame(fade);
+        } else {
+          // Fade is complete, resolve the promise
+          this.isFading = false;
+          resolve();
+        }
+      };
+  
+      // Start the fade
+      requestAnimationFrame(fade);
+    });
+  }
+
+  unFadeFromBlack() {
+    return new Promise((resolve) => {
+      console.log('Unfading from black');
+  
+      this.isUnfading = true;
+      const duration = 1500; // Duration of the fade in milliseconds
+      const start = performance.now(); // Start time of the fade
+      const initialAlpha = 1; // Initial alpha value
+      const finalAlpha = 0; // Final alpha value
+  
+      const fade = (timestamp) => {
+        const elapsed = timestamp - start; // Time elapsed since the start of the fade
+        const progress = Math.min(elapsed / duration, 1); // Progress of the fade (0 to 1)
+        const alpha = initialAlpha + (finalAlpha - initialAlpha) * progress; // Current alpha value
+  
+        // Clear the canvas
+        this.internalCtx.clearRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
+  
+        // Set the fill style with the current alpha value
+        this.internalCtx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
+  
+        // Fill the canvas with the current alpha value
+        this.internalCtx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height);
+  
+        if (progress < 1) {
+          // Continue the fade
+          requestAnimationFrame(fade);
+        } else {
+          // Fade is complete, resolve the promise
+          this.isUnfading = false;
+          resolve();
+        }
+      };
+  
+      // Start the fade
+      requestAnimationFrame(fade);
+    });
+  }
+
   draw (image, x, y, width, height, imageX = 0, imageY = 0) {
     const cameraPos = this.camera.getTopLeft()
     this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)
@@ -75,6 +155,10 @@ export default class ImageManager {
   }
 
   render () {
+    if (this.isFading || this.isUnfading) {
+      return
+    }
+
     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height)
     const cameraPos = this.camera.getTopLeft()
     this.game.ctx.drawImage(this.internalCanvas, 0, 0, this.internalCanvas.width, this.internalCanvas.height, 0, 0, ImageScale * this.game.canvas.width, ImageScale * this.game.canvas.height)

@@ -269,6 +269,17 @@ export default class GameScene extends Scene {
   waterGround (x, y) {
     this.mapManager.updateTileAtPixelPos(x, y, 'WetSand')
   }
+
+  cameraDidSleep () {
+    console.log('Camera did sleep')
+    this.steve.sleep()
+    this.camera.wake(this)
+  }
+
+  cameraDidWake () {
+    console.log('Camera did wake')
+    this.steve.wake()
+  }
 }
 
 function manageInput (scene) {
@@ -278,7 +289,16 @@ function manageInput (scene) {
     // Pause the game
   }
 
+  const justDownKeys = scene.inputManager.getJustDownKeys()
+  if (justDownKeys.includes(Keys.N)) {
+    sleep(scene)
+  }
+
   if (CheatKeys) checkCheatKeys(scene)
+}
+
+function sleep (scene) {
+  scene.camera.sleep(scene)
 }
 
 function addPlayers (scene) {

@@ -49,6 +49,14 @@ export default class Player {
     }
   }
 
+  sleep () {
+    console.log('Player sleep called')
+  }
+
+  wake () {
+    console.log('Player wake called')
+  }
+
   draw (camera) {
     this.animation.draw(this.x, this.y, camera)
   }
