@@ -5,7 +5,6 @@ export default class Camera {
     Object.assign(this, config)
     this.x = this.player1.x - this.imageManager.internalCanvas.width / (2 * ImageScale)
     this.y = this.player1.y - this.imageManager.internalCanvas.height / (2 * ImageScale)
-    this.isSleeping = false
   }
 
   update (deltaTime) {
@@ -15,22 +14,56 @@ export default class Camera {
     }
   }
 
-  async sleep (caller)  {
-    console.log(`Camera sleep called by ${caller}`)
-
+  sleep (caller)  {
     this.isSleeping = true
-    await this.imageManager.fadeToBlack()
+    const duration = 500 // Duration of the fade in milliseconds
+    const start = performance.now() // Start time of the fade
+    const initialAlpha = 0 // Initial alpha value
+    const finalAlpha = 1 // Final alpha value
 
-    caller.cameraDidSleep()
+    const fade = (timestamp) => {
+      const elapsed = timestamp - start // Time elapsed since the start of the fade
+      const progress = Math.min(elapsed / duration, 1) // Progress of the fade (0 to 1)
+      const alpha = initialAlpha + (finalAlpha - initialAlpha) * progress // Current alpha value
+
+      this.imageManager.setOverlayAlpha(alpha)
+
+      if (progress < 1) {
+        // Continue the fade
+        requestAnimationFrame(fade)
+      } else {
+        caller.cameraDidSleep()
+      }
+    }
+
+    // Start the fade
+    requestAnimationFrame(fade)
   }
 
   async wake (caller) {
-    console.log(`Camera wake called by ${caller}`)
+    const duration = 500 // Duration of the fade in milliseconds
+    const start = performance.now() // Start time of the fade
+    const initialAlpha = 1 // Initial alpha value
+    const finalAlpha = 0 // Final alpha value
 
-    this.isSleeping = false
-    await this.imageManager.fadeToBlack()
+    const fade = (timestamp) => {
+      const elapsed = timestamp - start // Time elapsed since the start of the fade
+      const progress = Math.min(elapsed / duration, 1) // Progress of the fade (0 to 1)
+      const alpha = initialAlpha + (finalAlpha - initialAlpha) * progress // Current alpha value
 
-    caller.cameraDidWake()
+      this.imageManager.setOverlayAlpha(alpha)
+
+      if (progress < 1) {
+        // Continue the fade
+        requestAnimationFrame(fade)
+      } else {
+        this.isSleeping = false
+        caller.cameraDidWake()
+      }
+    }
+
+    // Start the fade
+    requestAnimationFrame(fade)
   }
 
   getTopLeft () {
