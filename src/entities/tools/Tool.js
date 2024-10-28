@@ -7,6 +7,7 @@ export default class Tool {
 
     this.animations = {}
     this.currentAnimation = null // Initialize once animations are built
+    this.staminaConsumed = 0.25
   }
 
   init () {

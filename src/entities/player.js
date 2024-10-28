@@ -160,11 +160,14 @@ function handleInput (player) {
       // player.scene.gameManager.openDoor()
     } else if (mapActions.includes('Till') && player.scene.entityManager.isHoe(player.activeTool)) {
       player.scene.tillGround(groundPoint.x, groundPoint.y)
+      deductConsumedStamina(player, player.activeTool.staminaConsumed)
     } else if  (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
       console.log('Plant')
       // player.scene.gameManager.plantSeeds()
+      // deductConsumedStamina(player, player.activeTool.staminaConsumed)
     } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
       player.scene.waterGround(groundPoint.x, groundPoint.y)
+      deductConsumedStamina(player, player.activeTool.staminaConsumed)
     }
   } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {
@@ -236,6 +239,11 @@ function updateStamina (player) {
     player.stamina = 0
   }
 
+  player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
+}
+
+function deductConsumedStamina(player, amount) {
+  player.stamina -= amount
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }
 

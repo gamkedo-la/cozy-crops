@@ -15,6 +15,7 @@ export default class Crop {
       x: 0, // Initialize once animations are built
       y: 0 // Initialize once animations are built
     }
+    this.staminaRestored = 10
   }
 
   init () {
