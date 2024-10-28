@@ -2,7 +2,7 @@ import MapData, { Player1Start, Player2Start } from '../globals/Map.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
-import { TileNames, TileTimes } from '../globals/Tiles.js'
+import { Sand, TileNames, WetSand } from '../globals/Tiles.js'
 
 export default class MapManager {
   constructor (config) {
@@ -52,6 +52,13 @@ export default class MapManager {
           this.gameManager.updateTimeForModifiedTile(tile.x, tile.y, tile.replacement.tileIndex, tile.replacement.time)
         }
       }
+    })
+  }
+
+  unWaterAllTiles () {
+    this.gameManager.getWateredTiles().forEach(tile => {
+      this.updateTileAtXY(tile.x, tile.y, Sand)
+      this.gameManager.setModifiedTile(tile.x, tile.y, Sand, getTimeForTileIndex(Sand))
     })
   }
 
@@ -115,15 +122,20 @@ function getTileIndexByName(index) {
 }
 
 function getTimeForTileIndex (tileIndex) {
-  if (TileTimes[tileIndex]) {
-    return {
-      tileIndex: TileTimes[tileIndex].tileIndex,
-      time: TileTimes[tileIndex].time
-    }
-  } else {
-    return {
-      tileIndex,
-      time: 'permanent'
-    }
+  return {
+    tileIndex,
+    time: 'permanent'
   }
+
+  // if (TileTimes[tileIndex]) {
+  //   return {
+  //     tileIndex: TileTimes[tileIndex].tileIndex,
+  //     time: TileTimes[tileIndex].time
+  //   }
+  // } else {
+  //   return {
+  //     tileIndex,
+  //     time: 'permanent'
+  //   }
+  // }
 }

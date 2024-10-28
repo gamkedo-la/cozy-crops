@@ -228,7 +228,7 @@ export default class GameManager {
   }
 
   getWateredTiles () {
-    return this.state.Map.ModifiedTiles.filter(tile => tile.tileIndex === WetSand)
+    return this.state.Map.ModifiedTiles.filter(tile => `${tile.tileIndex}` === `${WetSand}`)
   }
 }
 

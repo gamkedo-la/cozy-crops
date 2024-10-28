@@ -273,6 +273,7 @@ export default class GameScene extends Scene {
   cameraDidSleep () {
     this.steve.sleep()
     this.calendarManager.advanceDay()
+    this.mapManager.unWaterAllTiles()
     this.camera.wake(this)
   }
 
