@@ -8,14 +8,11 @@ export default class Camera {
   }
 
   update (deltaTime) {
-    if (!this.isSleeping) {
-      this.x = this.player1.x - this.imageManager.internalCanvas.width / (2 * ImageScale)
-      this.y = this.player1.y - this.imageManager.internalCanvas.height / (2 * ImageScale)
-    }
+    this.x = this.player1.x - this.imageManager.internalCanvas.width / (2 * ImageScale)
+    this.y = this.player1.y - this.imageManager.internalCanvas.height / (2 * ImageScale)
   }
 
   sleep (caller)  {
-    this.isSleeping = true
     const duration = 500 // Duration of the fade in milliseconds
     const start = performance.now() // Start time of the fade
     const initialAlpha = 0 // Initial alpha value
@@ -40,7 +37,10 @@ export default class Camera {
     requestAnimationFrame(fade)
   }
 
-  async wake (caller) {
+  wake (caller) {
+    this.x = this.player1.x - this.imageManager.internalCanvas.width / (2 * ImageScale)
+    this.y = this.player1.y - this.imageManager.internalCanvas.height / (2 * ImageScale)
+
     const duration = 500 // Duration of the fade in milliseconds
     const start = performance.now() // Start time of the fade
     const initialAlpha = 1 // Initial alpha value
@@ -57,7 +57,7 @@ export default class Camera {
         // Continue the fade
         requestAnimationFrame(fade)
       } else {
-        this.isSleeping = false
+        // this.isSleeping = false
         caller.cameraDidWake()
       }
     }

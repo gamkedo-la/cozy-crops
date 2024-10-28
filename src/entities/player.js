@@ -1,10 +1,12 @@
 import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
+import { Player1Start, Player2Start } from '../globals/Map.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
 import { CheatKeys } from '../globals/Debug.js'
+import EntityTypes from '../globals/EntityTypes.js'
 
 export default class Player {
   constructor (config) {
@@ -50,7 +52,8 @@ export default class Player {
   }
 
   sleep () {
-    console.log('Player sleep called')
+    setStaminaForLocation(this)
+    setLocationToHome(this)
   }
 
   wake () {
@@ -220,6 +223,12 @@ function handleInput (player) {
   }
 }
 
+function setStaminaForLocation(player) {
+  // Need to check if player is near thier bed
+  // If so, set stamina to 100, otherwise, set stamina to 50
+  setMaxStamina(player)
+}
+
 function updateStamina (player) {
   player.stamina -= 0.01
 
@@ -238,4 +247,10 @@ function setMaxStamina(player) {
 function updateMoney(player) {
   player.scene.gameManager.setMoney(player.scene.gameManager.getMoney() + 10)
   console.log(player.scene.gameManager.getMoney())
+}
+
+function setLocationToHome(player) {
+  const homePos = player.game.mapManager.getPlayerStart(player.type)
+  player.x = homePos.x
+  player.y = homePos.y
 }

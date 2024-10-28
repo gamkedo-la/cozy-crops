@@ -271,13 +271,11 @@ export default class GameScene extends Scene {
   }
 
   cameraDidSleep () {
-    console.log('Camera did sleep')
     this.steve.sleep()
     this.camera.wake(this)
   }
 
   cameraDidWake () {
-    console.log('Camera did wake')
     this.steve.wake()
   }
 }
