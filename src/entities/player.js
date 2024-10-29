@@ -158,7 +158,7 @@ function handleInput (player) {
     } else if (mapActions.includes('Open Door')) {
       console.log('Open Door')
       // player.scene.gameManager.openDoor()
-    } else if (mapActions.includes('Till') && player.scene.entityManager.isHoe(player.activeTool)) {
+    } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
       player.scene.tillGround(groundPoint.x, groundPoint.y)
       deductConsumedStamina(player, player.activeTool.staminaConsumed)
     } else if  (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
