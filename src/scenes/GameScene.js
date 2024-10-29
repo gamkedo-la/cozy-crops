@@ -268,11 +268,13 @@ export default class GameScene extends Scene {
 
   waterGround (x, y) {
     this.mapManager.updateTileAtPixelPos(x, y, 'WetSand')
+    this.cropManager.waterAt(x, y)
   }
 
   cameraDidSleep () {
     this.steve.sleep()
     this.calendarManager.advanceDay()
+    this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
     this.camera.wake(this)
   }
