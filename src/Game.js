@@ -11,6 +11,7 @@ import EntityManager from './managers/EntityManager.js'
 import InventoryManager from './managers/InventoryManager.js'
 import MapManager from './managers/MapManager.js'
 import CalendarManager from './managers/CalendarManager.js'
+import CropManager from './managers/CropManager.js'
 
 export default class Game {
   /**
@@ -36,6 +37,7 @@ export default class Game {
     this.inventoryManager = null
     this.mapManager = null
     this.calendarManager = null
+    this.cropManager = null
     buildManagers(this)
   }
 
@@ -96,6 +98,7 @@ function buildManagers (game) {
   game.fontManager = new FontManager({ ...managerConfig })
   game.inputManager = new InputManager({ ...managerConfig })
   game.calendarManager = new CalendarManager({ ...managerConfig })
+  game.cropManager = new CropManager({ ...managerConfig, entityManager: game.entityManager, imageManager: game.imageManager })
 
   game.loadManager = new LoadManager({
     ...managerConfig,
@@ -117,7 +120,8 @@ function buildManagers (game) {
       calendarManager: game.calendarManager,
       entityManager: game.entityManager,
       inventoryManager: game.inventoryManager,
-      mapManager: game.mapManager
+      mapManager: game.mapManager,
+      cropManager: game.cropManager
     }
   })
 }
