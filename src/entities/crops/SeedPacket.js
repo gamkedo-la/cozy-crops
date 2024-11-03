@@ -1,7 +1,6 @@
 import SeedPacketAnimations from '../../globals/SeedPacketAnimations.js'
 import Animation from '../../components/Animation.js'
 
-
 export default class SeedPacket {
   constructor (config) {
     Object.assign(this, config)
@@ -35,7 +34,7 @@ export default class SeedPacket {
     })
   }
 
-  getAnimation (type = 'Idle') {
+  getAnimation (type = 'Inventory') {
     return this.animations[type]
   }
 

@@ -7,6 +7,7 @@ import Hoe from '../entities/tools/Hoe.js'
 import PickAxe from '../entities/tools/Pickaxe.js'
 import Shovel from '../entities/tools/Shovel.js'
 import WateringCan from '../entities/tools/WateringCan.js'
+import SeedPacket from '../entities/crops/SeedPacket.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -72,6 +73,15 @@ export default class InventoryManager {
       tool.drawAsInventory(
         tool.x,
         tool.y,
+        this.itemWidth,
+        this.itemHeight
+      )
+    })
+
+    this.getSeeds().forEach((seed, index) => {
+      seed.drawAsInventory(
+        seed.x,
+        seed.y,
         this.itemWidth,
         this.itemHeight
       )
@@ -173,7 +183,23 @@ function buildInventory (inventoryManager) {
         })
         item.init()
         inventoryManager.inventory.push(item)
-        break    
+        break
+      case EntityTypes.CarrotSeed:
+      case EntityTypes.CornSeed:
+      case EntityTypes.LettuceSeed:
+      case EntityTypes.OnionSeed:
+        item = new SeedPacket({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
     }
   }
 }
