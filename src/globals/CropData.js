@@ -222,6 +222,17 @@ const CropData = {
 
 export const {
   Lettuce,
+  Strawberry,
+  Eggplant,
+  Onion,
+  Tomato,
+  Pepper,
+  Carrot,
+  Watermelon,
+  Pumpkin,
+  Corn,
+  Potato,
+  Radish
 } = CropData
 
 export default CropData
