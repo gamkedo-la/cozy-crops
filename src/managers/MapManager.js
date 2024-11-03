@@ -115,6 +115,15 @@ export default class MapManager {
     const tileIndex = this.getTileAtPixelPos(x, y)
     return TileNames[tileIndex]
   }
+
+  getTileTopLeftAtPixelPos (x, y) {
+    const tileX = (Math.floor(x / TileWidth)) * TileWidth
+    const tileY = (Math.floor(y / TileHeight)) * TileHeight
+    return {
+      x: tileX,
+      y: tileY
+    }
+  }
 }
 
 function getTileIndexByName(index) {

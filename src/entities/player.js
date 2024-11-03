@@ -150,7 +150,7 @@ function handleInput (player) {
     // Need to check if player is near a bed, a door, or a person
     // If not, player action is determined by the tool they have selected (pick, axe, hoe, etc.)
     // If they have no tool selected, they can't perform any actions
-    const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y -2 }
+    const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 }
     const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y) // -2 to check the tile just above the bottom of th player's feet
     if (mapActions.includes('Sleep')) {
       console.log('Sleep')
@@ -162,8 +162,8 @@ function handleInput (player) {
       player.scene.tillGround(groundPoint.x, groundPoint.y)
       deductConsumedStamina(player, player.activeTool.staminaConsumed)
     } else if  (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
-      console.log('Plant')
-      // player.scene.gameManager.plantSeeds()
+      // console.log('Plant')
+      player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
       // deductConsumedStamina(player, player.activeTool.staminaConsumed)
     } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
       player.scene.waterGround(groundPoint.x, groundPoint.y)

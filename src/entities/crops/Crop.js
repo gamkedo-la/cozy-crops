@@ -41,6 +41,15 @@ export default class Crop {
     // override this method in subclasses
   }
 
+  advanceDay () {
+    this.currentGrowthStage++
+    if (this.currentGrowthStage >= this.growthStages.length) {
+      this.currentGrowthStage = this.growthStages.length - 1
+    }
+
+    this.currentAnimation = this.getAnimation()
+  }
+
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
     this.collisionPoint = {

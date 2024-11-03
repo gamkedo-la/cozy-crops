@@ -1,4 +1,5 @@
 import { TileHeight, TileWidth } from '../globals/Constants.js'
+import EntityTypes from '../globals/EntityTypes.js'
 import Carrot from '../entities/crops/Carrot.js'
 import Corn from '../entities/crops/Corn.js'
 import Lettuce from '../entities/crops/Lettuce.js'
@@ -15,41 +16,45 @@ export default class CropManager {
   plantCrop (cropType, x, y) {
     let newCrop = null
     switch (cropType) {
-      case 'Lettuce':
-        this.crops.push(new Lettuce({
+      case EntityTypes.CarrotSeed:
+        newCrop = new Carrot({
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
           x,
           y
-        }))
+        })
+        this.crops.push(newCrop)
         break
-      case 'Onion':
-        this.crops.push(new Onion({
+      case EntityTypes.CornSeed:
+        newCrop = new Corn({
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
           x,
           y
-        }))
+        })
+        this.crops.push(newCrop)
         break
-      case 'Carrot':
-        this.crops.push(new Carrot({
+      case EntityTypes.LettuceSeed:
+        newCrop = new Lettuce({
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
           x,
           y
-        }))
+        })
+        this.crops.push(newCrop)
         break
-      case 'Corn':
-        this.crops.push(new Corn({
+      case EntityTypes.OnionSeed:
+        newCrop = new Onion({
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
           x,
           y
-        }))
+        })
+        this.crops.push(newCrop)
         break
     }
 
@@ -75,7 +80,7 @@ export default class CropManager {
 
   advanceDay () {
     this.crops.forEach(crop => {
-      crop.currentGrowthStage++
+      crop.advanceDay()
     })
 
     this.wateredCrops = []

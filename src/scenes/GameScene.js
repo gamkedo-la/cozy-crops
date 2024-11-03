@@ -224,7 +224,7 @@ export default class GameScene extends Scene {
 
   handleInventoryItemClick (item) {
     if (this.steve) {
-      if (this.entityManager.isTool(item)) {
+      if (this.entityManager.isTool(item) || this.entityManager.isSeed(item)) {
         this.steve.setActiveTool(item)
       }
     }
@@ -264,6 +264,12 @@ export default class GameScene extends Scene {
 
   tillGround (x, y) {
     this.mapManager.updateTileAtPixelPos(x, y, 'Sand')
+  }
+
+  plantSeed (seedType, x, y) {
+    // Find the center of the tile identified by x, y
+    const tileCenter = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+    this.cropManager.plantCrop(seedType, tileCenter.x, tileCenter.y)
   }
 
   waterGround (x, y) {
