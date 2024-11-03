@@ -1,8 +1,11 @@
 import Scenes from '../globals/Scenes.js'
 import BootScene from '../scenes/BootScene.js'
 import CreditsScene from '../scenes/CreditsScene.js'
+import MuseumScene from '../scenes/MuseumScene.js'
 import OptionsScene from '../scenes/OptionsScene.js'
+import PlayerHomeScene from '../scenes/PlayerHomeScene.js'
 import PreGameScene from '../scenes/PreGameScene.js'
+import StoreScene from '../scenes/StoreScene.js'
 import TitleScene from '../scenes/TitleScene.js'
 import GameScene from '../scenes/GameScene.js'
 import UIScene from '../scenes/UIScene.js'
@@ -41,6 +44,13 @@ export default class SceneManager {
     })
     this.startedScenes[Scenes.Game] = false
 
+    this.scenes[Scenes.Museum] = new MuseumScene({
+      name: Scenes.Museum,
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.Museum] = false
+
     this.scenes[Scenes.Options] = new OptionsScene({
       name: Scenes.Options,
       game: this.game,
@@ -48,11 +58,25 @@ export default class SceneManager {
     })
     this.startedScenes[Scenes.Options] = false
 
+    this.scenes[Scenes.PlayerHome] = new PlayerHomeScene({
+      name: Scenes.PlayerHome,
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.PlayerHome] = false
+
     this.scenes[Scenes.PreGame] = new PreGameScene({
       name: Scenes.PreGame,
       game: this.game,
       managers: this.managers
     })
+
+    this.scenes[Scenes.Store] = new StoreScene({
+      name: Scenes.Store,
+      game: this.game,
+      managers: this.managers
+    })
+    this.startedScenes[Scenes.Store] = false
 
     this.scenes[Scenes.Title] = new TitleScene({
       name: Scenes.Title,
