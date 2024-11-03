@@ -49,6 +49,7 @@ function checkMouseClick (scene, x, y) {
   const clickedInventoryItem = scene.inventoryManager.getClikedItem(x, y)
   if (clickedInventoryItem) {
     scene.gameScene.handleInventoryItemClick(clickedInventoryItem)
+    scene.inventoryManager.setSelectedItem(clickedInventoryItem)
   }
 }
 

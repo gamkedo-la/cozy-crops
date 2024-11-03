@@ -202,6 +202,13 @@ const UISpriteData = {
     height: 20,
     padding: 1
   },
+  SelectedInventoryItem: {
+    x: 262,
+    y: 43,
+    width: 24,
+    height: 24,
+    padding: 1
+  },
   DayNightUI:{
     x: 249,
     y: 1,
@@ -246,5 +253,6 @@ export const {
   StandardUIBox,
   StartButton,
   InventoryIcons,
+  SelectedInventoryItem,
   DayNightUI
 } = UISpriteData

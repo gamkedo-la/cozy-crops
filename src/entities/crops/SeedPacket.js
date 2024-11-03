@@ -14,9 +14,6 @@ export default class SeedPacket {
     this.buildAnimations()
 
     this.currentAnimation = this.getAnimation()
-
-    this.width = this.currentAnimation.width
-    this.height = this.currentAnimation.height
   }
 
   buildAnimations () {

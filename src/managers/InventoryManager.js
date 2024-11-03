@@ -8,6 +8,7 @@ import PickAxe from '../entities/tools/Pickaxe.js'
 import Shovel from '../entities/tools/Shovel.js'
 import WateringCan from '../entities/tools/WateringCan.js'
 import SeedPacket from '../entities/crops/SeedPacket.js'
+import SelectedInventoryHighlight from '../uiElements/SelectedInventoryHighlight.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -23,12 +24,24 @@ export default class InventoryManager {
     this.y = this.game.canvas.height - this.itemHeight - 13
     this.width = this.itemWidth * this.itemsPerRow
     this.height = this.itemHeight
+
+    this.selectedItem = null
+    this.selectedItemHighlight = null
   }
 
   start () {
     buildInventory(this)
 
     this.updateInventoryPlacement()
+
+    this.selectedItemHighlight = new SelectedInventoryHighlight({
+      game: this.game,
+      imageManager: this.imageManager,
+      x: 0,
+      y: 0,
+      width: this.itemWidth,
+      height: this.itemHeight
+    })
   }
 
   getInventory () {
@@ -66,6 +79,10 @@ export default class InventoryManager {
     return clickedItem
   }
 
+  setSelectedItem (item) {
+    this.selectedItem = item
+  }
+
   draw () {
     this.game.ctx.drawImage(this.imageManager.getImageWithSrc(UISprites), UISpriteData.InventoryIcons.x, UISpriteData.InventoryIcons.y, UISpriteData.InventoryIcons.width, UISpriteData.InventoryIcons.height, this.x, this.y, 2 * UISpriteData.InventoryIcons.width, 2 * UISpriteData.InventoryIcons.height)
   
@@ -86,6 +103,10 @@ export default class InventoryManager {
         this.itemHeight
       )
     })
+
+    if (this.selectedItem) {
+      this.selectedItemHighlight.draw(this.selectedItem.x, this.selectedItem.y)
+    }
   }
 }
 
