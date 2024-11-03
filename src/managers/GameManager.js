@@ -283,7 +283,8 @@ function initializeNewGame (manager, saveSlot) {
     Inventory: [
       { type: EntityTypes.ShovelWooden, quantity: 1 },
       { type: EntityTypes.WateringCanWooden, quantity: 1 },
-      { type: EntityTypes.HoeWooden, quantity: 1 }
+      { type: EntityTypes.HoeWooden, quantity: 1 },
+      // { type: EntityTypes.LettuceSeed, quantity: 1 }
     ],
     Map: {
       Achievements: [

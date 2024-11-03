@@ -1,8 +1,8 @@
 import { TileHeight, TileWidth } from '../globals/Constants.js'
-import Cabbage from '../entities/crops/Cabbage.js'
-import Onion from '../entities/crops/Onion.js'
 import Carrot from '../entities/crops/Carrot.js'
 import Corn from '../entities/crops/Corn.js'
+import Lettuce from '../entities/crops/Lettuce.js'
+import Onion from '../entities/crops/Onion.js'
 
 export default class CropManager {
   constructor (config) {
@@ -15,8 +15,8 @@ export default class CropManager {
   plantCrop (cropType, x, y) {
     let newCrop = null
     switch (cropType) {
-      case 'Cabbage':
-        this.crops.push(new Cabbage({
+      case 'Lettuce':
+        this.crops.push(new Lettuce({
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,

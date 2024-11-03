@@ -4,7 +4,7 @@ import CropData from '../../globals/CropData.js'
 import Animation from '../../components/Animation.js'
 import EntityTypes from '../../globals/EntityTypes.js'
 
-export default class Cabbage extends Crop {
+export default class Lettuce extends Crop {
   constructor (config) {
     config.type = EntityTypes.Lettuce
     config = {...config, ...CropData[EntityTypes.Lettuce]}
@@ -12,14 +12,14 @@ export default class Cabbage extends Crop {
   }
 
   buildAnimations () {
-    const animationKeys = Object.keys(CropAnimations.Cabbage)
+    const animationKeys = Object.keys(CropAnimations.Lettuce)
     animationKeys.forEach((key, index) => {
-      const config = Object.assign({}, CropAnimations.Cabbage[key])
+      const config = Object.assign({}, CropAnimations.Lettuce[key])
       config.owner = this
       config.game = this.game
       config.imageManager = this.imageManager
-      config.imageSrc = CropAnimations.Cabbage[key].spritesheet
-      config.canvas = this.imageManager.getImageWithSrc(CropAnimations.Cabbage[key].spritesheet)
+      config.imageSrc = CropAnimations.Lettuce[key].spritesheet
+      config.canvas = this.imageManager.getImageWithSrc(CropAnimations.Lettuce[key].spritesheet)
       this.animations[key] = new Animation(config)
     })
   }
