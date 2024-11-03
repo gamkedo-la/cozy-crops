@@ -1,13 +1,11 @@
-import CropAnimations from '../../globals/CropAnimations.js'
+import ForagableAnimations from '../../globals/ForagableAnimations.js'
 import Animation from '../../components/Animation.js'
-import CropData from '../../globals/CropData.js'
+import ForagableData from '../../globals/ForagableData.js'
 
-export default class Crop {
+export default class Forageable {
   constructor (config) {
     Object.assign(this, config)
 
-    this.growthStages = ['Seedling', 'YoungSprout', 'Sprout', 'YoungPlant', 'MaturePlant', 'Dead']
-    this.currentGrowthStage = config.currentGrowthStage || 0
     this.width = 0 // Initialize once animations are built
     this.height = 0 // Initialize once animations are built
     this.animations = {}
@@ -16,7 +14,6 @@ export default class Crop {
       x: 0, // Initialize once animations are built
       y: 0 // Initialize once animations are built
     }
-    this.wateredYesterday = true
   }
 
   init () {
@@ -39,24 +36,6 @@ export default class Crop {
 
   getAnimation () {
     // override this method in subclasses
-  }
-
-  advanceDay () {
-    if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
-      this.wateredYesterday = true
-      this.currentGrowthStage++
-      if (this.currentGrowthStage >= this.growthStages.length) {
-        this.currentGrowthStage = this.growthStages.length - 1
-      }
-  
-      this.currentAnimation = this.getAnimation()
-    } else {
-      if (!this.wateredYesterday) {
-        this.currentGrowthStage--
-        this.currentAnimation = this.getAnimation()
-      }
-      this.wateredYesterday = false
-    }
   }
 
   update (deltaTime) {
