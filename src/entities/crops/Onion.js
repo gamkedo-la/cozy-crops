@@ -1,8 +1,16 @@
 import Crop from './Crop.js'
 import CropAnimations from '../../globals/CropAnimations.js'
+import CropData from '../../globals/CropData.js'
 import Animation from '../../components/Animation.js'
+import EntityTypes from '../../globals/EntityTypes.js'
 
 export default class Onion extends Crop {
+  constructor (config) {
+    config.type = EntityTypes.Onion
+    config = {...config, ...CropData[EntityTypes.Onion]}
+    super(config)
+  }
+
   buildAnimations () {
     const animationKeys = Object.keys(CropAnimations.Onion)
     animationKeys.forEach((key, index) => {

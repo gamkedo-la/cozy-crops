@@ -1,8 +1,16 @@
 import Crop from './Crop.js'
 import CropAnimations from '../../globals/CropAnimations.js'
+import CropData from '../../globals/CropData.js'
 import Animation from '../../components/Animation.js'
+import EntityTypes from '../../globals/EntityTypes.js'
 
 export default class Cabbage extends Crop {
+  constructor (config) {
+    config.type = EntityTypes.Lettuce
+    config = {...config, ...CropData[EntityTypes.Lettuce]}
+    super(config)
+  }
+
   buildAnimations () {
     const animationKeys = Object.keys(CropAnimations.Cabbage)
     animationKeys.forEach((key, index) => {

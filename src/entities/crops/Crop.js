@@ -1,5 +1,6 @@
 import CropAnimations from '../../globals/CropAnimations.js'
 import Animation from '../../components/Animation.js'
+import CropData from '../../globals/CropData.js'
 
 export default class Crop {
   constructor (config) {

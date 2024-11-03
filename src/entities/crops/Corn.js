@@ -1,8 +1,16 @@
 import Crop from './Crop.js'
 import CropAnimations from '../../globals/CropAnimations.js'
+import CropData from '../../globals/CropData.js'
 import Animation from '../../components/Animation.js'
+import EntityTypes from '../../globals/EntityTypes.js'
 
 export default class Corn extends Crop {
+  constructor (config) {
+    config.type = EntityTypes.Corn
+    config = {...config, ...CropData[EntityTypes.Corn]}
+    super(config)
+  }
+
   buildAnimations () {
     const animationKeys = Object.keys(CropAnimations.Corn)
     animationKeys.forEach((key, index) => {
