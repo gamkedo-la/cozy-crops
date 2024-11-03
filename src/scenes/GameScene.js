@@ -37,6 +37,7 @@ export default class GameScene extends Scene {
       game: this.game,
       scene: this
     })
+    this.mapManager.collisionManager = this.collisionManager
 
     this.inputManager.setPlayerKeys()
 
@@ -140,49 +141,32 @@ export default class GameScene extends Scene {
     cornHarvest.init()
     this.entityManager.addEntity(cornHarvest)
 
-    this.spawnButterflies(128)
-    this.spawnBunnies(128)
+    this.spawnButterflies(64)
+    this.spawnBunnies(32)
+    this.spawnForageableItems(32)
   }
 
   spawnButterflies(howmany) {
-    console.log("spawning "+howmany+" butterflies...");
-    for (let i=0; i<howmany; i++) {
+    for (let i = 0; i < howmany; i++) {
+      const butterflyPos = this.mapManager.getRandomTilePos(false)
+
       let bug = new Butterfly({
         game: this.game,
         scene: this,
         imageManager: this.imageManager,
-        x: Math.random() * 1600,
-        y: Math.random() * 1200
+        x: butterflyPos.x,
+        y: butterflyPos.y
       })
+
       bug.init()
       this.entityManager.addEntity(bug, true, true)
     }
   }
 
-  // silent crashes with no error message and no console logs
-  // this projects is impossible to debug
   spawnBunnies(howmany) {
-    console.log("spawning "+howmany+" bunnies...")
-    for (let i=0; i<howmany; i++) {
-      const bunnyPos = {
-        x: Math.random() * 1600,
-        y: Math.random() * 1200
-      }
+    for (let i = 0; i < howmany; i++) {
+      const bunnyPos = this.mapManager.getRandomTilePos()
 
-      let tile = this.mapManager.getTileAtPixelPos(bunnyPos.x, bunnyPos.y)
-      let tries = 0
-      while (this.collisionManager.playerCanWalk(tile) === false) {
-        tries++
-        if (tries > 100) {
-          console.log("couldn't find a place to spawn a bunny")
-          break
-        }
-
-        bunnyPos.x = Math.random() * 1600
-        bunnyPos.y = Math.random() * 1200
-        tile = this.mapManager.getTileAtPixelPos(bunnyPos.x, bunnyPos.y)
-      }
-  
       let bun = new Bunny({
         game: this.game,
         scene: this,
@@ -190,9 +174,23 @@ export default class GameScene extends Scene {
         x: bunnyPos.x,
         y: bunnyPos.y
       })
+
       bun.init()
       this.entityManager.addEntity(bun, true)
     }
+  }
+
+  spawnForageableItems(howmany) {
+    // Implement once ForageableItems are created
+    // for (let i = 0; i < howmany; i++) {
+    //   const itemPos = this.mapManager.getRandomTilePos()
+
+      // Randomly select an item to spawn
+      // Need to create the item based on the type of item
+
+      // item.init()
+      // this.entityManager.addEntity(item, true)
+    // }
   }
 
   update (deltaTime) {

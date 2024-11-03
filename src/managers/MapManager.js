@@ -11,6 +11,16 @@ export default class MapManager {
     this.tilesPerRow = null
     this.mapCanvas = null
     this.mapCtx = null
+    this.worldDimensions = {
+      pixels: {
+        width: MapData[0].length * TileWidth,
+        height: MapData.length * TileHeight
+      },
+      tiles: {
+        width: MapData[0].length,
+        height: MapData.length
+      }
+    }
   }
 
   start (modifiedTiles) {
@@ -124,6 +134,25 @@ export default class MapManager {
       y: tileY
     }
   }
+
+  getRandomTilePos (mustBeWalkable = true) {
+    let x, y, tileIsWalkable
+    do {
+      x = Math.floor(Math.random() * this.worldDimensions.pixels.width)
+      y = Math.floor(Math.random() * this.worldDimensions.pixels.height)
+      const tile = this.getTileAtPixelPos(x, y)
+      if (mustBeWalkable) {
+        tileIsWalkable = this.collisionManager.playerCanWalk(tile)
+        if (tileIsWalkable) {
+          const tilePos = this.getTileTopLeftAtPixelPos(x, y)
+          x = tilePos.x
+          y = tilePos.y
+        }
+      }
+    } while (mustBeWalkable && !tileIsWalkable)
+
+    return { x, y }
+  }
 }
 
 function getTileIndexByName(index) {
@@ -135,16 +164,4 @@ function getTimeForTileIndex (tileIndex) {
     tileIndex,
     time: 'permanent'
   }
-
-  // if (TileTimes[tileIndex]) {
-  //   return {
-  //     tileIndex: TileTimes[tileIndex].tileIndex,
-  //     time: TileTimes[tileIndex].time
-  //   }
-  // } else {
-  //   return {
-  //     tileIndex,
-  //     time: 'permanent'
-  //   }
-  // }
 }
