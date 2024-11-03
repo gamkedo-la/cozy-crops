@@ -16,6 +16,7 @@ export default class Crop {
       x: 0, // Initialize once animations are built
       y: 0 // Initialize once animations are built
     }
+    this.wateredYesterday = true
     this.staminaRestored = 10
   }
 
@@ -42,12 +43,21 @@ export default class Crop {
   }
 
   advanceDay () {
-    this.currentGrowthStage++
-    if (this.currentGrowthStage >= this.growthStages.length) {
-      this.currentGrowthStage = this.growthStages.length - 1
+    if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
+      this.wateredYesterday = true
+      this.currentGrowthStage++
+      if (this.currentGrowthStage >= this.growthStages.length) {
+        this.currentGrowthStage = this.growthStages.length - 1
+      }
+  
+      this.currentAnimation = this.getAnimation()
+    } else {
+      if (!this.wateredYesterday) {
+        this.currentGrowthStage--
+        this.currentAnimation = this.getAnimation()
+      }
+      this.wateredYesterday = false
     }
-
-    this.currentAnimation = this.getAnimation()
   }
 
   update (deltaTime) {

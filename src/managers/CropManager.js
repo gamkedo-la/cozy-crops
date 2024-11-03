@@ -21,6 +21,7 @@ export default class CropManager {
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
+          manager: this,
           x,
           y
         })
@@ -31,6 +32,7 @@ export default class CropManager {
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
+          manager: this,
           x,
           y
         })
@@ -41,6 +43,7 @@ export default class CropManager {
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
+          manager: this,
           x,
           y
         })
@@ -51,6 +54,7 @@ export default class CropManager {
           game: this.game,
           scene: this.scene,
           imageManager: this.imageManager,
+          manager: this,
           x,
           y
         })
@@ -76,6 +80,10 @@ export default class CropManager {
     })
 
     if (crop) this.wateredCrops.push(crop)
+  }
+
+  isWatered (crop) {
+    return this.wateredCrops.includes(crop)
   }
 
   advanceDay () {
