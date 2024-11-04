@@ -1,5 +1,6 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
+import { TitleBackground } from '../globals/Images.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
 import UIAttributes from '../globals/UIAttributes.js'
@@ -9,11 +10,14 @@ export default class TitleScene extends Scene {
   constructor (config) {
     super(config)
 
+    this.backgroundImage = null
     this.menu = null
   }
 
   start () {
     super.start() // Call the start method of the parent class
+
+    this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
 
     // setup resources
     this.menu = new Menu({
@@ -38,7 +42,7 @@ export default class TitleScene extends Scene {
   draw () {
     super.draw() // Call the draw method of the parent class
 
-    drawTitle(this)
+    drawBackground(this)
     this.menu.draw()
   }
 
@@ -59,11 +63,8 @@ export default class TitleScene extends Scene {
   }
 }
 
-function drawTitle (title) {
-  title.game.ctx.fillStyle = Constants.TitleTextColor
-  title.game.ctx.font = `${Constants.TitleFontSize}px ${Constants.TitleFontFamily}`
-  title.game.ctx.textAlign = UIAttributes.CenterAlign
-  title.game.ctx.fillText('Cozy Crops', title.game.canvas.width / 2, title.game.canvas.height / 4)
+function drawBackground (title) {
+  title.game.ctx.drawImage(title.backgroundImage, 0, 0, title.game.canvas.width, title.game.canvas.height)
 }
 
 function manageInput (scene) {

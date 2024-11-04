@@ -4,6 +4,7 @@ const Images = {
   ShortCrops: '../../img/ShortCrops.png',
   TallCrops: '../../img/TallCrops.png',
   TileSet: '../../img/tileset.png',
+  TitleBackground: '../../img/TitleScreen.png',
   Tools: '../../img/Tools.png',
   UISprites: '../../img/UISprites.png',
   WildlifeSprites: '../../img/Wildlife.png'
@@ -16,6 +17,7 @@ export const {
   ShortCrops,
   TallCrops,
   TileSet,
+  TitleBackground,
   Tools,
   UISprites,
   WildlifeSprites
