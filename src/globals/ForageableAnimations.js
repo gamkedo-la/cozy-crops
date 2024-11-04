@@ -8,9 +8,9 @@ export const Daffodil = {
   Inventory: {
     name: 'DaffodilInventory',
     spritesheet: ForageableItems,
-    frames: [0],
+    frames: [16],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -18,9 +18,9 @@ export const Daffodil = {
   Idle: {
     name: 'DaffodilWind',
     spritesheet: ForageableItems,
-    frames: [1, 2, 3],
+    frames: [17, 18, 19],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -31,9 +31,9 @@ export const Sunflower = {
   Inventory: {
     name: 'SunflowerInventory',
     spritesheet: ForageableItems,
-    frames: [4],
+    frames: [0],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -41,9 +41,9 @@ export const Sunflower = {
   Idle: {
     name: 'SunflowerWind',
     spritesheet: ForageableItems,
-    frames: [5, 6, 7],
+    frames: [1, 2, 3],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -54,9 +54,9 @@ export const Truffel = {
   Inventory: {
     name: 'TruffelInventory',
     spritesheet: ForageableItems,
-    frames: [8],
+    frames: [12],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -64,9 +64,9 @@ export const Truffel = {
   Idle: {
     name: 'TruffelWind',
     spritesheet: ForageableItems,
-    frames: [9, 10, 11],
+    frames: [13, 14, 15],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -77,9 +77,9 @@ export const Tulip = {
   Inventory: {
     name: 'TulipInventory',
     spritesheet: ForageableItems,
-    frames: [12],
+    frames: [4],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -87,9 +87,9 @@ export const Tulip = {
   Idle: {
     name: 'TulipWind',
     spritesheet: ForageableItems,
-    frames: [13, 14, 15],
+    frames: [5, 6, 7],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -100,9 +100,9 @@ export const WildGarlic = {
   Inventory: {
     name: 'WildGarlicInventory',
     spritesheet: ForageableItems,
-    frames: [16],
+    frames: [20],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -110,9 +110,9 @@ export const WildGarlic = {
   Idle: {
     name: 'WildGarlicWind',
     spritesheet: ForageableItems,
-    frames: [17, 18, 19],
+    frames: [21, 22, 23],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -123,9 +123,9 @@ export const WildRose = {
   Inventory: {
     name: 'WildRoseInventory',
     spritesheet: ForageableItems,
-    frames: [20],
+    frames: [24],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
@@ -133,16 +133,16 @@ export const WildRose = {
   Idle: {
     name: 'WildRoseWind',
     spritesheet: ForageableItems,
-    frames: [21, 22, 23],
+    frames: [25, 26, 27],
     frameWidth: 16,
-    frameHeight: 16,
+    frameHeight: 32,
     padding: 1,
     duration: 500,
     loop: true
   }
 }
 
-const ForagableAnimations = {
+const ForageableAnimations = {
   [EntityTypes.Daffodil]: Daffodil,
   [EntityTypes.Sunflower]: Sunflower,
   [EntityTypes.Truffel]: Truffel,
@@ -151,4 +151,4 @@ const ForagableAnimations = {
   [EntityTypes.WildRose]: WildRose
 }
 
-export default ForagableAnimations
+export default ForageableAnimations

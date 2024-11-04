@@ -2,7 +2,7 @@ import Scene from './Scene.js'
 import Player from '../entities/Player.js'
 import Keys from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
-import { Player1 } from '../globals/EntityTypes.js'
+import EntityTypes, { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
@@ -12,6 +12,14 @@ import Lettuce from '../entities/crops/Lettuce.js'
 import Onion from '../entities/crops/Onion.js'
 import Butterfly from '../entities/wildlife/Butterfly.js'
 import Bunny from '../entities/wildlife/Bunny.js'
+import ForageableData from '../globals/ForageableData.js'
+import Daffodil from '../entities/forageables/Daffodil.js'
+import Sunflower from '../entities/forageables/Sunflower.js'
+import Truffel from '../entities/forageables/Truffel.js'
+import Tulip from '../entities/forageables/Tulip.js'
+import WildGarlic from '../entities/forageables/WildGarlic.js'
+import WildRose from '../entities/forageables/WildRose.js'
+import { TileHeight } from '../globals/Constants.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -182,15 +190,43 @@ export default class GameScene extends Scene {
 
   spawnForageableItems(howmany) {
     // Implement once ForageableItems are created
-    // for (let i = 0; i < howmany; i++) {
-    //   const itemPos = this.mapManager.getRandomTilePos()
+    for (let i = 0; i < howmany; i++) {
+      const itemPos = this.mapManager.getRandomTilePos()
+      const items = Object.keys(ForageableData)
+      const itemType = items[Math.floor(Math.random() * items.length)]
 
-      // Randomly select an item to spawn
-      // Need to create the item based on the type of item
+      let item = null
+      const config = {
+        game: this.game,
+        scene: this,
+        imageManager: this.imageManager,
+        x: itemPos.x,
+        y: itemPos.y + TileHeight / 2
+      }
+      switch (itemType) {
+        case EntityTypes.Daffodil:
+          item = new Daffodil(config)
+          break
+        case EntityTypes.Sunflower:
+          item = new Sunflower(config)
+          break
+        case EntityTypes.Truffel:
+          item = new Truffel(config)
+          break
+        case EntityTypes.Tulip:
+          item = new Tulip(config)
+          break
+        case EntityTypes.WildGarlic:
+          item = new WildGarlic(config)
+          break
+        case EntityTypes.WildRose:
+          item = new WildRose(config)
+          break
+      }
 
-      // item.init()
-      // this.entityManager.addEntity(item, true)
-    // }
+      item.init()
+      this.entityManager.addEntity(item, true)
+    }
   }
 
   update (deltaTime) {

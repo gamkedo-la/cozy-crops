@@ -1,6 +1,7 @@
 import { UISprites } from '../globals/Images.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import EntityTypes from '../globals/EntityTypes.js'
+import SelectedInventoryHighlight from '../uiElements/SelectedInventoryHighlight.js'
 import Axe from '../entities/tools/Axe.js'
 import FishingRod from '../entities/tools/FishingRod.js'
 import Hoe from '../entities/tools/Hoe.js'
@@ -8,7 +9,12 @@ import PickAxe from '../entities/tools/Pickaxe.js'
 import Shovel from '../entities/tools/Shovel.js'
 import WateringCan from '../entities/tools/WateringCan.js'
 import SeedPacket from '../entities/crops/SeedPacket.js'
-import SelectedInventoryHighlight from '../uiElements/SelectedInventoryHighlight.js'
+import Daffodil from '../entities/forageables/Daffodil.js'
+import Sunflower from '../entities/forageables/Sunflower.js'
+import Truffel from '../entities/forageables/Truffel.js'
+import Tulip from '../entities/forageables/Tulip.js'
+import WildGarlic from '../entities/forageables/WildGarlic.js'
+import WildRose from '../entities/forageables/WildRose.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -67,6 +73,11 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isSeed(item))
   }
 
+  getForagables () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isForageable(item))
+  }
+
   getClikedItem (x, y) {
     const clickedItem = this.inventory.find(item => {
       return (
@@ -99,6 +110,15 @@ export default class InventoryManager {
       seed.drawAsInventory(
         seed.x,
         seed.y,
+        this.itemWidth,
+        this.itemHeight
+      )
+    })
+
+    this.getForagables().forEach((foragable, index) => {
+      foragable.drawAsInventory(
+        foragable.x,
+        foragable.y,
         this.itemWidth,
         this.itemHeight
       )
@@ -210,6 +230,84 @@ function buildInventory (inventoryManager) {
       case EntityTypes.LettuceSeed:
       case EntityTypes.OnionSeed:
         item = new SeedPacket({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.Daffodil:
+        item = new Daffodil({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.Sunflower:
+        item = new Sunflower({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.Truffel:
+        item = new Truffel({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.Tulip:
+        item = new Tulip({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.WildGarlic:
+        item = new WildGarlic({
+          game: inventoryManager.game,
+          imageManager: inventoryManager.imageManager,
+          type: inventoryItem.type,
+          x: 0,
+          y: 0,
+          width: inventoryManager.itemWidth,
+          height: inventoryManager.itemHeight
+        })
+        item.init()
+        inventoryManager.inventory.push(item)
+        break
+      case EntityTypes.WildRose:
+        item = new WildRose({
           game: inventoryManager.game,
           imageManager: inventoryManager.imageManager,
           type: inventoryItem.type,

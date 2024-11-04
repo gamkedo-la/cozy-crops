@@ -1,6 +1,6 @@
-import ForagableAnimations from '../../globals/ForagableAnimations.js'
+import ForageableAnimations from '../../globals/ForageableAnimations.js'
 import Animation from '../../components/Animation.js'
-import ForagableData from '../../globals/ForagableData.js'
+import ForageableData from '../../globals/ForageableData.js'
 
 export default class Forageable {
   constructor (config) {
@@ -24,6 +24,7 @@ export default class Forageable {
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
 
+    this.y -= (this.currentAnimation.height)
     this.collisionPoint = {
       x: this.x + this.currentAnimation.width / 2,
       y: this.y + this.currentAnimation.height
@@ -48,5 +49,10 @@ export default class Forageable {
 
   draw (camera) {
     this.currentAnimation?.draw(this.x, this.y, camera)
+  }
+
+  drawAsInventory (x, y, width, height) {
+    const frame = this.animations['Inventory'].getCurrentFrame()
+    this.game.ctx.drawImage(this.currentAnimation.spritesheet, frame.x, frame.y, frame.width, frame.height / 2, x, y, width, height)
   }
 }

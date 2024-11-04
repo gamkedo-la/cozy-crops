@@ -4,22 +4,22 @@ import ForageableData from '../../globals/ForageableData.js'
 import Animation from '../../components/Animation.js'
 import EntityTypes from '../../globals/EntityTypes.js'
 
-export default class Truffel extends Forageable {
+export default class Sunflower extends Forageable {
   constructor (config) {
-    config.type = EntityTypes.Truffel
-    config = {...config, ...ForageableData[EntityTypes.Truffel]}
+    config.type = EntityTypes.Sunflower
+    config = {...config, ...ForageableData[EntityTypes.Sunflower]}
     super(config)
   }
 
   buildAnimations () {
-    const animationKeys = Object.keys(ForageableAnimations.Truffel)
+    const animationKeys = Object.keys(ForageableAnimations[EntityTypes.Sunflower])
     animationKeys.forEach((key, index) => {
-      const config = Object.assign({}, ForageableAnimations.Truffel[key])
+      const config = Object.assign({}, ForageableAnimations[EntityTypes.Sunflower][key])
       config.owner = this
       config.game = this.game
       config.imageManager = this.imageManager
-      config.imageSrc = ForageableAnimations.Truffel[key].spritesheet
-      config.canvas = this.imageManager.getImageWithSrc(ForageableAnimations.Truffel[key].spritesheet)
+      config.imageSrc = ForageableAnimations[EntityTypes.Sunflower][key].spritesheet
+      config.canvas = this.imageManager.getImageWithSrc(ForageableAnimations[EntityTypes.Sunflower][key].spritesheet)
       this.animations[key] = new Animation(config)
     })
   }

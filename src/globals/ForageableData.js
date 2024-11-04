@@ -1,7 +1,7 @@
 import EntityTypes from './EntityTypes.js'
 import { Seasons } from './Calendar.js'
 
-const ForagableData = {
+const ForageableData = {
   [EntityTypes.Daffodil]: {
     name: EntityTypes.Daffodil,
     inSeason: Seasons.Cool,
@@ -40,11 +40,11 @@ const ForagableData = {
   }
 }
 
-export const Daffodil = ForagableData[EntityTypes.Daffodil]
-export const Sunflower = ForagableData[EntityTypes.Sunflower]
-export const Truffel = ForagableData[EntityTypes.Truffel]
-export const Tulip = ForagableData[EntityTypes.Tulip]
-export const WildGarlic = ForagableData[EntityTypes.WildGarlic]
-export const WildRose = ForagableData[EntityTypes.WildRose]
+export const Daffodil = ForageableData[EntityTypes.Daffodil]
+export const Sunflower = ForageableData[EntityTypes.Sunflower]
+export const Truffel = ForageableData[EntityTypes.Truffel]
+export const Tulip = ForageableData[EntityTypes.Tulip]
+export const WildGarlic = ForageableData[EntityTypes.WildGarlic]
+export const WildRose = ForageableData[EntityTypes.WildRose]
 
-export default ForagableData
+export default ForageableData

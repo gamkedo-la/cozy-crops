@@ -12,14 +12,14 @@ export default class WildGarlic extends Forageable {
   }
 
   buildAnimations () {
-    const animationKeys = Object.keys(ForageableAnimations.WildGarlic)
+    const animationKeys = Object.keys(ForageableAnimations[EntityTypes.WildGarlic])
     animationKeys.forEach((key, index) => {
-      const config = Object.assign({}, ForageableAnimations.WildGarlic[key])
+      const config = Object.assign({}, ForageableAnimations[EntityTypes.WildGarlic][key])
       config.owner = this
       config.game = this.game
       config.imageManager = this.imageManager
-      config.imageSrc = ForageableAnimations.WildGarlic[key].spritesheet
-      config.canvas = this.imageManager.getImageWithSrc(ForageableAnimations.WildGarlic[key].spritesheet)
+      config.imageSrc = ForageableAnimations[EntityTypes.WildGarlic][key].spritesheet
+      config.canvas = this.imageManager.getImageWithSrc(ForageableAnimations[EntityTypes.WildGarlic][key].spritesheet)
       this.animations[key] = new Animation(config)
     })
   }

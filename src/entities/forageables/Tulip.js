@@ -12,14 +12,14 @@ export default class Tulip extends Forageable {
   }
 
   buildAnimations () {
-    const animationKeys = Object.keys(ForageableAnimations.Tulip)
+    const animationKeys = Object.keys(ForageableAnimations[EntityTypes.Tulip])
     animationKeys.forEach((key, index) => {
-      const config = Object.assign({}, ForageableAnimations.Tulip[key])
+      const config = Object.assign({}, ForageableAnimations[EntityTypes.Tulip][key])
       config.owner = this
       config.game = this.game
       config.imageManager = this.imageManager
-      config.imageSrc = ForageableAnimations.Tulip[key].spritesheet
-      config.canvas = this.imageManager.getImageWithSrc(ForageableAnimations.Tulip[key].spritesheet)
+      config.imageSrc = ForageableAnimations[EntityTypes.Tulip][key].spritesheet
+      config.canvas = this.imageManager.getImageWithSrc(ForageableAnimations[EntityTypes.Tulip][key].spritesheet)
       this.animations[key] = new Animation(config)
     })
   }
