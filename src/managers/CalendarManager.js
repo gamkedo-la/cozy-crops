@@ -59,13 +59,18 @@ export default class CalendarManager {
     return { year: this.year + 1, season: this.season + 1, seasonDisplay: this.seasonDisplay, week: this.week + 1, day: this.day + 1, dayOfSeason: (this.week * Calendar.DaysPerWeek) + this.day + 1 }
   }
 
+  getTimeOfDay () {
+    return this.elapsedTime
+  }
+
   update (deltaTime) {
     this.elapsedTime += deltaTime
-    if (this.elapsedTime >= Calendar.DayLength) {
+    if (this.elapsedTime >= Calendar.LengthOfDay) {
       this.day++
-      this.elapsedTime -= Calendar.DayLength // Reset the elapsed time, but keep any overflow.
+      this.elapsedTime -= Calendar.LengthOfDay // Reset the elapsed time, but keep any overflow.
       dateCheck(this)
       this.gameManager.newDaySave({ year: this.year, season: this.season, week: this.week, day: this.day })
+      this.game.sceneManager.currentScene.reachedEndOfDay()
     }
   }
 }

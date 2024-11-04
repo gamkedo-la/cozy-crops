@@ -28,6 +28,7 @@ export default class GameScene extends Scene {
     this.camera = null
     this.steve = null
     this.steve2 = null
+    this.isSleeping = false
 
     this.collisionManager = null
   }
@@ -235,8 +236,11 @@ export default class GameScene extends Scene {
     manageInput(this)
     this.entityManager.update(deltaTime)
 
-    this.calendarManager.update(deltaTime)
-    this.mapManager.update(deltaTime)
+    if (!this.isSleeping) {
+      this.calendarManager.update(deltaTime)
+      this.mapManager.update(deltaTime)
+    }
+
     this.camera.update(deltaTime)
     this.draw()
   }
@@ -313,14 +317,22 @@ export default class GameScene extends Scene {
 
   cameraDidSleep () {
     this.steve.sleep()
-    this.calendarManager.advanceDay()
-    this.cropManager.advanceDay()
-    this.mapManager.unWaterAllTiles()
     this.camera.wake(this)
   }
 
   cameraDidWake () {
+    this.isSleeping = false
     this.steve.wake()
+  }
+
+  reachedEndOfDay () {
+    sleep(this)
+    this.newDayActions()
+  }
+
+  newDayActions () {
+    this.cropManager.advanceDay()
+    this.mapManager.unWaterAllTiles()
   }
 }
 
@@ -334,12 +346,15 @@ function manageInput (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
   if (justDownKeys.includes(Keys.N)) {
     sleep(scene)
+    scene.calendarManager.advanceDay()
+    scene.newDayActions()
   }
 
   if (CheatKeys) checkCheatKeys(scene)
 }
 
 function sleep (scene) {
+  scene.isSleeping = true
   scene.camera.sleep(scene)
 }
 

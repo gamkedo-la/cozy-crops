@@ -1,6 +1,7 @@
 import Scene from './Scene.js'
 import Constants from '../globals/Constants.js'
 import Colors from '../globals/Colors.js'
+import Calendar from '../globals/Calendar.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import { UISprites } from '../globals/Images.js'
 import { Player1 } from '../globals/EntityTypes.js'
@@ -117,6 +118,6 @@ function drawDayNightUI (scene, rect) {
 
 function drawTimeOfDayUI (scene, rect) {
   const staminaLeft = rect.left - (2 * UISpriteData.TimeOfDay.width) - 18
-  const staminaTop = rect.top + 30
+  const staminaTop = rect.top + 30 + 2 * (scene.calendarManager.getTimeOfDay() / Calendar.LengthOfDay) * (UISpriteData.DayNightUI.height - 8)
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.TimeOfDay.x, UISpriteData.TimeOfDay.y, UISpriteData.TimeOfDay.width, UISpriteData.TimeOfDay.height, staminaLeft, staminaTop, 2 * UISpriteData.TimeOfDay.width, 2 * UISpriteData.TimeOfDay.height)
 }
