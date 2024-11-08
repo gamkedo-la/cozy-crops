@@ -21,6 +21,7 @@ import Tulip from '../entities/forageables/Tulip.js'
 import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
+import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, TileNames, WetSand } from '../globals/Tiles.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -277,17 +278,17 @@ export default class GameScene extends Scene {
   getAvailableMapActions (x, y) {
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
     switch (tileType) {
-      case 'Grass1':
-      case 'Grass2':
-      case 'Grass3':
-      case 'Grass4':
+      case TileNames[Grass1]:
+      case TileNames[Grass2]:
+      case TileNames[Grass3]:
+      case TileNames[Grass4]:
         return ['Till']
-      case 'Door':
-      case 'Museum103':
+      case TileNames[Door]:
+      case TileNames[MuseumDoor]:
         return ['Open Door']
-      case 'Sand':
+      case TileNames[Sand]:
         return ['Plant', 'Water', 'Till', 'Harvest']
-      case 'WetSand':
+      case TileNames[WetSand]:
         return ['Plant', 'Water', 'Harvest']
       case 'Water':
         return ['Fish']

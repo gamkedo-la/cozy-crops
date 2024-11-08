@@ -88,7 +88,7 @@ export const Museum99 = 99
 export const Museum100 = 100
 export const Museum101 = 101
 export const Museum102 = 102
-export const Museum103 = 103
+export const MuseumDoor = 103
 export const Museum104 = 104
 export const Museum105 = 105
 
@@ -186,7 +186,7 @@ export const TileNames = {
   [Museum100]: 'Museum100',
   [Museum101]: 'Museum101',
   [Museum102]: 'Museum102',
-  [Museum103]: 'Museum103',
+  [MuseumDoor]: 'MuseumDoor',
   [Museum104]: 'Museum104',
   [Museum105]: 'Museum105'
 }
@@ -196,7 +196,7 @@ export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Buildin
   Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, 
   Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
   Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
-  Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,Museum103,Museum104,Museum105]
+  Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,MuseumDoor,Museum104,Museum105]
 
 export const TileTimes = {
   [WetSand]: {
