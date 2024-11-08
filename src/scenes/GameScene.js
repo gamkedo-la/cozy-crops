@@ -1,6 +1,7 @@
 import Scene from './Scene.js'
+import Scenes from '../globals/Scenes.js'
 import Player from '../entities/Player.js'
-import Keys from '../globals/Keys.js'
+import Keys, { S } from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
 import EntityTypes, { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
@@ -382,6 +383,8 @@ function checkCheatKeys (scene) {
   const justDownKeys = scene.inputManager.getJustDownKeys()
 
   checkCalendarCheatKeys(scene, justDownKeys)
+
+  checkSceneCheatKeys(scene, justDownKeys)
 }
 
 function checkCalendarCheatKeys (scene, justDownKeys) {
@@ -393,5 +396,11 @@ function checkCalendarCheatKeys (scene, justDownKeys) {
   }
   if (justDownKeys.includes(Keys.P)) {
     scene.calendarManager.advanceYear()
+  }
+}
+
+function checkSceneCheatKeys (scene, justDownKeys) {
+  if (justDownKeys.includes(Keys.M)) {
+    scene.game.changeScene(Scenes.Museum)
   }
 }

@@ -75,10 +75,10 @@ export const MuseumImageData = {
   },
   Museum: {
     x: 0,
-    y: 0,
+    y: 9,
     spritesheet: Museum,
     width: 257,
-    height: 249,
+    height: 240,
     padding: 0
   },
   PearlEarring: {

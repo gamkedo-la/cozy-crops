@@ -1,4 +1,3 @@
-import CuratorAnimations from '../../globals/CuratorAnimations.js'
 import Animation from '../../components/Animation.js'
 
 export default class NPC {
