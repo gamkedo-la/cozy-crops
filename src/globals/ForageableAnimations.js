@@ -41,7 +41,7 @@ export const Sunflower = {
   Idle: {
     name: 'SunflowerWind',
     spritesheet: ForageableItems,
-    frames: [1, 2, 3],
+    frames: [1, 2, 3, 2],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
