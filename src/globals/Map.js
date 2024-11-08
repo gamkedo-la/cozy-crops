@@ -131,5 +131,7 @@ export default [
     
 ]
 
-export const Player1Start = { x: 976, y: 1184 } // will want to change this
-export const Player2Start = { x: 0, y: 0 } // will want to change this
+export const Player1Start = { x: 976, y: 1184 }
+export const Player2Start = { x: 0, y: 0 }
+export const PlayerHome = { x: 976, y: 1168 }
+export const Museum = { x: 1616, y: 960 }

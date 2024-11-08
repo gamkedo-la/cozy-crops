@@ -283,6 +283,7 @@ export default class GameScene extends Scene {
       case 'Grass4':
         return ['Till']
       case 'Door':
+      case 'Museum103':
         return ['Open Door']
       case 'Sand':
         return ['Plant', 'Water', 'Till', 'Harvest']
@@ -298,6 +299,19 @@ export default class GameScene extends Scene {
         return ['Sleep']
       default:
         return []
+    }
+  }
+
+  openDoor (x, y) {
+    const openedDoor = this.mapManager.getTileAtPixelPos(x, y)
+    switch (openedDoor) {
+      case 12:
+        console.log('Open door to the Player\'s House')
+        // this.game.changeScene(Scenes.PlayerHome)
+        break
+      case 103:
+        this.game.changeScene(Scenes.Museum)
+        break
     }
   }
 
