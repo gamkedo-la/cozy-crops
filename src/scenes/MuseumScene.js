@@ -1,8 +1,6 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
-import { MuseumImageData } from '../globals/MuseumImageData.js'
-import { Museum } from '../globals/Images.js'
 import Curator from '../entities/npcs/Curator.js'
 
 export default class MuseumScene extends Scene {
@@ -10,6 +8,7 @@ export default class MuseumScene extends Scene {
     super(config)
 
     this.curator = null
+    this.museumCamera = null
   }
 
   start () {
@@ -19,26 +18,30 @@ export default class MuseumScene extends Scene {
     this.curator = new Curator({
       game: this.game,
       imageManager: this.imageManager,
-      x: 100,
-      y: 100
+      x: 300,
+      y: 150
     })
     this.curator.init()
+
+    this.museumCamera = {
+      getTopLeft: () => ({ x: 0, y: 0 }),
+    }
   }
 
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
+    this.curator.update(deltaTime)
     manageInput(this)
   }
 
   draw (scene) {
     super.draw() // Call the draw method of the parent class
-    const xPos = (this.game.canvas.width - 2 * MuseumImageData.Museum.width) / 2
-    this.game.ctx.fillStyle = '#CFCECE'
-    this.game.ctx.fillRect(0, 0, this.game.canvas.width, this.game.canvas.height)
-    this.game.ctx.drawImage(this.imageManager.getImageWithSrc(Museum), MuseumImageData.Museum.x, MuseumImageData.Museum.y, MuseumImageData.Museum.width, MuseumImageData.Museum.height, xPos, 0, 2 * MuseumImageData.Museum.width, 2 * MuseumImageData.Museum.height)
 
-    this.curator.draw(this.game.camera)
+    this.mapManager.drawMap('museum', { x: null, y: null })
+    this.curator.draw(this.museumCamera)
+
+    this.imageManager.render()
   }
 
   stop () {

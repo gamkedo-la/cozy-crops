@@ -26,10 +26,10 @@ export default class Animation {
     }
   }
 
-  draw (x, y) {
+  draw (x, y, camera) {
     const imageX = (this.currentFrame * this.frameWidth) % this.spritesheet.width
     const imageY = Math.floor((this.currentFrame * this.frameWidth) / this.spritesheet.width) * this.frameHeight
-    this.imageManager.draw(this.spritesheet, x, y, this.frameWidth, this.frameHeight, imageX, imageY)
+    this.imageManager.draw(this.spritesheet, x, y, this.frameWidth, this.frameHeight, imageX, imageY, camera)
   }
 
   getCurrentFrame () {

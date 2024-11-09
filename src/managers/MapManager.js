@@ -1,4 +1,5 @@
-import MapData, { Player1Start, Player2Start } from '../globals/Map.js'
+import MapData, { Player1Start, Player2Start, mapPosition } from '../globals/Map.js'
+import MuseumMapData, { museumPosition } from '../globals/MuseumMap.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
@@ -9,16 +10,34 @@ export default class MapManager {
     Object.assign(this, config)
     this.tileImage = null
     this.tilesPerRow = null
+
     this.mapCanvas = null
     this.mapCtx = null
+    this.mapData = MapData
+
     this.worldDimensions = {
       pixels: {
-        width: MapData[0].length * TileWidth,
-        height: MapData.length * TileHeight
+        width: this.mapData[0].length * TileWidth,
+        height: this.mapData.length * TileHeight
       },
       tiles: {
-        width: MapData[0].length,
-        height: MapData.length
+        width: this.mapData[0].length,
+        height: this.mapData.length
+      }
+    }
+
+    this.museumCanvas = null
+    this.museumCtx = null
+    this.museumData = MuseumMapData
+
+    this.museumDimensions = {
+      pixels: {
+        width: this.museumData[0].length * TileWidth,
+        height: this.museumData.length * TileHeight
+      },
+      tiles: {
+        width: this.museumData[0].length,
+        height: this.museumData.length
       }
     }
   }
@@ -30,12 +49,12 @@ export default class MapManager {
     this.mapCanvas = document.createElement('canvas')
     this.mapCtx = this.mapCanvas.getContext('2d')
 
-    this.mapCanvas.width = MapData[0].length * TileWidth
-    this.mapCanvas.height = MapData.length * TileHeight
+    this.mapCanvas.width = this.mapData[0].length * TileWidth
+    this.mapCanvas.height = this.mapData.length * TileHeight
 
-    for (let y = 0; y < MapData.length; y++) {
-      for (let x = 0; x < MapData[y].length; x++) {
-        const mapData = MapData[y][x]
+    for (let y = 0; y < this.mapData.length; y++) {
+      for (let x = 0; x < this.mapData[y].length; x++) {
+        const mapData = this.mapData[y][x]
         const imageX = (mapData % this.tilesPerRow) * TileWidth
         const imageY = (Math.floor(mapData / this.tilesPerRow)) * TileHeight
         this.mapCtx.drawImage(
@@ -48,6 +67,25 @@ export default class MapManager {
 
     for (const tile of modifiedTiles) {
       this.updateTileAtXY(tile.x, tile.y, tile.tileIndex)
+    }
+
+    this.museumCanvas = document.createElement('canvas')
+    this.museumCtx = this.museumCanvas.getContext('2d')
+    this.museumCanvas.width = 2 * this.museumData[0].length * TileWidth
+    this.museumCanvas.height = 2 * this.museumData.length * TileHeight
+
+
+    for (let y = 0; y < this.museumData.length; y++) {
+      for (let x = 0; x < this.museumData[y].length; x++) {
+        const museumData = this.museumData[y][x]
+        const imageX = (museumData % this.tilesPerRow) * TileWidth
+        const imageY = (Math.floor(museumData / this.tilesPerRow)) * TileHeight
+        this.museumCtx.drawImage(
+          this.tileImage,
+          imageX, imageY, TileWidth, TileHeight,
+          x * TileWidth, y * TileHeight, TileWidth, TileHeight
+        )
+      }
     }
   }
 
@@ -80,8 +118,21 @@ export default class MapManager {
     }
   }
 
-  drawMap () {
-    this.imageManager.drawGround(this.mapCanvas, 0, 0, this.mapCanvas.width, this.mapCanvas.height)
+  drawMap (mapToDraw) {
+    let canvasToDraw = null
+    let position = null
+    switch (mapToDraw) {
+      case 'museum':
+        canvasToDraw = this.museumCanvas
+        position = museumPosition
+        break
+      default:
+        canvasToDraw = this.mapCanvas
+        position = mapPosition
+        break
+    }
+
+    this.imageManager.drawGround(canvasToDraw, position.x, position.y, canvasToDraw.width, canvasToDraw.height)
   }
 
   updateTileAtXY (x, y, tileIndex) {
@@ -92,7 +143,7 @@ export default class MapManager {
       imageX, imageY, TileWidth, TileHeight,
       x * TileWidth, y * TileHeight, TileWidth, TileHeight
     )
-    MapData[y][x] = tileIndex
+    this.mapData[y][x] = tileIndex
   }
 
   updateTileAtPixelPos (x, y, tileIndex) {
@@ -107,10 +158,8 @@ export default class MapManager {
 
   getTileAtXY (x, y) {
     try {
-      return MapData[y][x]      
+      return this.mapData[y][x]      
     } catch (error) {
-      console.log('Map Width in Tiles:', MapData[0].length)
-      console.log('Map Height in Tiles:', MapData.length)
       console.error('Error getting tile at x, y:', x, y)
     }
   }

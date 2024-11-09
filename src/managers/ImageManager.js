@@ -72,17 +72,19 @@ export default class ImageManager {
     return this.images[this.srcToKeyMap[src]]
   }
 
-  draw (image, x, y, width, height, imageX = 0, imageY = 0) {
-    const cameraPos = this.camera.getTopLeft()
+  draw (image, x, y, width, height, imageX = 0, imageY = 0, camera = null) {
+    const cameraPos = camera ? camera.getTopLeft() : this.camera.getTopLeft()
     this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)
   }
 
-  drawGround(image) {
+  drawGround(image, x, y, width = null, height = null) {
     const cameraPos = this.camera.getTopLeft()
-    const sx = cameraPos.x
-    const sy = cameraPos.y
+    const sx = x || cameraPos.x
+    const sy = y || cameraPos.y
 
-    this.internalCtx.drawImage(image, sx, sy, this.internalCanvas.width, this.internalCanvas.height, 0, 0, this.internalCanvas.width, this.internalCanvas.height)
+    this.internalCtx.fillStyle = `rgba(0, 0, 0, 1)`
+    this.internalCtx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height)
+    this.internalCtx.drawImage(image, sx, sy, width, height, 0, 0, width, height)
   }
 
   drawKey (imageKey, x, y, width, height) {
@@ -95,8 +97,9 @@ export default class ImageManager {
     }
 
     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height)
-    const cameraPos = this.camera.getTopLeft()
     this.game.ctx.drawImage(this.internalCanvas, 0, 0, this.internalCanvas.width, this.internalCanvas.height, 0, 0, ImageScale * this.game.canvas.width, ImageScale * this.game.canvas.height)
+
+    // Draw the overlay to fade to black (or back)
     this.game.ctx.fillStyle = `rgba(${this.overlayRed}, ${this.overlayGreen}, ${this.overlayBlue}, ${this.overlayAlpha})`
     this.game.ctx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height)
   }
