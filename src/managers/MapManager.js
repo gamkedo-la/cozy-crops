@@ -1,5 +1,5 @@
 import MapData, { Player1Start, Player2Start, mapPosition } from '../globals/Map.js'
-import MuseumMapData, { museumPosition } from '../globals/MuseumMap.js'
+import MuseumMapData, { MuseumPosition } from '../globals/MuseumMap.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import { Player1, Player2 } from '../globals/EntityTypes.js'
@@ -74,7 +74,6 @@ export default class MapManager {
     this.museumCanvas.width = 2 * this.museumData[0].length * TileWidth
     this.museumCanvas.height = 2 * this.museumData.length * TileHeight
 
-
     for (let y = 0; y < this.museumData.length; y++) {
       for (let x = 0; x < this.museumData[y].length; x++) {
         const museumData = this.museumData[y][x]
@@ -124,7 +123,7 @@ export default class MapManager {
     switch (mapToDraw) {
       case 'museum':
         canvasToDraw = this.museumCanvas
-        position = museumPosition
+        position = MuseumPosition
         break
       default:
         canvasToDraw = this.mapCanvas
@@ -156,18 +155,18 @@ export default class MapManager {
     this.gameManager.setModifiedTile(tileX, tileY, tileIndex, getTimeForTileIndex(tileIndex))
   }
 
-  getTileAtXY (x, y) {
+  getTileAtXY (x, y, map = this.mapData) {
     try {
-      return this.mapData[y][x]      
+      return map[y][x]      
     } catch (error) {
       console.error('Error getting tile at x, y:', x, y)
     }
   }
 
-  getTileAtPixelPos (x, y) {
+  getTileAtPixelPos (x, y, map = this.mapData) {
     const tileX = Math.floor(x / TileWidth)
     const tileY = Math.floor(y / TileHeight)
-    return this.getTileAtXY(tileX, tileY)
+    return this.getTileAtXY(tileX, tileY, map)
   }
 
   getTileTypeAtPixelPos (x, y) {

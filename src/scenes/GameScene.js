@@ -39,7 +39,7 @@ export default class GameScene extends Scene {
     this.entityManager.addEntity(entity)
   }
 
-  start () {
+  init () {
     const modifiedTiles = this.gameManager.getModifiedTiles()
     this.mapManager.start(modifiedTiles)
     this.inventoryManager.start()
@@ -311,7 +311,7 @@ export default class GameScene extends Scene {
         // this.game.changeScene(Scenes.PlayerHome)
         break
       case 103:
-        this.game.changeScene(Scenes.Museum)
+        this.game.changeScene(Scenes.Museum, { player: this.steve })
         break
     }
   }
@@ -416,6 +416,6 @@ function checkCalendarCheatKeys (scene, justDownKeys) {
 
 function checkSceneCheatKeys (scene, justDownKeys) {
   if (justDownKeys.includes(Keys.M)) {
-    scene.game.changeScene(Scenes.Museum)
+    scene.game.changeScene(Scenes.Museum, { player: scene.steve })
   }
 }

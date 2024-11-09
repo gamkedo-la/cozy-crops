@@ -6,7 +6,12 @@ export default class Scene {
     Object.assign(this, config.managers)
   }
 
+  init () {
+    // called once
+  }
+
   start () {
+    // called every time we switch to the scene
   }
 
   update (deltaTime) {

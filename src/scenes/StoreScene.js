@@ -7,10 +7,22 @@ export default class StoreScene extends Scene {
     super(config)
   }
 
-  start () {
-    super.start() // Call the start method of the parent class
+  init () {
+    super.init() // Call the init method of the parent class
 
     // initialize resources
+  }
+
+  start (data) {
+    if (data?.player) {
+      this.playerWorldPosition = { x: data.player.x, y: data.player.y }
+      this.player = data.player
+      this.player.scene = this
+
+      // replace these with the Store Entrance coordinates
+      // this.player.x = MuseumEntrance.x
+      // this.player.y = MuseumEntrance.y
+    }
   }
 
   update (deltaTime) {

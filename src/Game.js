@@ -41,9 +41,9 @@ export default class Game {
     buildManagers(this)
   }
 
-  start () {
+  init () {
     // Do any one-time setup here, then call update()
-    this.sceneManager.start()
+    this.sceneManager.init()
 
     this.update(this.lastTime)
   }
@@ -58,8 +58,8 @@ export default class Game {
     requestAnimationFrame(timestamp => this.update(timestamp))
   }
 
-  changeScene (scene) {
-    this.sceneManager.changeScene(scene)
+  changeScene (scene, data) {
+    this.sceneManager.changeScene(scene, data)
   }
 }
 

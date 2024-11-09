@@ -69,8 +69,8 @@ export default class PreGameScene extends Scene {
     }
   }
 
-  start () {
-    super.start() // Call the start method of the parent class
+  init () {
+    super.init() // Call the init method of the parent class
 
     // setup resources
     this.saveSlots = this.managers.gameManager.getSaveSlots()

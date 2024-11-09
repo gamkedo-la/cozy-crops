@@ -16,7 +16,7 @@ export default class SceneManager {
     this.managers.sceneManager = this
 
     this.scenes = {}
-    this.startedScenes = {}
+    this.initializedScenes = {}
     this.buildScenes()
 
     this.currentScene = this.scenes.Boot
@@ -28,42 +28,42 @@ export default class SceneManager {
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Boot] = false
+    this.initializedScenes[Scenes.Boot] = false
 
     this.scenes[Scenes.Credits] = new CreditsScene({
       name: Scenes.Credits,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Credits] = false
+    this.initializedScenes[Scenes.Credits] = false
 
     this.scenes[Scenes.Game] = new GameScene({
       name: Scenes.Game,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Game] = false
+    this.initializedScenes[Scenes.Game] = false
 
     this.scenes[Scenes.Museum] = new MuseumScene({
       name: Scenes.Museum,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Museum] = false
+    this.initializedScenes[Scenes.Museum] = false
 
     this.scenes[Scenes.Options] = new OptionsScene({
       name: Scenes.Options,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Options] = false
+    this.initializedScenes[Scenes.Options] = false
 
     this.scenes[Scenes.PlayerHome] = new PlayerHomeScene({
       name: Scenes.PlayerHome,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.PlayerHome] = false
+    this.initializedScenes[Scenes.PlayerHome] = false
 
     this.scenes[Scenes.PreGame] = new PreGameScene({
       name: Scenes.PreGame,
@@ -76,39 +76,40 @@ export default class SceneManager {
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Store] = false
+    this.initializedScenes[Scenes.Store] = false
 
     this.scenes[Scenes.Title] = new TitleScene({
       name: Scenes.Title,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.Title] = false
+    this.initializedScenes[Scenes.Title] = false
 
     this.scenes[Scenes.UIScene] = new UIScene({
       name: Scenes.UIScene,
       game: this.game,
       managers: this.managers
     })
-    this.startedScenes[Scenes.UIScene] = false
+    this.initializedScenes[Scenes.UIScene] = false
   }
 
   add (scene) {
     this.scenes[scene.name] = scene
   }
 
-  start () {
-    this.currentScene.start()
-    this.startedScenes[Scenes.Boot] = true
+  init () {
+    this.currentScene.init()
+    this.initializedScenes[Scenes.Boot] = true
   }
 
-  changeScene (sceneName) {
+  changeScene (sceneName, data) {
     if (this.scenes[sceneName]) {
-      if (!this.startedScenes[sceneName]) {
-        this.scenes[sceneName].start()
-        this.startedScenes[sceneName] = true
+      if (!this.initializedScenes[sceneName]) {
+        this.scenes[sceneName].init(data)
+        this.initializedScenes[sceneName] = true
       }
 
+      this.scenes[sceneName].start(data)
       const previousScene = this.currentScene
       this.currentScene = this.scenes[sceneName]
       previousScene.stop()
@@ -116,8 +117,8 @@ export default class SceneManager {
 
     if (this.currentScene.name === Scenes.Game) {
       if (this.scenes[Scenes.UIScene]) {
-        this.scenes[Scenes.UIScene].start(this.currentScene)
-        this.startedScenes[Scenes.UIScene] = true
+        this.scenes[Scenes.UIScene].init(this.currentScene)
+        this.initializedScenes[Scenes.UIScene] = true
       }
     } else {
       if (this.scenes[Scenes.UIScene]) {

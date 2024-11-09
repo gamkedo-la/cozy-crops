@@ -13,8 +13,8 @@ export default class UIScene extends Scene {
     this.gameScene = null
   }
 
-  start (gameScene) {
-    super.start() // Call the start method of the parent class
+  init (gameScene) {
+    super.init() // Call the init method of the parent class
     this.gameScene = gameScene
   }
 

@@ -12,8 +12,8 @@ export default class CreditsScene extends Scene {
     this.menu = null
   }
 
-  start () {
-    super.start() // Call the start method of the parent class
+  init () {
+    super.init() // Call the init method of the parent class
 
     // initialize resources
     this.menu = new Menu({

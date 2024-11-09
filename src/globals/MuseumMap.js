@@ -17,4 +17,5 @@ export default [
   [112,112,112,112,112,112,117,118,112,112,112,112,112,112]
 ]
 
-export const museumPosition = { x: -200, y: -100 }
+export const MuseumPosition = { x: -200, y: -100 }
+export const MuseumEntrance = { x: 302, y: 320 }
