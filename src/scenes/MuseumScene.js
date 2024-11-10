@@ -5,6 +5,7 @@ import Curator from '../entities/npcs/Curator.js'
 import { MuseumEntrance, MuseumPosition } from '../globals/MuseumMap.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import Plaque from '../entities/museum/Plaque.js'
+import Portrait from '../entities/museum/Portrait.js'
 
 export default class MuseumScene extends Scene {
   constructor (config) {
@@ -29,6 +30,7 @@ export default class MuseumScene extends Scene {
     this.curator.init()
 
     this.plaques = buildPlaques(this)
+    this.portraits = buildPortraits(this)
 
     this.museumCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
@@ -60,6 +62,7 @@ export default class MuseumScene extends Scene {
 
     this.mapManager.drawMap('museum', { x: null, y: null })
     this.plaques.forEach(plaque => plaque.draw(this.museumCamera))
+    this.portraits.forEach(portrait => portrait.draw(this.museumCamera))
     this.curator.draw(this.museumCamera)
     if (this.player) this.player.draw(this.museumCamera)
 
@@ -134,4 +137,39 @@ function buildPlaques (scene) {
   }))
 
   return plaques
+}
+
+function buildPortraits (scene) {
+  const portraits = []
+  portraits.push(new Portrait({
+    scene,
+    type: EntityTypes.PortraitMona,
+    complete: false
+  }))
+
+  portraits.push(new Portrait({
+    scene,
+    type: EntityTypes.PortraitPearl,
+    complete: false
+  }))
+
+  portraits.push(new Portrait({
+    scene,
+    type: EntityTypes.PortraitRGB,
+    complete: false
+  }))
+
+  portraits.push(new Portrait({
+    scene,
+    type: EntityTypes.PortraitStarry,
+    complete: false
+  }))
+
+  portraits.push(new Portrait({
+    scene,
+    type: EntityTypes.PortraitWave,
+    complete: false
+  }))
+
+  return portraits
 }
