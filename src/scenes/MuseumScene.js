@@ -3,6 +3,8 @@ import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
 import Curator from '../entities/npcs/Curator.js'
 import { MuseumEntrance, MuseumPosition } from '../globals/MuseumMap.js'
+import EntityTypes from '../globals/EntityTypes.js'
+import Plaque from '../entities/museum/Plaque.js'
 
 export default class MuseumScene extends Scene {
   constructor (config) {
@@ -26,6 +28,8 @@ export default class MuseumScene extends Scene {
     })
     this.curator.init()
 
+    this.plaques = buildPlaques(this)
+
     this.museumCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }
@@ -39,6 +43,8 @@ export default class MuseumScene extends Scene {
       this.player.x = MuseumEntrance.x
       this.player.y = MuseumEntrance.y
     }
+
+    // TODO: Get the status of all Plaques, Portraits, and Statues from the Game Manager
   }
 
   update (deltaTime) {
@@ -53,6 +59,7 @@ export default class MuseumScene extends Scene {
     super.draw() // Call the draw method of the parent class
 
     this.mapManager.drawMap('museum', { x: null, y: null })
+    this.plaques.forEach(plaque => plaque.draw(this.museumCamera))
     this.curator.draw(this.museumCamera)
     if (this.player) this.player.draw(this.museumCamera)
 
@@ -92,4 +99,39 @@ function returnToWorld (scene) {
   scene.player.y = scene.playerWorldPosition.y
   scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
   scene.game.changeScene(Scenes.Game)
+}
+
+function buildPlaques (scene) {
+  const plaques = []
+  plaques.push(new Plaque({
+    scene,
+    type: EntityTypes.PlaqueFarming,
+    complete: false
+  }))
+
+  plaques.push(new Plaque({
+    scene,
+    type: EntityTypes.PlaqueFishing,
+    complete: false
+  }))
+
+  plaques.push(new Plaque({
+    scene,
+    type: EntityTypes.PlaqueForaging,
+    complete: false
+  }))
+
+  plaques.push(new Plaque({
+    scene,
+    type: EntityTypes.PlaqueFurniture,
+    complete: false
+  }))
+
+  plaques.push(new Plaque({
+    scene,
+    type: EntityTypes.PlaqueSelling,
+    complete: false
+  }))
+
+  return plaques
 }

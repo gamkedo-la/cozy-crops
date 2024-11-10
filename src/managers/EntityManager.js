@@ -318,6 +318,50 @@ export default class EntityManager {
         return false
     }
   }
+
+  isPlaque (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.PlaqueFarming:
+      case EntityTypes.PlaqueFishing:
+      case EntityTypes.PlaqueForaging:
+      case EntityTypes.PlaqueFurniture:
+      case EntityTypes.PlaqueSelling:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isPortrait (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.PortraitMona:
+      case EntityTypes.PortraitPearl:
+      case EntityTypes.PortraitRGB:
+      case EntityTypes.PortraitStarry:
+      case EntityTypes.PortraitWave:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isStatue (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.StatueBust:
+      case EntityTypes.StatueFossil:
+      case EntityTypes.StatueMoai:
+      case EntityTypes.StatuePharaoh:
+        return true
+      default:
+        return false
+    }
+  }
 }
 
 function insertEntity (entities, entity) {
