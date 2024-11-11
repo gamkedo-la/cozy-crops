@@ -6,6 +6,7 @@ import { MuseumEntrance, MuseumPosition } from '../globals/MuseumMap.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import Plaque from '../entities/museum/Plaque.js'
 import Portrait from '../entities/museum/Portrait.js'
+import Statue from '../entities/museum/Statue.js'
 
 export default class MuseumScene extends Scene {
   constructor (config) {
@@ -15,6 +16,7 @@ export default class MuseumScene extends Scene {
     this.playerWorldPosition = { x: 0, y: 0 }
     this.curator = null
     this.museumCamera = null
+    this.drawlist = []
   }
 
   init () {
@@ -28,9 +30,12 @@ export default class MuseumScene extends Scene {
       y: 150
     })
     this.curator.init()
+    this.drawlist.push(this.curator)
 
     this.plaques = buildPlaques(this)
     this.portraits = buildPortraits(this)
+    this.statues = buildStatues(this)
+    this.drawlist.push(...this.statues)
 
     this.museumCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
@@ -44,6 +49,7 @@ export default class MuseumScene extends Scene {
       this.player.scene = this
       this.player.x = MuseumEntrance.x
       this.player.y = MuseumEntrance.y
+      this.drawlist.push(this.player)
     }
 
     // TODO: Get the status of all Plaques, Portraits, and Statues from the Game Manager
@@ -63,8 +69,13 @@ export default class MuseumScene extends Scene {
     this.mapManager.drawMap('museum', { x: null, y: null })
     this.plaques.forEach(plaque => plaque.draw(this.museumCamera))
     this.portraits.forEach(portrait => portrait.draw(this.museumCamera))
-    this.curator.draw(this.museumCamera)
-    if (this.player) this.player.draw(this.museumCamera)
+    this.drawlist.sort((a, b) => {
+      const aYToUse = a.collisionPoint?.y || a.screenY || a.y
+      const bYToUse = b.collisionPoint?.y || b.screenY || b.y
+
+      return aYToUse - bYToUse
+    })
+    this.drawlist.forEach(entity => entity.draw(this.museumCamera))
 
     this.imageManager.render()
   }
@@ -172,4 +183,33 @@ function buildPortraits (scene) {
   }))
 
   return portraits
+}
+
+function buildStatues (scene) {
+  const statues = []
+  statues.push(new Statue({
+    scene,
+    type: EntityTypes.StatueBust,
+    complete: false
+  }))
+
+  statues.push(new Statue({
+    scene,
+    type: EntityTypes.StatueFossil,
+    complete: false
+  }))
+
+  statues.push(new Statue({
+    scene,
+    type: EntityTypes.StatueMoai,
+    complete: false
+  }))
+
+  statues.push(new Statue({
+    scene,
+    type: EntityTypes.StatuePharaoh,
+    complete: false
+  }))
+
+  return statues
 }

@@ -15,6 +15,11 @@ export default class NPC {
 
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
+
+    this.collisionPoint = {
+      x: this.x + this.currentAnimation.width / 2, // Center of the player
+      y: this.y + this.currentAnimation.height // Bottom of the player
+    }
   }
 
   buildAnimations () {

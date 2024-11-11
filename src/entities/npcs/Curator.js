@@ -1,10 +1,14 @@
 import NPC from './NPC.js'
 import CuratorAnimations from '../../globals/CuratorAnimations.js'
 import Animation from '../../components/Animation.js'
+import EntityTypes from '../../globals/EntityTypes.js'
 
 export default class Curator extends NPC {
   constructor (config) {
     super(config)
+    
+    this.type =  EntityTypes.Curator
+    this.collisionPoint = { x: 0, y: 0 }
   }
 
   buildAnimations () {

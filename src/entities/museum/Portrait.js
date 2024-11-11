@@ -6,6 +6,7 @@ export default class Portrait {
     Object.assign(this, config)
     this.imagesData = getImageDatasForType(this.type)
     this.imagesData.image = this.scene.imageManager.getImageWithSrc(this.imagesData.complete.spritesheet)
+    this.collisionPoint = { x: this.imagesData.complete.screenX + this.imagesData.complete.width / 2, y: this.imagesData.complete.screenY + this.imagesData.complete.height }
   }
 
   draw (camera) {
