@@ -230,6 +230,10 @@ export default class GameManager {
   getWateredTiles () {
     return this.state.Map.ModifiedTiles.filter(tile => `${tile.tileIndex}` === `${WetSand}`)
   }
+
+  getAchievements () {
+    return this.state.Map.Achievements
+  }
 }
 
 function initializeNewGame (manager, saveSlot) {
@@ -289,8 +293,20 @@ function initializeNewGame (manager, saveSlot) {
     ],
     Map: {
       Achievements: [
-        { name: 'Name Your Farm', description: 'Give your farm a memorable name.', complete: true },
-        // { name: 'First Crop', description: 'Plant your first crop', complete: false }
+        { name: 'Master Fisher', incompleteDescription: 'Catch 30 fish to earn this Plaque', completeDescription: 'Congratulations! You caught 30 fish', type: EntityTypes.PlaqueFishing, requiredCount: 30, currentCount: 0, complete: true },
+        { name: 'Centenial Crop', incompleteDescription: 'Harvest 100 crops to earn this Plaque', completeDescription: 'Congratulations! You harvested 100 crops', type: EntityTypes.PlaqueFarming, requiredCount: 100, currentCount: 0, complete: false },
+        { name: 'Master Gatherer', incompleteDescription: 'Forage for 50 items from the world to earn this Plaque', completeDescription: 'Congratulations! You found 50 items', type: EntityTypes.PlaqueGathering, requiredCount: 50, currentCount: 0, complete: false },
+        { name: 'Antique Collector', incompleteDescription: 'Collect 10 pieces of furniture to earn this Plaque', completeDescription: 'Congratulations! You collected 10 pieces of furniture', type: EntityTypes.PlaqueFurniture, requiredCount: 10, currentCount: 0, complete: false },
+        { name: 'Master Salesman', incompleteDescription: 'Sell 1000 coins worth of crops to earn this Plaque', completeDescription: 'Congratulations! You sold 1000 coins worth of crops', type: EntityTypes.PlaqueSelling, requiredCount: 1000, currentCount: 0, complete: false },
+        { name: 'Fish Collector', incompleteDescription: 'Catch One of each type of fish to earn this Painting', completeDescription: 'Congratulations! You caught one of each type of fish', type: EntityTypes.PortraitMona, requiredCount: 9, collected: new Set(), complete: false },
+        { name: 'Diversity Expert', incompleteDescription: 'Plant one of each type of crop to earn this Painting', completeDescription: 'Congratulations! You planted one of each type of crop', type: EntityTypes.PortraitPearl, requiredCount: 21, collected: new Set(), complete: false },
+        { name: 'Gatherer Extrodinaire', incompleteDescription: 'Forage for one of each type of item to earn this Painting', completeDescription: 'Congratulations! You found one of each type of item', type: EntityTypes.PortraitRGB, requiredCount: 6, collected: new Set(), complete: false },
+        { name: 'Furniture Aficionado', incompleteDescription: 'Collect one of each type of furniture to earn this Painting', completeDescription: 'Congratulations! You collected one of each type of furniture', type: EntityTypes.PortraitStarry, requiredCount: 10, collected: new Set(), complete: false },
+        { name: 'Good Samaritan', incompleteDescription: 'Complete every town quest', completeDescription: 'Congratulations! You completed every town quest', type: EntityTypes.PortraitWave, requiredCount: 4, currentCount: 0, complete: false },
+        { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done! You helped Grandma Mea', type: EntityTypes.StatueBust, complete: false },
+        { name: 'Jo Jo\'s Friend', incompleteDescription: 'Complete the Jo Jo\'s quest', completeDescription: 'Well done! You helped Jo Jo', type: EntityTypes.StatueFossil, complete: false },
+        { name: 'Bob\'s Paul Bunyan', incompleteDescription: 'Complete Bob\'s quest', completeDescription: 'Well done! You helped Bob', type: EntityTypes.StatueMoai, complete: false },
+        { name: 'Tiffany\'s Souper Friend', incompleteDescription: 'Complete Tiffany\'s quest', completeDescription: 'Well done! You helped Tiffany', type: EntityTypes.StatuePharaoh, complete: false }
       ],
       Crops: [
         // { x: 0, y: 0, type: EntityTypes.CropCarrot, growth: 0 }

@@ -32,9 +32,17 @@ export default class MuseumScene extends Scene {
     this.curator.init()
     this.drawlist.push(this.curator)
 
-    this.plaques = buildPlaques(this)
-    this.portraits = buildPortraits(this)
-    this.statues = buildStatues(this)
+    const achievements = this.game.gameManager.getAchievements()
+
+    const plaqueTypes = [EntityTypes.PlaqueFarming, EntityTypes.PlaqueFishing, EntityTypes.PlaqueForaging, EntityTypes.PlaqueFurniture, EntityTypes.PlaqueSelling]
+    this.plaques = buildPlaques(this, achievements.filter(achievement => plaqueTypes.includes(achievement.type)))
+
+    const portraitTypes = [EntityTypes.PortraitMona, EntityTypes.PortraitPearl, EntityTypes.PortraitRGB, EntityTypes.PortraitStarry, EntityTypes.PortraitWave]
+    this.portraits = buildPortraits(this, achievements.filter(achievement => portraitTypes.includes(achievement.type)))
+
+    const statueTypes = [EntityTypes.StatueBust, EntityTypes.StatueFossil, EntityTypes.StatueMoai, EntityTypes.StatuePharaoh]
+    this.statues = buildStatues(this, achievements.filter(achievement => statueTypes.includes(achievement.type)))
+
     this.drawlist.push(...this.statues)
 
     this.museumCamera = {
@@ -115,100 +123,101 @@ function returnToWorld (scene) {
   scene.game.changeScene(Scenes.Game)
 }
 
-function buildPlaques (scene) {
+function buildPlaques (scene, achievements) {
   const plaques = []
+
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueFarming,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueFarming)?.complete || false
   }))
 
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueFishing,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueFishing)?.complete || false
   }))
 
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueForaging,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueForaging)?.complete || false
   }))
 
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueFurniture,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueFurniture)?.complete || false
   }))
 
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueSelling,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueSelling)?.complete || false
   }))
 
   return plaques
 }
 
-function buildPortraits (scene) {
+function buildPortraits (scene, achievements) {
   const portraits = []
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitMona,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitMona)?.complete || false
   }))
 
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitPearl,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitPearl)?.complete || false
   }))
 
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitRGB,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitRGB)?.complete || false
   }))
 
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitStarry,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitStarry)?.complete || false
   }))
 
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitWave,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitWave)?.complete
   }))
 
   return portraits
 }
 
-function buildStatues (scene) {
+function buildStatues (scene, achievements) {
   const statues = []
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatueBust,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.StatueBust)?.complete || false
   }))
 
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatueFossil,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.StatueFossil)?.complete || false
   }))
 
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatueMoai,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.StatueMoai)?.complete || false
   }))
 
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatuePharaoh,
-    complete: false
+    complete: achievements.find(achievement => achievement.type === EntityTypes.StatuePharaoh)?.complete || false
   }))
 
   return statues
