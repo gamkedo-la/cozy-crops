@@ -234,6 +234,11 @@ export default class GameManager {
   getAchievements () {
     return this.state.Map.Achievements
   }
+
+  setAchievements (achievements) {
+    this.state.Map.Achievements = achievements
+    this.saveGame()
+  }
 }
 
 function initializeNewGame (manager, saveSlot) {
