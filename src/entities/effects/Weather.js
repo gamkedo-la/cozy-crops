@@ -7,9 +7,16 @@
 import { CanvasHeight, CanvasWidth } from "../../globals/Constants.js"
 
 // WARNING: silent death (no errors!) when there's a bug here:
-import { R, F, C } from '../../globals/Keys.js'
+import { R, F, C, S, W } from '../../globals/Keys.js'
 import { CheatKeys } from '../../globals/Debug.js'
-import { RainSprite } from '../../globals/Images.js'
+
+// FIXME: how the heck do you load an image in this project?!?!?!
+// this took me waaaaaay too long to figure out and it's still wrong
+// this.game.ctx.drawImage(this.scene.managers.imageManager.getImage(RainSprite),100,100)
+// I GAVE UP and wrote my own image loader in 3 minutes
+
+// import { RainSprite } from '../../globals/Images.js'
+// import { SnowSprite } from '../../globals/Images.js'
 
 export default class Weather {
   
@@ -99,6 +106,9 @@ export default class Weather {
         if (justDownKeys.includes(F)) this.getFoggy()
         if (justDownKeys.includes(C)) this.getCool()
         if (justDownKeys.includes(R)) this.startRaining()
+        // FIXME - does this interfere with multiplayer WASD?
+        if (justDownKeys.includes(S)) this.startSnowing()
+        if (justDownKeys.includes(W)) this.getWindy()
     }
 
     this.coolBlueStrength += (deltaTime/1000) * this.coolBlueFadeDelta
@@ -137,26 +147,38 @@ export default class Weather {
         this.game.ctx.fillRect(0,0,CanvasWidth,CanvasHeight)
         this.game.ctx.fillStyle = "white"
     }
-
     
     if (this.rainStrength>0) {
-        // console.log("drawing rain! FIXME: how the heck do you load an image?!?!?!")
-        // this took me half an hour to figure out and it's so ugly and feels wrong
-        // this.game.ctx.drawImage(this.scene.managers.imageManager.getImage(RainSprite),100,100)
-        // I GIVE UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! =(
-
-        // quick 3 minute "fix"
-        if (!this.imgHACK) { 
-            this.imgHACK = new Image();
-            this.imgHACK.src = "../../img/rain.png"
-            this.imgHACK.onload = function() { this.loaded=true }
+ 
+        // TODO: use this project's ultra-complex version of image loading
+        if (!this.rainImg) { 
+            this.rainImg = new Image();
+            this.rainImg.src = "../../img/rain.png"
+            this.rainImg.onload = function() { this.loaded=true }
         }
-
-        if (this.imgHACK.loaded) {
+        if (this.rainImg.loaded) {
             this.game.ctx.globalAlpha = this.rainStrength
             for (let i=0; i<16; i++) {
                 let ofs = -800 + ((this.age+i*444)%2000) 
-                this.game.ctx.drawImage(this.imgHACK,i*222,ofs)
+                this.game.ctx.drawImage(this.rainImg,i*222,ofs)
+            }
+            this.game.ctx.globalAlpha = 1
+        }
+    }
+
+    if (this.snowStrength>0) {
+        // TODO: use this project's ultra-complex version of image loading
+        if (!this.snowImg) { 
+            this.snowImg = new Image();
+            this.snowImg.src = "../../img/snow.png"
+            this.snowImg.onload = function() { this.loaded=true }
+        }
+        if (this.snowImg.loaded) {
+            this.game.ctx.globalAlpha = this.snowStrength
+            for (let i=0; i<16; i++) {
+                let ofs = -800 + ((this.age/4+i*444)%2000) 
+                let wobble = Math.sin(ofs/200)*64
+                this.game.ctx.drawImage(this.snowImg,i*222+wobble,ofs)
             }
             this.game.ctx.globalAlpha = 1
         }
