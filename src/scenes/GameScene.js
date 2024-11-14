@@ -22,6 +22,7 @@ import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
 import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, TileNames, WetSand } from '../globals/Tiles.js'
+import Weather from '../entities/effects/Weather.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -155,6 +156,20 @@ export default class GameScene extends Scene {
     this.spawnButterflies(64)
     this.spawnBunnies(32)
     this.spawnForageableItems(32)
+
+    // there is only one weather entity, with various
+    // functions to change the weather upon request
+    this.weather = new Weather({
+        game: this.game,
+        scene: this,
+        imageManager: this.imageManager,
+        gameManager: this.gameManager,
+        calendarManager: this.calendarManager,
+        x: 0,
+        y: 0
+    })
+    this.weather.init()
+    //this.entityManager.addEntity(this.weather)
   }
 
   spawnButterflies(howmany) {
@@ -237,6 +252,7 @@ export default class GameScene extends Scene {
 
     manageInput(this)
     this.entityManager.update(deltaTime)
+    this.weather.update(deltaTime)
 
     if (!this.isSleeping) {
       this.calendarManager.update(deltaTime)
@@ -249,11 +265,10 @@ export default class GameScene extends Scene {
 
   draw () {
     super.draw() // Call the draw method of the parent class
-
     this.mapManager.drawMap()
     this.entityManager.draw()
-  
     this.imageManager.render()
+    this.weather.draw(this.camera)
   }
 
   stop () {
