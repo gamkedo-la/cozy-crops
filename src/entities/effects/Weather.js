@@ -6,16 +6,17 @@
 
 import { CanvasHeight, CanvasWidth } from "../../globals/Constants.js"
 
-// silent death (no errors!) when including these:
+// WARNING: silent death (no errors!) when there's a bug here:
 import { R, F, C } from '../../globals/Keys.js'
 import { CheatKeys } from '../../globals/Debug.js'
+import { RainSprite } from '../../globals/Images.js'
 
 export default class Weather {
   
   constructor (config) {
     Object.assign(this, config)
     this.age = 0
-    this.FADESPEED = 0.2
+    this.FADESPEED = 0.15
     this.coolBlueStrength = 0
     this.coolBlueFadeDelta = 0
     this.fogStrength = 0
@@ -135,6 +136,30 @@ export default class Weather {
         this.game.ctx.fillStyle = "rgba(128,128,128,"+opacity+")" 
         this.game.ctx.fillRect(0,0,CanvasWidth,CanvasHeight)
         this.game.ctx.fillStyle = "white"
+    }
+
+    
+    if (this.rainStrength>0) {
+        // console.log("drawing rain! FIXME: how the heck do you load an image?!?!?!")
+        // this took me half an hour to figure out and it's so ugly and feels wrong
+        // this.game.ctx.drawImage(this.scene.managers.imageManager.getImage(RainSprite),100,100)
+        // I GIVE UP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! =(
+
+        // quick 3 minute "fix"
+        if (!this.imgHACK) { 
+            this.imgHACK = new Image();
+            this.imgHACK.src = "../../img/rain.png"
+            this.imgHACK.onload = function() { this.loaded=true }
+        }
+
+        if (this.imgHACK.loaded) {
+            this.game.ctx.globalAlpha = this.rainStrength
+            for (let i=0; i<16; i++) {
+                let ofs = -800 + ((this.age+i*444)%2000) 
+                this.game.ctx.drawImage(this.imgHACK,i*222,ofs)
+            }
+            this.game.ctx.globalAlpha = 1
+        }
     }
 
   }
