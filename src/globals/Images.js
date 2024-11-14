@@ -12,7 +12,8 @@ const Images = {
   TitleBackground: '../../img/TitleScreen.png',
   Tools: '../../img/Tools.png',
   UISprites: '../../img/UISprites.png',
-  WildlifeSprites: '../../img/Wildlife.png'
+  WildlifeSprites: '../../img/Wildlife.png',
+  RainSprite: '../../img/rain.png'
 }
 
 export default Images
@@ -30,5 +31,6 @@ export const {
   TitleBackground,
   Tools,
   UISprites,
-  WildlifeSprites
+  WildlifeSprites,
+  RainSprite
 } =  Images
