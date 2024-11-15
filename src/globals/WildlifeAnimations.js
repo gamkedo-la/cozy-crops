@@ -37,7 +37,7 @@ export const ButterflyAnimationData = {
 }
 
 export const BunnyAnimationData = {
-  Idle: {
+  IdleLeft: {
     name: 'BunnyIdle',
     spritesheet: WildlifeSprites,
     frames: [8,8,8,8,8,8,8,9,8,8,8,8,8,8,8,8,8, // blink
@@ -52,7 +52,23 @@ export const BunnyAnimationData = {
     durationRandomness: 50,
     loop: true
   },
-  Hopping: {
+  IdleRight: {
+    name: 'BunnyIdle',
+    spritesheet: WildlifeSprites,
+    frames: [8,8,8,8,8,8,8,9,8,8,8,8,8,8,8,8,8, // blink
+        10,11,10,8,8,8,8,8,8,8,8,8, // wiggle tail
+        8,8,8,8,8,8,12,12,8,8,8,8,8, // wiggle nose
+        8,8,8,13,13,13,13,13,8,12,8,12,8,12, // get grass, chew it
+        ],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 250,
+    durationRandomness: 50,
+    loop: true,
+    flipped: true
+  },
+  HoppingLeft: {
     name: 'BunnyHopping',
     spritesheet: WildlifeSprites,
     frames: [5,15,15,15,15,15,15,15,15,15,15,5],
@@ -62,6 +78,18 @@ export const BunnyAnimationData = {
     duration: 250,
     durationRandomness: 50,
     loop: true
+  },
+  HoppingRight: {
+    name: 'BunnyHopping',
+    spritesheet: WildlifeSprites,
+    frames: [5,15,15,15,15,15,15,15,15,15,15,5],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 250,
+    durationRandomness: 50,
+    loop: true,
+    flipped: true
   },
   Inventory: {
     name: 'BunnyInventory',

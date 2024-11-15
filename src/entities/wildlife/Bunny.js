@@ -4,7 +4,9 @@ import { BunnyAnimationData } from '../../globals/WildlifeAnimations.js'
 export default class Bunny extends Animal {
 
   init() {
+    this.facingLeft = Math.random() > 0.5
     this.buildAnimations(BunnyAnimationData)
+    this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
 
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
