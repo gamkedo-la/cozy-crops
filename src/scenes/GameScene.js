@@ -172,8 +172,6 @@ export default class GameScene extends Scene {
         x: 0,
         y: 0
     })
-    this.weather.init()
-    //this.entityManager.addEntity(this.weather)
   }
 
   spawnButterflies(howmany) {
