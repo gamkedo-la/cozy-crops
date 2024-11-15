@@ -13,7 +13,7 @@ export default class Weather {
   constructor (config) {
     Object.assign(this, config)
     this.age = 0
-    this.FADESPEED = 0.25
+    this.FADESPEED = 0.15
     this.coolBlueStrength = 0
     this.coolBlueFadeDelta = 0
     this.fogStrength = 0
