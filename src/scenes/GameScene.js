@@ -22,6 +22,10 @@ import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
 import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, TileNames, WetSand } from '../globals/Tiles.js'
+
+// FIXME: I keep getting compiler warnings about CaSe differences
+// (weather.js vs Weather.js but I cannot figure out why)
+// I double-checked everywhere and *only* the capitalized version exists in code and on disk
 import Weather from '../entities/effects/Weather.js'
 
 export default class GameScene extends Scene {
