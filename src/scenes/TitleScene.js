@@ -55,6 +55,7 @@ export default class TitleScene extends Scene {
   }
 
   clicked (selection) {
+    checkAndStartMusic(this)
     if (selection === 'Start') {
       this.game.changeScene(Scenes.PreGame)
     } else if (selection === 'Options') {
@@ -91,4 +92,8 @@ function manageInput (scene) {
   if (mousePos.justDown) {
 
   }
+}
+
+function checkAndStartMusic (scene) {
+  
 }

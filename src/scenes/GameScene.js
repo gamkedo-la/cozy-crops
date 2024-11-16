@@ -161,12 +161,13 @@ export default class GameScene extends Scene {
     this.spawnBunnies(32)
     this.spawnForageableItems(32)
 
-    // there is only one weather entity, with various
+    // there is only one weather entity (it's like a Weather Manager), with various
     // functions to change the weather upon request
     this.weather = new Weather({
         game: this.game,
         scene: this,
         imageManager: this.imageManager,
+        audioManager: this.audioManager,
         gameManager: this.gameManager,
         calendarManager: this.calendarManager,
         x: 0,

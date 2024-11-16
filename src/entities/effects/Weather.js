@@ -8,6 +8,7 @@ import { CanvasHeight, CanvasWidth } from "../../globals/Constants.js"
 import { R, F, C, V, G } from '../../globals/Keys.js'
 import { CheatKeys } from '../../globals/Debug.js'
 import { RainSprite, SnowSprite } from "../../globals/Images.js"
+import { RainSound, WindSound } from "../../globals/Sounds.js"
 
 export default class Weather {
   constructor (config) {
@@ -27,16 +28,21 @@ export default class Weather {
     this.windFadeDelta = 0
     this.rainImg = null
     this.snowImg = null
-    this.windSound = new Audio("../../sounds/wind.ogg")
-    this.windSound.volume = 0
-    this.windSound.loop = true
-    this.rainSound = new Audio("../../sounds/rain.ogg")
-    this.rainSound.volume = 0
-    this.rainSound.loop = true
+    this.windSound = null
+    this.rainSound = null
   }
 
   init () {
     this.rainImg = this.imageManager.getImageWithSrc(RainSprite)
+
+    this.rainSound = this.audioManager.getSoundWithSrc(RainSound)
+    this.rainSound.volume = 0
+    this.rainSound.loop = true
+
+    this.windSound = this.audioManager.getSoundWithSrc(WindSound)
+    this.windSound.volume = 0
+    this.windSound.loop = true
+
     this.snowImg = this.imageManager.getImageWithSrc(SnowSprite)
   }
 

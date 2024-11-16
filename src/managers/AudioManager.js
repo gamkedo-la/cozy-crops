@@ -6,6 +6,7 @@ export default class AudioManager {
     Object.assign(this, config)
 
     this.sounds = {}
+    this.srcToKeyMap = {}
     this.loadedCount = 0
     this.totalCount = Object.keys(Sounds).length
   }
@@ -19,6 +20,7 @@ export default class AudioManager {
     const soundPromises = Object.keys(Sounds).map(async key => {
       const sound = new Audio()
       sound.src = Sounds[key]
+      this.srcToKeyMap[Sounds[key]] = key
       await new Promise(resolve => {
         this.eventManager.emit(Events.AudioLoaded)
         this.loadedCount++
@@ -30,5 +32,9 @@ export default class AudioManager {
     await Promise.all(soundPromises)
 
     this.eventManager.emit(Events.AllAudioLoaded)
+  }
+
+  getSoundWithSrc (src) {
+    return this.sounds[this.srcToKeyMap[src]]
   }
 }
