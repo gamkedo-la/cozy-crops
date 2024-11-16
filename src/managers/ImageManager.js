@@ -20,6 +20,7 @@ export default class ImageManager {
     this.overlayGreen = 0
     this.overlayBlue = 0
     this.overlayAlpha = 0
+    this.textToDraw = []
   }
 
   async load () {
@@ -101,6 +102,10 @@ export default class ImageManager {
     this.internalCtx.drawImage(this.images[imageKey], x, y, width, height)
   }
 
+  drawText (text, x, y, font = '20px Arial', color = 'white') {
+    this.textToDraw.push({ text, x: ImageScale * x, y: ImageScale * y, font, color })
+  }
+
   render () {
     if (this.isFading || this.isUnfading) {
       return
@@ -109,7 +114,15 @@ export default class ImageManager {
     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height)
     this.game.ctx.drawImage(this.internalCanvas, 0, 0, this.internalCanvas.width, this.internalCanvas.height, 0, 0, ImageScale * this.game.canvas.width, ImageScale * this.game.canvas.height)
 
+    this.textToDraw.forEach(text => {
+      this.game.ctx.font = text.font
+      this.game.ctx.fillStyle = text.color
+      this.game.ctx.fillText(text.text, text.x, text.y)
+    })
+
     this.drawOverlay()
+
+    this.textToDraw = []
   }
 
   drawOverlay () {

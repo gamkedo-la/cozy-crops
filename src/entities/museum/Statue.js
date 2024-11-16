@@ -1,6 +1,7 @@
 import EntityTypes from '../../globals/EntityTypes.js'
 import StatuesImageData from '../../globals/StatuesImageData.js'
-import { MuseumPosition } from '../../globals/MuseumMap.js'
+import { MuseumPosition, MuseumDialogPosition } from '../../globals/MuseumMap.js'
+import { FamilyNames } from '../../globals/Fonts.js'
 
 export default class Statue {
   constructor(config) {
@@ -9,30 +10,39 @@ export default class Statue {
     Object.assign(this, this.imagesData.complete)
     this.imagesData.image = this.scene.imageManager.getImageWithSrc(this.imagesData.complete.spritesheet)
     this.collisionPoint = { x: this.imagesData.complete.screenX + this.imagesData.complete.width / 2, y: this.imagesData.complete.screenY + this.imagesData.complete.height }
-    this.text = `${this.achievement.name}\n${this.complete ? this.achievement.completeDescription : this.achievement.incompleteDescription}`
+    this.text = getText(this)
+    this.renderPosition = { x: this.imagesData.complete.screenX - MuseumPosition.x, y: this.imagesData.complete.screenY - MuseumPosition.y }
   }
 
   draw (camera) {
     if (this.complete) {
       this.scene.imageManager.draw(this.imagesData.image,
-        this.imagesData.complete.screenX - MuseumPosition.x, this.imagesData.complete.screenY - MuseumPosition.y,
+        this.renderPosition.x, this.renderPosition.y,
         this.imagesData.complete.width, this.imagesData.complete.height,
         this.imagesData.complete.x, this.imagesData.complete.y,
         camera
       )
     }
+
+    if (this.shouldDisplayText) {
+      this.scene.imageManager.drawText(this.achievement.name, MuseumDialogPosition.x, MuseumDialogPosition.y + 12, `48px ${FamilyNames.FarmVintage}`, 'black')
+      let y = MuseumDialogPosition.y + 30
+      this.text.forEach(line => {
+        this.scene.imageManager.drawText(line, MuseumDialogPosition.x, y, `40px ${FamilyNames.FarmVintage}`, 'black')
+        y += 10
+      })
+    }
   }
 
   checkForCollision (checkPoint) {
-    return (checkPoint.x > this.imagesData.complete.screenX &&
-    checkPoint.x < this.imagesData.complete.screenX + this.imagesData.complete.width &&
-    checkPoint.y > this.imagesData.complete.screenY &&
-    checkPoint.y < this.imagesData.complete.screenY + this.imagesData.complete.height)
+    return (checkPoint.x > this.renderPosition.x &&
+    checkPoint.x < this.renderPosition.x + this.imagesData.complete.width &&
+    checkPoint.y > this.renderPosition.y &&
+    checkPoint.y < this.renderPosition.y + this.imagesData.complete.height)
   }
 
-  displayText () {
-    console.log(this.text)
-    // this.scene.uiManager.displayText(this.imagesData.complete.text)
+  displayText (shouldDisplay) {
+    this.shouldDisplayText = shouldDisplay
   }
 }
 
@@ -55,4 +65,9 @@ function getImageDatasForType(type) {
         complete: StatuesImageData.Pharaoh
       }
   }
+}
+
+function getText(statue) {
+  let text = `${statue.complete ? statue.achievement.completeDescription : statue.achievement.incompleteDescription}`
+  return text.split('\n')
 }

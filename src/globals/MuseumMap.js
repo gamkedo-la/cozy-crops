@@ -20,3 +20,4 @@ export default [
 
 export const MuseumPosition = { x: -200, y: -25 }
 export const MuseumEntrance = { x: 502 + MuseumPosition.x, y: 270 + MuseumPosition.y }
+export const MuseumDialogPosition = { x: 512 + MuseumPosition.x, y: 340 + MuseumPosition.y }

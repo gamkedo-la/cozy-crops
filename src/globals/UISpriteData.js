@@ -27,6 +27,13 @@ const UISpriteData = {
     height: 25,
     padding: 1
   },
+  DayNightUI: {
+    x: 249,
+    y: 1,
+    width: 23,
+    height: 43,
+    padding: 1
+  },
   DayTransitionBanner: {
     x: 83,
     y: 45,
@@ -46,6 +53,20 @@ const UISpriteData = {
     y: 70,
     width: 16,
     height: 26,
+    padding: 1
+  },
+  InventoryIcons: {
+    x: 0,
+    y: 0,
+    width: 200,
+    height: 20,
+    padding: 1
+  },
+  NoButton: {
+    x: 142,
+    y: 131,
+    width: 56,
+    height: 25,
     padding: 1
   },
   Number0: {
@@ -195,13 +216,6 @@ const UISpriteData = {
     height: 25,
     padding: 1
   },
-  InventoryIcons:{
-    x: 0,
-    y: 0,
-    width: 200,
-    height: 20,
-    padding: 1
-  },
   SelectedInventoryItem: {
     x: 262,
     y: 43,
@@ -209,18 +223,25 @@ const UISpriteData = {
     height: 24,
     padding: 1
   },
-  DayNightUI:{
-    x: 249,
-    y: 1,
-    width: 23,
-    height: 43,
+  TextBackground: {
+    x: 1,
+    y: 156,
+    width: 217,
+    height: 67,
     padding: 1
   },
-  TimeOfDay:{
+  TimeOfDay: {
     x: 272,
     y: 1,
     width: 25,
     height: 7,
+    padding: 1
+  },
+  YesButton: {
+    x: 84,
+    y: 131,
+    width: 56,
+    height: 25,
     padding: 1
   },
 }
@@ -229,9 +250,12 @@ export default UISpriteData
 export const {
   CancelButton,
   ConfirmButton,
+  DayNightUI,
   DayTransitionBanner,
   DropButton,
   EndOfDayText,
+  InventoryIcons,
+  NoButton,
   Number0,
   Number1,
   Number2,
@@ -243,6 +267,7 @@ export const {
   Number8,
   Number9,
   Scoreboard,
+  SelectedInventoryItem,
   SeasonCool,
   SeasonHot,
   SeasonRainy,
@@ -252,7 +277,7 @@ export const {
   Stamina,
   StandardUIBox,
   StartButton,
-  InventoryIcons,
-  SelectedInventoryItem,
-  DayNightUI
+  TextBackground,
+  TimeOfDay,
+  YesButton
 } = UISpriteData

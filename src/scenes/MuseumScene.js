@@ -2,11 +2,13 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
 import Curator from '../entities/npcs/Curator.js'
-import { MuseumEntrance, MuseumPosition } from '../globals/MuseumMap.js'
+import { MuseumEntrance, MuseumPosition, MuseumDialogPosition } from '../globals/MuseumMap.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import Plaque from '../entities/museum/Plaque.js'
 import Portrait from '../entities/museum/Portrait.js'
 import Statue from '../entities/museum/Statue.js'
+import { UISprites } from '../globals/Images.js'
+import { TextBackground } from '../globals/UISpriteData.js'
 
 export default class MuseumScene extends Scene {
   constructor (config) {
@@ -17,6 +19,8 @@ export default class MuseumScene extends Scene {
     this.curator = null
     this.museumCamera = null
     this.drawlist = []
+    this.shouldShowUI = false
+    this.textBackground = null
   }
 
   init () {
@@ -71,6 +75,7 @@ export default class MuseumScene extends Scene {
       this.player.update(deltaTime)
       checkForExhibitCollision(this)
     }
+
     manageInput(this)
   }
 
@@ -78,6 +83,19 @@ export default class MuseumScene extends Scene {
     super.draw() // Call the draw method of the parent class
 
     this.mapManager.drawMap('museum', { x: null, y: null })
+
+    if (this.shouldShowUI) {
+    this.imageManager.draw(
+      this.imageManager.getImageWithSrc(UISprites),
+      MuseumDialogPosition.x - TextBackground.width / 2,
+      MuseumDialogPosition.y,
+      TextBackground.width,
+      TextBackground.height,
+      TextBackground.x,
+      TextBackground.y,
+      this.museumCamera)
+    }
+
     this.plaques.forEach(plaque => plaque.draw(this.museumCamera))
     this.portraits.forEach(portrait => portrait.draw(this.museumCamera))
     this.drawlist.sort((a, b) => {
@@ -87,6 +105,7 @@ export default class MuseumScene extends Scene {
       return aYToUse - bYToUse
     })
     this.drawlist.forEach(entity => entity.draw(this.museumCamera))
+
 
     this.imageManager.render()
   }
@@ -258,31 +277,35 @@ function buildStatues (scene, achievements) {
 
 function checkForExhibitCollision (scene)  {
   const playerCheckPoint = { x: scene.player.collisionPoint.x, y: scene.player.collisionPoint.y - scene.player.height / 2 }
-  let foundOne = false
+  scene.shouldShowUI = false
 
   for (const plaque of scene.plaques) {
     if (plaque.checkForCollision(playerCheckPoint)) {
-      plaque.displayText()
-      foundOne = true
-      break
+      plaque.displayText(true)
+      scene.shouldShowUI = true
+    } else {
+      plaque.displayText(false)
     }
   }
 
-  if (!foundOne) {
+  if (!scene.shouldShowUI) {
     for (const portrait of scene.portraits) {
       if (portrait.checkForCollision(playerCheckPoint)) {
-        portrait.displayText()
-        foundOne = true
-        break
+        portrait.displayText(true)
+        scene.shouldShowUI = true
+      } else {
+        portrait.displayText(false)
       }
     }
   }
 
-  if (!foundOne) {
+  if (!scene.shouldShowUI) {
     for (const statue of scene.statues) {
       if (statue.checkForCollision(playerCheckPoint)) {
-        statue.displayText()
-        break
+        statue.displayText(true)
+        scene.shouldShowUI = true
+      } else {
+        statue.displayText(false)
       }
     }
   }
