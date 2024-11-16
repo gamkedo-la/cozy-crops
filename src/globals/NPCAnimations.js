@@ -78,9 +78,9 @@ export const LumberjackAnimations = {
   }
 }
 
-export const ShopKeepAnimations = {
+export const ShopkeepAnimations = {
   Idle: {
-    name: 'ShopKeepIdle',
+    name: 'ShopkeepIdle',
     spritesheet: NPCs,
     frames: [4, 5, 6, 7],
     frameWidth: 20,
@@ -111,7 +111,7 @@ const NPCAnimations = {
   FishermanAnimations,
   GrandmaAnimations,
   LumberjackAnimations,
-  ShopKeepAnimations,
+  ShopkeepAnimations,
   TiffanyAnimations
 }
 
