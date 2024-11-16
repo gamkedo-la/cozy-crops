@@ -8,6 +8,7 @@ export default class Statue {
     Object.assign(this, this.imagesData.complete)
     this.imagesData.image = this.scene.imageManager.getImageWithSrc(this.imagesData.complete.spritesheet)
     this.collisionPoint = { x: this.imagesData.complete.screenX + this.imagesData.complete.width / 2, y: this.imagesData.complete.screenY + this.imagesData.complete.height }
+    this.text = `${this.achievement.name}\n${this.complete ? this.achievement.completeDescription : this.achievement.incompleteDescription}`
   }
 
   draw (camera) {
@@ -19,6 +20,18 @@ export default class Statue {
         camera
       )
     }
+  }
+
+  checkForCollision (checkPoint) {
+    return (checkPoint.x > this.imagesData.complete.screenX &&
+    checkPoint.x < this.imagesData.complete.screenX + this.imagesData.complete.width &&
+    checkPoint.y > this.imagesData.complete.screenY &&
+    checkPoint.y < this.imagesData.complete.screenY + this.imagesData.complete.height)
+  }
+
+  displayText () {
+    console.log(this.text)
+    // this.scene.uiManager.displayText(this.imagesData.complete.text)
   }
 }
 

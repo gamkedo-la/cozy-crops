@@ -211,6 +211,7 @@ function handleInput (player) {
       player.animation = player.animations.SteveIdleRight
     }
   }
+
   //cheat for Max Stamina
   const justDownKeys = player.game.inputManager.getJustDownKeys()
   if (CheatKeys) {

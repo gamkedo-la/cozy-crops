@@ -67,7 +67,10 @@ export default class MuseumScene extends Scene {
     super.update(deltaTime) // Call the update method of the parent class
 
     this.curator.update(deltaTime)
-    if (this.player) this.player.update(deltaTime)
+    if (this.player) {
+      this.player.update(deltaTime)
+      checkForExhibitCollision(this)
+    }
     manageInput(this)
   }
 
@@ -126,34 +129,44 @@ function returnToWorld (scene) {
 function buildPlaques (scene, achievements) {
   const plaques = []
 
+  let achievement = achievements.find(achievement => achievement.type === EntityTypes.PlaqueFarming)
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueFarming,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueFarming)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PlaqueFishing)
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueFishing,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueFishing)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PlaqueForaging)
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueForaging,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueForaging)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PlaqueFurniture)
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueFurniture,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueFurniture)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PlaqueSelling)
   plaques.push(new Plaque({
     scene,
     type: EntityTypes.PlaqueSelling,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PlaqueSelling)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
   return plaques
@@ -161,34 +174,45 @@ function buildPlaques (scene, achievements) {
 
 function buildPortraits (scene, achievements) {
   const portraits = []
+
+  let achievement = achievements.find(achievement => achievement.type === EntityTypes.PortraitMona)
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitMona,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitMona)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PortraitPearl)
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitPearl,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitPearl)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PortraitRGB)
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitRGB,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitRGB)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PortraitStarry)
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitStarry,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitStarry)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.PortraitWave)
   portraits.push(new Portrait({
     scene,
     type: EntityTypes.PortraitWave,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.PortraitWave)?.complete
+    complete: achievement?.complete || false,
+    achievement
   }))
 
   return portraits
@@ -196,29 +220,70 @@ function buildPortraits (scene, achievements) {
 
 function buildStatues (scene, achievements) {
   const statues = []
+
+  let achievement = achievements.find(achievement => achievement.type === EntityTypes.StatueBust)
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatueBust,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.StatueBust)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.StatueFossil)
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatueFossil,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.StatueFossil)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.StatueMoai)
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatueMoai,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.StatueMoai)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
+  achievement = achievements.find(achievement => achievement.type === EntityTypes.StatuePharaoh)
   statues.push(new Statue({
     scene,
     type: EntityTypes.StatuePharaoh,
-    complete: achievements.find(achievement => achievement.type === EntityTypes.StatuePharaoh)?.complete || false
+    complete: achievement?.complete || false,
+    achievement
   }))
 
   return statues
+}
+
+function checkForExhibitCollision (scene)  {
+  const playerCheckPoint = { x: scene.player.collisionPoint.x, y: scene.player.collisionPoint.y - scene.player.height / 2 }
+  let foundOne = false
+
+  for (const plaque of scene.plaques) {
+    if (plaque.checkForCollision(playerCheckPoint)) {
+      plaque.displayText()
+      foundOne = true
+      break
+    }
+  }
+
+  if (!foundOne) {
+    for (const portrait of scene.portraits) {
+      if (portrait.checkForCollision(playerCheckPoint)) {
+        portrait.displayText()
+        foundOne = true
+        break
+      }
+    }
+  }
+
+  if (!foundOne) {
+    for (const statue of scene.statues) {
+      if (statue.checkForCollision(playerCheckPoint)) {
+        statue.displayText()
+        break
+      }
+    }
+  }
 }

@@ -7,6 +7,7 @@ export default class Plaque {
     this.imagesData = getImageDatasForType(this.type)
     this.imagesData.image = this.scene.imageManager.getImageWithSrc(this.imagesData.complete.spritesheet)
     this.collisionPoint = { x: this.imagesData.complete.screenX + this.imagesData.complete.width / 2, y: this.imagesData.complete.screenY + this.imagesData.complete.height }
+    this.text = `${this.achievement.name}\n${this.complete ? this.achievement.completeDescription : this.achievement.incompleteDescription}`
   }
 
   draw (camera) {
@@ -17,6 +18,18 @@ export default class Plaque {
       imageDataToUse.x, imageDataToUse.y,
       camera
     )
+  }
+
+  checkForCollision (checkPoint) {
+    return (checkPoint.x > this.imagesData.complete.screenX &&
+    checkPoint.x < this.imagesData.complete.screenX + this.imagesData.complete.width &&
+    checkPoint.y > this.imagesData.complete.screenY - this.imagesData.complete.height &&
+    checkPoint.y < this.imagesData.complete.screenY + this.imagesData.complete.height)
+  }
+
+  displayText () {
+    console.log(this.text)
+    // this.scene.uiManager.displayText(this.imagesData.complete.text)
   }
 }
 
