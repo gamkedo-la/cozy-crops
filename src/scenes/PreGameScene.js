@@ -124,6 +124,8 @@ export default class PreGameScene extends Scene {
     } else if (this.showCharacterCreation) {
       drawCharacterCreateScreen(this)
     }
+
+    this.imageManager.drawOverlay()
   }
 
   stop () {

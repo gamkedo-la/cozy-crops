@@ -109,6 +109,10 @@ export default class ImageManager {
     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height)
     this.game.ctx.drawImage(this.internalCanvas, 0, 0, this.internalCanvas.width, this.internalCanvas.height, 0, 0, ImageScale * this.game.canvas.width, ImageScale * this.game.canvas.height)
 
+    this.drawOverlay()
+  }
+
+  drawOverlay () {
     // Draw the overlay to fade to black (or back)
     this.game.ctx.fillStyle = `rgba(${this.overlayRed}, ${this.overlayGreen}, ${this.overlayBlue}, ${this.overlayAlpha})`
     this.game.ctx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height)

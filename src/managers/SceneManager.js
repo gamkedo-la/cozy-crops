@@ -103,28 +103,32 @@ export default class SceneManager {
   }
 
   changeScene (sceneName, data) {
-    if (this.scenes[sceneName]) {
-      if (!this.initializedScenes[sceneName]) {
-        this.scenes[sceneName].init(data)
-        this.initializedScenes[sceneName] = true
+    fadeOut(this.managers.imageManager, () => {
+      if (this.scenes[sceneName]) {
+        if (!this.initializedScenes[sceneName]) {
+          this.scenes[sceneName].init(data)
+          this.initializedScenes[sceneName] = true
+        }
+
+        this.scenes[sceneName].start(data)
+        const previousScene = this.currentScene
+        this.currentScene = this.scenes[sceneName]
+        previousScene.stop()
       }
 
-      this.scenes[sceneName].start(data)
-      const previousScene = this.currentScene
-      this.currentScene = this.scenes[sceneName]
-      previousScene.stop()
-    }
+      if (this.currentScene.name === Scenes.Game) {
+        if (this.scenes[Scenes.UIScene]) {
+          this.scenes[Scenes.UIScene].init(this.currentScene)
+          this.initializedScenes[Scenes.UIScene] = true
+        }
+      } else {
+        if (this.scenes[Scenes.UIScene]) {
+          this.scenes[Scenes.UIScene].stop()
+        }
+      }
 
-    if (this.currentScene.name === Scenes.Game) {
-      if (this.scenes[Scenes.UIScene]) {
-        this.scenes[Scenes.UIScene].init(this.currentScene)
-        this.initializedScenes[Scenes.UIScene] = true
-      }
-    } else {
-      if (this.scenes[Scenes.UIScene]) {
-        this.scenes[Scenes.UIScene].stop()
-      }
-    }
+      fadeIn(this.managers.imageManager, () => {})
+    })
   }
 
   update (deltaTime) {
@@ -134,4 +138,54 @@ export default class SceneManager {
       this.scenes[Scenes.UIScene].update(deltaTime)
     }
   }
+}
+
+function fadeOut (imageManager, callback) {
+  const duration = 500 // Duration of the fade in milliseconds
+  const start = performance.now() // Start time of the fade
+  const initialAlpha = 0 // Initial alpha value
+  const finalAlpha = 1 // Final alpha value
+
+  const fade = (timestamp) => {
+    const elapsed = timestamp - start // Time elapsed since the start of the fade
+    const progress = Math.min(elapsed / duration, 1) // Progress of the fade (0 to 1)
+    const alpha = initialAlpha + (finalAlpha - initialAlpha) * progress // Current alpha value
+
+    imageManager.setOverlayAlpha(alpha)
+
+    if (progress < 1) {
+      // Continue the fade
+      requestAnimationFrame(fade)
+    } else {
+      callback()
+    }
+  }
+
+  // Start the fade
+  requestAnimationFrame(fade)
+}
+
+function fadeIn (imageManager, callback) {
+  const duration = 500 // Duration of the fade in milliseconds
+  const start = performance.now() // Start time of the fade
+  const initialAlpha = 1 // Initial alpha value
+  const finalAlpha = 0 // Final alpha value
+
+  const fade = (timestamp) => {
+    const elapsed = timestamp - start // Time elapsed since the start of the fade
+    const progress = Math.min(elapsed / duration, 1) // Progress of the fade (0 to 1)
+    const alpha = initialAlpha + (finalAlpha - initialAlpha) * progress // Current alpha value
+
+    imageManager.setOverlayAlpha(alpha)
+
+    if (progress < 1) {
+      // Continue the fade
+      requestAnimationFrame(fade)
+    } else {
+      callback()
+    }
+  }
+
+  // Start the fade
+  requestAnimationFrame(fade)
 }

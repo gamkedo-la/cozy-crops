@@ -327,7 +327,7 @@ export default class GameScene extends Scene {
         console.log('Open door to the Player\'s House')
         break
       case 103:
-        fadeToScene(this, Scenes.Museum)
+        this.game.changeScene(Scenes.Museum, { player: this.steve })
         break
     }
   }
@@ -381,16 +381,6 @@ function sleep (scene) {
     scene.steve.sleep()
     scene.camera.wake(() => {
       scene.isSleeping = false
-      scene.steve.wake()
-    })
-  })
-}
-
-function fadeToScene (scene, newScene) {
-  scene.camera.sleep(() => {
-    scene.steve.sleep()
-    scene.game.changeScene(newScene, { player: scene.steve })
-    scene.camera.wake(() => {
       scene.steve.wake()
     })
   })

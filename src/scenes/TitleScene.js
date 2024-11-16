@@ -44,6 +44,8 @@ export default class TitleScene extends Scene {
 
     drawBackground(this)
     this.menu.draw()
+
+    this.imageManager.drawOverlay()
   }
 
   stop () {
