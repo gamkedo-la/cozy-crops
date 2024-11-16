@@ -1,8 +1,8 @@
-import MapData, { Player1Start, Player2Start, mapPosition } from '../globals/Map.js'
+import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts } from '../globals/Map.js'
 import MuseumMapData, { MuseumPosition } from '../globals/MuseumMap.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
-import { Player1, Player2 } from '../globals/EntityTypes.js'
+import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import { Sand, TileNames, WetSand } from '../globals/Tiles.js'
 
 export default class MapManager {
@@ -114,6 +114,25 @@ export default class MapManager {
       return Player1Start
     } else if (playerType === Player2) {
       return Player2Start
+    }
+  }
+
+  getNPCStart (npcType) {
+    switch (npcType) {
+      case EntityTypes.Blacksmith:
+        return NPCStarts.Blacksmith
+      case EntityTypes.Carpenter:
+        return NPCStarts.Carpenter
+      case EntityTypes.Fisherman:
+        return NPCStarts.Fisherman
+      case EntityTypes.Grandma:
+        return NPCStarts.Grandma
+      case EntityTypes.Lumberjack:
+        return NPCStarts.Lumberjack
+      case EntityTypes.Tiffany:
+        return NPCStarts.Tiffany
+      default:
+        return { x: 10, y: 10 }
     }
   }
 

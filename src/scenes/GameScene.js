@@ -22,6 +22,7 @@ import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
 import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, TileNames, WetSand } from '../globals/Tiles.js'
+import Grandma from '../entities/npcs/Grandma.js'
 
 // FIXME: I keep getting compiler warnings about CaSe differences
 // (weather.js vs Weather.js but I cannot figure out why)
@@ -35,6 +36,7 @@ export default class GameScene extends Scene {
     this.camera = null
     this.steve = null
     this.steve2 = null
+    this.grandma = null
     this.isSleeping = false
 
     this.collisionManager = null
@@ -74,88 +76,17 @@ export default class GameScene extends Scene {
     const date = this.gameManager.getDate()
     this.calendarManager.setStartDate(date.year, date.season, date.week, date.day)
 
-    // TODO: Remove this once the systems are fully implemented
-    let deltaY = 0
-    const cornSeedling = new Corn({
+    const grandmaStartPos = this.mapManager.getNPCStart(EntityTypes.Grandma)
+    this.grandma = new Grandma({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
-      x: 460,
-      y: 364
+      x: grandmaStartPos.x,
+      y: grandmaStartPos.y
     })
 
-    cornSeedling.init()
-    this.entityManager.addEntity(cornSeedling)
-
-    deltaY += 16
-
-    const cornYoungSprout = new Corn({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: 460,
-      y: 364 + deltaY
-    })
-
-    cornYoungSprout.currentGrowthStage = 1
-    cornYoungSprout.init()
-    this.entityManager.addEntity(cornYoungSprout)
-
-    deltaY += 16
-
-    const cornSprout = new Corn({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: 460,
-      y: 364 + deltaY
-    })
-
-    cornSprout.currentGrowthStage = 2
-    cornSprout.init()
-    this.entityManager.addEntity(cornSprout)
-
-    deltaY += 16
-
-    const cornYoungPlant = new Corn({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: 460,
-      y: 364 + deltaY
-    })
-
-    cornYoungPlant.currentGrowthStage = 3
-    cornYoungPlant.init()
-    this.entityManager.addEntity(cornYoungPlant)
-
-    deltaY += 16
-
-    const cornMature = new Corn({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: 460,
-      y: 364 + deltaY
-    })
-
-    cornMature.currentGrowthStage = 4
-    cornMature.init()
-    this.entityManager.addEntity(cornMature)
-
-    deltaY += 16
-
-    const cornHarvest = new Corn({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: 460,
-      y: 364 + deltaY
-    })
-
-    cornHarvest.currentGrowthStage = 5
-    cornHarvest.init()
-    this.entityManager.addEntity(cornHarvest)
+    this.grandma.init()
+    this.entityManager.addEntity(this.grandma, true)
 
     this.spawnButterflies(64)
     this.spawnBunnies(32)

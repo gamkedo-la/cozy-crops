@@ -136,3 +136,21 @@ export const Player2Start = { x: 0, y: 0 }
 export const PlayerHome = { x: 976, y: 1168 }
 export const Museum = { x: 1616, y: 960 }
 export const mapPosition = { x: 0, y: 0 }
+
+export const BlacksmithStart = { x: 0, y: 0 }
+export const CarpenterStart = { x: 0, y: 0 }
+export const FishermanStart = { x: 0, y: 0 }
+export const GrandmaStart = { x: 1080, y: 1224 }
+export const LumberjackStart = { x: 0, y: 0 }
+export const TiffanyStart = { x: 0, y: 0 }
+
+export const NPCStarts = {
+  Blacksmith: BlacksmithStart,
+  Carpenter: CarpenterStart,
+  Fisherman: FishermanStart,
+  Grandma: GrandmaStart,
+  Lumberjack: LumberjackStart,
+  Tiffany: TiffanyStart
+}
+
+// Curator and Shopkeep are not in the game scene
