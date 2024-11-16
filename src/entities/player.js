@@ -156,7 +156,6 @@ function handleInput (player) {
       console.log('Sleep')
       // player.scene.gameManager.newDaySave(player.scene.gameManager.getDate())
     } else if (mapActions.includes('Open Door')) {
-      // console.log(`Open Door at (${player.x}, ${player.y})`)
       player.scene.openDoor(groundPoint.x, groundPoint.y)
     } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
       player.scene.tillGround(groundPoint.x, groundPoint.y)

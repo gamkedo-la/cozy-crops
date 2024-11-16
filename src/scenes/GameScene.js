@@ -325,10 +325,9 @@ export default class GameScene extends Scene {
     switch (openedDoor) {
       case 12:
         console.log('Open door to the Player\'s House')
-        // this.game.changeScene(Scenes.PlayerHome)
         break
       case 103:
-        this.game.changeScene(Scenes.Museum, { player: this.steve })
+        fadeToScene(this, Scenes.Museum)
         break
     }
   }
@@ -346,16 +345,6 @@ export default class GameScene extends Scene {
   waterGround (x, y) {
     this.mapManager.updateTileAtPixelPos(x, y, 'WetSand')
     this.cropManager.waterAt(x, y)
-  }
-
-  cameraDidSleep () {
-    this.steve.sleep()
-    this.camera.wake(this)
-  }
-
-  cameraDidWake () {
-    this.isSleeping = false
-    this.steve.wake()
   }
 
   reachedEndOfDay () {
@@ -388,7 +377,23 @@ function manageInput (scene) {
 
 function sleep (scene) {
   scene.isSleeping = true
-  scene.camera.sleep(scene)
+  scene.camera.sleep(() => {
+    scene.steve.sleep()
+    scene.camera.wake(() => {
+      scene.isSleeping = false
+      scene.steve.wake()
+    })
+  })
+}
+
+function fadeToScene (scene, newScene) {
+  scene.camera.sleep(() => {
+    scene.steve.sleep()
+    scene.game.changeScene(newScene, { player: scene.steve })
+    scene.camera.wake(() => {
+      scene.steve.wake()
+    })
+  })
 }
 
 function addPlayers (scene) {
