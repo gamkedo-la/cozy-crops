@@ -8,8 +8,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 261,
-    screenY: 233,
+    screenX: 61,
+    screenY: 133,
     dateAchieved: null,
     text: ''
   },
@@ -20,8 +20,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 261,
-    screenY: 233,
+    screenX: 61,
+    screenY: 133,
     text: 'Get this plaque by planting crops'
   },
   FishingPlaqueComplete: {
@@ -31,8 +31,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 243,
-    screenY: 233,
+    screenX: 43,
+    screenY: 133,
     dateAchieved: null,
     text: ''
   },
@@ -43,8 +43,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 243,
-    screenY: 233,
+    screenX: 43,
+    screenY: 133,
     text: 'Get this plaque by catching a fish'
   },
   ForagingPlaqueComplete: {
@@ -54,8 +54,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 344,
-    screenY: 233,
+    screenX: 144,
+    screenY: 133,
     dateAchieved: null,
     text: ''
   },
@@ -66,8 +66,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 344,
-    screenY: 233,
+    screenX: 144,
+    screenY: 133,
     text: 'Get this plaque by collecting at least one wild plant'
   },
   FurniturePlaqueComplete: {
@@ -77,8 +77,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 362,
-    screenY: 233,
+    screenX: 162,
+    screenY: 133,
     dateAchieved: null,
     text: ''
   },
@@ -89,8 +89,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 362,
-    screenY: 233,
+    screenX: 162,
+    screenY: 133,
     text: 'Get this plaque by buying a piece of furniture'
   },
   SellingPlaqueComplete: {
@@ -100,8 +100,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 380,
-    screenY: 233,
+    screenX: 180,
+    screenY: 133,
     dateAchieved: null,
     text: ''
   },
@@ -112,8 +112,8 @@ export const PlaquesImageData = {
     width: 19,
     height: 11,
     padding: 1,
-    screenX: 380,
-    screenY: 233,
+    screenX: 180,
+    screenY: 133,
     text: 'Get this plaque by selling your first crop'
   }
 }

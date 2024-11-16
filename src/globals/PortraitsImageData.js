@@ -8,8 +8,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 288,
-    screenY: 116,
+    screenX: 88,
+    screenY: 16,
     dateAchieved: null,
     text: ''
   },
@@ -20,8 +20,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 288,
-    screenY: 116,
+    screenX: 88,
+    screenY: 16,
     text: ''
   },
   PearlPortraitComplete: {
@@ -31,8 +31,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 272,
-    screenY: 116,
+    screenX: 72,
+    screenY: 16,
     dateAchieved: null,
     text: ''
   },
@@ -43,8 +43,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 272,
-    screenY: 116,
+    screenX: 72,
+    screenY: 16,
     text: ''
   },
   RGBPortraitComplete: {
@@ -54,8 +54,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 304,
-    screenY: 116,
+    screenX: 104,
+    screenY: 16,
     dateAchieved: null,
     text: ''
   },
@@ -66,8 +66,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 304,
-    screenY: 116,
+    screenX: 104,
+    screenY: 16,
     text: ''
   },
   StarryPortraitComplete: {
@@ -77,8 +77,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 320,
-    screenY: 116,
+    screenX: 120,
+    screenY: 16,
     dateAchieved: null,
     text: ''
   },
@@ -89,8 +89,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 320,
-    screenY: 116,
+    screenX: 120,
+    screenY: 16,
     text: ''
   },
   WavePortraitComplete: {
@@ -100,8 +100,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 336,
-    screenY: 116,
+    screenX: 136,
+    screenY: 16,
     dateAchieved: null,
     text: ''
   },
@@ -112,8 +112,8 @@ export const PortraitsImageData = {
     width: 16,
     height: 16,
     padding: 1,
-    screenX: 336,
-    screenY: 116,
+    screenX: 136,
+    screenY: 16,
     text: ''
   }
 }

@@ -8,8 +8,8 @@ export const StatuesImageData = {
     width: 34,
     height: 46,
     padding: 1,
-    screenX: 231,
-    screenY: 245,
+    screenX: 31,
+    screenY: 145,
     dateAchieved: null,
     incompleteText: '',
     completeText: ''
@@ -21,8 +21,8 @@ export const StatuesImageData = {
     width: 34,
     height: 46,
     padding: 1,
-    screenX: 231,
-    screenY: 294,
+    screenX: 31,
+    screenY: 194,
     incompleteText: '',
     completeText: ''
   },
@@ -33,8 +33,8 @@ export const StatuesImageData = {
     width: 34,
     height: 46,
     padding: 1,
-    screenX: 359,
-    screenY: 245,
+    screenX: 159,
+    screenY: 145,
     dateAchieved: null,
     incompleteText: '',
     completeText: ''
@@ -46,8 +46,8 @@ export const StatuesImageData = {
     width: 34,
     height: 46,
     padding: 1,
-    screenX: 359,
-    screenY: 294,
+    screenX: 159,
+    screenY: 194,
     incompleteText: '',
     completeText: ''
   }

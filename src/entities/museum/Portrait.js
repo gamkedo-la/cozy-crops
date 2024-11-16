@@ -1,5 +1,6 @@
 import EntityTypes from '../../globals/EntityTypes.js'
 import PortraitsImageData from '../../globals/PortraitsImageData.js'
+import { MuseumPosition } from '../../globals/MuseumMap.js'
 
 export default class Portrait {
   constructor(config) {
@@ -13,7 +14,7 @@ export default class Portrait {
   draw (camera) {
     const imageDataToUse = this.complete ? this.imagesData.complete : this.imagesData.incomplete
     this.scene.imageManager.draw(this.imagesData.image,
-      imageDataToUse.screenX, imageDataToUse.screenY,
+      imageDataToUse.screenX - MuseumPosition.x, imageDataToUse.screenY - MuseumPosition.y,
       imageDataToUse.width, imageDataToUse.height,
       imageDataToUse.x, imageDataToUse.y,
       camera

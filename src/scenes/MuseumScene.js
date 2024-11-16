@@ -26,8 +26,8 @@ export default class MuseumScene extends Scene {
     this.curator = new Curator({
       game: this.game,
       imageManager: this.imageManager,
-      x: 300,
-      y: 150
+      x: 100 - MuseumPosition.x,
+      y: 50 - MuseumPosition.y
     })
     this.curator.init()
     this.drawlist.push(this.curator)

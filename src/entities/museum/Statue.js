@@ -1,5 +1,6 @@
 import EntityTypes from '../../globals/EntityTypes.js'
 import StatuesImageData from '../../globals/StatuesImageData.js'
+import { MuseumPosition } from '../../globals/MuseumMap.js'
 
 export default class Statue {
   constructor(config) {
@@ -14,7 +15,7 @@ export default class Statue {
   draw (camera) {
     if (this.complete) {
       this.scene.imageManager.draw(this.imagesData.image,
-        this.imagesData.complete.screenX, this.imagesData.complete.screenY,
+        this.imagesData.complete.screenX - MuseumPosition.x, this.imagesData.complete.screenY - MuseumPosition.y,
         this.imagesData.complete.width, this.imagesData.complete.height,
         this.imagesData.complete.x, this.imagesData.complete.y,
         camera

@@ -1,5 +1,6 @@
 import EntityTypes from '../../globals/EntityTypes.js'
 import PlaquesImageData from '../../globals/PlaquesImageData.js'
+import { MuseumPosition } from '../../globals/MuseumMap.js'
 
 export default class Plaque {
   constructor(config) {
@@ -13,7 +14,7 @@ export default class Plaque {
   draw (camera) {
     const imageDataToUse = this.complete ? this.imagesData.complete : this.imagesData.incomplete
     this.scene.imageManager.draw(this.imagesData.image,
-      imageDataToUse.screenX, imageDataToUse.screenY,
+      imageDataToUse.screenX - MuseumPosition.x, imageDataToUse.screenY - MuseumPosition.y,
       imageDataToUse.width, imageDataToUse.height,
       imageDataToUse.x, imageDataToUse.y,
       camera
@@ -62,10 +63,3 @@ function getImageDatasForType(type) {
       } 
   }
 }
-
-// Set the text for the Complete plaques
-// PlaquesImageData.FarmingPlaqueComplete.text = `You've earned this plaque on ${PlaquesImageData.FarmingPlaqueComplete.dateAchieved} by planting crops`
-// PlaquesImageData.FishingPlaqueComplete.text = `You've earned this plaque on ${PlaquesImageData.FishingPlaqueComplete.dateAchieved} by catching a fish`
-// PlaquesImageData.ForagingPlaqueComplete.text = `You've earned this plaque on ${PlaquesImageData.ForagingPlaqueComplete.dateAchieved} by collecting at least one wild plant`
-// PlaquesImageData.FurniturePlaqueComplete.text = `You've earned this plaque on ${PlaquesImageData.FurniturePlaqueComplete.dateAchieved} by buying a piece of furniture`
-// PlaquesImageData.SellingPlaqueComplete.text = `You've earned this plaque on ${PlaquesImageData.SellingPlaqueComplete.dateAchieved} by selling your first crop`
