@@ -172,6 +172,8 @@ export default class GameScene extends Scene {
         x: 0,
         y: 0
     })
+
+    this.weather.init()
   }
 
   spawnButterflies(howmany) {

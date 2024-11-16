@@ -13,9 +13,8 @@ const Images = {
   Tools: '../../img/Tools.png',
   UISprites: '../../img/UISprites.png',
   WildlifeSprites: '../../img/Wildlife.png',
-  // FIXME: I couldn't figure out how to use this stuff - see Weather.js
-  //RainSprite: '../../img/rain.png',
-  //SnowSprite: '../../img/snow.png',
+  RainSprite: '../../img/rain.png',
+  SnowSprite: '../../img/snow.png',
 }
 
 export default Images
@@ -34,7 +33,6 @@ export const {
   Tools,
   UISprites,
   WildlifeSprites,
-  // FIXME: I couldn't figure out how to use this stuff - see Weather.js
-  //RainSprite,
-  //SnowSprite,
+  RainSprite,
+  SnowSprite,
 } =  Images
