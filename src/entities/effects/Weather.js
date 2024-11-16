@@ -117,23 +117,30 @@ export default class Weather {
         if (justDownKeys.includes(V)) { !this.snowStrength ? this.startSnowing() : this.stopSnowing() }
         if (justDownKeys.includes(G)) { !this.windStrength ? this.getWindy() : this.stopWind() }
     }
-    this.coolBlueStrength += (deltaTime/1000) * this.coolBlueFadeDelta
-    this.fogStrength += (deltaTime/1000) * this.fogFadeDelta
-    this.rainStrength += (deltaTime/1000) * this.rainFadeDelta
-    this.snowStrength += (deltaTime/1000) * this.snowFadeDelta
-    this.windStrength += (deltaTime/1000) * this.windFadeDelta
+
+    this.coolBlueStrength += (deltaTime / 1000) * this.coolBlueFadeDelta
+    this.fogStrength += (deltaTime / 1000) * this.fogFadeDelta
+    this.rainStrength += (deltaTime / 1000) * this.rainFadeDelta
+    this.snowStrength += (deltaTime / 1000) * this.snowFadeDelta
+    this.windStrength += (deltaTime / 1000) * this.windFadeDelta
+
     if (this.coolBlueStrength > 1) this.coolBlueStrength = 1
     if (this.fogStrength > 1) this.fogStrength = 1
     if (this.rainStrength > 1) this.rainStrength = 1
     if (this.snowStrength > 1) this.snowStrength = 1
     if (this.windStrength > 1) this.windStrength = 1
+
     if (this.coolBlueStrength < 0) this.coolBlueStrength = 0
     if (this.fogStrength < 0) this.fogStrength = 0
     if (this.rainStrength < 0) this.rainStrength = 0
     if (this.snowStrength < 0) this.snowStrength = 0
     if (this.windStrength < 0) this.windStrength = 0
+
     this.windSound.volume = this.windStrength > 0 ? this.windStrength / 3 : 0
-    this.rainSound.volume = this.rainStrength > 0 ? this.rainStrength / 3 : 0
+    if (this.windSound.volume === 0) this.windSound.pause()
+
+      this.rainSound.volume = this.rainStrength > 0 ? this.rainStrength / 3 : 0
+    if (this.rainSound.volume === 0) this.rainSound.pause()
   }
 
   draw (camera) {

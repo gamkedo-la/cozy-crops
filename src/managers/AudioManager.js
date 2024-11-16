@@ -37,4 +37,52 @@ export default class AudioManager {
   getSoundWithSrc (src) {
     return this.sounds[this.srcToKeyMap[src]]
   }
+
+  isMusicPlaying (src) {
+    return !this.getSoundWithSrc(src).paused
+  }
+
+  startMusic (src) {
+    this.play(this.getSoundWithSrc(src))
+  }
+
+  pauseMusic (src) {
+    this.pause(this.getSoundWithSrc(src))
+  }
+
+  duckMusic (src) {
+    this.getSoundWithSrc(src).volume = 0.1
+  }
+
+  unDuckMusic (src) {
+    this.getSoundWithSrc(src).volume = 1
+  }
+
+  muteMusic (src) {
+    this.getSoundWithSrc(src).volume = 0
+  }
+
+  unMuteMusic (src) {
+    this.getSoundWithSrc(src).volume = 1
+  }
+
+  // useful when audio should continue across scenes (probably just the background music)
+  play (sound) {
+    sound.play()
+  }
+
+  // useful when audio should continue across scenes (probably just the background music)
+  playSource (src) {
+    this.play(this.getSoundWithSrc(src))
+  }
+
+  // useful when audio should continue across scenes (probably just the background music)
+  pause (sound) {
+    sound.pause()
+  }
+
+  // useful when audio should continue across scenes (probably just the background music)
+  pauseSource (src) {
+    this.pause(this.getSoundWithSrc(src))
+  }
 }

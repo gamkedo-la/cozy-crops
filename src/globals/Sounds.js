@@ -1,12 +1,12 @@
 const Sounds = {
+  BackgroundMusic: '../../sounds/cozyCropsMainBackgroundMusic.mp3',
   RainSound: '../../sounds/rain.ogg',
-  SoundTrack: '../../sounds/cozyCropsMainBackgroundMusic.mp3',
-  WindSound: '../../sounds/wind.ogg',
+  WindSound: '../../sounds/wind.ogg'
 }
 
 export default Sounds
 export const {
+  BackgroundMusic,
   RainSound,
-  SoundTrack,
-  WindSound,
+  WindSound
 } =  Sounds

@@ -5,6 +5,7 @@ import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys from '../globals/Keys.js'
+import { BackgroundMusic } from '../globals/Sounds.js'
 
 export default class TitleScene extends Scene {
   constructor (config) {
@@ -55,7 +56,7 @@ export default class TitleScene extends Scene {
   }
 
   clicked (selection) {
-    checkAndStartMusic(this)
+    if (!this.audioManager.isMusicPlaying(BackgroundMusic)) this.audioManager.startMusic(BackgroundMusic)
     if (selection === 'Start') {
       this.game.changeScene(Scenes.PreGame)
     } else if (selection === 'Options') {
@@ -92,8 +93,4 @@ function manageInput (scene) {
   if (mousePos.justDown) {
 
   }
-}
-
-function checkAndStartMusic (scene) {
-  
 }
