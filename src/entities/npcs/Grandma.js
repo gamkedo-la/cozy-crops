@@ -65,14 +65,23 @@ export default class Grandma extends NPC {
   }
 
   getDialogue () {
+    let dialog = ''
     if (!this.hasMetPlayer) {
       this.hasMetPlayer = true
-      return this.dialogue.firstEncounter
+      dialog = this.dialogue.firstEncounter
     } else if (!this.playerKnowsQuest) {
       this.playerKnowsQuest = true
-      return this.dialogue.unknownQuest
+      dialog = this.dialogue.unknownQuest
     } else if (this.quest.progress.sunflowers < this.quest.requirements.sunflowers) {
-      return this.dialogue.partialQuest
+      dialog = this.dialogue.partialQuest
     }
+
+    this.scene.gameManager.setNPCData(this.type, {
+      hasMetPlayer: this.hasMetPlayer,
+      playerKnowsQuest: this.playerKnowsQuest,
+      questComplete: this.questComplete
+    })
+
+    return dialog
   }
 }

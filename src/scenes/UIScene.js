@@ -15,6 +15,7 @@ export default class UIScene extends Scene {
     this.shouldShowDialogue = false
     this.dialogue = null
     this.dialogingNPC = null
+    this.showGiveButton = false
   }
 
   init (gameScene) {
@@ -47,11 +48,12 @@ export default class UIScene extends Scene {
     }
   }
 
-  showDialogue (npcType, dialogue) {
+  showDialogue (npcType, dialogue, showGiveButton) {
     if (!this.shouldShowDialogue) {
       this.shouldShowDialogue = true
       this.dialogue = dialogue
-      this.dialogingNPC = npcType  
+      this.dialogingNPC = npcType
+      this.showGiveButton = showGiveButton 
     }
   }
 
@@ -181,5 +183,26 @@ function drawDialogue (scene, rect) {
   for (const line of textLines) {
     scene.game.ctx.fillText(line, scene.game.canvas.width / 2, lineY)
     lineY += 30
+  }
+
+  if (scene.showGiveButton) {
+    // const giveButtonRect = {
+    //   top: dialogBkgdRect.top + dialogBkgdRect.height - 100,
+    //   left: dialogBkgdRect.left + dialogBkgdRect.width / 2 - UISpriteData.GiveButton.width,
+    //   width: 2 * UISpriteData.GiveButton.width,
+    //   height: 2 * UISpriteData.GiveButton.height
+    // }
+
+    // scene.game.ctx.drawImage(
+    //   scene.imageManager.getImageWithSrc(UISprites),
+    //   UISpriteData.GiveButton.x,
+    //   UISpriteData.GiveButton.y,
+    //   UISpriteData.GiveButton.width,
+    //   UISpriteData.GiveButton.height,
+    //   giveButtonRect.left,
+    //   giveButtonRect.top,
+    //   giveButtonRect.width,
+    //   giveButtonRect.height
+    // )
   }
 }

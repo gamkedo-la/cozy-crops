@@ -375,8 +375,8 @@ export default class GameScene extends Scene {
     this.mapManager.unWaterAllTiles()
   }
 
-  showNPCDialogue (npcType, dialogue) {
-    this.uiScene.showDialogue(npcType, dialogue)
+  showNPCDialogue (npcType, dialogue, showGiveButton) {
+    this.uiScene.showDialogue(npcType, dialogue, showGiveButton)
   }
 
   hideNPCDialogue (npcType) {

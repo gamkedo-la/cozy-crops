@@ -12,7 +12,6 @@ export default class NPC {
       default: `Hello there!`
     }
 
-
     this.showingDialogue = false
   }
 
@@ -52,7 +51,7 @@ export default class NPC {
     if (playerColRow.col === npcColRow.col && Math.abs(playerColRow.row - npcColRow.row) <= 1) {
       if (!this.showingDialogue) {
         this.showingDialogue = true
-        this.scene.showNPCDialogue(this.type, this.getDialogue())
+        this.scene.showNPCDialogue(this.type, this.getDialogue(), this.hasMetPlayer)
       }
     } else {
       this.showingDialogue = false
