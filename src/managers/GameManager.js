@@ -239,6 +239,15 @@ export default class GameManager {
     this.state.Map.Achievements = achievements
     this.saveGame()
   }
+
+  getNPCData (npc) {
+    return this.state.NPCs ? this.state.NPCs[npc] : null
+  }
+
+  setNPCData (npc, data) {
+    this.state.NPCs[npc] = data
+    this.saveGame()
+  }
 }
 
 function initializeNewGame (manager, saveSlot) {
@@ -308,7 +317,7 @@ function initializeNewGame (manager, saveSlot) {
         { name: 'Gatherer Extrodinaire', incompleteDescription: 'Forage for one of each type\nof item to earn this Painting', completeDescription: 'Congratulations!\nYou found one of\neach type of item', type: EntityTypes.PortraitRGB, requiredCount: 6, collected: new Set(), complete: false },
         { name: 'Furniture Aficionado', incompleteDescription: 'Collect one of each type of\nfurniture to earn this Painting', completeDescription: 'Congratulations!\nYou collected one of\neach type of furniture', type: EntityTypes.PortraitStarry, requiredCount: 10, collected: new Set(), complete: false },
         { name: 'Good Samaritan', incompleteDescription: 'Complete every town quest', completeDescription: 'Congratulations!\nYou completed every town quest', type: EntityTypes.PortraitWave, requiredCount: 4, currentCount: 0, complete: false },
-        { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done!\nYou helped Grandma Mea', type: EntityTypes.StatueBust, complete: false },
+        { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done!\nYou helped Grandma Mea', type: EntityTypes.StatueBust, requiredCount: 5, currentCount: 5, complete: false },
         { name: 'Jo Jo\'s Friend', incompleteDescription: 'Complete Jo Jo\'s quest', completeDescription: 'Well done!\nYou helped Jo Jo', type: EntityTypes.StatueFossil, complete: false },
         { name: 'Bob\'s Paul Bunyan', incompleteDescription: 'Complete Bob\'s quest', completeDescription: 'Well done!\nYou helped Bob', type: EntityTypes.StatueMoai, complete: false },
         { name: 'Tiffany\'s Souper Friend', incompleteDescription: 'Complete Tiffany\'s quest', completeDescription: 'Well done!\nYou helped Tiffany', type: EntityTypes.StatuePharaoh, complete: false }
@@ -320,7 +329,64 @@ function initializeNewGame (manager, saveSlot) {
         // { x: 0, y: 0, tileIndex: 0 }
       ]
     },
-    Money: 100
+    Money: 100,
+    NPCs: {
+      [EntityTypes.Blacksmith]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+      },
+      [EntityTypes.Carpenter]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+      },
+      [EntityTypes.Curator]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+      },
+      [EntityTypes.Fisherman]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+        progress: {
+          tuna: 0
+        }
+      },
+      [EntityTypes.Grandma]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+        progress: {
+          sunflowers: 0
+        }
+      },
+      [EntityTypes.Lumberjack]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+        progress: {
+          wood: 0
+        }
+      },
+      [EntityTypes.Shopkeeper]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+      },
+      [EntityTypes.Tiffany]: {
+        hasMetPlayer: false,
+        playerKnowsQuest: false,
+        questComplete: false,
+        progress: {
+          onion: 0,
+          tomato: 0,
+          carrot: 0,
+          pumpkin: 0
+        }
+      }
+    }
   }
 
   manager.saveGame()

@@ -56,12 +56,6 @@ export default class GameScene extends Scene {
     this.mapManager.start(modifiedTiles)
     this.inventoryManager.start()
 
-    this.collisionManager = new CollisionManager({
-      game: this.game,
-      scene: this
-    })
-    this.mapManager.collisionManager = this.collisionManager
-
     this.inputManager.setPlayerKeys()
 
     addPlayers(this)
@@ -80,6 +74,13 @@ export default class GameScene extends Scene {
     this.imageManager.setCamera(this.camera)
     const date = this.gameManager.getDate()
     this.calendarManager.setStartDate(date.year, date.season, date.week, date.day)
+
+    this.collisionManager = new CollisionManager({
+      game: this.game,
+      scene: this,
+      player: this.steve
+    })
+    this.mapManager.collisionManager = this.collisionManager
 
     this.spawnNPCs()
 
@@ -180,70 +181,87 @@ export default class GameScene extends Scene {
 
   spawnNPCs() {
     const blacksmithStartPos = this.mapManager.getNPCStart(EntityTypes.Blacksmith)
+    const blacksmithData = this.gameManager.getNPCData(EntityTypes.Blacksmith)
     this.blacksmith = new Blacksmith({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
       x: blacksmithStartPos.x,
-      y: blacksmithStartPos.y
+      y: blacksmithStartPos.y,
+      ...blacksmithData
     })
     this.blacksmith.init()
     this.entityManager.addEntity(this.blacksmith, true)
 
     const carpenterStartPos = this.mapManager.getNPCStart(EntityTypes.Carpenter)
+    const carpenterData = this.gameManager.getNPCData(EntityTypes.Carpenter)
     this.carpenter = new Carpenter({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
       x: carpenterStartPos.x,
-      y: carpenterStartPos.y
+      y: carpenterStartPos.y,
+      ...carpenterData
     })
     this.carpenter.init()
     this.entityManager.addEntity(this.carpenter, true)
+    this.collisionManager.addEntity(this.carpenter)
 
     const fishermanStartPos = this.mapManager.getNPCStart(EntityTypes.Fisherman)
+    const fishermanData = this.gameManager.getNPCData(EntityTypes.Fisherman)
     this.fisherman = new Fisherman({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
       x: fishermanStartPos.x,
-      y: fishermanStartPos.y
+      y: fishermanStartPos.y,
+      ...fishermanData
     })
     this.fisherman.init()
     this.entityManager.addEntity(this.fisherman, true)
+    this.collisionManager.addEntity(this.fisherman)
 
     const grandmaStartPos = this.mapManager.getNPCStart(EntityTypes.Grandma)
+    const grandmaData = this.gameManager.getNPCData(EntityTypes.Grandma)
     this.grandma = new Grandma({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
       x: grandmaStartPos.x,
-      y: grandmaStartPos.y
+      y: grandmaStartPos.y,
+      ...grandmaData
     })
     this.grandma.init()
     this.entityManager.addEntity(this.grandma, true)
+    this.collisionManager.addEntity(this.grandma)
 
     const lumberjackStartPos = this.mapManager.getNPCStart(EntityTypes.Lumberjack)
+    const lumberjackData = this.gameManager.getNPCData(EntityTypes.Lumberjack)
     this.lumberjack = new Lumberjack({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
       x: lumberjackStartPos.x,
-      y: lumberjackStartPos.y
+      y: lumberjackStartPos.y,
+      ...lumberjackData
     })
     this.lumberjack.init()
     this.entityManager.addEntity(this.lumberjack, true)
+    this.collisionManager.addEntity(this.lumberjack)
 
     const tiffanyStartPos = this.mapManager.getNPCStart(EntityTypes.Tiffany)
+    const tiffanyData = this.gameManager.getNPCData(EntityTypes.Tiffany)
     this.tiffany = new Tiffany({
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
       x: tiffanyStartPos.x,
-      y: tiffanyStartPos.y
+      y: tiffanyStartPos.y,
+      ...tiffanyData
     })
     this.tiffany.init()
     this.entityManager.addEntity(this.tiffany, true)
+    this.collisionManager.addEntity(this.tiffany)
   }
 
   update (deltaTime) {
@@ -251,6 +269,7 @@ export default class GameScene extends Scene {
 
     manageInput(this)
     this.entityManager.update(deltaTime)
+    this.collisionManager.update(deltaTime)
     this.weather.update(deltaTime)
 
     if (!this.isSleeping) {
@@ -352,6 +371,15 @@ export default class GameScene extends Scene {
   newDayActions () {
     this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
+  }
+
+  showNPCDialogue (npcType, dialogue) {
+    // show the dialog box and associated the provided npcType with the dialogue, so we can hide it later
+    console.log(dialogue)
+  }
+
+  hideNPCDialogue (npcType) {
+    // hide the dialog box only if the npcType matches the current dialog box
   }
 }
 

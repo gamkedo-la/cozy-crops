@@ -140,7 +140,7 @@ export const mapPosition = { x: 0, y: 0 }
 export const BlacksmithStart = { x: 900, y: 1180 }
 export const CarpenterStart = { x: 932, y: 1180 }
 export const FishermanStart = { x: 960, y: 1180 }
-export const GrandmaStart = { x: 1080, y: 1224 }
+export const GrandmaStart = { x: 1229, y: 1256 }
 export const LumberjackStart = { x: 1100, y: 1180 }
 export const TiffanyStart = { x: 1132, y: 1180 }
 

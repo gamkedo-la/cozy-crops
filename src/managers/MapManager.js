@@ -202,6 +202,15 @@ export default class MapManager {
     }
   }
 
+  getTileColRowAtPixelPos (x, y) {
+    const tileX = Math.floor(x / TileWidth)
+    const tileY = Math.floor(y / TileHeight)
+    return {
+      col: tileX,
+      row: tileY
+    }
+  }
+
   getRandomTilePos (mustBeWalkable = true) {
     let x, y, tileIsWalkable
     do {

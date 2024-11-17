@@ -27,11 +27,13 @@ export default class MuseumScene extends Scene {
     super.init() // Call the init method of the parent class
 
     // initialize resources
+    const curatorData = this.gameManager.getNPCData(EntityTypes.Curator)
     this.curator = new Curator({
       game: this.game,
       imageManager: this.imageManager,
       x: 100 - MuseumPosition.x,
-      y: 50 - MuseumPosition.y
+      y: 50 - MuseumPosition.y,
+      ...curatorData
     })
     this.curator.init()
     this.drawlist.push(this.curator)
