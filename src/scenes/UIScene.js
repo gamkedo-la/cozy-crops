@@ -7,6 +7,7 @@ import { UISprites } from '../globals/Images.js'
 import { Player1 } from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import { FamilyNames } from '../globals/Fonts.js'
+import GiftButton from '../uiElements/GiftButton.js'
 
 export default class UIScene extends Scene {
   constructor (config) {
@@ -16,6 +17,27 @@ export default class UIScene extends Scene {
     this.dialogue = null
     this.dialogingNPC = null
     this.showGiveButton = false
+
+    this.scoreboardRect = {
+      left: this.game.canvas.width - (2 *  UISpriteData.Scoreboard.width) - 10,
+      top: 10,
+      width: 2 * UISpriteData.Scoreboard.width,
+      height: 2 * UISpriteData.Scoreboard.height
+    }
+
+    this.dialogRect = {
+      top: this.scoreboardRect.top,
+      left: (this.game.canvas.width / 2) - (2 * UISpriteData.TextBackground.width),
+      width: 4 * UISpriteData.TextBackground.width,
+      height: 4 * UISpriteData.TextBackground.height
+    }
+
+    this.giftButton = new GiftButton({
+      scene: this,
+      x: this.dialogRect.left + this.dialogRect.width - 2 * UISpriteData.GiftButton.width - 20,
+      y: this.dialogRect.top + this.dialogRect.height - 70,
+      container: this.dialogRect
+    })
   }
 
   init (gameScene) {
@@ -36,15 +58,15 @@ export default class UIScene extends Scene {
     this.game.ctx.font = `${Constants.TitleFontSize / 4}px ${Constants.TitleFontFamily}`
     this.game.ctx.textAlign = UIAttributes.CenterAlign
 
-    const scoreboardRect = drawScoreboard(this)
-    drawStamina(this, scoreboardRect)
-    drawMoney(this, scoreboardRect)
+    drawScoreboard(this)
+    drawStamina(this, this.scoreboardRect)
+    drawMoney(this, this.scoreboardRect)
     this.inventoryManager.draw()
-    drawDayNightUI(this, scoreboardRect)
-    drawTimeOfDayUI(this, scoreboardRect)
+    drawDayNightUI(this, this.scoreboardRect)
+    drawTimeOfDayUI(this, this.scoreboardRect)
 
     if (this.shouldShowDialogue) {
-      drawDialogue(this, scoreboardRect)
+      drawDialogue(this, this.dialogRect)
     }
   }
 
@@ -64,6 +86,10 @@ export default class UIScene extends Scene {
     }
   }
 
+  showGiftDialogue () {
+    console.log('Gift dialogue')
+  }
+
   stop () {
     super.stop() // Call the stop method of the parent class
 
@@ -76,12 +102,14 @@ function checkMouseClick (scene, x, y) {
   if (clickedInventoryItem) {
     scene.gameScene.handleInventoryItemClick(clickedInventoryItem)
     scene.inventoryManager.setSelectedItem(clickedInventoryItem)
+  } else if (scene.showGiveButton && scene.giftButton.checkClicked(x, y)) {
+    scene.giftButton.activate()
   }
 }
 
 function drawScoreboard (scene) {
-  const scoreboardLeft = scene.game.canvas.width - (2 *  UISpriteData.Scoreboard.width) - 10
-  const scoreboardTop = 10
+  const scoreboardLeft = scene.scoreboardRect.left // scene.game.canvas.width - (2 *  UISpriteData.Scoreboard.width) - 10
+  const scoreboardTop = scene.scoreboardRect.top // 10
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.Scoreboard.x, UISpriteData.Scoreboard.y, UISpriteData.Scoreboard.width, UISpriteData.Scoreboard.height, scoreboardLeft, scoreboardTop, 2 * UISpriteData.Scoreboard.width, 2 * UISpriteData.Scoreboard.height)
   const date = scene.game.calendarManager.getDate()
 
@@ -109,8 +137,6 @@ function drawScoreboard (scene) {
 
   const seasonData = UISpriteData[`Season${date.seasonDisplay}`]
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), seasonData.x, seasonData.y, seasonData.width, seasonData.height, scoreboardLeft + 98, scoreboardTop + 70, 2 * seasonData.width, 2 * seasonData.height)
-
-  return { left: scoreboardLeft, top: scoreboardTop, width: 2 * UISpriteData.Scoreboard.width, height: 2 * UISpriteData.Scoreboard.height }
 }
 
 function drawMoney(scene, rect) {
@@ -147,15 +173,9 @@ function drawTimeOfDayUI (scene, rect) {
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.TimeOfDay.x, UISpriteData.TimeOfDay.y, UISpriteData.TimeOfDay.width, UISpriteData.TimeOfDay.height, staminaLeft, staminaTop, 2 * UISpriteData.TimeOfDay.width, 2 * UISpriteData.TimeOfDay.height)
 }
 
-function drawDialogue (scene, rect) {
+function drawDialogue (scene, dialogBkgdRect) {
   if (!scene.dialogue) return
 
-  const dialogBkgdRect = {
-    top: rect.top,
-    left: (scene.game.canvas.width / 2) - (2 * UISpriteData.TextBackground.width),
-    width: 4 * UISpriteData.TextBackground.width,
-    height: 4 * UISpriteData.TextBackground.height
-  }
   // set the context's global alpha to 0.85
   scene.game.ctx.globalAlpha = 0.85
 
@@ -186,23 +206,6 @@ function drawDialogue (scene, rect) {
   }
 
   if (scene.showGiveButton) {
-    const giveButtonRect = {
-      top: dialogBkgdRect.top + dialogBkgdRect.height - 70,
-      left: dialogBkgdRect.left + dialogBkgdRect.width - 2 * UISpriteData.GiftButton.width - 20,
-      width: 2 * UISpriteData.GiftButton.width,
-      height: 2 * UISpriteData.GiftButton.height
-    }
-
-    scene.game.ctx.drawImage(
-      scene.imageManager.getImageWithSrc(UISprites),
-      UISpriteData.GiftButton.x,
-      UISpriteData.GiftButton.y,
-      UISpriteData.GiftButton.width,
-      UISpriteData.GiftButton.height,
-      giveButtonRect.left,
-      giveButtonRect.top,
-      giveButtonRect.width,
-      giveButtonRect.height
-    )
+    scene.giftButton.draw()
   }
 }
