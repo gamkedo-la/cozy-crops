@@ -24,12 +24,12 @@ export default class Grandma extends NPC {
     this.quest.progress = config.progress || this.quest.progress
 
     this.dialogue = {
-      firstEncounter: 'Hello there! Welcome to the village! I am the village Grandma. I have been here for many years and have seen many things. I hope you enjoy your stay here!',
-      unknownQuest: 'Hello dear! I hope you are doing well. Don\'t you think the perfect bouquet needs 5 sunflowers? I think so too!',
-      partialQuest: `Hello dear! I hope you are doing well. I still need ${this.quest.requirements.sunflowers - this.quest.progress.sunflowers} more sunflowers to make the perfect bouquet!`,
-      fullQuest: 'Hello dear! I think we were right, 5 sunflowers DOES make the perfect bouquet! Thank you for your help!',
-      giveSunflower: 'Oh, a sunflower! Thank you dear! I will add this to my bouquet!',
-      giveOtherGift: 'Oh, a gift! Thank you dear! I will cherish this!'
+      firstEncounter: 'Hello there! Welcome to the village!\nI am the village Grandma. I have been here for many years\nand have seen many things. I hope you enjoy your stay here!',
+      unknownQuest: 'Hello dear! I hope you are doing well.\nDon\'t you think the perfect bouquet needs 5 sunflowers?\nI think so too!',
+      partialQuest: `Hello dear! I hope you are doing well.\nI still need ${this.quest.requirements.sunflowers - this.quest.progress.sunflowers} more sunflowers to make\nthe perfect bouquet!`,
+      fullQuest: 'Hello dear! I think we were right,\n5 sunflowers DOES make the perfect bouquet!\nThank you for your help!',
+      giveSunflower: 'Oh, a sunflower! Thank you dear!\nI will add this to my bouquet!',
+      giveOtherGift: 'Oh, a gift! Thank you dear!\nI will cherish this!'
     }
   }
 

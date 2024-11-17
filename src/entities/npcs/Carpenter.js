@@ -8,6 +8,11 @@ export default class Carpenter extends NPC {
     super(config)
     
     this.type =  EntityTypes.Carpenter
+    this.dialogue = {
+      // TODO: Remove this with the correct dialogue
+      default: `Hello there! I'm the village carpenter.\nI can help you with all your woodworking needs.`
+    }
+
     this.collisionPoint = { x: 0, y: 0 }
   }
 

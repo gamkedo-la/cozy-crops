@@ -8,6 +8,11 @@ export default class Tiffany extends NPC {
     super(config)
     
     this.type =  EntityTypes.Tiffany
+    this.dialogue = {
+      // TODO: Remove this with the correct dialogue
+      default: `Hello there! I'm Tiffany.\nI can help you with all your jewelry needs.`
+    }
+
     this.collisionPoint = { x: 0, y: 0 }
   }
 

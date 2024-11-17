@@ -9,7 +9,7 @@ export default class NPC {
 
     this.quest = null
     this.dialogue = {
-      default: 'Hello there!'
+      default: `Hello there!`
     }
 
 

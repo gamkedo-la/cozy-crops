@@ -8,6 +8,11 @@ export default class Fisherman extends NPC {
     super(config)
     
     this.type =  EntityTypes.Fisherman
+    this.dialogue = {
+      // TODO: Remove this with the correct dialogue
+      default: `Hello there! I'm the village fisherman.\nI can help you with all your fishing needs.`
+    }
+
     this.collisionPoint = { x: 0, y: 0 }
   }
 

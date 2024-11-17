@@ -8,6 +8,11 @@ export default class Lumberjack extends NPC {
     super(config)
     
     this.type =  EntityTypes.Lumberjack
+    this.dialogue = {
+      // TODO: Remove this with the correct dialogue
+      default: `Hello there! I'm the village lumberjack.\nI can help you with all your woodcutting needs.`
+    }
+
     this.collisionPoint = { x: 0, y: 0 }
   }
 

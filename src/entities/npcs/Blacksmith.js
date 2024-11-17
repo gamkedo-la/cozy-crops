@@ -8,6 +8,11 @@ export default class Blacksmith extends NPC {
     super(config)
     
     this.type =  EntityTypes.Blacksmith
+    this.dialogue = {
+      // TODO: Remove this with the correct dialogue
+      default: `Hello there! I'm the village blacksmith.\nI can help you with all your metalworking needs.`
+    }
+
     this.collisionPoint = { x: 0, y: 0 }
   }
 

@@ -51,7 +51,8 @@ export default class GameScene extends Scene {
     this.entityManager.addEntity(entity)
   }
 
-  init () {
+  init (data) {
+    this.uiScene = data.uiScene
     const modifiedTiles = this.gameManager.getModifiedTiles()
     this.mapManager.start(modifiedTiles)
     this.inventoryManager.start()
@@ -192,6 +193,7 @@ export default class GameScene extends Scene {
     })
     this.blacksmith.init()
     this.entityManager.addEntity(this.blacksmith, true)
+    this.collisionManager.addEntity(this.blacksmith)
 
     const carpenterStartPos = this.mapManager.getNPCStart(EntityTypes.Carpenter)
     const carpenterData = this.gameManager.getNPCData(EntityTypes.Carpenter)
@@ -374,12 +376,11 @@ export default class GameScene extends Scene {
   }
 
   showNPCDialogue (npcType, dialogue) {
-    // show the dialog box and associated the provided npcType with the dialogue, so we can hide it later
-    console.log(dialogue)
+    this.uiScene.showDialogue(npcType, dialogue)
   }
 
   hideNPCDialogue (npcType) {
-    // hide the dialog box only if the npcType matches the current dialog box
+    this.uiScene.hideDialogue(npcType)
   }
 }
 

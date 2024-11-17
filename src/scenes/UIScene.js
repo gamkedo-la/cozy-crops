@@ -6,11 +6,15 @@ import UIAttributes from '../globals/UIAttributes.js'
 import { UISprites } from '../globals/Images.js'
 import { Player1 } from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
+import { FamilyNames } from '../globals/Fonts.js'
 
 export default class UIScene extends Scene {
   constructor (config) {
     super(config)
     this.gameScene = null
+    this.shouldShowDialogue = false
+    this.dialogue = null
+    this.dialogingNPC = null
   }
 
   init (gameScene) {
@@ -37,6 +41,25 @@ export default class UIScene extends Scene {
     this.inventoryManager.draw()
     drawDayNightUI(this, scoreboardRect)
     drawTimeOfDayUI(this, scoreboardRect)
+
+    if (this.shouldShowDialogue) {
+      drawDialogue(this, scoreboardRect)
+    }
+  }
+
+  showDialogue (npcType, dialogue) {
+    if (!this.shouldShowDialogue) {
+      this.shouldShowDialogue = true
+      this.dialogue = dialogue
+      this.dialogingNPC = npcType  
+    }
+  }
+
+  hideDialogue (npcType) {
+    if (this.dialogingNPC === npcType) {
+      this.shouldShowDialogue = false
+      this.dialogue = null
+    }
   }
 
   stop () {
@@ -120,4 +143,43 @@ function drawTimeOfDayUI (scene, rect) {
   const staminaLeft = rect.left - (2 * UISpriteData.TimeOfDay.width) - 18
   const staminaTop = rect.top + 30 + 2 * (scene.calendarManager.getTimeOfDay() / Calendar.LengthOfDay) * (UISpriteData.DayNightUI.height - 8)
   scene.game.ctx.drawImage(scene.imageManager.getImageWithSrc(UISprites), UISpriteData.TimeOfDay.x, UISpriteData.TimeOfDay.y, UISpriteData.TimeOfDay.width, UISpriteData.TimeOfDay.height, staminaLeft, staminaTop, 2 * UISpriteData.TimeOfDay.width, 2 * UISpriteData.TimeOfDay.height)
+}
+
+function drawDialogue (scene, rect) {
+  if (!scene.dialogue) return
+
+  const dialogBkgdRect = {
+    top: rect.top,
+    left: (scene.game.canvas.width / 2) - (2 * UISpriteData.TextBackground.width),
+    width: 4 * UISpriteData.TextBackground.width,
+    height: 4 * UISpriteData.TextBackground.height
+  }
+  // set the context's global alpha to 0.85
+  scene.game.ctx.globalAlpha = 0.85
+
+  scene.game.ctx.drawImage(
+    scene.imageManager.getImageWithSrc(UISprites),
+    UISpriteData.TextBackground.x,
+    UISpriteData.TextBackground.y,
+    UISpriteData.TextBackground.width,
+    UISpriteData.TextBackground.height,
+    dialogBkgdRect.left,
+    dialogBkgdRect.top,
+    dialogBkgdRect.width,
+    dialogBkgdRect.height
+  )
+
+  // reset the context's global alpha to 1
+  scene.game.ctx.globalAlpha = 1
+
+  scene.game.ctx.fillStyle = 'black'
+  scene.game.ctx.font = `48px ${FamilyNames.FarmVintage}`
+  scene.game.ctx.textAlign = UIAttributes.CenterAlign
+  const textLines = scene.dialogue.split('\n')
+
+  let lineY = dialogBkgdRect.top + 30
+  for (const line of textLines) {
+    scene.game.ctx.fillText(line, scene.game.canvas.width / 2, lineY)
+    lineY += 30
+  }
 }

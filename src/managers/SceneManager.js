@@ -106,6 +106,9 @@ export default class SceneManager {
     fadeOut(this.managers.imageManager, () => {
       if (this.scenes[sceneName]) {
         if (!this.initializedScenes[sceneName]) {
+          if (sceneName === Scenes.Game) {
+            data = { uiScene: this.scenes[Scenes.UIScene] }
+          }
           this.scenes[sceneName].init(data)
           this.initializedScenes[sceneName] = true
         }

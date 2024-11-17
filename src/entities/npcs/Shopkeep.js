@@ -8,6 +8,11 @@ export default class Shopkeep extends NPC {
     super(config)
     
     this.type =  EntityTypes.Shopkeep
+    this.dialogue = {
+      // TODO: Remove this with the correct dialogue
+      default: `Hello there! I'm the village shopkeep.\nI can help you with all your shopping needs.`
+    }
+
     this.collisionPoint = { x: 0, y: 0 }
   }
 
