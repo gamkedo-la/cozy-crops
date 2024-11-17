@@ -22,7 +22,12 @@ import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
 import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, TileNames, WetSand } from '../globals/Tiles.js'
+import Blacksmith from '../entities/npcs/Blacksmith.js'
+import Carpenter from '../entities/npcs/Carpenter.js'
+import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
+import Lumberjack from '../entities/npcs/Lumberjack.js'
+import Tiffany from '../entities/npcs/Tiffany.js'
 
 // FIXME: I keep getting compiler warnings about CaSe differences
 // (weather.js vs Weather.js but I cannot figure out why)
@@ -76,17 +81,7 @@ export default class GameScene extends Scene {
     const date = this.gameManager.getDate()
     this.calendarManager.setStartDate(date.year, date.season, date.week, date.day)
 
-    const grandmaStartPos = this.mapManager.getNPCStart(EntityTypes.Grandma)
-    this.grandma = new Grandma({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: grandmaStartPos.x,
-      y: grandmaStartPos.y
-    })
-
-    this.grandma.init()
-    this.entityManager.addEntity(this.grandma, true)
+    this.spawnNPCs()
 
     this.spawnButterflies(64)
     this.spawnBunnies(32)
@@ -181,6 +176,74 @@ export default class GameScene extends Scene {
       item.init()
       this.entityManager.addEntity(item, true)
     }
+  }
+
+  spawnNPCs() {
+    const blacksmithStartPos = this.mapManager.getNPCStart(EntityTypes.Blacksmith)
+    this.blacksmith = new Blacksmith({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: blacksmithStartPos.x,
+      y: blacksmithStartPos.y
+    })
+    this.blacksmith.init()
+    this.entityManager.addEntity(this.blacksmith, true)
+
+    const carpenterStartPos = this.mapManager.getNPCStart(EntityTypes.Carpenter)
+    this.carpenter = new Carpenter({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: carpenterStartPos.x,
+      y: carpenterStartPos.y
+    })
+    this.carpenter.init()
+    this.entityManager.addEntity(this.carpenter, true)
+
+    const fishermanStartPos = this.mapManager.getNPCStart(EntityTypes.Fisherman)
+    this.fisherman = new Fisherman({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: fishermanStartPos.x,
+      y: fishermanStartPos.y
+    })
+    this.fisherman.init()
+    this.entityManager.addEntity(this.fisherman, true)
+
+    const grandmaStartPos = this.mapManager.getNPCStart(EntityTypes.Grandma)
+    this.grandma = new Grandma({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: grandmaStartPos.x,
+      y: grandmaStartPos.y
+    })
+    this.grandma.init()
+    this.entityManager.addEntity(this.grandma, true)
+
+    const lumberjackStartPos = this.mapManager.getNPCStart(EntityTypes.Lumberjack)
+    this.lumberjack = new Lumberjack({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: lumberjackStartPos.x,
+      y: lumberjackStartPos.y
+    })
+    this.lumberjack.init()
+    this.entityManager.addEntity(this.lumberjack, true)
+
+    const tiffanyStartPos = this.mapManager.getNPCStart(EntityTypes.Tiffany)
+    this.tiffany = new Tiffany({
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: tiffanyStartPos.x,
+      y: tiffanyStartPos.y
+    })
+    this.tiffany.init()
+    this.entityManager.addEntity(this.tiffany, true)
   }
 
   update (deltaTime) {
