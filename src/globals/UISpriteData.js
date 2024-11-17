@@ -55,6 +55,20 @@ const UISpriteData = {
     height: 26,
     padding: 1
   },
+  EnterButton: {
+    x: 168,
+    y: 120,
+    width: 56,
+    height: 25,
+    padding: 1
+  },
+  GiftButton: {
+    x: 262,
+    y: 90,
+    width: 37,
+    height: 25,
+    padding: 1
+  },
   InventoryIcons: {
     x: 0,
     y: 0,
@@ -254,6 +268,8 @@ export const {
   DayTransitionBanner,
   DropButton,
   EndOfDayText,
+  EnterButton,
+  GiftButton,
   InventoryIcons,
   NoButton,
   Number0,

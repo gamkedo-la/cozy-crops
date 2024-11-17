@@ -186,23 +186,23 @@ function drawDialogue (scene, rect) {
   }
 
   if (scene.showGiveButton) {
-    // const giveButtonRect = {
-    //   top: dialogBkgdRect.top + dialogBkgdRect.height - 100,
-    //   left: dialogBkgdRect.left + dialogBkgdRect.width / 2 - UISpriteData.GiveButton.width,
-    //   width: 2 * UISpriteData.GiveButton.width,
-    //   height: 2 * UISpriteData.GiveButton.height
-    // }
+    const giveButtonRect = {
+      top: dialogBkgdRect.top + dialogBkgdRect.height - 70,
+      left: dialogBkgdRect.left + dialogBkgdRect.width - 2 * UISpriteData.GiftButton.width - 20,
+      width: 2 * UISpriteData.GiftButton.width,
+      height: 2 * UISpriteData.GiftButton.height
+    }
 
-    // scene.game.ctx.drawImage(
-    //   scene.imageManager.getImageWithSrc(UISprites),
-    //   UISpriteData.GiveButton.x,
-    //   UISpriteData.GiveButton.y,
-    //   UISpriteData.GiveButton.width,
-    //   UISpriteData.GiveButton.height,
-    //   giveButtonRect.left,
-    //   giveButtonRect.top,
-    //   giveButtonRect.width,
-    //   giveButtonRect.height
-    // )
+    scene.game.ctx.drawImage(
+      scene.imageManager.getImageWithSrc(UISprites),
+      UISpriteData.GiftButton.x,
+      UISpriteData.GiftButton.y,
+      UISpriteData.GiftButton.width,
+      UISpriteData.GiftButton.height,
+      giveButtonRect.left,
+      giveButtonRect.top,
+      giveButtonRect.width,
+      giveButtonRect.height
+    )
   }
 }
