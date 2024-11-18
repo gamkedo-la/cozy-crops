@@ -1,6 +1,30 @@
 import { WildlifeSprites } from './Images.js'
 
 export const ButterflyAnimationData = {
+  flyLeft: {
+    flipped: false,
+    name: 'flyLeft',
+    spritesheet: WildlifeSprites,
+    frames: [0,1],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 250,
+    durationRandomness: 100,
+    loop: true,
+  },
+  flyRight: {
+    flipped: true,
+    name: 'flyRight',
+    spritesheet: WildlifeSprites,
+    frames: [0,1],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 250,
+    durationRandomness: 100,
+    loop: true,
+  },
   Flying: {
     name: 'ButterflyFlying',
     spritesheet: WildlifeSprites,

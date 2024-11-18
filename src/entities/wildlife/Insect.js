@@ -11,10 +11,10 @@ export default class Insect {
     this.animations = {}
     this.currentAnimation = null
     // age = sine wave phase so they don't all start going the same direction
-    this.age = Math.random() * 10000 
+    this.age = Math.random() * 1000000 
     this.spawnX = config.x, //Math.random() * 4096
     this.spawnY = config.y, //Math.random() * 4096
-    this.wobbleSpeed = 32 + Math.random()*160
+    this.wobbleSpeed = 64 + Math.random()*160
     this.wobbleWidth = 64 + Math.random()*256
     this.wobbleHeight = 8 + Math.random()*32
     this.flutterSpeed = 2048 + Math.random()*2048
@@ -34,18 +34,22 @@ export default class Insect {
     // override this method in subclasses
   }
 
-  getAnimation () {
-    // override this method in subclasses
+  getAnimation (type = 'Idle') {
+    return this.animations[type]
   }
 
   update (deltaTime) {
     this.age += deltaTime
+    // tiny fast wobble up and down
+    this.y += Math.cos(this.age/1000000 * this.flutterSpeed) * this.flutterHeight;
     // move in a large slow oval back and forth
     this.x = this.spawnX + Math.cos(this.age/1000000 * this.wobbleSpeed) * this.wobbleWidth;
     this.y = this.spawnY + Math.sin(this.age/1000000 * this.wobbleSpeed) * this.wobbleHeight;
-    // tiny fast wobble up and down
-    this.y += Math.cos(this.age/1000000 * this.flutterSpeed) * this.flutterHeight;
-    // snap to crisp pixels
+    // face left or right depending on movement direction
+    this.nextX = this.x
+    this.currentAnimation = this.getAnimation(this.prevX>=this.nextX?'flyLeft':'flyRight')    
+    this.prevX = this.x
+    // snap to crisp pixels - this inerferes with the directionality detection, hence the prev* vars above
     this.x = Math.round(this.x)
     this.y = Math.round(this.y)
     // flap your wings

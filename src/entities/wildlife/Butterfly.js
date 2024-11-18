@@ -39,7 +39,4 @@ export default class Butterfly extends Insect {
     })
   }
 
-  getAnimation (type = 'Idle') {
-    return this.animations[type]
-  }
 }

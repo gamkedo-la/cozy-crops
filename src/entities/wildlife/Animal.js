@@ -60,7 +60,7 @@ export default class Animal {
     if (this.currentAnimation) {
         this.currentAnimation.draw(this.x, this.y, camera) 
     } else {
-        console.log("error: missing animation for an insect at "+this.x+","+this.y)
+        console.log("error: missing animation for an animal at "+this.x+","+this.y)
     }
   }
 
