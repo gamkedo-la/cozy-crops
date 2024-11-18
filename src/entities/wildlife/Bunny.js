@@ -10,7 +10,8 @@ export default class Bunny extends Animal {
     this.hopFramesLeft = 20 // start with a hop!
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
-    this.collisionPoint = { x: this.x + this.width / 2, y: this.y + this.height }
+    // FIXME: this looks off: nudge more to the left???
+    this.collisionPoint = { x: (this.x + this.width / 2) + 8, y: this.y + this.height }
   }
 
   update(deltaTime) {
@@ -24,6 +25,12 @@ export default class Bunny extends Animal {
     if (this.hopFramesLeft>0) {
         this.hopFramesLeft--
         if (this.hopFramesLeft>=10) this.y--; else this.y++
+        // avoid jumping into the water or a wall
+        if (!this.scene.playerCanWalk({x:this.x+(this.facingLeft?-1:1),y:this.y})) {
+            console.log("bunny hit a wall: turning around")
+            this.facingLeft = !this.facingLeft
+            this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
+        }
         if (this.facingLeft) this.x--; else this.x++
     }
     // occasionally switch directions
