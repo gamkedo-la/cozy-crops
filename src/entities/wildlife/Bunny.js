@@ -7,21 +7,31 @@ export default class Bunny extends Animal {
     this.facingLeft = Math.random() > 0.5
     this.buildAnimations(BunnyAnimationData)
     this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
-
+    this.hopFramesLeft = 20 // start with a hop!
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
-
     this.collisionPoint = { x: this.x + this.width / 2, y: this.y + this.height }
   }
 
   update(deltaTime) {
     this.age += deltaTime
-    // slowly go back and forth
-    // this.x = this.spawnX + Math.cos(this.age/1000000 * this.wobbleSpeed) * this.wobbleWidth;
-    // slowly go up and down
-    // this.y = this.spawnY + Math.sin(this.age/1000000 * this.wobbleSpeed) * this.wobbleHeight;
-    // mix in a fast wobble up and down (flutter)
-    // this.y += Math.cos(this.age/1000000 * this.flutterSpeed) * this.flutterHeight;
+    // occasionally hop
+    if (this.hopFramesLeft<=0 && Math.random()<0.002) {
+        //console.log("a bunny decides to hop")
+        this.hopFramesLeft = 20
+    }
+    // animate the hop
+    if (this.hopFramesLeft>0) {
+        this.hopFramesLeft--
+        if (this.hopFramesLeft>=10) this.y--; else this.y++
+        if (this.facingLeft) this.x--; else this.x++
+    }
+    // occasionally switch directions
+    if (Math.random()<0.0005) {
+        //console.log("a bunny decides to turn around")
+        this.facingLeft = !this.facingLeft
+        this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
+    }
     // snap to crisp pixels
     this.x = Math.round(this.x)
     this.y = Math.round(this.y)
