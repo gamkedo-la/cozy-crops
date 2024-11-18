@@ -123,9 +123,9 @@ export default class GameScene extends Scene {
   }
 
   spawnBunnies(howmany) {
+    let bunnyPos;
     for (let i = 0; i < howmany; i++) {
-      const bunnyPos = this.mapManager.getRandomTilePos()
-
+      bunnyPos = this.mapManager.getRandomTilePos(true) // must be walkable
       let bun = new Bunny({
         game: this.game,
         scene: this,
