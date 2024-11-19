@@ -16,6 +16,7 @@ export default class CalendarManager {
     this.week = 0
     this.day = 0
     this.elapsedTime = 0
+    this.weather = null
   }
 
   setStartDate(year, season, week, day) {
@@ -71,6 +72,8 @@ export default class CalendarManager {
       dateCheck(this)
       this.gameManager.newDaySave({ year: this.year, season: this.season, week: this.week, day: this.day })
       this.game.sceneManager.currentScene.reachedEndOfDay()
+
+      this.weather = getWeather(this.seasonDisplay)
     }
   }
 }
@@ -96,5 +99,20 @@ function dateCheck(manager) {
   if (manager.season > Calendar.SeasonsPerYear) {
     manager.year++
     manager.season = 0
+  }
+}
+
+function getWeather (season) {
+  const weather = Calendar.WeatherProbabilities[season]
+  const weatherTypes = Object.keys(weather)
+  const weatherProbabilities = Object.values(weather)
+  const random = Math.random()
+  let sum = 0
+
+  for (let i = 0; i < weatherProbabilities.length; i++) {
+    sum += weatherProbabilities[i]
+    if (random <= sum) {
+      return weatherTypes[i]
+    }
   }
 }

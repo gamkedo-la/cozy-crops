@@ -28,10 +28,6 @@ import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
 import Lumberjack from '../entities/npcs/Lumberjack.js'
 import Tiffany from '../entities/npcs/Tiffany.js'
-
-// FIXME: I keep getting compiler warnings about CaSe differences
-// (weather.js vs Weather.js but I cannot figure out why)
-// I double-checked everywhere and *only* the capitalized version exists in code and on disk
 import Weather from '../entities/effects/Weather.js'
 
 export default class GameScene extends Scene {
@@ -373,6 +369,7 @@ export default class GameScene extends Scene {
   newDayActions () {
     this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
+    setNewWeather(this)
   }
 
   showNPCDialogue (npcType, dialogue, showGiveButton) {
@@ -430,6 +427,26 @@ function addPlayers (scene) {
   })
 
   scene.steve.init()
+}
+
+function setNewWeather (scene) {
+  switch (scene.calendarManager.weather) {
+    case 'Rain':
+      scene.weather.startRaining()
+      break
+    case 'Snow':
+      scene.weather.startSnowing()
+      break
+    case 'Fog':
+      scene.weather.getFoggy()
+      break
+    case 'Cool':
+      scene.weather.getCool()
+      break
+    default:
+      scene.weather.stopWeather()
+      break
+  }
 }
 
 function checkCheatKeys (scene) {

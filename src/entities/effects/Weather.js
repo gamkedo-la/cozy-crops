@@ -30,6 +30,7 @@ export default class Weather {
     this.snowImg = null
     this.windSound = null
     this.rainSound = null
+    this.currentWeather = null
   }
 
   init () {
@@ -50,52 +51,87 @@ export default class Weather {
     console.log("weather system: rain begins")
     this.rainFadeDelta = this.FADESPEED
     this.rainSound.play()
+    this.stopWeather()
+    this.currentWeather = 'Rain'
   }
 
   stopRaining() {
     console.log("weather system: rain ends")
     this.rainFadeDelta = -this.FADESPEED
+    if (this.currentWeather === 'Rain') this.currentWeather = null
   }
 
   startSnowing() {
     console.log("weather system: snow begins")
     this.snowFadeDelta = this.FADESPEED
+    this.stopWeather()
+    this.currentWeather = 'Snow'
   }
 
   stopSnowing() {
     console.log("weather system: snow ends")
     this.snowFadeDelta = -this.FADESPEED
+    if (this.currentWeather === 'Snow') this.currentWeather = null
   }
 
   getFoggy() {
     console.log("weather system: fog begins")
     this.fogFadeDelta = this.FADESPEED
+    this.stopWeather()
+    this.currentWeather = 'Fog'
   }
 
   clearFog() {
     console.log("weather system: fog fading out")
     this.fogFadeDelta = -this.FADESPEED
+    if (this.currentWeather === 'Fog') this.currentWeather = null
   }
 
   getCool() {
     console.log("weather system: cool blue tint begins")
     this.coolBlueFadeDelta = this.FADESPEED
+    this.stopWeather()
+    this.currentWeather = 'Cool'
   }
 
   getWarm() {
     console.log("weather system: cool blue tint fading out")
     this.coolBlueFadeDelta = -this.FADESPEED
+    if (this.currentWeather === 'Cool') this.currentWeather = null
   }
 
   getWindy() {
     console.log("weather system: wind picks up")
     this.windFadeDelta = this.FADESPEED
     this.windSound.play()
+    this.stopWeather()
+    this.currentWeather = 'Wind'
   }
 
   stopWind() {
     console.log("weather system: wind stops")
     this.windFadeDelta = -this.FADESPEED
+    if (this.currentWeather === 'Wind') this.currentWeather = null
+  }
+
+  stopWeather() {
+    switch (this.currentWeather) {
+      case 'Rain':
+        this.stopRaining()
+        break
+      case 'Snow':
+        this.stopSnowing()
+        break
+      case 'Fog':
+        this.clearFog()
+        break
+      case 'Cool':
+        this.getWarm()
+        break
+      case 'Wind':
+        this.stopWind()
+        break
+    }
   }
 
   update (deltaTime) {
