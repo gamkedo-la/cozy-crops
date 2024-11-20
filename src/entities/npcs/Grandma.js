@@ -14,19 +14,19 @@ export default class Grandma extends NPC {
       achievement: 'Favored Grandchild',
       description: 'Give Grandma Mae 5 sunflowers so she can make a bouquet',
       progress: {
-        sunflowers: config.currentCount || 0
+        [EntityTypes.Sunflower]: config.currentCount || 0
       },
       requirements: {
-        sunflowers: config.requiredCount || 5
+        [EntityTypes.Sunflower]: config.requiredCount || 5
       }
     }
 
     this.quest.progress = config.progress || this.quest.progress
 
     this.dialogue = {
-      firstEncounter: 'Hello there! Welcome to the village!\nI am the village Grandma. I have been here for many years\nand have seen many things. I hope you enjoy your stay here!',
+      firstEncounter: 'Hello there! Welcome to the village!\nI am Grandma Mae. I have been here for many years,\ndon\'t let that fisherman fool you\nhe hasn\'t seen half of what he talks about\nbut I have. I hope you enjoy your stay here!',
       unknownQuest: 'Hello dear! I hope you are doing well.\nDon\'t you think the perfect bouquet needs 5 sunflowers?\nI think so too!',
-      partialQuest: `Hello dear! I hope you are doing well.\nI still need ${this.quest.requirements.sunflowers - this.quest.progress.sunflowers} more sunflowers to make\nthe perfect bouquet!`,
+      partialQuest: `Hello dear! I hope you are doing well.\nI still need ${this.quest.requirements[EntityTypes.Sunflower] - this.quest.progress[EntityTypes.Sunflower]} more sunflowers to make\nthe perfect bouquet!`,
       fullQuest: 'Hello dear! I think we were right,\n5 sunflowers DOES make the perfect bouquet!\nThank you for your help!',
       giveSunflower: 'Oh, a sunflower! Thank you dear!\nI will add this to my bouquet!',
       giveOtherGift: 'Oh, a gift! Thank you dear!\nI will cherish this!'
@@ -52,8 +52,8 @@ export default class Grandma extends NPC {
 
   giveItem (item) {
     if (item.type === EntityTypes.Sunflower) {
-      this.quest.progress.sunflowers++
-      if (this.quest.progress.sunflowers >= this.quest.requirements.sunflowers) {
+      this.quest.progress[EntityTypes.Sunflower]++
+      if (this.quest.progress[EntityTypes.Sunflower] >= this.quest.requirements[EntityTypes.Sunflower]) {
         this.questComplete = true
         return this.dialogue.fullQuest
       } else {
@@ -72,7 +72,7 @@ export default class Grandma extends NPC {
     } else if (!this.playerKnowsQuest) {
       this.playerKnowsQuest = true
       dialog = this.dialogue.unknownQuest
-    } else if (this.quest.progress.sunflowers < this.quest.requirements.sunflowers) {
+    } else if (this.quest.progress[EntityTypes.Sunflower] < this.quest.requirements[EntityTypes.Sunflower]) {
       dialog = this.dialogue.partialQuest
     }
 
