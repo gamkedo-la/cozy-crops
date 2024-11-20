@@ -319,6 +319,25 @@ export default class EntityManager {
     }
   }
 
+  isWood (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.AppleWood:
+      case EntityTypes.CherryWood:
+      case EntityTypes.LemonWood:
+      case EntityTypes.LimeWood:
+      case EntityTypes.MapleWood:
+      case EntityTypes.OakWood:
+      case EntityTypes.OrangeWood:
+      case EntityTypes.PineWood:
+      case EntityTypes.PlumWood:
+        return true
+      default:
+        return false
+    }
+  }
+
   isPlaque (entity) {
     if (!entity) return false
 
