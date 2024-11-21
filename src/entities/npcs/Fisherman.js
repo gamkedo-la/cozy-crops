@@ -10,7 +10,7 @@ export default class Fisherman extends NPC {
     this.type =  EntityTypes.Fisherman
     this.collisionPoint = { x: 0, y: 0 }
     this.quest = {
-      name: 'Fisherman\'s Quest',
+      name: 'Fisherman Jo Jo\'s Quest',
       achievement: 'Jo Jo\'s Friend',
       description: 'Catch 1 tuna and give it to the Fisherman. He has a fishing story to tell',
       progress: {

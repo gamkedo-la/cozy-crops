@@ -10,7 +10,7 @@ export default class Lumberjack extends NPC {
     this.type =  EntityTypes.Lumberjack
     this.collisionPoint = { x: 0, y: 0 }
     this.quest = {
-      name: 'Lumberjack\'s Quest',
+      name: 'Lumberjack Bob\'s Quest',
       achievement: 'Bob\'s Paul Bunyan',
       description: 'Give 20 wood to Lumberjack Bob so he can finish the project he is working on',
       progress: {
