@@ -169,7 +169,7 @@ function handleInput (player) {
       deductConsumedStamina(player, player.activeTool.staminaConsumed)
     } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
       console.log('Harvest')
-      // player.scene.harvestCrop(groundPoint.x, groundPoint.y)
+      player.scene.harvestCrop(groundPoint.x, groundPoint.y)
     }
   } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {

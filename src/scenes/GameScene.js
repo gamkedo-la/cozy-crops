@@ -375,6 +375,17 @@ export default class GameScene extends Scene {
     this.cropManager.waterAt(x, y)
   }
 
+  harvestCrop (x, y) {
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+    const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
+    for (const entity of entities) {
+      if (this.entityManager.isHarvestable(entity)) {
+        this.entityManager.removeEntity(entity)
+        this.inventoryManager.addItemToInventory(entity.type, 1)
+      }
+    }
+  }
+
   reachedEndOfDay () {
     sleep(this)
     this.newDayActions()
