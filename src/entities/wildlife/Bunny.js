@@ -27,7 +27,7 @@ export default class Bunny extends Animal {
         if (this.hopFramesLeft>=10) this.y--; else this.y++
         // avoid jumping into the water or a wall
         if (!this.scene.playerCanWalk({x:this.x+(this.facingLeft?-1:1),y:this.y})) {
-            console.log("bunny hit a wall: turning around")
+            // console.log("bunny hit a wall: turning around")
             this.facingLeft = !this.facingLeft
             this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
         }

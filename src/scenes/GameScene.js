@@ -433,6 +433,7 @@ function setNewWeather (scene) {
   switch (scene.calendarManager.weather) {
     case 'Rain':
       scene.weather.startRaining()
+      scene.mapManager.waterAllSand()
       break
     case 'Snow':
       scene.weather.startSnowing()

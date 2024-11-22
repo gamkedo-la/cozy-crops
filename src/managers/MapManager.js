@@ -102,6 +102,17 @@ export default class MapManager {
     })
   }
 
+  waterAllSand () {
+    this.mapData.forEach((row, y) => {
+      row.forEach((tileIndex, x) => {
+        if (tileIndex === Sand) {
+          this.updateTileAtXY(x, y, WetSand)
+          this.gameManager.setModifiedTile(x, y, WetSand, getTimeForTileIndex(WetSand))
+        }
+      })
+    })
+  }
+
   unWaterAllTiles () {
     this.gameManager.getWateredTiles().forEach(tile => {
       this.updateTileAtXY(tile.x, tile.y, Sand)

@@ -160,7 +160,7 @@ function handleInput (player) {
     } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
       player.scene.tillGround(groundPoint.x, groundPoint.y)
       deductConsumedStamina(player, player.activeTool.staminaConsumed)
-    } else if  (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
+    } else if (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
       // console.log('Plant')
       player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
       // deductConsumedStamina(player, player.activeTool.staminaConsumed)
