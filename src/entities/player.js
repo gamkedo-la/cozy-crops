@@ -167,6 +167,9 @@ function handleInput (player) {
     } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
       player.scene.waterGround(groundPoint.x, groundPoint.y)
       deductConsumedStamina(player, player.activeTool.staminaConsumed)
+    } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
+      console.log('Harvest')
+      // player.scene.harvestCrop(groundPoint.x, groundPoint.y)
     }
   } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {

@@ -1,4 +1,5 @@
 import EntityTypes from '../globals/EntityTypes.js'
+import { TileWidth, TileHeight } from '../globals/Constants.js'
 
 export default class EntityManager {
   constructor (config) {
@@ -75,6 +76,22 @@ export default class EntityManager {
     for (const entity of drawList) {
       entity.draw()
     }
+  }
+
+  getEntitiesAt (x, y) {
+    const entities = []
+    for (const entity of this.entities) {
+      if (
+        entity.collisionPoint.x >= x &&
+        entity.collisionPoint.x < x + TileWidth &&
+        entity.collisionPoint.y >= y &&
+        entity.collisionPoint.y < y + TileHeight
+      ) {
+        entities.push(entity)
+      }
+    }
+
+    return entities
   }
 
   isPlayer (entity) {
@@ -246,6 +263,24 @@ export default class EntityManager {
       default:
         return false
     }
+  }
+
+  isHarvestable (entity) {
+    if (!entity) return false
+
+    if (this.isForageable(entity)) return true
+    if (this.isCrop(entity) && entity.currentGrowthStage === 'MaturePlant') return true
+    // Need to check for trees and if they have fruit, or if they've been chopped into wood
+
+    return false
+  }
+
+  isClearable (entity) {
+    if (!entity) return false
+
+    if (this.isCrop(entity) && entity.currentGrowthStage === 'Dead') return true
+
+    return false
   }
 
   isHoe (entity) {

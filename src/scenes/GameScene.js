@@ -172,7 +172,7 @@ export default class GameScene extends Scene {
       }
 
       item.init()
-      this.entityManager.addEntity(item, true)
+      this.entityManager.addEntity(item, false)
     }
   }
 
@@ -307,31 +307,45 @@ export default class GameScene extends Scene {
   }
 
   getAvailableMapActions (x, y) {
+    const result = new Set()
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+    const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
+    if (entities.some(entity => this.entityManager.isHarvestable(entity))) result.add('Harvest')
+    if (entities.some(entity => this.entityManager.isClearable(entity))) result.add('Clear')
+
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
     switch (tileType) {
       case TileNames[Grass1]:
       case TileNames[Grass2]:
       case TileNames[Grass3]:
       case TileNames[Grass4]:
-        return ['Till']
+        result.add('Till')
+        break
       case TileNames[Door]:
       case TileNames[MuseumDoor]:
-        return ['Open Door']
+        result.add('Open Door')
+        break
       case TileNames[Sand]:
-        return ['Plant', 'Water', 'Till', 'Harvest']
+        result.add('Plant')
+        result.add('Water')
+        break
       case TileNames[WetSand]:
-        return ['Plant', 'Water', 'Harvest']
+        result.add('Plant')
+        result.add('Water')
+        break
       case 'Water':
-        return ['Fish']
+        result.add('Fish')
+        break
       case 'RockyGround':
-        return []
+        break
       case 'Chest':
-        return ['Open']
-      case 'Bed':
-        return ['Sleep']
+        result.add('Open')
+        break
       default:
-        return []
+        break
     }
+
+    return Array.from(result)
   }
 
   openDoor (x, y) {
