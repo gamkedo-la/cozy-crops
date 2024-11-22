@@ -45,8 +45,8 @@ export default class Crop {
     if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
       this.wateredYesterday = true
       this.currentGrowthStage++
-      if (this.currentGrowthStage >= this.growthStages.length) {
-        this.currentGrowthStage = this.growthStages.length - 1
+      if (this.currentGrowthStage >= this.growthStages.length - 1) {
+        this.currentGrowthStage = this.growthStages.length - 2
       }
   
       this.currentAnimation = this.getAnimation()
