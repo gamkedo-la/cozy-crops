@@ -65,8 +65,6 @@ export default class MuseumScene extends Scene {
       this.player.y = MuseumEntrance.y
       this.drawlist.push(this.player)
     }
-
-    // TODO: Get the status of all Plaques, Portraits, and Statues from the Game Manager
   }
 
   update (deltaTime) {

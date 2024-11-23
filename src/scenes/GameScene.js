@@ -21,7 +21,7 @@ import Tulip from '../entities/forageables/Tulip.js'
 import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
-import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, TileNames, WetSand } from '../globals/Tiles.js'
+import { Door, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, StoreDoor, TileNames, WetSand } from '../globals/Tiles.js'
 import Blacksmith from '../entities/npcs/Blacksmith.js'
 import Carpenter from '../entities/npcs/Carpenter.js'
 import Fisherman from '../entities/npcs/Fisherman.js'
@@ -323,6 +323,7 @@ export default class GameScene extends Scene {
         break
       case TileNames[Door]:
       case TileNames[MuseumDoor]:
+      case TileNames[StoreDoor]:
         result.add('Open Door')
         break
       case TileNames[Sand]:
@@ -356,6 +357,10 @@ export default class GameScene extends Scene {
         break
       case 103:
         this.game.changeScene(Scenes.Museum, { player: this.steve })
+        break
+      case 121:
+        console.log('Open door to the Store')
+        this.game.changeScene(Scenes.Store, { player: this.steve })
         break
     }
   }
