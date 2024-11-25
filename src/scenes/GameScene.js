@@ -29,6 +29,7 @@ import Grandma from '../entities/npcs/Grandma.js'
 import Lumberjack from '../entities/npcs/Lumberjack.js'
 import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
+import Particles from '../entities/effects/Particles.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -85,8 +86,6 @@ export default class GameScene extends Scene {
     this.spawnBunnies(32)
     this.spawnForageableItems(32)
 
-    // there is only one weather entity (it's like a Weather Manager), with various
-    // functions to change the weather upon request
     this.weather = new Weather({
         game: this.game,
         scene: this,
@@ -97,8 +96,15 @@ export default class GameScene extends Scene {
         x: 0,
         y: 0
     })
-
     this.weather.init()
+
+    this.particles = new Particles({
+        game: this.game,
+        scene: this,
+        imageManager: this.imageManager,
+        gameManager: this.gameManager,
+        x: 0,
+        y: 0})
   }
 
   spawnButterflies(howmany) {
@@ -269,6 +275,7 @@ export default class GameScene extends Scene {
     this.entityManager.update(deltaTime)
     this.collisionManager.update(deltaTime)
     this.weather.update(deltaTime)
+    this.particles.update(deltaTime)
 
     if (!this.isSleeping) {
       this.calendarManager.update(deltaTime)
@@ -284,7 +291,8 @@ export default class GameScene extends Scene {
     this.mapManager.drawMap()
     this.entityManager.draw()
     this.imageManager.render()
-    this.weather.draw(this.camera)
+    this.weather.draw()
+    this.particles.draw()
   }
 
   stop () {

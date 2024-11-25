@@ -16,6 +16,7 @@ const Images = {
   WildlifeSprites: '../../img/Wildlife.png',
   RainSprite: '../../img/rain.png',
   SnowSprite: '../../img/snow.png',
+  ParticleSprite: '../../img/particles.png',
 }
 
 export default Images
@@ -37,4 +38,5 @@ export const {
   WildlifeSprites,
   RainSprite,
   SnowSprite,
+  ParticleSprite,
 } =  Images

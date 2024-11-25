@@ -179,7 +179,7 @@ export default class Weather {
     if (this.rainSound.volume === 0) this.rainSound.pause()
   }
 
-  draw (camera) {
+  draw () {
     if (this.coolBlueStrength > 0) {
         let opacity = this.coolBlueStrength/3
         this.game.ctx.fillStyle = "rgba(16,32,255,"+opacity+")" 
