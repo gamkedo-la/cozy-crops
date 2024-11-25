@@ -881,13 +881,22 @@ export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Buildin
   Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
   Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,MuseumDoor,Museum104,Museum105, MuseumWall,
   MuseumTableTopLeft, MuseumTableTopRight, MuseumTableBottomLeft, MuseumTableBottomRight, MuseumCabinetLeft, MuseumCabinetRight, PlayerHome192, PlayerHome193, PlayerHome194, 
-  PlayerHome195, PlayerHome196, PlayerHome197, PlayerHome198, PlayerHome199, PlayerHome200, PlayerHome201, PlayerHome202, PlayerHome203, PlayerHome204, PlayerHome205, 
-  PlayerHome206, PlayerHome207, PlayerHome208, PlayerHome209, PlayerHome224, PlayerHome225, PlayerHome226, PlayerHome227, PlayerHome228, PlayerHome229, PlayerHome230,
-   PlayerHome232, PlayerHome233, PlayerHome234, PlayerHome241, PlayerHome256, PlayerHome288, PlayerHome320, PlayerHome352, PlayerHome384, PlayerHome416, PlayerHome448, 
-   PlayerHome480, PlayerHome512, PlayerHome544, PlayerHome576, PlayerHome608, PlayerHome640, PlayerHome273, PlayerHome305, PlayerHome337, PlayerHome369, PlayerHome401,
-    PlayerHome433, PlayerHome465, PlayerHome497, PlayerHome529, PlayerHome561, PlayerHome593, PlayerHome625, PlayerHome657, PlayerHome672, PlayerHome673, PlayerHome674, 
-    PlayerHome675, PlayerHome676, PlayerHome677, PlayerHome678, PlayerHome679, PlayerHome680, PlayerHome681, PlayerHome682, PlayerHome683, PlayerHome684, PlayerHome685,
-     PlayerHome686, PlayerHome687, PlayerHome688, PlayerHome689
+  PlayerHome195, PlayerHome196, PlayerHome197, PlayerHome198, PlayerHome199, PlayerHome200, PlayerHome201, PlayerHome202, PlayerHome203, PlayerHome204, PlayerHome205, PlayerHome206,
+   PlayerHome207, PlayerHome208, PlayerHome209,PlayerHome224, PlayerHome225, PlayerHome226, PlayerHome227, PlayerHome228, PlayerHome229, PlayerHome230, PlayerHome231, PlayerHome232,
+    PlayerHome233, PlayerHome234, PlayerHome235, PlayerHome236, PlayerHome237, PlayerHome238, PlayerHome239, PlayerHome240, PlayerHome241,PlayerHome256, PlayerHome257, PlayerHome258,
+     PlayerHome259, PlayerHome260, PlayerHome261, PlayerHome262, PlayerHome263, PlayerHome264, PlayerHome265, PlayerHome266, PlayerHome267, PlayerHome268, PlayerHome269, 
+     PlayerHome270, PlayerHome271, PlayerHome272, PlayerHome273,PlayerHome288, PlayerHome289, PlayerHome290, PlayerHome291, PlayerHome292, PlayerHome293, PlayerHome294, 
+     PlayerHome295, PlayerHome296, PlayerHome297, PlayerHome298, PlayerHome299, PlayerHome305,
+     PlayerHome320, PlayerHome321, PlayerHome322, PlayerHome323, PlayerHome324, PlayerHome325, PlayerHome326, PlayerHome327, PlayerHome328, PlayerHome329, PlayerHome330, 
+     PlayerHome331, PlayerHome332, PlayerHome333, PlayerHome334, PlayerHome335, PlayerHome336, PlayerHome337, PlayerHome352,PlayerHome353,PlayerHome384,PlayerHome385,
+     PlayerHome416,PlayerHome417,PlayerHome448,PlayerHome449,PlayerHome480,PlayerHome481,PlayerHome512,PlayerHome513,PlayerHome544,PlayerHome545,PlayerHome576,PlayerHome577,
+     PlayerHome608,PlayerHome609,PlayerHome640,PlayerHome641,PlayerHome368,PlayerHome369,PlayerHome400,PlayerHome401,PlayerHome432,PlayerHome433,PlayerHome464,PlayerHome465,
+     PlayerHome496,PlayerHome497,PlayerHome528,PlayerHome529,PlayerHome560,PlayerHome561,PlayerHome592,PlayerHome593,PlayerHome624,PlayerHome625,PlayerHome656,PlayerHome657,
+     ,PlayerHome672, PlayerHome673, PlayerHome674, PlayerHome675, PlayerHome676, PlayerHome677, PlayerHome678, PlayerHome679, PlayerHome680, PlayerHome681, PlayerHome682, PlayerHome683, PlayerHome684, PlayerHome685,
+      PlayerHome686, PlayerHome687, PlayerHome688, PlayerHome689, PlayerHome642, PlayerHome643, PlayerHome644, PlayerHome645, PlayerHome646, PlayerHome647, PlayerHome648, PlayerHome649, PlayerHome650, PlayerHome651, PlayerHome652, 
+      PlayerHome653, PlayerHome654, PlayerHome655,  PlayerHome610, PlayerHome611, PlayerHome612, PlayerHome613, PlayerHome614, PlayerHome615, PlayerHome616, PlayerHome617, PlayerHome618, PlayerHome619, PlayerHome620, 
+      PlayerHome621, PlayerHome622, PlayerHome623
+
 ]
 
 export const TileTimes = {
