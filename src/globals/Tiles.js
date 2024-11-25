@@ -880,7 +880,15 @@ export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Buildin
   Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
   Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
   Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,MuseumDoor,Museum104,Museum105, MuseumWall,
-  MuseumTableTopLeft, MuseumTableTopRight, MuseumTableBottomLeft, MuseumTableBottomRight, MuseumCabinetLeft, MuseumCabinetRight]
+  MuseumTableTopLeft, MuseumTableTopRight, MuseumTableBottomLeft, MuseumTableBottomRight, MuseumCabinetLeft, MuseumCabinetRight, PlayerHome192, PlayerHome193, PlayerHome194, 
+  PlayerHome195, PlayerHome196, PlayerHome197, PlayerHome198, PlayerHome199, PlayerHome200, PlayerHome201, PlayerHome202, PlayerHome203, PlayerHome204, PlayerHome205, 
+  PlayerHome206, PlayerHome207, PlayerHome208, PlayerHome209, PlayerHome224, PlayerHome225, PlayerHome226, PlayerHome227, PlayerHome228, PlayerHome229, PlayerHome230,
+   PlayerHome232, PlayerHome233, PlayerHome234, PlayerHome241, PlayerHome256, PlayerHome288, PlayerHome320, PlayerHome352, PlayerHome384, PlayerHome416, PlayerHome448, 
+   PlayerHome480, PlayerHome512, PlayerHome544, PlayerHome576, PlayerHome608, PlayerHome640, PlayerHome273, PlayerHome305, PlayerHome337, PlayerHome369, PlayerHome401,
+    PlayerHome433, PlayerHome465, PlayerHome497, PlayerHome529, PlayerHome561, PlayerHome593, PlayerHome625, PlayerHome657, PlayerHome672, PlayerHome673, PlayerHome674, 
+    PlayerHome675, PlayerHome676, PlayerHome677, PlayerHome678, PlayerHome679, PlayerHome680, PlayerHome681, PlayerHome682, PlayerHome683, PlayerHome684, PlayerHome685,
+     PlayerHome686, PlayerHome687, PlayerHome688, PlayerHome689
+]
 
 export const TileTimes = {
   [WetSand]: {

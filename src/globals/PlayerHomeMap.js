@@ -20,6 +20,6 @@ export default [
     
   ]
   
-  export const HomePosition = { x: -200, y: -25 }
-  export const HomeEntrance = { x: 502 + HomePosition.x, y: 270 + HomePosition.y }
+  export const HomePosition = { x: -150, y: -100 }
+  export const HomeEntrance = { x: 450 + HomePosition.x, y: 380 + HomePosition.y }
   export const HomeDialogPosition = { x: 512 + HomePosition.x, y: 340 + HomePosition.y }
