@@ -7,7 +7,7 @@ export default class Bunny extends Animal {
     this.facingLeft = Math.random() > 0.5
     this.buildAnimations(BunnyAnimationData)
     this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
-    this.hopFramesLeft = 20 // start with a hop!
+    this.hopFramesLeft = 0
     this.width = this.currentAnimation.width
     this.height = this.currentAnimation.height
     // FIXME: this looks off: nudge more to the left???
