@@ -1,10 +1,12 @@
 import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts } from '../globals/Map.js'
 import MuseumMapData, { MuseumPosition } from '../globals/MuseumMap.js'
 import StoreMapData, { StorePosition } from '../globals/StoreMap.js'
+import HomeMapData, { HomePosition } from '../globals/PlayerHomeMap.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import { Sand, TileNames, WetSand } from '../globals/Tiles.js'
+//import { HomePosition } from '../globals/PlayerHomeMap.js'
 
 export default class MapManager {
   constructor (config) {
@@ -54,6 +56,21 @@ export default class MapManager {
       tiles: {
         width: this.storeData[0].length,
         height: this.storeData.length
+      }
+    }
+
+    this.homeCanvas = null
+    this.homeCtx = null
+    this.homeData = HomeMapData
+
+    this.homeDimensions = {
+      pixels: {
+        width: this.homeData[0].length * TileWidth,
+        height: this.homeData.length * TileHeight
+      },
+      tiles: {
+        width: this.homeData[0].length,
+        height: this.homeData.length
       }
     }
   }
@@ -114,6 +131,24 @@ export default class MapManager {
         const imageX = (storeData % this.tilesPerRow) * TileWidth
         const imageY = (Math.floor(storeData / this.tilesPerRow)) * TileHeight
         this.storeCtx.drawImage(
+          this.tileImage,
+          imageX, imageY, TileWidth, TileHeight,
+          x * TileWidth, y * TileHeight, TileWidth, TileHeight
+        )
+      }
+    }
+
+    this.homeCanvas = document.createElement('canvas')
+    this.homeCtx = this.homeCanvas.getContext('2d')
+    this.homeCanvas.width = 2 * this.homeData[0].length * TileWidth
+    this.homeCanvas.height = 2 * this.homeData.length * TileHeight
+
+    for (let y = 0; y < this.homeData.length; y++) {
+      for (let x = 0; x < this.homeData[y].length; x++) {
+        const homeData = this.homeData[y][x]
+        const imageX = (homeData % this.tilesPerRow) * TileWidth
+        const imageY = (Math.floor(homeData / this.tilesPerRow)) * TileHeight
+        this.homeCtx.drawImage(
           this.tileImage,
           imageX, imageY, TileWidth, TileHeight,
           x * TileWidth, y * TileHeight, TileWidth, TileHeight
@@ -192,6 +227,10 @@ export default class MapManager {
       case 'store':
         canvasToDraw = this.storeCanvas
         position = StorePosition
+        break
+      case 'home':
+        canvasToDraw = this.homeCanvas
+        position = HomePosition
         break
       default:
         canvasToDraw = this.mapCanvas
