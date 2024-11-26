@@ -25,5 +25,15 @@ export default class EventManager {
     this.events[eventName].forEach(callback => {
       callback(...args)
     })
+
+    // Special handling for pause events
+    if (eventName === 'gameStateChanged' && args[0] && args[0].isPaused !== undefined) {
+      // Pause/unpause game logic (e.g., stopping animations, music, etc.)
+      if (args[0].isPaused) {
+        // Pause game systems
+      } else {
+        // Resume game systems
+      }
+    }
   }
 }

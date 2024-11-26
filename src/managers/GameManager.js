@@ -21,6 +21,16 @@ export default class GameManager {
     this.state = {}
     const slots = this.getSaveSlots()
     this.saveSlot = slots ? slots[0] : null
+    this.isPaused = false
+  }
+
+  setPaused(isPaused) {
+    this.isPaused = isPaused
+    this.eventManager.emit('gameStateChanged', { isPaused })
+  }
+
+  isPaused() {
+    return this.isPaused
   }
 
   getSaveSlots () {

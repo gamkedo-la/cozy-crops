@@ -8,6 +8,7 @@ import { Player1 } from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import { FamilyNames } from '../globals/Fonts.js'
 import GiftButton from '../uiElements/GiftButton.js'
+import PauseMenu from '../uiElements/PauseMenu.js'
 
 export default class UIScene extends Scene {
   constructor (config) {
@@ -38,6 +39,9 @@ export default class UIScene extends Scene {
       y: this.dialogRect.top + this.dialogRect.height - 70,
       container: this.dialogRect
     })
+
+    this.pauseMenu = new PauseMenu({ scene: this })
+    this.isPaused = false
   }
 
   init (gameScene) {
@@ -50,6 +54,24 @@ export default class UIScene extends Scene {
 
     const mousePos = this.game.inputManager.getMousePosition()
     if (mousePos.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
+
+    // Handle keyboard input for pause menu
+    if (this.game.inputManager.isKeyJustPressed('Escape')) {
+      this.togglePause()
+    }
+
+    if (this.isPaused) {
+      Object.keys(this.game.inputManager.keys).forEach(key => {
+        if (this.game.inputManager.isKeyJustPressed(key)) {
+          this.pauseMenu.handleKeyPress(key)
+        }
+      })
+    }
+  }
+
+  togglePause() {
+    this.isPaused = !this.isPaused
+    this.gameManager.setPaused(this.isPaused)
   }
 
   draw () {
@@ -57,6 +79,11 @@ export default class UIScene extends Scene {
     this.game.ctx.fillStyle = Constants.TitleTextColor
     this.game.ctx.font = `${Constants.TitleFontSize / 4}px ${Constants.TitleFontFamily}`
     this.game.ctx.textAlign = UIAttributes.CenterAlign
+
+    if (this.isPaused) {
+      this.pauseMenu.draw()
+      return
+    }
 
     drawScoreboard(this)
     drawStamina(this, this.scoreboardRect)
