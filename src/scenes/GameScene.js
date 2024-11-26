@@ -31,6 +31,8 @@ import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
 
+const TEST_PARTICLES = false // FIXME: remove once problem is resolved
+
 export default class GameScene extends Scene {
   constructor (config) {
     super(config)
@@ -276,7 +278,15 @@ export default class GameScene extends Scene {
     this.collisionManager.update(deltaTime)
     this.weather.update(deltaTime)
     
-    this.particles.dust(this.steve.x,this.steve.y) // for debug purposes only - will move elsewhere
+    // FIXME: for debug purposes only 
+    if (TEST_PARTICLES) {
+        // draw one particle at player x,y - follows camera perfectly but has a strange offset
+        // offset added through trial and error but should be removed unless these are the wrong coords
+        this.particles.dust(this.steve.x+388,this.steve.y+288) // where does this extra offset come from?
+        // a long line of particles at a set location near waterfall: seems to "drift" like parallax
+        this.particles.splash(1616,1542) // this should stay in one place as the camera moves
+    }
+    
     this.particles.update(deltaTime)
 
     if (!this.isSleeping) {

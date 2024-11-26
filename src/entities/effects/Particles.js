@@ -127,8 +127,8 @@ export default class Particles {
             let velx = Math.random()*3-1.5
             let vely = Math.random()*-1.5
             let alpha = 0.25 // start out quite faint
-            let px = Math.round(x+Math.random()*64-32)
-            let py = Math.round(y+Math.random()*4-2)
+            let px = x+Math.random()*90-45
+            let py = y+Math.random()*4-2
             this.add(px,py,life,size,rotspd,ang,velx,vely,alpha)
         }
     }
@@ -137,7 +137,7 @@ export default class Particles {
     dust(x,y) {
         let num = 1
         for (let i = 0; i < num; i++) {
-            let life = 100
+            let life = 1000
             let size = 32
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
