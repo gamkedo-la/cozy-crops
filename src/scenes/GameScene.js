@@ -275,6 +275,8 @@ export default class GameScene extends Scene {
     this.entityManager.update(deltaTime)
     this.collisionManager.update(deltaTime)
     this.weather.update(deltaTime)
+    
+    this.particles.dust(this.steve.x,this.steve.y) // for debug purposes only - will move elsewhere
     this.particles.update(deltaTime)
 
     if (!this.isSleeping) {

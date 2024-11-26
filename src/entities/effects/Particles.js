@@ -15,6 +15,7 @@ export default class Particles {
         this.pool = []
     }
 
+    // add a single particle to this system
     add (x, y, life=1000, size=32, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94) {
         let p = null
         for (let pnum = 0; pnum < this.pool.length; pnum++) {
@@ -47,12 +48,6 @@ export default class Particles {
 
     update (deltaTime) {
         this.age += deltaTime // in ms (1000 per second)
-
-        // for debug purposes only, spawn particles in predefined hardcoded locations
-        // (eventually there will be an emitter entity class with x,y,loop etc)
-        // 1200,1200 is near the player start pos
-        this.splash(1200,1200)
-
         //console.log("particles update:"+" age:"+this.age.toFixed(0))
         for (let p of this.pool) {
             if (!p.inactive) {
@@ -76,6 +71,9 @@ export default class Particles {
         //console.log("particles draw:"+" age:"+this.age.toFixed(0))
         //let ctx = this.imageManager.internalCtx; // nothing visible... perhaps already used this frame and about to be cleared
         let ctx = this.game.ctx 
+        // reset the xform: in case previous code touched the scale etc without restoring
+        // ctx.setTransform(1, 0, 0, 1, 0, 0) // does not fix the issue
+        // ctx.restore() // no effect - the xform at this point looks fine
         ctx.save()
 
         // FIXME: these all seem to scroll at the wrong speed
@@ -83,7 +81,6 @@ export default class Particles {
         //let offset = this.imageManager.camera.getTopLeft()
         //let offset = {x:this.scene.camera.x,y:this.scene.camera.y}
         let offset = this.scene.camera.getTopLeft()
-
         ctx.translate(-offset.x,-offset.y) 
 
         for (let p of this.pool) {
@@ -91,9 +88,9 @@ export default class Particles {
                 ctx.save()
                 ctx.translate(p.x, p.y)
                 //ctx.translate(p.x-offset.x, p.y-offset.y)
-                if (p.angle !== undefined) ctx.rotate(p.angle)
+                //if (p.angle !== undefined) ctx.rotate(p.angle)
                 if (p.alpha !== undefined) ctx.globalAlpha = p.alpha
-                ctx.drawImage(p.sprite, -p.sprite.width / 2, -p.sprite.height / 2)
+                ctx.drawImage(p.sprite,-p.sprite.width/2,-p.sprite.height/2)
                 ctx.restore()
             }
         }
@@ -136,6 +133,21 @@ export default class Particles {
         }
     }
 
+    // a single little puff particle
+    dust(x,y) {
+        let num = 1
+        for (let i = 0; i < num; i++) {
+            let life = 100
+            let size = 32
+            let rotspd = Math.random()*0.1-0.05
+            let ang = 0
+            let velx = Math.random()*4-2
+            let vely = Math.random()*4-2
+            let alpha = 0.5
+            let drag = 0.94
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+        }
+    }
 } // end of Particles class
 
 // helper function (inclusive: eg 1,10 may include 1 or 10)
