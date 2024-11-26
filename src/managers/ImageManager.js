@@ -92,10 +92,12 @@ export default class ImageManager {
     const cameraPos = this.camera.getTopLeft()
     const sx = x || cameraPos.x
     const sy = y || cameraPos.y
+    const w = width || this.internalCanvas.width
+    const h = height || this.internalCanvas.height
 
     this.internalCtx.fillStyle = `rgba(0, 0, 0, 1)`
     this.internalCtx.fillRect(0, 0, this.internalCanvas.width, this.internalCanvas.height)
-    this.internalCtx.drawImage(image, sx, sy, width, height, 0, 0, width, height)
+    this.internalCtx.drawImage(image, sx, sy, w, h, 0, 0, w, h)
   }
 
   drawKey (imageKey, x, y, width, height) {
@@ -107,9 +109,6 @@ export default class ImageManager {
   }
 
   render () {
-    if (this.isFading || this.isUnfading) {
-      return
-    }
 
     this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height)
     this.game.ctx.drawImage(this.internalCanvas, 0, 0, this.internalCanvas.width, this.internalCanvas.height, 0, 0, ImageScale * this.game.canvas.width, ImageScale * this.game.canvas.height)
