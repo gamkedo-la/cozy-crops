@@ -4,6 +4,8 @@ import CreditsScene from '../scenes/CreditsScene.js'
 import MuseumScene from '../scenes/MuseumScene.js'
 import OptionsScene from '../scenes/OptionsScene.js'
 import PlayerHomeScene from '../scenes/PlayerHomeScene.js'
+import BlacksmithScene from '../scenes/BlacksmithScene.js'
+import CarpenterScene from '../scenes/CarpenterScene.js'
 import PreGameScene from '../scenes/PreGameScene.js'
 import StoreScene from '../scenes/StoreScene.js'
 import TitleScene from '../scenes/TitleScene.js'
@@ -64,6 +66,20 @@ export default class SceneManager {
       managers: this.managers
     })
     this.initializedScenes[Scenes.PlayerHome] = false
+
+    this.scenes[Scenes.Blacksmith] = new BlacksmithScene({
+      name: Scenes.Blacksmith,
+      game: this.game,
+      managers: this.managers
+    })
+    this.initializedScenes[Scenes.Blacksmith] = false
+
+    this.scenes[Scenes.Carpenter] = new CarpenterScene({
+      name: Scenes.Carpenter,
+      game: this.game,
+      managers: this.managers
+    })
+    this.initializedScenes[Scenes.Carpenter] = false
 
     this.scenes[Scenes.PreGame] = new PreGameScene({
       name: Scenes.PreGame,

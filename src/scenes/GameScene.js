@@ -376,8 +376,7 @@ export default class GameScene extends Scene {
     switch (openedDoor) {
       case 12:
         console.log('Open door to the Player\'s House')
-        this.game.changeScene(Scenes.Blacksmith, { player: this.steve })
-       // this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
+        this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
         break
      // case 12:
       //  this.game.changeScene(Scenes.Blacksmith, { player: this.steve })
