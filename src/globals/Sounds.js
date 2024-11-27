@@ -1,7 +1,7 @@
 const Sounds = {
   BackgroundMusic: '../../sounds/cozyCropsMainBackgroundMusic.mp3',
-  RainSound: '../../sounds/rain.ogg',
-  WindSound: '../../sounds/wind.ogg'
+  RainSound: '../../sounds/rain.mp3',
+  WindSound: '../../sounds/wind.mp3'
 }
 
 export default Sounds
