@@ -2,6 +2,8 @@ import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts } from '../
 import MuseumMapData, { MuseumPosition } from '../globals/MuseumMap.js'
 import StoreMapData, { StorePosition } from '../globals/StoreMap.js'
 import HomeMapData, { HomePosition } from '../globals/PlayerHomeMap.js'
+import CarpenterMapData, { CarpenterPosition } from '../globals/CarpenterMap.js'
+import BlacksmithMapData, { BlacksmithPosition } from '../globals/BlacksmithMap.js'
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
@@ -71,6 +73,37 @@ export default class MapManager {
       tiles: {
         width: this.homeData[0].length,
         height: this.homeData.length
+      }
+    }
+
+
+    this.carpenterCanvas = null
+    this.carpenterCtx = null
+    this.carpenterData = CarpenterMapData
+
+    this.carpenterDimensions = {
+      pixels: {
+        width: this.carpenterData[0].length * TileWidth,
+        height: this.carpenterData.length * TileHeight
+      },
+      tiles: {
+        width: this.carpenterData[0].length,
+        height: this.carpenterData.length
+      }
+    }
+
+    this.blacksmithCanvas = null
+    this.blacksmithCtx = null
+    this.blacksmithData = BlacksmithMapData
+
+    this.blacksmithDimensions = {
+      pixels: {
+        width: this.blacksmithData[0].length * TileWidth,
+        height: this.blacksmithData.length * TileHeight
+      },
+      tiles: {
+        width: this.blacksmithData[0].length,
+        height: this.blacksmithData.length
       }
     }
   }
@@ -155,7 +188,44 @@ export default class MapManager {
         )
       }
     }
+
+    this.carpenterCanvas = document.createElement('canvas')
+    this.carpenterCtx = this.carpenterCanvas.getContext('2d')
+    this.carpenterCanvas.width = 2 * this.carpenterData[0].length * TileWidth
+    this.carpenterCanvas.height = 2 * this.carpenterData.length * TileHeight
+
+    for (let y = 0; y < this.carpenterData.length; y++) {
+      for (let x = 0; x < this.carpenterData[y].length; x++) {
+        const carpenterData = this.carpenterData[y][x]
+        const imageX = (carpenterData % this.tilesPerRow) * TileWidth
+        const imageY = (Math.floor(carpenterData / this.tilesPerRow)) * TileHeight
+        this.carpenterCtx.drawImage(
+          this.tileImage,
+          imageX, imageY, TileWidth, TileHeight,
+          x * TileWidth, y * TileHeight, TileWidth, TileHeight
+        )
+      }
+    }
+
+    this.blacksmithCanvas = document.createElement('canvas')
+    this.blacksmithCtx = this.blacksmithCanvas.getContext('2d')
+    this.blacksmithCanvas.width = 2 * this.blacksmithData[0].length * TileWidth
+    this.blacksmithCanvas.height = 2 * this.blacksmithData.length * TileHeight
+
+    for (let y = 0; y < this.blacksmithData.length; y++) {
+      for (let x = 0; x < this.blacksmithData[y].length; x++) {
+        const blacksmithData = this.blacksmithData[y][x]
+        const imageX = (blacksmithData % this.tilesPerRow) * TileWidth
+        const imageY = (Math.floor(blacksmithData / this.tilesPerRow)) * TileHeight
+        this.blacksmithCtx.drawImage(
+          this.tileImage,
+          imageX, imageY, TileWidth, TileHeight,
+          x * TileWidth, y * TileHeight, TileWidth, TileHeight
+        )
+      }
+    }
   }
+
 
   update (deltaTime) {
     this.gameManager.getModifiedTiles().forEach(tile => {
@@ -229,8 +299,18 @@ export default class MapManager {
         position = StorePosition
         break
       case 'home':
+        console.log('here')
         canvasToDraw = this.homeCanvas
         position = HomePosition
+        break
+      case 'carpenter':
+        console.log('here')
+        canvasToDraw = this.carpenterCanvas
+        position = CarpenterPosition
+        break
+      case 'blacksmith':
+        canvasToDraw = this.blacksmithCanvas
+        position = BlacksmithPosition
         break
       default:
         canvasToDraw = this.mapCanvas
