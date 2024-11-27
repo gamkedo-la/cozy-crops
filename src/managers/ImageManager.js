@@ -73,7 +73,10 @@ export default class ImageManager {
     return this.images[this.srcToKeyMap[src]]
   }
 
-  draw (image, x, y, width, height, imageX = 0, imageY = 0, camera = null, flipped = false) {
+  draw (image, x, y, width, height, imageX = 0, imageY = 0, camera = null, flipped = false, alpha = 1) {
+    this.internalCtx.save()
+    this.internalCtx.globalAlpha = alpha
+
     const cameraPos = camera ? camera.getTopLeft() : this.camera.getTopLeft()
     if (flipped) {
       this.internalCtx.save()
@@ -84,8 +87,10 @@ export default class ImageManager {
 
       this.internalCtx.restore()
     } else {
-      this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)  
+      this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)
     }
+
+    this.internalCtx.restore()
   }
 
   drawGround(image, x, y, width = null, height = null) {

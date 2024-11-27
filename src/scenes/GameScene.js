@@ -31,7 +31,7 @@ import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
 
-const TEST_PARTICLES = false // FIXME: remove once problem is resolved
+const TEST_PARTICLES = true // FIXME: remove once problem is resolved
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -106,7 +106,8 @@ export default class GameScene extends Scene {
         imageManager: this.imageManager,
         gameManager: this.gameManager,
         x: 0,
-        y: 0})
+        y: 0
+      })
   }
 
   spawnButterflies(howmany) {
@@ -280,11 +281,9 @@ export default class GameScene extends Scene {
     
     // FIXME: for debug purposes only 
     if (TEST_PARTICLES) {
-        // draw one particle at player x,y - follows camera perfectly but has a strange offset
-        // offset added through trial and error but should be removed unless these are the wrong coords
-        this.particles.dust(this.steve.x+388,this.steve.y+288) // where does this extra offset come from?
-        // a long line of particles at a set location near waterfall: seems to "drift" like parallax
-        this.particles.splash(1616,1542) // this should stay in one place as the camera moves
+        // draw one particle at player x,y - follows camera perfectly
+        this.particles.dust(this.steve.collisionPoint.x, this.steve.collisionPoint.y)
+        this.particles.splash(1116,1245) // this stays in one place as the camera moves
     }
     
     this.particles.update(deltaTime)
@@ -302,9 +301,12 @@ export default class GameScene extends Scene {
     super.draw() // Call the draw method of the parent class
     this.mapManager.drawMap()
     this.entityManager.draw()
-    this.imageManager.render()
-    this.weather.draw()
     this.particles.draw()
+    // Do Not draw after the Image Manager Renders
+    this.imageManager.render()
+
+    // Weather is an exception because it is drawn differently
+    this.weather.draw()
   }
 
   stop () {

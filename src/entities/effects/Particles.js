@@ -48,7 +48,6 @@ export default class Particles {
 
     update (deltaTime) {
         this.age += deltaTime // in ms (1000 per second)
-        //console.log("particles update:"+" age:"+this.age.toFixed(0))
         for (let p of this.pool) {
             if (!p.inactive) {
                 p.age = this.age - p.birth
@@ -66,37 +65,12 @@ export default class Particles {
             }
         }
     }
-    
+
     draw () {
-        //console.log("particles draw:"+" age:"+this.age.toFixed(0))
-        //let ctx = this.imageManager.internalCtx; // nothing visible... perhaps already used this frame and about to be cleared
-        let ctx = this.game.ctx 
-        // reset the xform: in case previous code touched the scale etc without restoring
-        // ctx.setTransform(1, 0, 0, 1, 0, 0) // does not fix the issue
-        // ctx.restore() // no effect - the xform at this point looks fine
-        ctx.save()
-
-        // FIXME: these all seem to scroll at the wrong speed
-        //let offset = {x:0,y:0}
-        //let offset = this.imageManager.camera.getTopLeft()
-        //let offset = {x:this.scene.camera.x,y:this.scene.camera.y}
-        let offset = this.scene.camera.getTopLeft()
-        ctx.translate(-offset.x,-offset.y) 
-
-        for (let p of this.pool) {
-            if (!p.inactive) {
-                ctx.save()
-                ctx.translate(p.x, p.y)
-                //ctx.translate(p.x-offset.x, p.y-offset.y)
-                //if (p.angle !== undefined) ctx.rotate(p.angle)
-                if (p.alpha !== undefined) ctx.globalAlpha = p.alpha
-                ctx.drawImage(p.sprite,-p.sprite.width/2,-p.sprite.height/2)
-                ctx.restore()
-            }
+        // Don't draw to the Game Canvas, tell the Image Manager to draw for you, things go way better that way.
+        for (const p of this.pool) {
+            this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
         }
-
-        ctx.globalAlpha = 1
-        ctx.restore()
     }
 
     // immediately clears all particles
@@ -107,7 +81,7 @@ export default class Particles {
         let num = randomInt(0,1) // sometimes adds none
         for (let i = 0; i < num; i++) {
             let life = randomInt(333,777)
-            let size = randomInt(1,4)
+            let size = randomInt(1,4) // My gut tells me this is way, way too small, probably need closer to 32
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
             let velx = Math.random()*3-1.5
@@ -121,7 +95,8 @@ export default class Particles {
         let num = randomInt(4,8) 
         for (let i = 0; i < num; i++) {
             let life = randomInt(333,777)
-            let size = randomInt(1,4)
+            // let size = randomInt(1,4) // Way, Way too small, can't see them
+            let size = randomInt(16, 32)
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
             let velx = Math.random()*3-1.5
