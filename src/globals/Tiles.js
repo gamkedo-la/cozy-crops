@@ -969,6 +969,8 @@ export const Carpenter1524 = 1524
 export const Carpenter1525 = 1525	
 export const Carpenter1526 = 1526
 export const Door = 12
+export const CarpenterDoor = 689
+export const BlacksmithDoor = 690
 
 export const TileNames = {
   [Empty]: 'Empty',
@@ -1063,6 +1065,8 @@ export const TileNames = {
   [Museum101]: 'Museum101',
   [Museum102]: 'Museum102',
   [MuseumDoor]: 'MuseumDoor',
+  [CarpenterDoor]: 'CarpenterDoor',
+  [BlacksmithDoor]: 'BlacksmithDoor',
   [Museum104]: 'Museum104',
   [Museum105]: 'Museum105',
   [MuseumFloor]: 'MuseumFloor',
@@ -1948,7 +1952,7 @@ export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Buildin
   Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, 
   Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, 
   Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
-  Building44, Door, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
+  Building44, Door, CarpenterDoor, BlacksmithDoor, Splice1, Splice2, Splice3, Splice4, Splice5, Splice6, Splice7, Splice8, Splice9, Splice10, Splice11, Splice12, Splice13, Splice14, Splice15, Splice16,
   Museum90, Museum91,Museum92,Museum93,Museum94,Museum95,Museum96, Museum97,Museum98,Museum99,Museum100,Museum101,Museum102,MuseumDoor,Museum104,Museum105, MuseumWall,
   MuseumTableTopLeft, MuseumTableTopRight, MuseumTableBottomLeft, MuseumTableBottomRight, MuseumCabinetLeft, MuseumCabinetRight, PlayerHome192, PlayerHome193, PlayerHome194, 
   PlayerHome195, PlayerHome196, PlayerHome197, PlayerHome198, PlayerHome199, PlayerHome200, PlayerHome201, PlayerHome202, PlayerHome203, PlayerHome204, PlayerHome205, PlayerHome206,
