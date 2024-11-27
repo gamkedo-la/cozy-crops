@@ -1,11 +1,9 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
+import Carpenter from '../entities/npcs/Carpenter.js'
 import { CarpenterPosition, CarpenterEntrance, CarpenterDialogPosition } from '../globals/CarpenterMap.js'
 import EntityTypes from '../globals/EntityTypes.js'
-// import Plaque from '../entities/museum/Plaque.js'
-// import Portrait from '../entities/museum/Portrait.js'
-// import Statue from '../entities/museum/Statue.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
 
@@ -16,7 +14,7 @@ export default class CarpenterScene extends Scene {
 
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
-    //this.shopkeep = null
+    this.carpenter = null
     this.carpenterCamera = null
     this.drawlist = []
     this.shouldShowUI = false
@@ -25,6 +23,17 @@ export default class CarpenterScene extends Scene {
 
   init () {
     super.init() // Call the init method of the parent class
+
+    const carpenterData = this.gameManager.getNPCData(EntityTypes.Carpenter)
+    this.carpenter = new Carpenter({
+      game: this.game,
+      imageManager: this.imageManager,
+      x: 100 - CarpenterPosition.x,
+      y: 50 - CarpenterPosition.y,
+      ...carpenterData
+    })
+    this.carpenter.init()
+    this.drawlist.push(this.carpenter)
 
     this.carpenterCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
@@ -45,6 +54,7 @@ export default class CarpenterScene extends Scene {
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
+    this.carpenter.update(deltaTime)
     if (this.player) {
       this.player.update(deltaTime)
     }
@@ -107,4 +117,11 @@ function manageInput (scene) {
     scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
     scene.game.changeScene(Scenes.Game)
   }
+}
+
+function returnToWorld (scene) {
+  scene.player.x = scene.playerWorldPosition.x
+  scene.player.y = scene.playerWorldPosition.y
+  scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
+  scene.game.changeScene(Scenes.Game)
 }

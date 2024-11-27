@@ -299,12 +299,10 @@ export default class MapManager {
         position = StorePosition
         break
       case 'home':
-        console.log('here')
         canvasToDraw = this.homeCanvas
         position = HomePosition
         break
       case 'carpenter':
-        console.log('here')
         canvasToDraw = this.carpenterCanvas
         position = CarpenterPosition
         break

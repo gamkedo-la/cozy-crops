@@ -1,12 +1,9 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
-import Shopkeep from '../entities/npcs/Shopkeep.js'
+import Blacksmith from '../entities/npcs/Blacksmith.js'
 import { BlacksmithPosition, BlacksmithEntrance, BlacksmithDialogPosition } from '../globals/BlacksmithMap.js'
 import EntityTypes from '../globals/EntityTypes.js'
-// import Plaque from '../entities/museum/Plaque.js'
-// import Portrait from '../entities/museum/Portrait.js'
-// import Statue from '../entities/museum/Statue.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
 
@@ -17,7 +14,7 @@ export default class BlacksmithScene extends Scene {
 
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
-    this.shopkeep = null
+    this.blacksmith = null
     this.blacksmithCamera = null
     this.drawlist = []
     this.shouldShowUI = false
@@ -29,16 +26,16 @@ export default class BlacksmithScene extends Scene {
     super.init() // Call the init method of the parent class
 
     // initialize resources
-    const shopkeepData = this.gameManager.getNPCData(EntityTypes.Shopkeep)
-    this.shopkeep = new Shopkeep({
+    const blacksmithData = this.gameManager.getNPCData(EntityTypes.Blacksmith)
+    this.blacksmith = new Blacksmith({
       game: this.game,
       imageManager: this.imageManager,
       x: 100 - BlacksmithPosition.x,
       y: 50 - BlacksmithPosition.y,
-      ...shopkeepData
+      ...blacksmithData
     })
-    this.shopkeep.init()
-    this.drawlist.push(this.shopkeep)
+    this.blacksmith.init()
+    this.drawlist.push(this.blacksmith)
 
     this.blacksmithCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
@@ -60,7 +57,7 @@ export default class BlacksmithScene extends Scene {
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
-    this.shopkeep.update(deltaTime)
+    this.blacksmith.update(deltaTime)
     if (this.player) {
       this.player.update(deltaTime)
     }
@@ -123,4 +120,11 @@ function manageInput (scene) {
     scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
     scene.game.changeScene(Scenes.Game)
   }
+}
+
+function returnToWorld (scene) {
+  scene.player.x = scene.playerWorldPosition.x
+  scene.player.y = scene.playerWorldPosition.y
+  scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
+  scene.game.changeScene(Scenes.Game)
 }

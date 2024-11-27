@@ -7,10 +7,6 @@ import EntityTypes, { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
-import Carrot from '../entities/crops/Carrot.js'
-import Corn from '../entities/crops/Corn.js'
-import Lettuce from '../entities/crops/Lettuce.js'
-import Onion from '../entities/crops/Onion.js'
 import Butterfly from '../entities/wildlife/Butterfly.js'
 import Bunny from '../entities/wildlife/Bunny.js'
 import ForageableData from '../globals/ForageableData.js'
@@ -22,8 +18,6 @@ import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 import { TileHeight } from '../globals/Constants.js'
 import { Door, CarpenterDoor, BlacksmithDoor, Grass1, Grass2, Grass3, Grass4, MuseumDoor, Sand, StoreDoor, TileNames, WetSand } from '../globals/Tiles.js'
-import Blacksmith from '../entities/npcs/Blacksmith.js'
-import Carpenter from '../entities/npcs/Carpenter.js'
 import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
 import Lumberjack from '../entities/npcs/Lumberjack.js'
@@ -186,34 +180,6 @@ export default class GameScene extends Scene {
   }
 
   spawnNPCs() {
-    const blacksmithStartPos = this.mapManager.getNPCStart(EntityTypes.Blacksmith)
-    const blacksmithData = this.gameManager.getNPCData(EntityTypes.Blacksmith)
-    this.blacksmith = new Blacksmith({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: blacksmithStartPos.x,
-      y: blacksmithStartPos.y,
-      ...blacksmithData
-    })
-    this.blacksmith.init()
-    this.entityManager.addEntity(this.blacksmith, true)
-    this.collisionManager.addEntity(this.blacksmith)
-
-    const carpenterStartPos = this.mapManager.getNPCStart(EntityTypes.Carpenter)
-    const carpenterData = this.gameManager.getNPCData(EntityTypes.Carpenter)
-    this.carpenter = new Carpenter({
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: carpenterStartPos.x,
-      y: carpenterStartPos.y,
-      ...carpenterData
-    })
-    this.carpenter.init()
-    this.entityManager.addEntity(this.carpenter, true)
-    this.collisionManager.addEntity(this.carpenter)
-
     const fishermanStartPos = this.mapManager.getNPCStart(EntityTypes.Fisherman)
     const fishermanData = this.gameManager.getNPCData(EntityTypes.Fisherman)
     this.fisherman = new Fisherman({
