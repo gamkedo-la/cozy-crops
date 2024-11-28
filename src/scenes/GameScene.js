@@ -248,7 +248,10 @@ export default class GameScene extends Scene {
       this.particles.dust(this.steve.collisionPoint.x, this.steve.collisionPoint.y)
     }
     this.playerIsWalkingNow(false)
-    this.particles.splash(1116,1245) // this stays in one place as the camera moves
+    const waterfalls = this.mapManager.getWaterfallTilesXY()
+    for (const waterfall of waterfalls) {
+      this.particles.splash(waterfall.x, waterfall.y)
+    }
     
     this.particles.update(deltaTime)
 

@@ -1,5 +1,5 @@
 // simple particle effects
-
+import { TileWidth, TileHeight } from "../../globals/Constants.js"
 import { ParticleSprite } from "../../globals/Images.js"
 
 export default class Particles {
@@ -68,9 +68,12 @@ export default class Particles {
 
     draw () {
         // Don't draw to the Game Canvas, tell the Image Manager to draw for you, things go way better that way.
+        this.imageManager.internalCtx.save()
         for (const p of this.pool) {
+            this.imageManager.internalCtx.globalAlpha = p.alpha
             this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
         }
+        this.imageManager.internalCtx.restore()
     }
 
     // immediately clears all particles
@@ -92,18 +95,17 @@ export default class Particles {
     }
 
     splash(x,y) {
-        let num = randomInt(4,8) 
+        let num = 1 
         for (let i = 0; i < num; i++) {
-            let life = randomInt(333,777)
-            // let size = randomInt(1,4) // Way, Way too small, can't see them
-            let size = randomInt(16, 32)
+            let life = randomInt(64, 140)
+            let size = 16
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
             let velx = Math.random()*3-1.5
             let vely = Math.random()*-1.5
-            let alpha = 0.25 // start out quite faint
-            let px = x+Math.random()*90-45
-            let py = y+Math.random()*4-2
+            let alpha = 0.5 // start out less faint
+            let px = x + 2 + (Math.random() * (TileWidth - 6))
+            let py = y + TileHeight + (Math.random() * 4) - 6
             this.add(px,py,life,size,rotspd,ang,velx,vely,alpha)
         }
     }

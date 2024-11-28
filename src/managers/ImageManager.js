@@ -74,10 +74,16 @@ export default class ImageManager {
   }
 
   draw (image, x, y, width, height, imageX = 0, imageY = 0, camera = null, flipped = false, alpha = 1) {
-    this.internalCtx.save()
-    this.internalCtx.globalAlpha = alpha
-
     const cameraPos = camera ? camera.getTopLeft() : this.camera.getTopLeft()
+
+    // Return early if the image is offscreen
+    if (x + width < cameraPos.x ||
+      x > cameraPos.x + this.internalCanvas.width ||
+      y + height < cameraPos.y ||
+      y > cameraPos.y + this.internalCanvas.height) {
+      return
+    }
+
     if (flipped) {
       this.internalCtx.save()
 
@@ -89,8 +95,6 @@ export default class ImageManager {
     } else {
       this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)
     }
-
-    this.internalCtx.restore()
   }
 
   drawGround(image, x, y, width = null, height = null) {

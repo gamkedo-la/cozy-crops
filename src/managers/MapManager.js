@@ -7,8 +7,7 @@ import BlacksmithMapData, { BlacksmithPosition } from '../globals/BlacksmithMap.
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
-import { Sand, TileNames, WetSand } from '../globals/Tiles.js'
-//import { HomePosition } from '../globals/PlayerHomeMap.js'
+import { Sand, TileNames, Waterfall, WetSand } from '../globals/Tiles.js'
 
 export default class MapManager {
   constructor (config) {
@@ -30,6 +29,8 @@ export default class MapManager {
         height: this.mapData.length
       }
     }
+
+    this.waterfallTileXYs = null
 
     this.museumCanvas = null
     this.museumCtx = null
@@ -257,6 +258,21 @@ export default class MapManager {
       this.updateTileAtXY(tile.x, tile.y, Sand)
       this.gameManager.setModifiedTile(tile.x, tile.y, Sand, getTimeForTileIndex(Sand))
     })
+  }
+
+  getWaterfallTilesXY () {
+    if (!this.waterfallTileXYs) {
+      this.waterfallTileXYs = []
+      this.mapData.forEach((row, y) => {
+        row.forEach((tileIndex, x) => {
+          if (tileIndex === Waterfall) {
+            this.waterfallTileXYs.push({ x: x * TileWidth, y: y * TileHeight })
+          }
+        })
+      })
+    }
+
+    return this.waterfallTileXYs
   }
 
   getPlayerStart (playerType) {

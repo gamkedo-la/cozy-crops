@@ -14,6 +14,7 @@ export const Empty2 = 12
 export const DarkStone = 13
 export const Seafoam = 14
 export const WetSand = 15
+export const Waterfall = 19
 export const Hilltop = 10
 export const Building1 = 45
 export const Building2 = 22
@@ -989,6 +990,7 @@ export const TileNames = {
   [Empty2]: 'Empty2',
   [DarkStone]: 'DarkStone',
   [Seafoam]: 'Seafoam',
+  [Waterfall]: 'Waterfall',
   [Hilltop]: 'Hilltop',
   [Building1]: 'Building1',
   [Building2]: 'Building2',
@@ -1948,7 +1950,7 @@ export const TileNames = {
 [ Carpenter1526]: 'Carpenter1526'
 }
 
-export const UnWalkable = [Water, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, 
+export const UnWalkable = [Water, Waterfall, RockyGround, Pink, Hilltop, Building1, Building2, Building3, Building4, Building5, Building6, Building7, 
   Building8, Building9, Building10, Building11, Building12, Building13, Building14, Building15, Building16, Building17, Building18, Building19, 
   Building20, Building21, Building22, Building23, Building24, Building25, Building26, Building27, Building28, Building29, Building30, Building31, 
   Building32, Building33, Building34, Building35, Building36, Building37, Building38, Building39, Building40, Building41, Building42, Building43, 
