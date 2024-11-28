@@ -174,6 +174,7 @@ function handleInput (player) {
   } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {
       player.y -= player.speed
+      player.scene.playerIsWalkingNow(true)
     }
 
     if (player.animation !== player.animations.SteveWalkUp) {
@@ -182,6 +183,7 @@ function handleInput (player) {
   } else if (downKeys.includes(player.controls.Down)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y + player.speed })) {
       player.y += player.speed
+      player.scene.playerIsWalkingNow(true)
     }
 
     if (player.animation !== player.animations.SteveWalkDown) {
@@ -190,6 +192,7 @@ function handleInput (player) {
   } else if (downKeys.includes(player.controls.Left)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x - player.speed, y: player.collisionPoint.y })) {
       player.x -= player.speed
+      player.scene.playerIsWalkingNow(true)
     }
 
     if (player.animation !== player.animations.SteveWalkLeft) {
@@ -198,6 +201,7 @@ function handleInput (player) {
   }  else if (downKeys.includes(player.controls.Right)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x + player.speed, y: player.collisionPoint.y })) {
       player.x += player.speed
+      player.scene.playerIsWalkingNow(true)
     }
 
     if (player.animation !== player.animations.SteveWalkRight) {

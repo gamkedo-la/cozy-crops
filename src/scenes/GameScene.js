@@ -25,8 +25,6 @@ import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
 
-const TEST_PARTICLES = true // FIXME: remove once problem is resolved
-
 export default class GameScene extends Scene {
   constructor (config) {
     super(config)
@@ -36,6 +34,7 @@ export default class GameScene extends Scene {
     this.steve2 = null
     this.grandma = null
     this.isSleeping = false
+    this.playerIsWalking = false
 
     this.collisionManager = null
   }
@@ -245,12 +244,11 @@ export default class GameScene extends Scene {
     this.collisionManager.update(deltaTime)
     this.weather.update(deltaTime)
     
-    // FIXME: for debug purposes only 
-    if (TEST_PARTICLES) {
-        // draw one particle at player x,y - follows camera perfectly
-        this.particles.dust(this.steve.collisionPoint.x, this.steve.collisionPoint.y)
-        this.particles.splash(1116,1245) // this stays in one place as the camera moves
+    if (this.playerIsWalking) {
+      this.particles.dust(this.steve.collisionPoint.x, this.steve.collisionPoint.y)
     }
+    this.playerIsWalkingNow(false)
+    this.particles.splash(1116,1245) // this stays in one place as the camera moves
     
     this.particles.update(deltaTime)
 
@@ -292,6 +290,10 @@ export default class GameScene extends Scene {
   playerCanWalk (newPosition) {
     const tileIndex = this.mapManager.getTileAtPixelPos(newPosition.x, newPosition.y)
     return this.collisionManager.playerCanWalk(tileIndex)
+  }
+
+  playerIsWalkingNow (value) {
+    this.playerIsWalking = value
   }
 
   getAvailableMapActions (x, y) {
