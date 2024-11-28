@@ -2,10 +2,6 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
 import { HomePosition, HomeEntrance, HomeDialogPosition } from '../globals/PlayerHomeMap.js'
-import EntityTypes from '../globals/EntityTypes.js'
-// import Plaque from '../entities/museum/Plaque.js'
-// import Portrait from '../entities/museum/Portrait.js'
-// import Statue from '../entities/museum/Statue.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
 
@@ -16,7 +12,6 @@ export default class PlayerHomeScene extends Scene {
 
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
-   // this.shopkeep = null
     this.homeCamera = null
     this.drawlist = []
     this.shouldShowUI = false
@@ -28,7 +23,6 @@ export default class PlayerHomeScene extends Scene {
     this.homeCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }
-    // initialize resources
   }
 
   start (data) {
@@ -107,4 +101,11 @@ function manageInput (scene) {
     scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
     scene.game.changeScene(Scenes.Game)
   }
+}
+
+function returnToWorld (scene) {
+  scene.player.x = scene.playerWorldPosition.x
+  scene.player.y = scene.playerWorldPosition.y
+  scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
+  scene.game.changeScene(Scenes.Game)
 }
