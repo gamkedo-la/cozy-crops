@@ -1,7 +1,7 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Player from '../entities/Player.js'
-import Keys, { S } from '../globals/Keys.js'
+import Keys from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
 import EntityTypes, { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
@@ -30,11 +30,21 @@ export default class GameScene extends Scene {
     super(config)
     
     this.camera = null
+
     this.steve = null
-    this.steve2 = null
-    this.grandma = null
+    // this.steve2 = null
+
     this.isSleeping = false
     this.playerIsWalking = false
+
+    this.fisherman = null
+    this.grandma = null
+    this.lumberjack = null
+    this.tiffany = null
+
+    this.showingNPCDialogue = false
+
+    this.weather = null
 
     this.collisionManager = null
   }
@@ -59,10 +69,10 @@ export default class GameScene extends Scene {
     }
     this.entityManager.addEntity(this.steve, true)
     // If there is a second player, add it to the camera config
-    if (this.steve2) {
-      cameraConfig.player2 = this.steve2
-      this.entityManager.addEntity(this.steve2, true)
-    }
+    // if (this.steve2) {
+    //   cameraConfig.player2 = this.steve2
+    //   this.entityManager.addEntity(this.steve2, true)
+    // }
     this.camera = new Camera(cameraConfig)
     this.imageManager.setCamera(this.camera)
     const date = this.gameManager.getDate()
@@ -405,11 +415,25 @@ export default class GameScene extends Scene {
   }
 
   showNPCDialogue (npcType, dialogue, showGiveButton) {
-    this.uiScene.showDialogue(npcType, dialogue, showGiveButton)
+    const justShowedDialog = this.uiScene.showDialogue(npcType, dialogue, showGiveButton)
+    if (justShowedDialog) this.showingNPCDialogue = true
   }
 
   hideNPCDialogue (npcType) {
-    this.uiScene.hideDialogue(npcType)
+    const justHidDialog = this.uiScene.hideDialogue(npcType)
+    if (justHidDialog) this.showingNPCDialogue = false
+  }
+
+  showGiftDialogue () {
+    this.uiScene.showGiftDialogue()
+  }
+
+  hideGiftDialogue () {
+    this.uiScene.hideGiftDialogue()
+  }
+
+  isGiftDialogueShowing () {
+    return this.uiScene.giftDialogShowing
   }
 }
 

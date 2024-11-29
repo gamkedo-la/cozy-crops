@@ -89,6 +89,13 @@ export default class PlayerHomeScene extends Scene {
       return this.mapManager.collisionManager.playerCanWalk(tileIndex)  
     }
   }
+
+  playerIsNearBed () {
+    // This is just stubbed out for now
+    // const playerPosition = { x: this.player.x + HomePosition.x, y: this.player.y + HomePosition.y }
+    // return this.mapManager.collisionManager.playerIsNearBed(playerPosition)
+    return false
+  }
 }
 
 function manageInput (scene) {

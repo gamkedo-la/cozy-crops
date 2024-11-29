@@ -284,7 +284,7 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isForageable(item))
   }
 
-  getClikedItem (x, y) {
+  getClickedItem (x, y) {
     const clickedItem = this.inventory.find(item => {
       return (
         x >= item.x &&

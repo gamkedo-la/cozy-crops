@@ -143,33 +143,39 @@ function buildSpritesheet (player) {
 }
 
 function handleInput (player) {
+  if (player.scene.isGiftDialogueShowing()) return // Don't allow player to move while gift dialog is showing
+
   const downKeys = player.game.inputManager.getDownKeys(player.type)
   const playerJustDownKeys = player.game.inputManager.getJustDownKeys(player.type)
 
   if (playerJustDownKeys.includes(player.controls.Action)) {
-    // Need to check if player is near a bed, a door, or a person
-    // If not, player action is determined by the tool they have selected (pick, axe, hoe, etc.)
-    // If they have no tool selected, they can't perform any actions
-    const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 }
-    const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y) // -2 to check the tile just above the bottom of th player's feet
-    if (mapActions.includes('Sleep')) {
-      console.log('Sleep')
-      // player.scene.gameManager.newDaySave(player.scene.gameManager.getDate())
-    } else if (mapActions.includes('Open Door')) {
-      player.scene.openDoor(groundPoint.x, groundPoint.y)
-    } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
-      player.scene.tillGround(groundPoint.x, groundPoint.y)
-      deductConsumedStamina(player, player.activeTool.staminaConsumed)
-    } else if (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
-      // console.log('Plant')
-      player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
-      // deductConsumedStamina(player, player.activeTool.staminaConsumed)
-    } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
-      player.scene.waterGround(groundPoint.x, groundPoint.y)
-      deductConsumedStamina(player, player.activeTool.staminaConsumed)
-    } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
-      console.log('Harvest')
-      player.scene.harvestCrop(groundPoint.x, groundPoint.y)
+    if (player.scene.showingNPCDialogue) {
+      // player is trying to give a gift to an NPC
+      player.scene.showGiftDialogue()
+    } else if (player.scene.playerIsNearBed ? player.scene.playerIsNearBed(player.collisionPoint) : false) {
+      // Show sleep dialogue/confirmation
+    } else if (!player.activeTool) {
+      // If player has no active tool, they can't perform any actions
+      // Show "no tool selected" message
+    } else {
+      // player action is determined by the tool they have selected (pick, axe, hoe, etc.)
+      const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 } // -2 to check the tile just above the bottom of th player's feet
+      const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y)
+      if (mapActions.includes('Open Door')) {
+        player.scene.openDoor(groundPoint.x, groundPoint.y)
+      } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
+        player.scene.tillGround(groundPoint.x, groundPoint.y)
+        deductConsumedStamina(player, player.activeTool.staminaConsumed)
+      } else if (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
+        player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
+        deductConsumedStamina(player, 0.25) // magic number for planting a seed, could be a property of the seed type
+      } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
+        player.scene.waterGround(groundPoint.x, groundPoint.y)
+        deductConsumedStamina(player, player.activeTool.staminaConsumed)
+      } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
+        player.scene.harvestCrop(groundPoint.x, groundPoint.y)
+        deductConsumedStamina(player, player.activeTool.staminaConsumed)
+      }
     }
   } else if (downKeys.includes(player.controls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {

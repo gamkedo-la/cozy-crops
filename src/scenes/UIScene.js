@@ -7,6 +7,7 @@ import { UISprites } from '../globals/Images.js'
 import { Player1 } from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import { FamilyNames } from '../globals/Fonts.js'
+import GiftManager from '../managers/GiftManager.js'
 import GiftButton from '../uiElements/GiftButton.js'
 
 export default class UIScene extends Scene {
@@ -17,6 +18,7 @@ export default class UIScene extends Scene {
     this.dialogue = null
     this.dialogingNPC = null
     this.showGiveButton = false
+    this.giftDialogShowing = false
 
     this.scoreboardRect = {
       left: this.game.canvas.width - (2 *  UISpriteData.Scoreboard.width) - 10,
@@ -38,18 +40,31 @@ export default class UIScene extends Scene {
       y: this.dialogRect.top + this.dialogRect.height - 70,
       container: this.dialogRect
     })
+
+    this.giftManager = null
   }
 
   init (gameScene) {
     super.init() // Call the init method of the parent class
     this.gameScene = gameScene
+    this.giftManager = new GiftManager({
+      scene: this,
+      game: this.game,
+      imageManager: this.imageManager,
+      dialogRect: this.dialogRect
+    })
+    this.giftManager.init()
   }
 
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
     const mousePos = this.game.inputManager.getMousePosition()
-    if (mousePos.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
+    if (this.giftDialogShowing) {
+      this.giftManager.update(deltaTime, mousePos)
+    } else {
+      if (mousePos.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
+    }
   }
 
   draw () {
@@ -66,7 +81,11 @@ export default class UIScene extends Scene {
     drawTimeOfDayUI(this, this.scoreboardRect)
 
     if (this.shouldShowDialogue) {
-      drawDialogue(this, this.dialogRect)
+      if (this.giftDialogShowing) {
+        this.giftManager.draw()
+      } else{
+        drawDialogue(this, this.dialogRect)
+      }
     }
   }
 
@@ -75,19 +94,31 @@ export default class UIScene extends Scene {
       this.shouldShowDialogue = true
       this.dialogue = dialogue
       this.dialogingNPC = npcType
-      this.showGiveButton = showGiveButton 
+      this.showGiveButton = showGiveButton
+      return true
     }
+
+    return false
   }
 
   hideDialogue (npcType) {
     if (this.dialogingNPC === npcType) {
       this.shouldShowDialogue = false
       this.dialogue = null
+      return true
     }
+
+    return false
   }
 
   showGiftDialogue () {
-    console.log('Gift dialogue')
+    console.log('Show gift dialogue')
+    this.giftDialogShowing = true
+  }
+
+  hideGiftDialogue () {
+    console.log('Hide gift dialogue')
+    this.giftDialogShowing = false
   }
 
   stop () {
@@ -98,7 +129,7 @@ export default class UIScene extends Scene {
 }
 
 function checkMouseClick (scene, x, y) {
-  const clickedInventoryItem = scene.inventoryManager.getClikedItem(x, y)
+  const clickedInventoryItem = scene.inventoryManager.getClickedItem(x, y)
   if (clickedInventoryItem) {
     scene.gameScene.handleInventoryItemClick(clickedInventoryItem)
     scene.inventoryManager.setSelectedItem(clickedInventoryItem)
