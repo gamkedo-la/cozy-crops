@@ -154,9 +154,6 @@ function handleInput (player) {
       player.scene.showGiftDialogue()
     } else if (player.scene.playerIsNearBed ? player.scene.playerIsNearBed(player.collisionPoint) : false) {
       // Show sleep dialogue/confirmation
-    } else if (!player.activeTool) {
-      // If player has no active tool, they can't perform any actions
-      // Show "no tool selected" message
     } else {
       // player action is determined by the tool they have selected (pick, axe, hoe, etc.)
       const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 } // -2 to check the tile just above the bottom of th player's feet
@@ -175,6 +172,9 @@ function handleInput (player) {
       } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
         player.scene.harvestCrop(groundPoint.x, groundPoint.y)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
+      } else if (!player.activeTool) {
+        // If player has no active tool, they can't perform any actions
+        // Show "no tool selected" message
       }
     }
   } else if (downKeys.includes(player.controls.Up)) {

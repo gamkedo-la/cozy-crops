@@ -18,8 +18,9 @@ export default class PlayerHomeScene extends Scene {
     this.textBackground = null
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
+
     this.homeCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }

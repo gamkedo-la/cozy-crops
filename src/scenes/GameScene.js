@@ -35,14 +35,11 @@ export default class GameScene extends Scene {
     // this.steve2 = null
 
     this.isSleeping = false
-    this.playerIsWalking = false
 
     this.fisherman = null
     this.grandma = null
     this.lumberjack = null
     this.tiffany = null
-
-    this.showingNPCDialogue = false
 
     this.weather = null
 
@@ -54,7 +51,8 @@ export default class GameScene extends Scene {
   }
 
   init (data) {
-    this.uiScene = data.uiScene
+    super.init(data) // Call the init method of the parent class
+
     const modifiedTiles = this.gameManager.getModifiedTiles()
     this.mapManager.start(modifiedTiles)
     this.inventoryManager.start()
@@ -305,10 +303,6 @@ export default class GameScene extends Scene {
     return this.collisionManager.playerCanWalk(tileIndex)
   }
 
-  playerIsWalkingNow (value) {
-    this.playerIsWalking = value
-  }
-
   getAvailableMapActions (x, y) {
     const result = new Set()
     const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
@@ -412,28 +406,6 @@ export default class GameScene extends Scene {
     this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
     setNewWeather(this)
-  }
-
-  showNPCDialogue (npcType, dialogue, showGiveButton) {
-    const justShowedDialog = this.uiScene.showDialogue(npcType, dialogue, showGiveButton)
-    if (justShowedDialog) this.showingNPCDialogue = true
-  }
-
-  hideNPCDialogue (npcType) {
-    const justHidDialog = this.uiScene.hideDialogue(npcType)
-    if (justHidDialog) this.showingNPCDialogue = false
-  }
-
-  showGiftDialogue () {
-    this.uiScene.showGiftDialogue()
-  }
-
-  hideGiftDialogue () {
-    this.uiScene.hideGiftDialogue()
-  }
-
-  isGiftDialogueShowing () {
-    return this.uiScene.giftDialogShowing
   }
 }
 

@@ -15,8 +15,8 @@ export default class TitleScene extends Scene {
     this.menu = null
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
 

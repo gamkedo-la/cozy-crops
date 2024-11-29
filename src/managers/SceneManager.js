@@ -114,17 +114,16 @@ export default class SceneManager {
   }
 
   init () {
-    this.currentScene.init()
+    this.currentScene.init({})
     this.initializedScenes[Scenes.Boot] = true
   }
 
   changeScene (sceneName, data) {
+    data ? data.uiScene = this.scenes[Scenes.UIScene] : data = { uiScene: this.scenes[Scenes.UIScene] }
+
     fadeOut(this.managers.imageManager, () => {
       if (this.scenes[sceneName]) {
         if (!this.initializedScenes[sceneName]) {
-          if (sceneName === Scenes.Game) {
-            data = { uiScene: this.scenes[Scenes.UIScene] }
-          }
           this.scenes[sceneName].init(data)
           this.initializedScenes[sceneName] = true
         }
@@ -137,7 +136,7 @@ export default class SceneManager {
 
       if (this.currentScene.name === Scenes.Game) {
         if (this.scenes[Scenes.UIScene]) {
-          this.scenes[Scenes.UIScene].init(this.currentScene)
+          this.scenes[Scenes.UIScene].init({ gameScene: this.currentScene })
           this.initializedScenes[Scenes.UIScene] = true
         }
       } else {
@@ -152,8 +151,7 @@ export default class SceneManager {
 
   update (deltaTime) {
     this.currentScene.update(deltaTime)
-
-    if (this.currentScene.name === Scenes.Game) {
+    if (this.scenes[Scenes.UIScene] && this.initializedScenes[Scenes.UIScene]) {
       this.scenes[Scenes.UIScene].update(deltaTime)
     }
   }

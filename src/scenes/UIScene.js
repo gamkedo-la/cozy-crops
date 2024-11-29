@@ -44,9 +44,10 @@ export default class UIScene extends Scene {
     this.giftManager = null
   }
 
-  init (gameScene) {
-    super.init() // Call the init method of the parent class
-    this.gameScene = gameScene
+  init (data) {
+    super.init(data) // Call the init method of the parent class
+
+    this.gameScene = data.gameScene
     this.giftManager = new GiftManager({
       scene: this,
       game: this.game,

@@ -23,13 +23,14 @@ export default class MuseumScene extends Scene {
     this.textBackground = null
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     // initialize resources
     const curatorData = this.gameManager.getNPCData(EntityTypes.Curator)
     this.curator = new Curator({
       game: this.game,
+      scene: this,
       imageManager: this.imageManager,
       x: 100 - MuseumPosition.x,
       y: 50 - MuseumPosition.y,
@@ -74,6 +75,7 @@ export default class MuseumScene extends Scene {
     if (this.player) {
       this.player.update(deltaTime)
       checkForExhibitCollision(this)
+      this.curator.checkCollision(this.player)
     }
 
     manageInput(this)

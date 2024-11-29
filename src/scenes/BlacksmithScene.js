@@ -22,13 +22,14 @@ export default class BlacksmithScene extends Scene {
 
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     // initialize resources
     const blacksmithData = this.gameManager.getNPCData(EntityTypes.Blacksmith)
     this.blacksmith = new Blacksmith({
       game: this.game,
+      scene: this,
       imageManager: this.imageManager,
       x: 100 - BlacksmithPosition.x,
       y: 50 - BlacksmithPosition.y,
@@ -60,6 +61,7 @@ export default class BlacksmithScene extends Scene {
     this.blacksmith.update(deltaTime)
     if (this.player) {
       this.player.update(deltaTime)
+      this.blacksmith.checkCollision(this.player)
     }
 
     manageInput(this)

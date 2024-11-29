@@ -11,7 +11,6 @@ export default class CarpenterScene extends Scene {
   constructor (config) {
     super(config)
 
-
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
     this.carpenter = null
@@ -21,12 +20,13 @@ export default class CarpenterScene extends Scene {
     this.textBackground = null
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     const carpenterData = this.gameManager.getNPCData(EntityTypes.Carpenter)
     this.carpenter = new Carpenter({
       game: this.game,
+      scene: this,
       imageManager: this.imageManager,
       x: 100 - CarpenterPosition.x,
       y: 50 - CarpenterPosition.y,
@@ -60,6 +60,8 @@ export default class CarpenterScene extends Scene {
     }
 
     manageInput(this)
+
+    this.carpenter.checkCollision(this.player)
   }
 
   draw (scene) {

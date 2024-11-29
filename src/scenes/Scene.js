@@ -4,10 +4,14 @@ export default class Scene {
   constructor (config) {
     Object.assign(this, config)
     Object.assign(this, config.managers)
+    this.uiScene = null
+    this.playerIsWalking = false
+    this.showingNPCDialogue = false
   }
 
-  init () {
+  init (data) {
     // called once
+    this.uiScene = data.uiScene
   }
 
   start () {
@@ -17,6 +21,32 @@ export default class Scene {
   update (deltaTime) {
     // deltaTime is the time between frames (milliseconds)
     this.draw()
+  }
+
+  playerIsWalkingNow (value) {
+    this.playerIsWalking = value
+  }
+
+  showNPCDialogue (npcType, dialogue, showGiveButton) {
+    const justShowedDialog = this.uiScene.showDialogue(npcType, dialogue, showGiveButton)
+    if (justShowedDialog) this.showingNPCDialogue = true
+  }
+
+  hideNPCDialogue (npcType) {
+    const justHidDialog = this.uiScene.hideDialogue(npcType)
+    if (justHidDialog) this.showingNPCDialogue = false
+  }
+
+  showGiftDialogue () {
+    this.uiScene.showGiftDialogue()
+  }
+
+  hideGiftDialogue () {
+    this.uiScene.hideGiftDialogue()
+  }
+
+  isGiftDialogueShowing () {
+    return this.uiScene.giftDialogShowing
   }
 
   draw () {

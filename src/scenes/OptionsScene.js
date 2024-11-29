@@ -12,8 +12,8 @@ export default class OptionsScene extends Scene {
     this.menu = null
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     // setup resources
     this.menu = new Menu({

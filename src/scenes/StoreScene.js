@@ -25,13 +25,14 @@ export default class StoreScene extends Scene {
 
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     // initialize resources
     const shopkeepData = this.gameManager.getNPCData(EntityTypes.Shopkeep)
     this.shopkeep = new Shopkeep({
       game: this.game,
+      scene: this,
       imageManager: this.imageManager,
       x: 100 - StorePosition.x,
       y: 50 - StorePosition.y,
@@ -63,6 +64,7 @@ export default class StoreScene extends Scene {
     this.shopkeep.update(deltaTime)
     if (this.player) {
       this.player.update(deltaTime)
+      this.shopkeep.checkCollision(this.player)
     }
 
     manageInput(this)
@@ -123,4 +125,11 @@ function manageInput (scene) {
     scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
     scene.game.changeScene(Scenes.Game)
   }
+}
+
+function returnToWorld (scene) {
+  scene.player.x = scene.playerWorldPosition.x
+  scene.player.y = scene.playerWorldPosition.y
+  scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
+  scene.game.changeScene(Scenes.Game)
 }

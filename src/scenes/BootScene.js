@@ -12,8 +12,8 @@ export default class BootScene extends Scene {
     this.progressText = `Images (${this.loadManager.imagesLoaded}/${this.loadManager.totalImages}, Audio (${this.loadManager.audioLoaded}/${this.loadManager.totalAudio}, Fonts (${this.loadManager.fontsLoaded}/${this.loadManager.totalFonts})`
   }
 
-  init () {
-    super.init() // Call the init method of the parent class
+  init (data) {
+    super.init(data) // Call the init method of the parent class
 
     registerForEvents(this)
     this.loadManager.load()
