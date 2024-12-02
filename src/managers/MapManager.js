@@ -7,7 +7,8 @@ import BlacksmithMapData, { BlacksmithPosition } from '../globals/BlacksmithMap.
 import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
-import { Sand, TileNames, Waterfall, WetSand } from '../globals/Tiles.js'
+import { TileNames } from '../globals/Tiles.js'
+import { Sand, Waterfall, WetSand } from '../globals/TilesWorld.js'
 
 export default class MapManager {
   constructor (config) {
