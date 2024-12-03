@@ -34,6 +34,8 @@ export default class Bunny extends Animal {
             this.currentAnimation = this.getAnimation(this.facingLeft ? 'IdleLeft' : 'IdleRight')
         }
         if (this.facingLeft) this.x--; else this.x++
+        // on final frame, we just landed
+        if (this.hopFramesLeft==0) this.particles?.landingPoof(this.x+8, this.y+16)
     }
     // occasionally switch directions
     if (Math.random()<0.0005) {

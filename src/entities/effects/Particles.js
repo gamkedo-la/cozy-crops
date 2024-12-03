@@ -137,7 +137,7 @@ export default class Particles {
 
     // a single little puff particle
     dust(x,y) {
-        let num = randomInt(0,1) // only half the time
+        let num = randomInt(1,2)
         for (let i = 0; i < num; i++) {
             let life = 1000
             let size = 16
@@ -150,6 +150,23 @@ export default class Particles {
             this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
         }
     }
+
+    // a poof when a bunny lands
+    landingPoof(x,y) {
+        let num = randomInt(3,6)
+        for (let i = 0; i < num; i++) {
+            let life = randomInt(1000,2000)
+            let size = 16
+            let rotspd = Math.random()*0.1-0.05
+            let ang = 0
+            let velx = Math.random()*2-1
+            let vely = Math.random()*-1
+            let alpha = 0.15
+            let drag = 0.9
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+        }
+    }
+
 } // end of Particles class
 
 // helper function (inclusive: eg 1,10 may include 1 or 10)

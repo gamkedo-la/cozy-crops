@@ -91,6 +91,16 @@ export default class GameScene extends Scene {
 
     this.spawnNPCs()
 
+
+    this.particles = new Particles({
+        game: this.game,
+        scene: this,
+        imageManager: this.imageManager,
+        gameManager: this.gameManager,
+        x: 0,
+        y: 0
+      })
+    
     this.spawnButterflies(64)
     this.spawnBunnies(32)
     this.spawnForageableItems(32)
@@ -107,14 +117,6 @@ export default class GameScene extends Scene {
     })
     this.weather.init()
 
-    this.particles = new Particles({
-        game: this.game,
-        scene: this,
-        imageManager: this.imageManager,
-        gameManager: this.gameManager,
-        x: 0,
-        y: 0
-      })
   }
 
   spawnButterflies(howmany) {
@@ -142,6 +144,7 @@ export default class GameScene extends Scene {
         game: this.game,
         scene: this,
         imageManager: this.imageManager,
+        particles: this.particles,
         x: bunnyPos.x,
         y: bunnyPos.y
       })
