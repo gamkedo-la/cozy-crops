@@ -8,15 +8,15 @@ export default class Particles {
         Object.assign(this, config)
         this.age = 0
         this.img = this.imageManager.getImageWithSrc(ParticleSprite)
-        this.sprW = 32
-        this.sprH = 32
+        this.sprW = 16
+        this.sprH = 16
         this.drag = 0.94
         this.gravity = -0.01
         this.pool = []
     }
 
     // add a single particle to this system
-    add (x, y, life=1000, size=32, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94) {
+    add (x, y, life=1000, size=16, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94) {
         let p = null
         for (let pnum = 0; pnum < this.pool.length; pnum++) {
             p = this.pool[pnum]
@@ -71,7 +71,13 @@ export default class Particles {
         this.imageManager.internalCtx.save()
         for (const p of this.pool) {
             this.imageManager.internalCtx.globalAlpha = p.alpha
-            //this.imageManager.internalCtx.fillStyle = "rgb(100,0,0)" // no effect, can't color without doing it pixel by pixel
+            
+            // size (scale) unsupported by engine?
+            // this.imageManager.internalCtx.scale(2,2)  // test - not supported? need to scale LAST
+            
+            // rotation unsupported by engine?
+            // this.imageManager.internalCtx.rotate(p.angle); // cannot rotate before translation
+            
             this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha) // alpha has no effect here, it is set above
 
             // faster gpu tinting without having to set each pixel one at a time in a loop
@@ -103,7 +109,7 @@ export default class Particles {
         let num = randomInt(0,1) // sometimes adds none
         for (let i = 0; i < num; i++) {
             let life = randomInt(333,777)
-            let size = randomInt(1,4) // My gut tells me this is way, way too small, probably need closer to 32
+            let size = randomInt(1,4)
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
             let velx = Math.random()*3-1.5
@@ -114,32 +120,32 @@ export default class Particles {
     }
 
     splash(x,y) {
-        let num = 1 
+        let num = randomInt(2,4)
         for (let i = 0; i < num; i++) {
-            let life = randomInt(64, 140)
+            let life = randomInt(100, 200)
             let size = 16
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
             let velx = Math.random()*3-1.5
             let vely = Math.random()*-1.5
-            let alpha = 0.5 // start out less faint
-            let px = x + 2 + (Math.random() * (TileWidth - 6))
-            let py = y + TileHeight + (Math.random() * 4) - 6
+            let alpha = 0.1 
+            let px = x + (Math.random() * TileWidth)
+            let py = y + TileHeight + (Math.random() * 4) - 2 
             this.add(px,py,life,size,rotspd,ang,velx,vely,alpha)
         }
     }
 
     // a single little puff particle
     dust(x,y) {
-        let num = 1
+        let num = randomInt(0,1) // only half the time
         for (let i = 0; i < num; i++) {
             let life = 1000
-            let size = 32
+            let size = 16
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*4-2
-            let vely = Math.random()*4-2
-            let alpha = 0.5
+            let vely = Math.random()*1-0.5
+            let alpha = 0.04
             let drag = 0.94
             this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
         }
