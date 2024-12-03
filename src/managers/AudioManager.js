@@ -58,6 +58,10 @@ export default class AudioManager {
     this.getSoundWithSrc(src).volume = 1
   }
 
+  loopMusic (src) {
+    this.getSoundWithSrc(src).loop = true
+  }
+
   setMusicVolume (src,vol) {
     this.getSoundWithSrc(src).volume = vol
   }

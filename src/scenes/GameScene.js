@@ -120,7 +120,8 @@ export default class GameScene extends Scene {
 
     // idea: subtle background birds add to a happy feeling?
     // todo: only play in summer? move inside weather system perhaps?
-    this.audioManager.startMusic(BackgroundBirds) // play on loop
+    this.audioManager.startMusic(BackgroundBirds) // play
+    this.audioManager.loopMusic(BackgroundBirds) // make it loop
     this.audioManager.setMusicVolume(BackgroundBirds,0.5) // make quieter
   }
 
