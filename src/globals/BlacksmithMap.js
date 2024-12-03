@@ -15,6 +15,6 @@ export default [
     [1088,1089,1090,1091,1092,1093,1094,1095,1096,1097,1098,1099,1100,1101,1102,1103,1104]
   ]
   
-  export const BlacksmithPosition = { x: -150, y: -100 }
+  export const BlacksmithPosition = { x: -164, y: -110 }
   export const BlacksmithEntrance = { x: 450 + BlacksmithPosition.x, y: 380 + BlacksmithPosition.y }
   export const BlacksmithDialogPosition = { x: 512 + BlacksmithPosition.x, y: 340 + BlacksmithPosition.y }

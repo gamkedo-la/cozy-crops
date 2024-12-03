@@ -31,8 +31,8 @@ export default class BlacksmithScene extends Scene {
       game: this.game,
       scene: this,
       imageManager: this.imageManager,
-      x: 100 - BlacksmithPosition.x,
-      y: 50 - BlacksmithPosition.y,
+      x: 80 - BlacksmithPosition.x,
+      y: 84 - BlacksmithPosition.y,
       ...blacksmithData
     })
     this.blacksmith.init()
