@@ -58,6 +58,10 @@ export default class AudioManager {
     this.getSoundWithSrc(src).volume = 1
   }
 
+  setMusicVolume (src,vol) {
+    this.getSoundWithSrc(src).volume = vol
+  }
+
   muteMusic (src) {
     this.getSoundWithSrc(src).volume = 0
   }

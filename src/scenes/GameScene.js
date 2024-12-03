@@ -30,6 +30,7 @@ import Lumberjack from '../entities/npcs/Lumberjack.js'
 import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
+import { BackgroundBirds } from '../globals/Sounds.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -117,6 +118,10 @@ export default class GameScene extends Scene {
     })
     this.weather.init()
 
+    // idea: subtle background birds add to a happy feeling?
+    // todo: only play in summer? move inside weather system perhaps?
+    this.audioManager.startMusic(BackgroundBirds) // play on loop
+    this.audioManager.setMusicVolume(BackgroundBirds,0.5) // make quieter
   }
 
   spawnButterflies(howmany) {
