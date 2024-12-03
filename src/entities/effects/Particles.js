@@ -71,7 +71,26 @@ export default class Particles {
         this.imageManager.internalCtx.save()
         for (const p of this.pool) {
             this.imageManager.internalCtx.globalAlpha = p.alpha
-            this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            //this.imageManager.internalCtx.fillStyle = "rgb(100,0,0)" // no effect, can't color without doing it pixel by pixel
+            this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha) // alpha has no effect here, it is set above
+
+            // faster gpu tinting without having to set each pixel one at a time in a loop
+            // hmmm - is this actually faster?? it slows down the game a lot!!! I was wrong
+            /*
+            if (!this.tintedSprite) {
+                console.log("new tinted sprite canvas!")
+                this.tintedSprite = document.createElement('canvas')
+                this.tintedSprite.width = p.sprite.width
+                this.tintedSprite.height = p.sprite.height
+                this.tintedCTX = this.tintedSprite.getContext("2d")
+            }
+            this.tintedCTX.fillStyle = "#09f"
+            this.tintedCTX.fillRect(0, 0, p.sprite.width, p.sprite.height)
+            this.tintedCTX.globalCompositeOperation = "destination-in"
+            this.tintedCTX.drawImage(p.sprite, 0, 0)
+            this.imageManager.draw(this.tintedSprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha) // alpha has no effect here, it is set above
+            */
+
         }
         this.imageManager.internalCtx.restore()
     }
