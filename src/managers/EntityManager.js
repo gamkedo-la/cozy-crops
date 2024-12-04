@@ -21,8 +21,8 @@ export default class EntityManager {
   }
 
   getDrawList () {
-    const drawList = [...this.entities]
-    const movingEntitiesToAdd = [...this.movingEntities]
+    const drawList  = this.entities.filter(entity => entity.imageManager.isOnScreen(entity.x, entity.y, entity.width, entity.height))
+    const movingEntitiesToAdd = this.movingEntities.filter(entity => entity.imageManager.isOnScreen(entity.x, entity.y, entity.width, entity.height))
 
     let low = 0
     let high = drawList.length
@@ -42,7 +42,7 @@ export default class EntityManager {
       high = drawList.length
     })
 
-    return [...drawList, ...this.aboveGroundEntities]
+    return [...drawList, ...(this.aboveGroundEntities.filter(entity => entity.imageManager.isOnScreen(entity.x, entity.y, entity.width, entity.height)))]
   }
 
   removeEntity (entity) {

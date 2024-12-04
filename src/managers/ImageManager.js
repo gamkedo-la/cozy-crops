@@ -77,12 +77,7 @@ export default class ImageManager {
     const cameraPos = camera ? camera.getTopLeft() : this.camera.getTopLeft()
 
     // Return early if the image is offscreen
-    if (x + width < cameraPos.x ||
-      x > cameraPos.x + this.internalCanvas.width ||
-      y + height < cameraPos.y ||
-      y > cameraPos.y + this.internalCanvas.height) {
-      return
-    }
+    if(!this.isOnScreen(x, y, width, height, cameraPos)) return
 
     if (flipped) {
       this.internalCtx.save()
@@ -95,6 +90,15 @@ export default class ImageManager {
     } else {
       this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)
     }
+  }
+
+  isOnScreen (x, y, width, height, cameraPos = this.camera.getTopLeft()) {
+    return !(
+      x + width < cameraPos.x ||
+      x > cameraPos.x + this.internalCanvas.width / ImageScale ||
+      y + height < cameraPos.y ||
+      y > cameraPos.y + this.internalCanvas.height / ImageScale
+    )
   }
 
   drawGround(image, x, y, width = null, height = null) {
