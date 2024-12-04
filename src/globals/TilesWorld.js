@@ -16,6 +16,10 @@ export const Seafoam = 14
 export const WetSand = 15
 export const Waterfall = 19
 export const Hilltop = 10
+export const fencefull = 160
+export const fenceleft = 161
+export const fenceright = 162
+export const fencevert = 163
 
 export const WorldIndexes = {
   Empty,
@@ -35,7 +39,11 @@ export const WorldIndexes = {
   Seafoam,
   WetSand,
   Waterfall,
-  Hilltop
+  Hilltop,
+  fencefull,
+  fenceleft,
+  fenceright,
+  fencevert
 }
 
 export const WorldTileNames = {
@@ -56,7 +64,11 @@ export const WorldTileNames = {
   [Seafoam]: 'Seafoam',
   [WetSand]: 'WetSand',
   [Waterfall]: 'Waterfall',
-  [Hilltop]: 'Hilltop'
+  [Hilltop]: 'Hilltop',
+  [fencefull]: 'fencefull',
+  [fenceleft]: 'fenceleft',
+  [fenceright]: 'fenceright',
+  [fencevert]: 'fencevert',
 }
 
 export const WorldUnwalkable = [
@@ -64,5 +76,9 @@ export const WorldUnwalkable = [
   Waterfall,
   RockyGround,
   Pink,
-  Hilltop
+  Hilltop,
+  fencefull,
+  fenceleft,
+  fenceright,
+  fencevert
 ]
