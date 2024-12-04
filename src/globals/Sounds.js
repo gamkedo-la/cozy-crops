@@ -4,6 +4,7 @@ const Sounds = {
   WindSound: '../../sounds/wind.mp3',
   BackgroundBirds: '../../sounds/birds.mp3',
   BackgroundWaterfall: '../../sounds/waterfall.mp3',
+  BackgroundSeashore: '../../sounds/seashore.mp3',
 }
 
 export default Sounds
@@ -13,4 +14,5 @@ export const {
   WindSound,
   BackgroundBirds,
   BackgroundWaterfall,
+  BackgroundSeashore,
 } =  Sounds

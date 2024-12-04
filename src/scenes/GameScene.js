@@ -30,7 +30,7 @@ import Lumberjack from '../entities/npcs/Lumberjack.js'
 import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
-import { BackgroundBirds, BackgroundWaterfall } from '../globals/Sounds.js'
+import { BackgroundBirds, BackgroundWaterfall, BackgroundSeashore } from '../globals/Sounds.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -120,14 +120,19 @@ export default class GameScene extends Scene {
 
     // idea: subtle background birds add to a happy feeling?
     // todo: only play in summer? move inside weather system perhaps?
-    this.audioManager.startMusic(BackgroundBirds) // play
-    this.audioManager.loopMusic(BackgroundBirds) // make it loop
-    this.audioManager.setMusicVolume(BackgroundBirds,0.5) // make quieter
+    this.audioManager.startMusic(BackgroundBirds)
+    this.audioManager.loopMusic(BackgroundBirds)
+    this.audioManager.setMusicVolume(BackgroundBirds,0.5)
 
     // idea: waterfall sound loop - volume depends on proximity to waterfall zones
-    this.audioManager.startMusic(BackgroundWaterfall) // play
-    this.audioManager.loopMusic(BackgroundWaterfall) // make it loop
-    this.audioManager.setMusicVolume(BackgroundWaterfall,0.0) // start silent
+    this.audioManager.startMusic(BackgroundWaterfall)
+    this.audioManager.loopMusic(BackgroundWaterfall)
+    this.audioManager.setMusicVolume(BackgroundWaterfall,0)
+
+    // same for the seashore
+    this.audioManager.startMusic(BackgroundSeashore)
+    this.audioManager.loopMusic(BackgroundSeashore)
+    this.audioManager.setMusicVolume(BackgroundSeashore,0)
 
   }
 
@@ -265,7 +270,7 @@ export default class GameScene extends Scene {
     this.collisionManager.addEntity(this.tiffany)
   }
 
-    updateWaterfallSoundVolume() {
+    updateWaterSoundVolume() {
       // increase volume of water sound effect based on proximity
       // to known water sounres (perhaps we could scan for nearby tiles?)
       // for testing, only check dist from the "home" waterfall (hardcoded!)
@@ -274,12 +279,21 @@ export default class GameScene extends Scene {
       let maxHearableDist = 200
       let maxVol = 0.25
       let dist = Math.hypot(waterfallX-this.steve.collisionPoint.x, waterfallY-this.steve.collisionPoint.y)
-      let percent = 1 - dist/maxHearableDist;
+      let percent = 1 - dist/maxHearableDist
       if (percent>1) percent = 1
       if (percent<0) percent = 0
       let vol = maxVol * percent
       //console.log("waterfall distance: "+dist.toFixed(1)+" steve:"+Math.round(this.steve.collisionPoint.x)+","+Math.round(this.steve.collisionPoint.y))
       this.audioManager.setMusicVolume(BackgroundWaterfall,vol)
+
+      // check how close to the western ocean we are
+      dist = Math.abs(500 - this.steve.collisionPoint.x) // for now, assume 500 is shoreline
+      percent = 1 - dist/maxHearableDist
+      if (percent>1) percent = 1
+      if (percent<0) percent = 0
+      vol = maxVol * percent
+      //console.log("ocean distance: "+dist.toFixed(1)+" steve:"+Math.round(this.steve.collisionPoint.x)+","+Math.round(this.steve.collisionPoint.y))
+      this.audioManager.setMusicVolume(BackgroundSeashore,vol)
       
     }
 
@@ -303,7 +317,7 @@ export default class GameScene extends Scene {
     
     this.particles.update(deltaTime)
 
-    this.updateWaterfallSoundVolume()
+    this.updateWaterSoundVolume()
 
     if (!this.isSleeping) {
       this.calendarManager.update(deltaTime)
