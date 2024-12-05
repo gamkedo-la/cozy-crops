@@ -16,7 +16,7 @@ import Truffel from '../entities/forageables/Truffel.js'
 import Tulip from '../entities/forageables/Tulip.js'
 import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
-import { TileHeight } from '../globals/Constants.js'
+import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { Door } from '../globals/TilesPlayerHome.js'
 import { CarpenterDoor } from '../globals/TilesCarpenter.js'
 import { BlacksmithDoor } from '../globals/TilesBlacksmith.js'
@@ -270,31 +270,39 @@ export default class GameScene extends Scene {
     this.collisionManager.addEntity(this.tiffany)
   }
 
-    updateWaterSoundVolume() {
-      // increase volume of water sound effect based on proximity
-      // to known water sounres (perhaps we could scan for nearby tiles?)
-      // for testing, only check dist from the "home" waterfall (hardcoded!)
-      let waterfallX = 1120
-      let waterfallY = 1220
-      let maxHearableDist = 200
-      let maxVol = 0.25
-      let dist = Math.hypot(waterfallX-this.steve.collisionPoint.x, waterfallY-this.steve.collisionPoint.y)
-      let percent = 1 - dist/maxHearableDist
-      if (percent>1) percent = 1
-      if (percent<0) percent = 0
-      let vol = maxVol * percent
-      //console.log("waterfall distance: "+dist.toFixed(1)+" steve:"+Math.round(this.steve.collisionPoint.x)+","+Math.round(this.steve.collisionPoint.y))
-      this.audioManager.setMusicVolume(BackgroundWaterfall,vol)
+    updateWaterSoundVolume () {
+      const maxHearableDist = 200
+      const maxVol = 0.25
+
+      let waterFallXYs = this.mapManager.getWaterfallTilesXY()
+      waterFallXYs = waterFallXYs.filter(waterfall => this.imageManager.isOnScreen(waterfall.x, waterfall.y, TileWidth, TileHeight))
+
+      let dist = Number.MAX_SAFE_INTEGER
+      for (const waterfall of waterFallXYs) {
+        const newDist = Math.hypot(waterfall.x - this.steve.collisionPoint.x, waterfall.y - this.steve.collisionPoint.y)
+        if (newDist < dist) {
+          dist = newDist
+        }
+      }
+
+      if (dist < maxHearableDist) {
+        let percent = 1 - dist / maxHearableDist
+        if (percent > 1) percent = 1
+        if (percent < 0) percent = 0
+        const vol = maxVol * percent
+        this.audioManager.setMusicVolume(BackgroundWaterfall, vol)
+      } else {
+        this.audioManager.setMusicVolume(BackgroundWaterfall, 0)
+      }
 
       // check how close to the western ocean we are
       dist = Math.abs(500 - this.steve.collisionPoint.x) // for now, assume 500 is shoreline
-      percent = 1 - dist/maxHearableDist
+      let percent = 1 - dist/maxHearableDist
       if (percent>1) percent = 1
       if (percent<0) percent = 0
-      vol = maxVol * percent
+      const vol = maxVol * percent
       //console.log("ocean distance: "+dist.toFixed(1)+" steve:"+Math.round(this.steve.collisionPoint.x)+","+Math.round(this.steve.collisionPoint.y))
       this.audioManager.setMusicVolume(BackgroundSeashore,vol)
-      
     }
 
 
