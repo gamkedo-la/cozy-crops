@@ -295,14 +295,25 @@ export default class GameScene extends Scene {
         this.audioManager.setMusicVolume(BackgroundWaterfall, 0)
       }
 
-      // check how close to the western ocean we are
-      dist = Math.abs(500 - this.steve.collisionPoint.x) // for now, assume 500 is shoreline
-      let percent = 1 - dist/maxHearableDist
-      if (percent>1) percent = 1
-      if (percent<0) percent = 0
-      const vol = maxVol * percent
-      //console.log("ocean distance: "+dist.toFixed(1)+" steve:"+Math.round(this.steve.collisionPoint.x)+","+Math.round(this.steve.collisionPoint.y))
-      this.audioManager.setMusicVolume(BackgroundSeashore,vol)
+      let oceanXYs = this.mapManager.getNearShoreOceanTilesXY()
+      oceanXYs = oceanXYs.filter(ocean => this.imageManager.isOnScreen(ocean.x, ocean.y, TileWidth, TileHeight))
+      dist = Number.MAX_SAFE_INTEGER
+      for (const ocean of oceanXYs) {
+        const newDist = Math.hypot(ocean.x - this.steve.collisionPoint.x, ocean.y - this.steve.collisionPoint.y)
+        if (newDist < dist) {
+          dist = newDist
+        }
+      }
+
+      if (dist < maxHearableDist) {
+        let percent = 1 - dist / maxHearableDist
+        if (percent > 1) percent = 1
+        if (percent < 0) percent = 0
+        const vol = 2 * maxVol * percent  // a little louder than the waterfall
+        this.audioManager.setMusicVolume(BackgroundSeashore, vol)
+      } else {
+        this.audioManager.setMusicVolume(BackgroundSeashore, 0)
+      }
     }
 
 

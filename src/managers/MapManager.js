@@ -8,7 +8,7 @@ import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import { TileNames } from '../globals/Tiles.js'
-import { Sand, Waterfall, WetSand } from '../globals/TilesWorld.js'
+import { NearShoreOcean, Sand, Waterfall, WetSand } from '../globals/TilesWorld.js'
 
 export default class MapManager {
   constructor (config) {
@@ -32,6 +32,7 @@ export default class MapManager {
     }
 
     this.waterfallTileXYs = null
+    this.nearShoreOceanTileXYs = null
 
     this.museumCanvas = null
     this.museumCtx = null
@@ -274,6 +275,21 @@ export default class MapManager {
     }
 
     return this.waterfallTileXYs
+  }
+
+  getNearShoreOceanTilesXY () {
+    if (!this.nearShoreOceanTileXYs) {
+      this.nearShoreOceanTileXYs = []
+      this.mapData.forEach((row, y) => {
+        row.forEach((tileIndex, x) => {
+          if (tileIndex === NearShoreOcean) {
+            this.nearShoreOceanTileXYs.push({ x: x * TileWidth, y: y * TileHeight })
+          }
+        })
+      })
+    }
+
+    return this.nearShoreOceanTileXYs
   }
 
   getPlayerStart (playerType) {

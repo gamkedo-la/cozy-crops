@@ -20,6 +20,7 @@ export const fencefull = 160
 export const fenceleft = 161
 export const fenceright = 162
 export const fencevert = 163
+export const NearShoreOcean = 164
 
 export const WorldIndexes = {
   Empty,
@@ -43,7 +44,8 @@ export const WorldIndexes = {
   fencefull,
   fenceleft,
   fenceright,
-  fencevert
+  fencevert,
+  NearShoreOcean
 }
 
 export const WorldTileNames = {
@@ -69,6 +71,7 @@ export const WorldTileNames = {
   [fenceleft]: 'fenceleft',
   [fenceright]: 'fenceright',
   [fencevert]: 'fencevert',
+  [NearShoreOcean]: 'NearShoreOcean'
 }
 
 export const WorldUnwalkable = [
@@ -80,5 +83,6 @@ export const WorldUnwalkable = [
   fencefull,
   fenceleft,
   fenceright,
-  fencevert
+  fencevert,
+  NearShoreOcean
 ]
