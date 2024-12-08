@@ -64,6 +64,10 @@ export default class CalendarManager {
     return this.elapsedTime
   }
 
+  areShopsOpen () {
+    return this.elapsedTime >= Calendar.ShopOpeningTime && this.elapsedTime <= Calendar.ShopClosingTime
+  }
+
   update (deltaTime) {
     this.elapsedTime += deltaTime
     if (this.elapsedTime >= Calendar.LengthOfDay) {

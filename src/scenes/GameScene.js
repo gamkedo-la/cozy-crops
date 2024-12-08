@@ -424,24 +424,43 @@ export default class GameScene extends Scene {
   }
 
   openDoor (x, y) {
+    const shopsAreOpen = this.calendarManager.areShopsOpen()
     const openedDoor = this.mapManager.getTileAtPixelPos(x, y)
     switch (openedDoor) {
       case 12:
-        console.log('Open door to the Player\'s House')
         this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
         break
       case 103:
-        this.game.changeScene(Scenes.Museum, { player: this.steve })
+        if (shopsAreOpen) {
+          this.game.changeScene(Scenes.Museum, { player: this.steve })
+        } else {
+          // TODO: Display a message that the museum is closed
+          console.log('The museum is closed')
+        }
         break
       case 121:
-        console.log('Open door to the Store')
-        this.game.changeScene(Scenes.Store, { player: this.steve })
+        if (shopsAreOpen) {
+          this.game.changeScene(Scenes.Store, { player: this.steve })
+        } else {
+          // TODO: Display a message that the store is closed
+          console.log('The store is closed')
+        }
         break
       case 689:
+        if (shopsAreOpen) {
           this.game.changeScene(Scenes.Carpenter, { player: this.steve })
-          break
+        } else {
+          // TODO: Display a message that the carpenter shop is closed
+          console.log('The carpenter shop is closed')
+        }
+        break
       case 690:
-         this.game.changeScene(Scenes.Blacksmith, { player: this.steve })
+        if (shopsAreOpen) {
+          this.game.changeScene(Scenes.Blacksmith, { player: this.steve })
+        } else {
+          // TODO: Display a message that the blacksmith shop is closed
+          console.log('The blacksmith shop is closed')
+        }
         break
     }
   }
