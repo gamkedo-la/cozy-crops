@@ -50,13 +50,17 @@ export default class NPC {
     const npcColRow = this.scene.mapManager.getTileColRowAtPixelPos(this.collisionPoint.x, this.collisionPoint.y)
     if (playerColRow.col === npcColRow.col && Math.abs(playerColRow.row - npcColRow.row) <= 1) {
       if (!this.showingDialogue) {
-        this.showingDialogue = true
-        this.scene.showNPCDialogue(this.type, this.getDialogue(), this.hasMetPlayer)
+        this.showDialog()
       }
     } else {
       this.showingDialogue = false
       this.scene.hideNPCDialogue(this.type)
     }
+  }
+
+  showDialog () {
+    this.showingDialogue = true
+    this.scene.showNPCDialogue(this.type, this.getDialogue(), this.hasMetPlayer)
   }
 
   giveItem (item) {

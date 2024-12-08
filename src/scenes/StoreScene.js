@@ -4,11 +4,9 @@ import Keys from '../globals/Keys.js'
 import Shopkeep from '../entities/npcs/Shopkeep.js'
 import { StoreEntrance, StorePosition, StoreDialogPosition } from '../globals/StoreMap.js'
 import EntityTypes from '../globals/EntityTypes.js'
-// import Plaque from '../entities/museum/Plaque.js'
-// import Portrait from '../entities/museum/Portrait.js'
-// import Statue from '../entities/museum/Statue.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
+import { RegisterBottomLeft, RegisterBottomMiddle, RegisterBottomRight, RegisterTopLeft, RegisterTopMiddle, RegisterTopRight } from '../globals/TilesStore.js'
 
 
 export default class StoreScene extends Scene {
@@ -22,7 +20,7 @@ export default class StoreScene extends Scene {
     this.drawlist = []
     this.shouldShowUI = false
     this.textBackground = null
-
+    this.registerTiles = []
   }
 
   init (data) {
@@ -40,6 +38,8 @@ export default class StoreScene extends Scene {
     })
     this.shopkeep.init()
     this.drawlist.push(this.shopkeep)
+
+    this.registerTiles = [RegisterBottomLeft, RegisterBottomMiddle, RegisterBottomRight, RegisterTopLeft, RegisterTopMiddle, RegisterTopRight]
 
     this.storeCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
@@ -65,9 +65,17 @@ export default class StoreScene extends Scene {
     if (this.player) {
       this.player.update(deltaTime)
       this.shopkeep.checkCollision(this.player)
+      this.checkMapCollision(this.player)
     }
 
     manageInput(this)
+  }
+
+  checkMapCollision (entity) {
+    const tileIndex = this.mapManager.getTileAtPixelPos(entity.x + StorePosition.x, entity.y + StorePosition.y, this.mapManager.storeData)
+    if (tileIndex && this.registerTiles.includes(tileIndex)) {
+      this.shopkeep.showDialog()
+    }
   }
 
   draw (scene) {
