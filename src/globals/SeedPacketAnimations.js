@@ -5,7 +5,7 @@ export const Carrot = {
   Inventory: {
     name: 'CarrotSeedPacket',
     spritesheet: ShortCrops,
-    frames: [42],
+    frames: [24],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -18,7 +18,20 @@ export const Corn = {
   Inventory: {
     name: 'CornSeedPacket',
     spritesheet: TallCrops,
-    frames: [42],
+    frames: [30],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Eggplant = {
+  Inventory: {
+    name: 'EggplantSeedPacket',
+    spritesheet: TallCrops,
+    frames: [15],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -44,7 +57,98 @@ export const Onion = {
   Inventory: {
     name: 'OnionSeedPacket',
     spritesheet: ShortCrops,
-    frames: [21],
+    frames: [12],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Pepper = {
+  Inventory: {
+    name: 'PepperSeedPacket',
+    spritesheet: TallCrops,
+    frames: [0],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Potato = {
+  Inventory: {
+    name: 'PotatoSeedPacket',
+    spritesheet: ShortCrops,
+    frames: [72],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Pumpkin = {
+  Inventory: {
+    name: 'PumpkinSeedPacket',
+    spritesheet: ShortCrops,
+    frames: [60],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Radish = {
+  Inventory: {
+    name: 'RadishSeedPacket',
+    spritesheet: ShortCrops,
+    frames: [84],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Strawberry = {
+  Inventory: {
+    name: 'StrawberrySeedPacket',
+    spritesheet: TallCrops,
+    frames: [45],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Tomato = {
+  Inventory: {
+    name: 'TomatoSeedPacket',
+    spritesheet: ShortCrops,
+    frames: [36],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Watermelon = {
+  Inventory: {
+    name: 'WatermelonSeedPacket',
+    spritesheet: ShortCrops,
+    frames: [48],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
