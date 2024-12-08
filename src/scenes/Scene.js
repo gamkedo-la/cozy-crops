@@ -25,6 +25,7 @@ export default class Scene {
 
   playerIsWalkingNow (value) {
     this.playerIsWalking = value
+    if (value) this.uiScene.hideSignDialogue()
   }
 
   showNPCDialogue (npcType, dialogue, showGiveButton) {
@@ -47,6 +48,10 @@ export default class Scene {
 
   isGiftDialogueShowing () {
     return this.uiScene.giftDialogShowing
+  }
+
+  isSignDialogueShowing () {
+    return this.uiScene.signDialogShowing
   }
 
   draw () {

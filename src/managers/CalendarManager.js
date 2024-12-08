@@ -65,7 +65,13 @@ export default class CalendarManager {
   }
 
   areShopsOpen () {
-    return this.elapsedTime >= Calendar.ShopOpeningTime && this.elapsedTime <= Calendar.ShopClosingTime
+    if (this.elapsedTime < Calendar.ShopOpeningTime) {
+      return 'Too Early'
+    } else if (this.elapsedTime > Calendar.ShopClosingTime) {
+      return 'Too Late'
+    }
+
+    return 'Open'
   }
 
   update (deltaTime) {

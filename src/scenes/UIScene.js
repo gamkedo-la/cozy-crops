@@ -19,6 +19,7 @@ export default class UIScene extends Scene {
     this.dialogingNPC = null
     this.showGiveButton = false
     this.giftDialogShowing = false
+    this.signDialogShowing = false
 
     this.scoreboardRect = {
       left: this.game.canvas.width - (2 *  UISpriteData.Scoreboard.width) - 10,
@@ -105,6 +106,30 @@ export default class UIScene extends Scene {
   hideDialogue (npcType) {
     if (this.dialogingNPC === npcType) {
       this.shouldShowDialogue = false
+      this.dialogue = null
+      return true
+    }
+
+    return false
+  }
+
+  showSignDialogue (dialogue) {
+    if (!this.shouldShowDialogue) {
+      this.shouldShowDialogue = true
+      this.signDialogShowing = true
+      this.dialogue = dialogue
+      this.dialogingNPC = 'Sign'
+      this.showGiveButton = false
+      return true
+    }
+
+    return false
+  }
+
+  hideSignDialogue () {
+    if (this.signDialogShowing) {
+      this.shouldShowDialogue = false
+      this.signDialogShowing = false
       this.dialogue = null
       return true
     }

@@ -431,35 +431,39 @@ export default class GameScene extends Scene {
         this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
         break
       case 103:
-        if (shopsAreOpen) {
+        if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Museum, { player: this.steve })
+        } else if (shopsAreOpen === 'Too Early') {
+          this.uiScene.showSignDialogue('The Museum is not open yet.\nPlease come back soon.')
         } else {
-          // TODO: Display a message that the museum is closed
-          console.log('The museum is closed')
+          this.uiScene.showSignDialogue('The Museum is closed.\nPlease return in the morning.')
         }
         break
       case 121:
-        if (shopsAreOpen) {
+        if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Store, { player: this.steve })
+        } else if (shopsAreOpen === 'Too Early') {
+          this.uiScene.showSignDialogue('The General Store is not open yet.\nPlease come back soon.')
         } else {
-          // TODO: Display a message that the store is closed
-          console.log('The store is closed')
+          this.uiScene.showSignDialogue('The General Store is closed.\nPlease return in the morning.')
         }
         break
       case 689:
-        if (shopsAreOpen) {
+        if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Carpenter, { player: this.steve })
+        } else if (shopsAreOpen === 'Too Early') {
+          this.uiScene.showSignDialogue('I\'m still at home.\nPlease come back soon.')
         } else {
-          // TODO: Display a message that the carpenter shop is closed
-          console.log('The carpenter shop is closed')
+          this.uiScene.showSignDialogue('I\'ve gone home for supper.\nPlease return in the morning.')
         }
         break
       case 690:
-        if (shopsAreOpen) {
+        if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Blacksmith, { player: this.steve })
+        } else if (shopsAreOpen === 'Too Early') {
+          this.uiScene.showSignDialogue('I\'m enjoying my morning coffee at home.\nPlease come back soon.')
         } else {
-          // TODO: Display a message that the blacksmith shop is closed
-          console.log('The blacksmith shop is closed')
+          this.uiScene.showSignDialogue('I\'ve gone home for the night.\nPlease return in the morning.')
         }
         break
     }
