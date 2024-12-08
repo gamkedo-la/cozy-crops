@@ -4,7 +4,7 @@ export const Carrot = {
   Seedling: {
     name: 'CarrotSeedling',
     spritesheet: ShortCrops,
-    frames: [44],
+    frames: [26],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -14,7 +14,7 @@ export const Carrot = {
   YoungSprout: {
     name: 'CarrotYoungSprout',
     spritesheet: ShortCrops,
-    frames: [45],
+    frames: [27],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -24,7 +24,7 @@ export const Carrot = {
   Sprout: {
     name: 'CarrotSprout',
     spritesheet: ShortCrops,
-    frames: [46],
+    frames: [28],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -34,7 +34,7 @@ export const Carrot = {
   YoungPlantIdle: {
     name: 'CarrotYoungPlantIdle',
     spritesheet: ShortCrops,
-    frames: [47],
+    frames: [29],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -44,7 +44,7 @@ export const Carrot = {
   YoungPlantWind: {
     name: 'CarrotYoungPlantWind',
     spritesheet: ShortCrops,
-    frames: [47, 48, 49],
+    frames: [29, 30, 31],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -54,7 +54,7 @@ export const Carrot = {
   MaturePlantIdle: {
     name: 'CarrotMaturePlantIdle',
     spritesheet: ShortCrops,
-    frames: [50],
+    frames: [32],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -64,7 +64,7 @@ export const Carrot = {
   MaturePlantWind: {
     name: 'CarrotMaturePlantWind',
     spritesheet: ShortCrops,
-    frames: [50, 51, 52],
+    frames: [32, 33, 34],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -74,7 +74,17 @@ export const Carrot = {
   Dead: {
     name: 'CarrotDead',
     spritesheet: ShortCrops,
-    frames: [53],
+    frames: [35],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  Inventory: {
+    name: 'CarrotInventory',
+    spritesheet: ShortCrops,
+    frames: [25],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -87,7 +97,7 @@ export const Corn = {
   Seedling: {
     name: 'CornSeedling',
     spritesheet: TallCrops,
-    frames: [44],
+    frames: [32],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -97,7 +107,7 @@ export const Corn = {
   YoungSprout: {
     name: 'CornYoungSprout',
     spritesheet: TallCrops,
-    frames: [45],
+    frames: [33],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -107,7 +117,7 @@ export const Corn = {
   Sprout: {
     name: 'CornSprout',
     spritesheet: TallCrops,
-    frames: [46],
+    frames: [34],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -117,7 +127,7 @@ export const Corn = {
   YoungPlantIdle: {
     name: 'CornYoungPlantIdle',
     spritesheet: TallCrops,
-    frames: [47],
+    frames: [35],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -127,7 +137,7 @@ export const Corn = {
   YoungPlantWind: {
     name: 'CornYoungPlantWind',
     spritesheet: TallCrops,
-    frames: [47, 48, 49],
+    frames: [35, 36, 37],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -137,7 +147,7 @@ export const Corn = {
   MaturePlantIdle: {
     name: 'CornMaturePlantIdle',
     spritesheet: TallCrops,
-    frames: [50],
+    frames: [38],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -147,7 +157,7 @@ export const Corn = {
   MaturePlantWind: {
     name: 'CornMaturePlantWind',
     spritesheet: TallCrops,
-    frames: [50, 51, 52],
+    frames: [38, 39, 40],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -157,7 +167,7 @@ export const Corn = {
   Dead: {
     name: 'CornDead',
     spritesheet: TallCrops,
-    frames: [53],
+    frames: [41],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -167,7 +177,17 @@ export const Corn = {
   Harvested: {
     name: 'CornHarvested',
     spritesheet: TallCrops,
-    frames: [54],
+    frames: [42],
+    frameWidth: 16,
+    frameHeight: 32,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  Inventory: {
+    name: 'CornInventory',
+    spritesheet: TallCrops,
+    frames: [32],
     frameWidth: 16,
     frameHeight: 32,
     padding: 1,
@@ -256,6 +276,16 @@ export const Lettuce = {
     padding: 1,
     duration: 500,
     loop: true
+  },
+  Inventory: {
+    name: 'LettuceInventory',
+    spritesheet: ShortCrops,
+    frames: [1],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
   }
 }
 
@@ -263,7 +293,7 @@ export const Onion = {
   Seedling: {
     name: 'OnionSeedling',
     spritesheet: ShortCrops,
-    frames: [23],
+    frames: [14],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -273,7 +303,7 @@ export const Onion = {
   YoungSprout: {
     name: 'OnionYoungSprout',
     spritesheet: ShortCrops,
-    frames: [24],
+    frames: [15],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -283,7 +313,7 @@ export const Onion = {
   Sprout: {
     name: 'OnionSprout',
     spritesheet: ShortCrops,
-    frames: [25],
+    frames: [16],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -293,7 +323,7 @@ export const Onion = {
   YoungPlantIdle: {
     name: 'OnionYoungPlantIdle',
     spritesheet: ShortCrops,
-    frames: [26],
+    frames: [17],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -303,7 +333,7 @@ export const Onion = {
   YoungPlantWind: {
     name: 'OnionYoungPlantWind',
     spritesheet: ShortCrops,
-    frames: [26, 27, 28],
+    frames: [17, 18, 19],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -313,7 +343,7 @@ export const Onion = {
   MaturePlantIdle: {
     name: 'OnionMaturePlantIdle',
     spritesheet: ShortCrops,
-    frames: [29],
+    frames: [20],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -323,7 +353,7 @@ export const Onion = {
   MaturePlantWind: {
     name: 'OnionMaturePlantWind',
     spritesheet: ShortCrops,
-    frames: [29, 30, 31],
+    frames: [20, 21, 22],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,
@@ -333,7 +363,17 @@ export const Onion = {
   Dead: {
     name: 'OnionDead',
     spritesheet: ShortCrops,
-    frames: [32],
+    frames: [23],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 1,
+    duration: 500,
+    loop: true
+  },
+  Inventory: {
+    name: 'OnionInventory',
+    spritesheet: ShortCrops,
+    frames: [13],
     frameWidth: 16,
     frameHeight: 16,
     padding: 1,

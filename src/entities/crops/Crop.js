@@ -70,4 +70,9 @@ export default class Crop {
   draw (camera) {
     this.currentAnimation?.draw(this.x, this.y, camera)
   }
+
+  drawAsInventory (x, y, width, height) {
+    const frame = this.animations['Inventory'].getCurrentFrame()
+    this.game.ctx.drawImage(this.currentAnimation.spritesheet, frame.x, frame.y, frame.width, frame.height, x, y, width, height)
+  }
 }

@@ -170,8 +170,10 @@ function handleInput (player) {
         player.scene.waterGround(groundPoint.x, groundPoint.y)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
-        player.scene.harvestCrop(groundPoint.x, groundPoint.y)
-        deductConsumedStamina(player, player.activeTool.staminaConsumed)
+        const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y)
+        if (didHarvest) {
+          deductConsumedStamina(player, player.activeTool.staminaConsumed)
+        }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
         // Show "no tool selected" message

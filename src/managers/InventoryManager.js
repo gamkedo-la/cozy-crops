@@ -56,207 +56,211 @@ export default class InventoryManager {
 
   setInventory (inventory) {}
 
-  addItemToInventory (itemType, quantity = 1) {
+  addItemToInventory (itemToAdd, quantity = 1) {
     let item = null
 
-    switch (itemType) {
-      case EntityTypes.AxeCopper:
-      case EntityTypes.AxeSteel:
-      case EntityTypes.AxeTitanium:
-        item = new Axe({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.FishingRodBamboo:
-      case EntityTypes.FishingRodFiberglass:
-      case EntityTypes.FishingRodSteel:
-        item = new FishingRod({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.HoeCopper:
-      case EntityTypes.HoeSteel:
-      case EntityTypes.HoeWooden:
-        item = new Hoe({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.PickaxeCopper:
-      case EntityTypes.PickaxeSteel:
-      case EntityTypes.PickaxeTitanium:
-        item = new PickAxe({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.ShovelCopper:
-      case EntityTypes.ShovelSteel:
-      case EntityTypes.ShovelWooden:
-        item = new Shovel({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.WateringCanCopper:
-      case EntityTypes.WateringCanSteel:
-      case EntityTypes.WateringCanWooden:
-        item = new WateringCan({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.CarrotSeed:
-      case EntityTypes.CornSeed:
-      case EntityTypes.LettuceSeed:
-      case EntityTypes.OnionSeed:
-        item = new SeedPacket({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.Daffodil:
-        item = new Daffodil({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.Sunflower:
-        item = new Sunflower({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.Truffel:
-        item = new Truffel({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.Tulip:
-        item = new Tulip({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.WildGarlic:
-        item = new WildGarlic({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
-      case EntityTypes.WildRose:
-        item = new WildRose({
-          game: this.game,
-          imageManager: this.imageManager,
-          type: itemType,
-          x: 0,
-          y: 0,
-          width: this.itemWidth,
-          height: this.itemHeight,
-          quantity
-        })
-        item.init()
-        this.inventory.push(item)
-        break
+    if (this.entityManager.isCrop(itemToAdd)) {
+      this.inventory.push(itemToAdd)
+    } else {
+      switch (itemToAdd.type) {
+        case EntityTypes.AxeCopper:
+        case EntityTypes.AxeSteel:
+        case EntityTypes.AxeTitanium:
+          item = new Axe({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.FishingRodBamboo:
+        case EntityTypes.FishingRodFiberglass:
+        case EntityTypes.FishingRodSteel:
+          item = new FishingRod({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.HoeCopper:
+        case EntityTypes.HoeSteel:
+        case EntityTypes.HoeWooden:
+          item = new Hoe({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.PickaxeCopper:
+        case EntityTypes.PickaxeSteel:
+        case EntityTypes.PickaxeTitanium:
+          item = new PickAxe({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.ShovelCopper:
+        case EntityTypes.ShovelSteel:
+        case EntityTypes.ShovelWooden:
+          item = new Shovel({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.WateringCanCopper:
+        case EntityTypes.WateringCanSteel:
+        case EntityTypes.WateringCanWooden:
+          item = new WateringCan({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.CarrotSeed:
+        case EntityTypes.CornSeed:
+        case EntityTypes.LettuceSeed:
+        case EntityTypes.OnionSeed:
+          item = new SeedPacket({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.Daffodil:
+          item = new Daffodil({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.Sunflower:
+          item = new Sunflower({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.Truffel:
+          item = new Truffel({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.Tulip:
+          item = new Tulip({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.WildGarlic:
+          item = new WildGarlic({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+        case EntityTypes.WildRose:
+          item = new WildRose({
+            game: this.game,
+            imageManager: this.imageManager,
+            type: itemToAdd.type,
+            x: 0,
+            y: 0,
+            width: this.itemWidth,
+            height: this.itemHeight,
+            quantity
+          })
+          item.init()
+          this.inventory.push(item)
+          break
+      }
     }
 
     this.updateInventoryPlacement()
@@ -282,6 +286,11 @@ export default class InventoryManager {
   getForagables () {
     const inventory = this.getInventory()
     return inventory.filter(item => this.entityManager.isForageable(item))
+  }
+
+  getCrops () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isCrop(item))
   }
 
   getClickedItem (x, y) {
@@ -330,6 +339,15 @@ export default class InventoryManager {
       )
     })
 
+    this.getCrops().forEach((crop, index) => {
+      crop.drawAsInventory(
+        crop.x,
+        crop.y,
+        this.itemWidth,
+        this.itemHeight
+      )
+    })
+
     if (this.selectedItem) {
       this.selectedItemHighlight.draw(this.selectedItem.x, this.selectedItem.y)
     }
@@ -339,6 +357,6 @@ export default class InventoryManager {
 function buildInventory (inventoryManager) {
   const inventoryData = inventoryManager.gameManager.getInventory()
   for (const inventoryItem of inventoryData) {
-    inventoryManager.addItemToInventory(inventoryItem.type, inventoryItem.quantity)
+    inventoryManager.addItemToInventory(inventoryItem, inventoryItem.quantity)
   }
 }

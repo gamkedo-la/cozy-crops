@@ -83,9 +83,9 @@ export default class EntityManager {
     for (const entity of this.entities) {
       if (
         entity.collisionPoint.x >= x &&
-        entity.collisionPoint.x < x + TileWidth &&
+        entity.collisionPoint.x <= x + TileWidth &&
         entity.collisionPoint.y >= y &&
-        entity.collisionPoint.y < y + TileHeight
+        entity.collisionPoint.y <= y + TileHeight
       ) {
         entities.push(entity)
       }
@@ -269,7 +269,7 @@ export default class EntityManager {
     if (!entity) return false
 
     if (this.isForageable(entity)) return true
-    if (this.isCrop(entity) && entity.currentGrowthStage === 'MaturePlant') return true
+    if (this.isCrop(entity) && entity.growthStages[entity.currentGrowthStage] === 'MaturePlant') return true
     // Need to check for trees and if they have fruit, or if they've been chopped into wood
 
     return false

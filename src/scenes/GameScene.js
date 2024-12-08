@@ -451,9 +451,14 @@ export default class GameScene extends Scene {
   }
 
   plantSeed (seedType, x, y) {
-    // Find the center of the tile identified by x, y
-    const tileCenter = this.mapManager.getTileTopLeftAtPixelPos(x, y)
-    this.cropManager.plantCrop(seedType, tileCenter.x, tileCenter.y)
+    // Find the top left of the tile identified by x, y
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+    const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
+
+    // If there are no entities at the tile, plant the seed
+    if (entities.length === 0) {
+      this.cropManager.plantCrop(seedType, tileTopLeft.x, tileTopLeft.y)
+    }
   }
 
   waterGround (x, y) {
@@ -467,9 +472,12 @@ export default class GameScene extends Scene {
     for (const entity of entities) {
       if (this.entityManager.isHarvestable(entity)) {
         this.entityManager.removeEntity(entity)
-        this.inventoryManager.addItemToInventory(entity.type, 1)
+        this.inventoryManager.addItemToInventory(entity, 1)
+        return true
       }
     }
+
+    return false
   }
 
   reachedEndOfDay () {
