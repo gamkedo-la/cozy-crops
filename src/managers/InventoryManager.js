@@ -2,19 +2,45 @@ import { UISprites } from '../globals/Images.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import SelectedInventoryHighlight from '../uiElements/SelectedInventoryHighlight.js'
+// import Tools
 import Axe from '../entities/tools/Axe.js'
 import FishingRod from '../entities/tools/FishingRod.js'
 import Hoe from '../entities/tools/Hoe.js'
 import PickAxe from '../entities/tools/Pickaxe.js'
 import Shovel from '../entities/tools/Shovel.js'
 import WateringCan from '../entities/tools/WateringCan.js'
+// import Seeds
 import SeedPacket from '../entities/crops/SeedPacket.js'
+// import Forageables
 import Daffodil from '../entities/forageables/Daffodil.js'
 import Sunflower from '../entities/forageables/Sunflower.js'
 import Truffel from '../entities/forageables/Truffel.js'
 import Tulip from '../entities/forageables/Tulip.js'
 import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
+
+// import Crops
+// import Apple from '../entities/crops/Apple.js'
+import Carrot from '../entities/crops/Carrot.js'
+// import Cherry from '../entities/crops/Cherry.js'
+import Corn from '../entities/crops/Corn.js'
+// import Eggplant from '../entities/crops/Eggplant.js'
+// import Lemon from '../entities/crops/Lemon.js'
+import Lettuce from '../entities/crops/Lettuce.js'
+// import Lime from '../entities/crops/Lime.js'
+// import Maple from '../entities/crops/Maple.js'
+// import Oak from '../entities/crops/Oak.js'
+import Onion from '../entities/crops/Onion.js'
+// import Orange from '../entities/crops/Orange.js'
+// import Pepper from '../entities/crops/Pepper.js'
+// import Pine from '../entities/crops/Pine.js'
+// import Plum from '../entities/crops/Plum.js'
+// import Potato from '../entities/crops/Potato.js'
+// import Pumpkin from '../entities/crops/Pumpkin.js'
+// import Radish from '../entities/crops/Radish.js'
+// import Strawberry from '../entities/crops/Strawberry.js'
+// import Tomato from '../entities/crops/Tomato.js'
+// import Watermelon from '../entities/crops/Watermelon.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -57,213 +83,19 @@ export default class InventoryManager {
   setInventory (inventory) {}
 
   addItemToInventory (itemToAdd, quantity = 1) {
+    // TODO: We'll need to handle finding the item in the inventory and updating the quantity...
     let item = null
 
-    if (this.entityManager.isCrop(itemToAdd)) {
+    if (this.entityManager.isSeed(itemToAdd) ||
+        this.entityManager.isCrop(itemToAdd) ||
+        this.entityManager.isForageable(itemToAdd) ||
+        this.entityManager.isTool(itemToAdd)) {
       this.inventory.push(itemToAdd)
-    } else {
-      switch (itemToAdd.type) {
-        case EntityTypes.AxeCopper:
-        case EntityTypes.AxeSteel:
-        case EntityTypes.AxeTitanium:
-          item = new Axe({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.FishingRodBamboo:
-        case EntityTypes.FishingRodFiberglass:
-        case EntityTypes.FishingRodSteel:
-          item = new FishingRod({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.HoeCopper:
-        case EntityTypes.HoeSteel:
-        case EntityTypes.HoeWooden:
-          item = new Hoe({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.PickaxeCopper:
-        case EntityTypes.PickaxeSteel:
-        case EntityTypes.PickaxeTitanium:
-          item = new PickAxe({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.ShovelCopper:
-        case EntityTypes.ShovelSteel:
-        case EntityTypes.ShovelWooden:
-          item = new Shovel({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.WateringCanCopper:
-        case EntityTypes.WateringCanSteel:
-        case EntityTypes.WateringCanWooden:
-          item = new WateringCan({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.CarrotSeed:
-        case EntityTypes.CornSeed:
-        case EntityTypes.LettuceSeed:
-        case EntityTypes.OnionSeed:
-          item = new SeedPacket({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.Daffodil:
-          item = new Daffodil({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.Sunflower:
-          item = new Sunflower({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.Truffel:
-          item = new Truffel({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.Tulip:
-          item = new Tulip({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.WildGarlic:
-          item = new WildGarlic({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-        case EntityTypes.WildRose:
-          item = new WildRose({
-            game: this.game,
-            imageManager: this.imageManager,
-            type: itemToAdd.type,
-            x: 0,
-            y: 0,
-            width: this.itemWidth,
-            height: this.itemHeight,
-            quantity
-          })
-          item.init()
-          this.inventory.push(item)
-          break
-      }
+      item = itemToAdd
     }
 
     this.updateInventoryPlacement()
+    this.game.gameManager.addToInventory(itemToAdd.type, quantity)
   }
 
   updateInventoryPlacement () {
@@ -357,6 +189,211 @@ export default class InventoryManager {
 function buildInventory (inventoryManager) {
   const inventoryData = inventoryManager.gameManager.getInventory()
   for (const inventoryItem of inventoryData) {
-    inventoryManager.addItemToInventory(inventoryItem, inventoryItem.quantity)
+    initializeInventory(inventoryManager, inventoryItem, inventoryItem.quantity)
   }
+}
+
+function initializeInventory (manager, itemToAdd, quantity = 1) {
+  if (manager.entityManager.isSeed(itemToAdd)) {
+    initializeSeedPackets(manager, itemToAdd, quantity)
+  } else if (manager.entityManager.isTool(itemToAdd)) {
+    initializeTools(manager, itemToAdd, quantity)
+  } else if (manager.entityManager.isForageable(itemToAdd)) {
+    initializeForageables(manager, itemToAdd, quantity)
+  } else if (manager.entityManager.isCrop(itemToAdd)) {
+    initializeCrops(manager, itemToAdd, quantity)
+  }
+}
+
+function initializeSeedPackets (manager, itemToAdd, quantity = 1) {
+  let item  = null
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  if (manager.entityManager.isSeed(itemToAdd)) {
+    item = new SeedPacket(config)
+  }
+
+  item.init()
+  manager.inventory.push(item)
+}
+
+function initializeTools (manager, itemToAdd, quantity = 1) {
+  let item  = null
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  switch (itemToAdd.type) {
+    case EntityTypes.AxeCopper:
+    case EntityTypes.AxeSteel:
+    case EntityTypes.AxeTitanium:
+      item = new Axe(config)
+      break
+    case EntityTypes.FishingRodBamboo:
+    case EntityTypes.FishingRodFiberglass:
+    case EntityTypes.FishingRodSteel:
+      item = new FishingRod(config)
+      break
+    case EntityTypes.HoeCopper:
+    case EntityTypes.HoeSteel:
+    case EntityTypes.HoeWooden:
+      item = new Hoe(config)
+      break
+    case EntityTypes.PickaxeCopper:
+    case EntityTypes.PickaxeSteel:
+    case EntityTypes.PickaxeTitanium:
+      item = new PickAxe(config)
+      break
+    case EntityTypes.ShovelCopper:
+    case EntityTypes.ShovelSteel:
+    case EntityTypes.ShovelWooden:
+      item = new Shovel(config)
+      break
+    case EntityTypes.WateringCanCopper:
+    case EntityTypes.WateringCanSteel:
+    case EntityTypes.WateringCanWooden:
+      item = new WateringCan(config)
+      break
+  }
+
+  item.init()
+  manager.inventory.push(item)
+}
+
+function initializeForageables (manager, itemToAdd, quantity = 1) {
+  let item  = null
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  switch (itemToAdd.type) {
+    case EntityTypes.Daffodil:
+      item = new Daffodil(config)
+      break
+    case EntityTypes.Sunflower:
+      item = new Sunflower(config)
+      break
+    case EntityTypes.Truffel:
+      item = new Truffel(config)
+      break
+    case EntityTypes.Tulip:
+      item = new Tulip(config)
+      break
+    case EntityTypes.WildGarlic:
+      item = new WildGarlic(config)
+      break
+    case EntityTypes.WildRose:
+      item = new WildRose(config)
+      break
+  }
+
+  item.init()
+  manager.inventory.push(item)
+}
+
+function initializeCrops (manager, itemToAdd, quantity = 1) {
+  let item  = null
+
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  switch (itemToAdd.type) {
+    case EntityTypes.Apple:
+      item = new Apple(config)
+      break
+    case EntityTypes.Carrot:
+      item = new Carrot(config)
+      break
+    case EntityTypes.Cherry:
+      item = new Cherry(config)
+      break
+    case EntityTypes.Corn:
+      item = new Corn(config)
+      break
+    case EntityTypes.Eggplant:
+      item = new Eggplant(config)
+      break
+    case EntityTypes.Lemon:
+      item = new Lemon(config)
+      break
+    case EntityTypes.Lettuce:
+      item = new Lettuce(config)
+      break
+    case EntityTypes.Lime:
+      item = new Lime(config)
+      break
+    case EntityTypes.Maple:
+      item = new Maple(config)
+      break
+    case EntityTypes.Oak:
+      item = new Oak(config)
+      break
+    case EntityTypes.Onion:
+      item = new Onion(config)
+      break
+    case EntityTypes.Orange:
+      item = new Orange(config)
+      break
+    case EntityTypes.Pepper:
+      item = new Pepper(config)
+      break
+    case EntityTypes.Pine:
+      item = new Pine(config)
+      break
+    case EntityTypes.Plum:
+      item = new Plum(config)
+      break
+    case EntityTypes.Potato:
+      item = new Potato(config)
+      break
+    case EntityTypes.Pumpkin:
+      item = new Pumpkin(config)
+      break
+    case EntityTypes.Radish:
+      item = new Radish(config)
+      break
+    case EntityTypes.Strawberry:
+      item = new Strawberry(config)
+      break
+    case EntityTypes.Tomato:
+      item = new Tomato(config)
+      break
+    case EntityTypes.Watermelon:
+      item = new Watermelon(config)
+      break
+  }
+
+  item.init()
+  manager.inventory.push(item)
 }
