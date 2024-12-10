@@ -173,6 +173,7 @@ function handleInput (player) {
         const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y)
         if (didHarvest) {
           deductConsumedStamina(player, player.activeTool.staminaConsumed)
+          player.scene.particles?.harvest(groundPoint.x, groundPoint.y) 
         }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions

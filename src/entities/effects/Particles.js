@@ -16,7 +16,7 @@ export default class Particles {
     }
 
     // add a single particle to this system
-    add (x, y, life=1000, size=16, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94) {
+    add (x, y, life=1000, size=16, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94, gravity=0, red=255, green=255, blue=255) {
         let p = null
         for (let pnum = 0; pnum < this.pool.length; pnum++) {
             p = this.pool[pnum]
@@ -43,6 +43,10 @@ export default class Particles {
             p.velX = velX
             p.velY = velY
             p.drag = drag
+            p.gravity = gravity
+            p.red = red
+            p.green = green
+            p.blue = blue
         }
     }
 
@@ -153,6 +157,38 @@ export default class Particles {
 
     // a poof when a bunny lands
     landingPoof(x,y) {
+        let num = randomInt(3,6)
+        for (let i = 0; i < num; i++) {
+            let life = randomInt(1000,2000)
+            let size = 16
+            let rotspd = Math.random()*0.1-0.05
+            let ang = 0
+            let velx = Math.random()*2-1
+            let vely = Math.random()*-1
+            let alpha = 0.15
+            let drag = 0.9
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+        }
+    }
+
+    // dirt particles when you harvest a plant
+    harvest(x,y) {
+        let num = randomInt(3,6)
+        for (let i = 0; i < num; i++) {
+            let life = randomInt(1000,2000)
+            let size = 16
+            let rotspd = Math.random()*0.1-0.05
+            let ang = 0
+            let velx = Math.random()*2-1
+            let vely = Math.random()*-1
+            let alpha = 0.15
+            let drag = 0.9
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+        }
+    }
+
+    // water droplets when you water a terrain tile
+    waterGround(x,y) {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
