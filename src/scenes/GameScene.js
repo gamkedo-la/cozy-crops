@@ -270,52 +270,55 @@ export default class GameScene extends Scene {
     this.collisionManager.addEntity(this.tiffany)
   }
 
-    updateWaterSoundVolume () {
-      const maxHearableDist = 200
-      const maxVol = 0.25
+  spawnTrees () {
+    // Implement once Trees are created
+  }
 
-      let waterFallXYs = this.mapManager.getWaterfallTilesXY()
-      waterFallXYs = waterFallXYs.filter(waterfall => this.imageManager.isOnScreen(waterfall.x, waterfall.y, TileWidth, TileHeight))
+  updateWaterSoundVolume () {
+    const maxHearableDist = 200
+    const maxVol = 0.25
 
-      let dist = Number.MAX_SAFE_INTEGER
-      for (const waterfall of waterFallXYs) {
-        const newDist = Math.hypot(waterfall.x - this.steve.collisionPoint.x, waterfall.y - this.steve.collisionPoint.y)
-        if (newDist < dist) {
-          dist = newDist
-        }
-      }
+    let waterFallXYs = this.mapManager.getWaterfallTilesXY()
+    waterFallXYs = waterFallXYs.filter(waterfall => this.imageManager.isOnScreen(waterfall.x, waterfall.y, TileWidth, TileHeight))
 
-      if (dist < maxHearableDist) {
-        let percent = 1 - dist / maxHearableDist
-        if (percent > 1) percent = 1
-        if (percent < 0) percent = 0
-        const vol = maxVol * percent
-        this.audioManager.setMusicVolume(BackgroundWaterfall, vol)
-      } else {
-        this.audioManager.setMusicVolume(BackgroundWaterfall, 0)
-      }
-
-      let oceanXYs = this.mapManager.getNearShoreOceanTilesXY()
-      oceanXYs = oceanXYs.filter(ocean => this.imageManager.isOnScreen(ocean.x, ocean.y, TileWidth, TileHeight))
-      dist = Number.MAX_SAFE_INTEGER
-      for (const ocean of oceanXYs) {
-        const newDist = Math.hypot(ocean.x - this.steve.collisionPoint.x, ocean.y - this.steve.collisionPoint.y)
-        if (newDist < dist) {
-          dist = newDist
-        }
-      }
-
-      if (dist < maxHearableDist) {
-        let percent = 1 - dist / maxHearableDist
-        if (percent > 1) percent = 1
-        if (percent < 0) percent = 0
-        const vol = 2 * maxVol * percent  // a little louder than the waterfall
-        this.audioManager.setMusicVolume(BackgroundSeashore, vol)
-      } else {
-        this.audioManager.setMusicVolume(BackgroundSeashore, 0)
+    let dist = Number.MAX_SAFE_INTEGER
+    for (const waterfall of waterFallXYs) {
+      const newDist = Math.hypot(waterfall.x - this.steve.collisionPoint.x, waterfall.y - this.steve.collisionPoint.y)
+      if (newDist < dist) {
+        dist = newDist
       }
     }
 
+    if (dist < maxHearableDist) {
+      let percent = 1 - dist / maxHearableDist
+      if (percent > 1) percent = 1
+      if (percent < 0) percent = 0
+      const vol = maxVol * percent
+      this.audioManager.setMusicVolume(BackgroundWaterfall, vol)
+    } else {
+      this.audioManager.setMusicVolume(BackgroundWaterfall, 0)
+    }
+
+    let oceanXYs = this.mapManager.getNearShoreOceanTilesXY()
+    oceanXYs = oceanXYs.filter(ocean => this.imageManager.isOnScreen(ocean.x, ocean.y, TileWidth, TileHeight))
+    dist = Number.MAX_SAFE_INTEGER
+    for (const ocean of oceanXYs) {
+      const newDist = Math.hypot(ocean.x - this.steve.collisionPoint.x, ocean.y - this.steve.collisionPoint.y)
+      if (newDist < dist) {
+        dist = newDist
+      }
+    }
+
+    if (dist < maxHearableDist) {
+      let percent = 1 - dist / maxHearableDist
+      if (percent > 1) percent = 1
+      if (percent < 0) percent = 0
+      const vol = 2 * maxVol * percent  // a little louder than the waterfall
+      this.audioManager.setMusicVolume(BackgroundSeashore, vol)
+    } else {
+      this.audioManager.setMusicVolume(BackgroundSeashore, 0)
+    }
+  }
 
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
@@ -427,10 +430,10 @@ export default class GameScene extends Scene {
     const shopsAreOpen = this.calendarManager.areShopsOpen()
     const openedDoor = this.mapManager.getTileAtPixelPos(x, y)
     switch (openedDoor) {
-      case 12:
+      case Door:
         this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
         break
-      case 103:
+      case MuseumDoor:
         if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Museum, { player: this.steve })
         } else if (shopsAreOpen === 'Too Early') {
@@ -439,7 +442,7 @@ export default class GameScene extends Scene {
           this.uiScene.showSignDialogue('The Museum is closed.\nPlease return in the morning.')
         }
         break
-      case 121:
+      case StoreDoor:
         if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Store, { player: this.steve })
         } else if (shopsAreOpen === 'Too Early') {
@@ -448,7 +451,7 @@ export default class GameScene extends Scene {
           this.uiScene.showSignDialogue('The General Store is closed.\nPlease return in the morning.')
         }
         break
-      case 689:
+      case CarpenterDoor:
         if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Carpenter, { player: this.steve })
         } else if (shopsAreOpen === 'Too Early') {
@@ -457,7 +460,7 @@ export default class GameScene extends Scene {
           this.uiScene.showSignDialogue('I\'ve gone home for supper.\nPlease return in the morning.')
         }
         break
-      case 690:
+      case BlacksmithDoor:
         if (shopsAreOpen === 'Open') {
           this.game.changeScene(Scenes.Blacksmith, { player: this.steve })
         } else if (shopsAreOpen === 'Too Early') {

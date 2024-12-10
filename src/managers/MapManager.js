@@ -1,4 +1,4 @@
-import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts } from '../globals/Map.js'
+import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts, TreeStarts } from '../globals/Map.js'
 import MuseumMapData, { MuseumPosition } from '../globals/MuseumMap.js'
 import StoreMapData, { StorePosition } from '../globals/StoreMap.js'
 import HomeMapData, { HomePosition } from '../globals/PlayerHomeMap.js'
@@ -317,6 +317,10 @@ export default class MapManager {
       default:
         return { x: 10, y: 10 }
     }
+  }
+
+  getTreeStarts () {
+    return TreeStarts
   }
 
   drawMap (mapToDraw) {
