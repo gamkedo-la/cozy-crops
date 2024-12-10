@@ -2,7 +2,7 @@ import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { Player1Start, Player2Start } from '../globals/Map.js'
-import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound } from '../globals/Sounds.js'
+import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound } from '../globals/Sounds.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
