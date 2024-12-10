@@ -144,6 +144,8 @@ function buildSpritesheet (player) {
 }
 
 function maybePlayFootStepSounds(player) {
+    const STEP_VOL = 0.15
+    const STEP_DELAY = 0.4 // seconds between footsteps
     // are we currently walking?
     if (player.animation === player.animations.SteveWalkRight || 
         player.animation === player.animations.SteveWalkLeft ||
@@ -155,12 +157,12 @@ function maybePlayFootStepSounds(player) {
         if (!player.nextFootStepSoundTimestamp || player.nextFootStepSoundTimestamp < now) {
             // console.log("player made a footstep sound!")
             let rnd = Math.random()
-            if (rnd <= 0.25) player.scene.audioManager?.playSource(stepSound1,0.1)
-            else if (rnd <= 0.5) player.scene.audioManager?.playSource(stepSound2,0.1)
-            else if (rnd <= 0.75) player.scene.audioManager?.playSource(stepSound3,0.1)
-            else player.scene.audioManager?.playSource(stepSound4,0.1)
+            if (rnd <= 0.25) player.scene.audioManager?.playSource(stepSound1,STEP_VOL)
+            else if (rnd <= 0.5) player.scene.audioManager?.playSource(stepSound2,STEP_VOL)
+            else if (rnd <= 0.75) player.scene.audioManager?.playSource(stepSound3,STEP_VOL)
+            else player.scene.audioManager?.playSource(stepSound4,STEP_VOL)
             // wait for a while
-            player.nextFootStepSoundTimestamp = now + 0.4 // FIXME: make a nice constant like SECONDS_BETWEEN_FOOTSTEP_SOUNDS
+            player.nextFootStepSoundTimestamp = now + STEP_DELAY
         }
 
     } else {
@@ -176,6 +178,7 @@ function handleInput (player) {
 
   const downKeys = player.game.inputManager.getDownKeys(player.type)
   const playerJustDownKeys = player.game.inputManager.getJustDownKeys(player.type)
+  const SFX_VOL = 0.2 // how loud the sound effects made by the player are
 
   if (playerJustDownKeys.includes(player.controls.Action)) {
     if (player.scene.showingNPCDialogue) {
@@ -189,28 +192,28 @@ function handleInput (player) {
       const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y)
       if (mapActions.includes('Open Door')) {
         player.scene.openDoor(groundPoint.x, groundPoint.y)
-        player.scene.audioManager?.playSource(openDoorSound,0.1)
+        player.scene.audioManager?.playSource(openDoorSound,SFX_VOL)
       } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
         player.scene.tillGround(groundPoint.x, groundPoint.y)
         player.scene.particles?.tillGroundFX(groundPoint.x, groundPoint.y) 
-        player.scene.audioManager?.playSource(tillGroundSound,0.1)
+        player.scene.audioManager?.playSource(tillGroundSound,SFX_VOL)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
         player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
-        player.scene.audioManager?.playSource(plantSeedSound,0.1)
+        player.scene.audioManager?.playSource(plantSeedSound,SFX_VOL)
         player.scene.particles?.plantSeedFX(groundPoint.x, groundPoint.y) 
         deductConsumedStamina(player, 0.25) // magic number for planting a seed, could be a property of the seed type
       } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
         player.scene.waterGround(groundPoint.x, groundPoint.y)
         player.scene.particles?.waterGroundFX(groundPoint.x, groundPoint.y) 
-        player.scene.audioManager?.playSource(waterGroundSound,0.1)
+        player.scene.audioManager?.playSource(waterGroundSound,SFX_VOL)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
         const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y)
         if (didHarvest) {
           deductConsumedStamina(player, player.activeTool.staminaConsumed)
           player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
-          player.scene.audioManager?.playSource(harvestCropSound,0.1)
+          player.scene.audioManager?.playSource(harvestCropSound,SFX_VOL)
         }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
