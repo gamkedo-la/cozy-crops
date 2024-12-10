@@ -2,7 +2,7 @@ import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { Player1Start, Player2Start } from '../globals/Map.js'
-import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound } from '../globals/Sounds.js'
+import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound, stepSound1, stepSound2, stepSound3, stepSound4 } from '../globals/Sounds.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
@@ -143,6 +143,34 @@ function buildSpritesheet (player) {
   return spritesheet
 }
 
+function maybePlayFootStepSounds(player) {
+    // are we currently walking?
+    if (player.animation === player.animations.SteveWalkRight || 
+        player.animation === player.animations.SteveWalkLeft ||
+        player.animation === player.animations.SteveWalkUp ||
+        player.animation === player.animations.SteveWalkDown) {
+        // console.log("player is walking!")
+        let now = performance.now()
+        // occasionally play a random sound
+        if (!player.nextFootStepSoundTimestamp || player.nextFootStepSoundTimestamp < now) {
+            // console.log("player made a footstep sound!")
+            let rnd = Math.random()
+            if (rnd <= 0.25) player.scene.audioManager?.playSource(stepSound1,0.1)
+            else if (rnd <= 0.5) player.scene.audioManager?.playSource(stepSound2,0.1)
+            else if (rnd <= 0.75) player.scene.audioManager?.playSource(stepSound3,0.1)
+            else player.scene.audioManager?.playSource(stepSound4,0.1)
+            // wait for a while
+            player.nextFootStepSoundTimestamp = now + 0.4 // FIXME: make a nice constant like SECONDS_BETWEEN_FOOTSTEP_SOUNDS
+        }
+
+    } else {
+        // currently not moving - play no sound
+        // once we start moving let the sound play immediately
+        // console.log("player is idle! no footsteps needed.")
+        player.nextFootStepSoundTimestamp = 0
+    }
+}
+
 function handleInput (player) {
   if (player.scene.isGiftDialogueShowing()) return // Don't allow player to move while gift dialog is showing
 
@@ -236,6 +264,8 @@ function handleInput (player) {
       player.animation = player.animations.SteveIdleRight
     }
   }
+
+  maybePlayFootStepSounds(player)
 
   //cheat for Max Stamina
   const justDownKeys = player.game.inputManager.getJustDownKeys()
