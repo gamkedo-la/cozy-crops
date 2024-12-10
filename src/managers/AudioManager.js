@@ -74,14 +74,14 @@ export default class AudioManager {
     this.getSoundWithSrc(src).volume = 1
   }
 
-  // useful when audio should continue across scenes (probably just the background music)
-  play (sound) {
+  play (sound,volume) {
+    if (volume!=undefined) sound.volume=volume
     sound.play()
   }
 
   // useful when audio should continue across scenes (probably just the background music)
-  playSource (src) {
-    this.play(this.getSoundWithSrc(src))
+  playSource (src,volume) {
+    this.play(this.getSoundWithSrc(src),volume)
   }
 
   // useful when audio should continue across scenes (probably just the background music)

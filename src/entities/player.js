@@ -2,6 +2,7 @@ import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { Player1Start, Player2Start } from '../globals/Map.js'
+import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound } from '../globals/Sounds.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
@@ -160,23 +161,28 @@ function handleInput (player) {
       const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y)
       if (mapActions.includes('Open Door')) {
         player.scene.openDoor(groundPoint.x, groundPoint.y)
+        player.scene.audioManager?.playSource(openDoorSound,0.1)
       } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
         player.scene.tillGround(groundPoint.x, groundPoint.y)
         player.scene.particles?.tillGroundFX(groundPoint.x, groundPoint.y) 
+        player.scene.audioManager?.playSource(tillGroundSound,0.1)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
         player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
+        player.scene.audioManager?.playSource(plantSeedSound,0.1)
         player.scene.particles?.plantSeedFX(groundPoint.x, groundPoint.y) 
         deductConsumedStamina(player, 0.25) // magic number for planting a seed, could be a property of the seed type
       } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
         player.scene.waterGround(groundPoint.x, groundPoint.y)
         player.scene.particles?.waterGroundFX(groundPoint.x, groundPoint.y) 
+        player.scene.audioManager?.playSource(waterGroundSound,0.1)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
         const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y)
         if (didHarvest) {
           deductConsumedStamina(player, player.activeTool.staminaConsumed)
           player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
+          player.scene.audioManager?.playSource(harvestCropSound,0.1)
         }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
