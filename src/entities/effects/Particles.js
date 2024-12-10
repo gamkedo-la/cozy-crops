@@ -172,7 +172,39 @@ export default class Particles {
     }
 
     // dirt particles when you harvest a plant
-    harvest(x,y) {
+    harvestCropFX(x,y) {
+        let num = randomInt(3,6)
+        for (let i = 0; i < num; i++) {
+            let life = randomInt(1000,2000)
+            let size = 16
+            let rotspd = Math.random()*0.1-0.05
+            let ang = 0
+            let velx = Math.random()*2-1
+            let vely = Math.random()*-1
+            let alpha = 0.15
+            let drag = 0.9
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+        }
+    }
+
+    // a little dust when you plant a seed
+    plantSeedFX(x,y) {
+        let num = randomInt(3,6)
+        for (let i = 0; i < num; i++) {
+            let life = randomInt(1000,2000)
+            let size = 16
+            let rotspd = Math.random()*0.1-0.05
+            let ang = 0
+            let velx = Math.random()*2-1
+            let vely = Math.random()*-1
+            let alpha = 0.15
+            let drag = 0.9
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+        }
+    }
+    
+    // dirt particles when you plow mud
+    tillGroundFX(x,y) {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
@@ -188,7 +220,7 @@ export default class Particles {
     }
 
     // water droplets when you water a terrain tile
-    waterGround(x,y) {
+    waterGroundFX(x,y) {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)

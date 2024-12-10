@@ -162,18 +162,21 @@ function handleInput (player) {
         player.scene.openDoor(groundPoint.x, groundPoint.y)
       } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
         player.scene.tillGround(groundPoint.x, groundPoint.y)
+        player.scene.particles?.tillGroundFX(groundPoint.x, groundPoint.y) 
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Plant') && player.scene.entityManager.isSeed(player.activeTool)) {
         player.scene.plantSeed(player.activeTool.type, groundPoint.x, groundPoint.y)
+        player.scene.particles?.plantSeedFX(groundPoint.x, groundPoint.y) 
         deductConsumedStamina(player, 0.25) // magic number for planting a seed, could be a property of the seed type
       } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
         player.scene.waterGround(groundPoint.x, groundPoint.y)
+        player.scene.particles?.waterGroundFX(groundPoint.x, groundPoint.y) 
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
         const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y)
         if (didHarvest) {
           deductConsumedStamina(player, player.activeTool.staminaConsumed)
-          player.scene.particles?.harvest(groundPoint.x, groundPoint.y) 
+          player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
         }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
