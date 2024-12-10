@@ -10,6 +10,10 @@ const Sounds = {
   openDoorSound: '../../sounds/openDoor.mp3',
   harvestCropSound: '../../sounds/harvestCrop.mp3',
   plantSeedSound: '../../sounds/plantSeed.mp3',
+  stepSound1: '../../sounds/footStep1.wav',
+  stepSound2: '../../sounds/footStep2.wav',
+  stepSound3: '../../sounds/footStep3.wav',
+  stepSound4: '../../sounds/footStep4.wav',
 }
 
 export default Sounds
@@ -25,4 +29,8 @@ export const {
   openDoorSound,
   harvestCropSound,
   plantSeedSound,
-} =  Sounds
+  stepSound1,
+  stepSound2,
+  stepSound3,
+  stepSound4,    
+ } =  Sounds
