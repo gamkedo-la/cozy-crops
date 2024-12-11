@@ -159,13 +159,13 @@ export default class Particles {
 
     // a single little puff particle
     dust(x,y) {
-        let num = randomInt(1,2)
+        let num = randomInt(0,1)
         for (let i = 0; i < num; i++) {
-            let life = 1000
+            let life = randomInt(500,1000)
             let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
-            let velx = Math.random()*4-2
+            let velx = Math.random()*2-1
             let vely = Math.random()*1-0.5
             let alpha = 0.04
             let drag = 0.94
