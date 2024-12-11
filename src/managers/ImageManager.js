@@ -182,4 +182,41 @@ export default class ImageManager {
       throw error
     }
   }
-}
+
+// multiply each pixel and return a new sprite
+tintImage(image,tintR=1,tintG=1,tintB=1,tintA=1) {
+    try {
+      // Create a temporary canvas
+      const tempCanvas = document.createElement('canvas')
+      const tempCtx = tempCanvas.getContext('2d')
+      tempCanvas.width = image.width
+      tempCanvas.height = image.height
+
+      // Draw the image onto the temporary canvas
+      tempCtx.drawImage(image, 0, 0)
+
+      // Get the image data
+      const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height)
+      const data = imageData.data
+
+      // Loop through the image data
+      for (let i = 0; i < data.length; i += 4) {
+          data[i + 0] *= tintR
+          data[i + 1] *= tintG
+          data[i + 2] *= tintB
+          data[i + 3] *= tintA
+      }
+
+      // Put the modified image data back onto the canvas
+      tempCtx.putImageData(imageData, 0, 0)
+
+      return tempCanvas
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
+} // end Imagemanager class
+
+

@@ -275,7 +275,7 @@ function handleInput (player) {
   if (CheatKeys) {
     if(justDownKeys.includes(K)) {
       setMaxStamina(player)
-      console.log(player.stamina)
+      console.log("player stamina: "+player.stamina)
     }
   
     if(justDownKeys.includes(M)) {

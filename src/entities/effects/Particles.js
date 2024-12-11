@@ -8,6 +8,13 @@ export default class Particles {
         Object.assign(this, config)
         this.age = 0
         this.img = this.imageManager.getImageWithSrc(ParticleSprite)
+        
+        // the above image split into 3 separate channels once
+        // so we don't need temp canvases to tint
+        this.imgR = this.imageManager.tintImage(this.img,1,0,0,1)
+        this.imgG = this.imageManager.tintImage(this.img,0,1,0,1)
+        this.imgB = this.imageManager.tintImage(this.img,0,0,1,1)
+
         this.sprW = 16
         this.sprH = 16
         this.drag = 0.94
@@ -16,7 +23,7 @@ export default class Particles {
     }
 
     // add a single particle to this system
-    add (x, y, life=1000, size=16, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94, gravity=0, red=255, green=255, blue=255) {
+    add (x, y, life=1000, size=16, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94, gravity=0, red=1, green=1, blue=1) {
         let p = null
         for (let pnum = 0; pnum < this.pool.length; pnum++) {
             p = this.pool[pnum]
@@ -82,7 +89,18 @@ export default class Particles {
             // rotation unsupported by engine?
             // this.imageManager.internalCtx.rotate(p.angle); // cannot rotate before translation
             
-            this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha) // alpha has no effect here, it is set above
+            // works: the entire rgba sprite - not tintable
+            // this.imageManager.draw(p.sprite, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha) // alpha has no effect here, it is set above
+
+            // each color is drawn additively - new temp canvas required for sprite tinting this way
+            this.imageManager.internalCtx.globalCompositeOperation = "lighter" // additive
+            this.imageManager.internalCtx.globalAlpha = p.alpha * p.red
+            this.imageManager.draw(this.imgR, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            this.imageManager.internalCtx.globalAlpha = p.alpha * p.green
+            this.imageManager.draw(this.imgG, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            this.imageManager.internalCtx.globalAlpha = p.alpha * p.blue
+            this.imageManager.draw(this.imgB, p.x - p.size / 2, p.y - p.size / 2, p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            this.imageManager.internalCtx.globalCompositeOperation = "source-over" // reset to normal blending
 
             // faster gpu tinting without having to set each pixel one at a time in a loop
             // hmmm - is this actually faster?? it slows down the game a lot!!! I was wrong
@@ -167,7 +185,11 @@ export default class Particles {
             let vely = Math.random()*-1
             let alpha = 0.15
             let drag = 0.9
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
+            let gravity = 0
+            let r = 1
+            let g = 0.8
+            let b = 0.6
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)
         }
     }
 
@@ -183,8 +205,11 @@ export default class Particles {
             let vely = Math.random()*-1
             let alpha = 0.15
             let drag = 0.9
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
-        }
+            let gravity = -2
+            let r = 0.2
+            let g = 1
+            let b = 0.3
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
     }
 
     // a little dust when you plant a seed
@@ -199,8 +224,11 @@ export default class Particles {
             let vely = Math.random()*-1
             let alpha = 0.15
             let drag = 0.9
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
-        }
+            let gravity = 1
+            let r = 0
+            let g = 1
+            let b = 0
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
     }
     
     // dirt particles when you plow mud
@@ -213,10 +241,13 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.15
+            let alpha = 0.25
             let drag = 0.9
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
-        }
+            let gravity = 0
+            let r = 1
+            let g = 0.6
+            let b = 0.1
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
     }
 
     // water droplets when you water a terrain tile
@@ -229,10 +260,13 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.15
+            let alpha = 0.5
             let drag = 0.9
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
-        }
+            let gravity = 2
+            let r = 0
+            let g = 0.2
+            let b = 1
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
     }
 
 } // end of Particles class
