@@ -15,15 +15,15 @@ export default class Particles {
         this.imgG = this.imageManager.tintImage(this.img,0,1,0,1)
         this.imgB = this.imageManager.tintImage(this.img,0,0,1,1)
 
-        this.sprW = 16
-        this.sprH = 16
+        this.sprW = 8
+        this.sprH = 8
         this.drag = 0.94
         this.gravity = -0.01
         this.pool = []
     }
 
     // add a single particle to this system
-    add (x, y, life=1000, size=16, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94, gravity=0, red=1, green=1, blue=1) {
+    add (x, y, life=1000, size=8, rotSpd=0, angle=0, velX=0, velY=0, alpha=1, drag=0.94, gravity=0, red=1, green=1, blue=1) {
         let p = null
         for (let pnum = 0; pnum < this.pool.length; pnum++) {
             p = this.pool[pnum]
@@ -145,7 +145,7 @@ export default class Particles {
         let num = randomInt(2,4)
         for (let i = 0; i < num; i++) {
             let life = randomInt(100, 200)
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
             let velx = Math.random()*3-1.5
@@ -162,7 +162,7 @@ export default class Particles {
         let num = randomInt(1,2)
         for (let i = 0; i < num; i++) {
             let life = 1000
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*4-2
@@ -178,7 +178,7 @@ export default class Particles {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*2-1
@@ -198,7 +198,7 @@ export default class Particles {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*2-1
@@ -217,7 +217,7 @@ export default class Particles {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*2-1
@@ -236,7 +236,7 @@ export default class Particles {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*2-1
@@ -255,7 +255,7 @@ export default class Particles {
         let num = randomInt(3,6)
         for (let i = 0; i < num; i++) {
             let life = randomInt(1000,2000)
-            let size = 16
+            let size = 8
             let rotspd = Math.random()*0.1-0.05
             let ang = 0
             let velx = Math.random()*2-1
