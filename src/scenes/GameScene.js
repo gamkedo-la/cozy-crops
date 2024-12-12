@@ -91,7 +91,7 @@ export default class GameScene extends Scene {
     this.mapManager.collisionManager = this.collisionManager
 
     this.spawnNPCs()
-
+    this.spawnTrees()
 
     this.particles = new Particles({
         game: this.game,
@@ -136,7 +136,7 @@ export default class GameScene extends Scene {
 
   }
 
-  spawnButterflies(howmany) {
+  spawnButterflies (howmany) {
     for (let i = 0; i < howmany; i++) {
       const butterflyPos = this.mapManager.getRandomTilePos(false)
 
@@ -153,7 +153,7 @@ export default class GameScene extends Scene {
     }
   }
 
-  spawnBunnies(howmany) {
+  spawnBunnies (howmany) {
     let bunnyPos;
     for (let i = 0; i < howmany; i++) {
       bunnyPos = this.mapManager.getRandomTilePos(true) // must be walkable
@@ -171,7 +171,7 @@ export default class GameScene extends Scene {
     }
   }
 
-  spawnForageableItems(howmany) {
+  spawnForageableItems (howmany) {
     // Implement once ForageableItems are created
     for (let i = 0; i < howmany; i++) {
       const itemPos = this.mapManager.getRandomTilePos()
@@ -212,7 +212,7 @@ export default class GameScene extends Scene {
     }
   }
 
-  spawnNPCs() {
+  spawnNPCs () {
     const fishermanStartPos = this.mapManager.getNPCStart(EntityTypes.Fisherman)
     const fishermanData = this.gameManager.getNPCData(EntityTypes.Fisherman)
     this.fisherman = new Fisherman({
@@ -272,27 +272,7 @@ export default class GameScene extends Scene {
 
   spawnTrees () {
     // Implement once Trees are created
-    const treeConfig = {
-      game: this.game,
-      scene: this,
-      imageManager: this.imageManager,
-      x: 0,
-      y: 0
-    }
-
-    const treeStarts = this.mapManager.getTreeStarts()
-    for (const treeStart of treeStarts) {
-      treeConfig.x = treeStart.x
-      treeConfig.y = treeStart.y
-      let tree = null
-      switch (treeStart.type) {
-        case EntityTypes.AppleTree:
-          tree = new AppleTree(treeConfig)
-          break
-      }
-      tree.init()
-      this.entityManager.addEntity(tree, true)
-    }
+    this.cropManager.initializeTrees(this.mapManager.getTreeStarts())
   }
 
   updateWaterSoundVolume () {

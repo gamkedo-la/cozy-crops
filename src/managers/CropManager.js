@@ -28,6 +28,16 @@ export default class CropManager {
 
     this.crops = []
     this.wateredCrops = []
+
+    this.trees = []
+  }
+
+  initializeTrees (treeStarts) {
+
+
+    for (const treeStart of treeStarts) {
+
+    }
   }
 
   plantCrop (cropType, x, y) {
@@ -40,64 +50,79 @@ export default class CropManager {
       x,
       y
     }
+
     switch (cropType) {
       case EntityTypes.CarrotSeed:
         newCrop = new Carrot(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.CornSeed:
         newCrop = new Corn(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.EggplantSeed:
         newCrop = new Eggplant(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.LettuceSeed:
         newCrop = new Lettuce(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.OnionSeed:
         newCrop = new Onion(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.PepperSeed:
         newCrop = new Pepper(cropConfig)
-        this.crops.push(newCrop)
         break
       // case EntityTypes.PotatoSeed:
       //   newCrop = new Potato(cropConfig)
-      //   this.crops.push(newCrop)
       //   break
       // case EntityTypes.PumpkinSeed:
       //   newCrop = new Pumpkin(cropConfig)
-      //   this.crops.push(newCrop)
       //   break
       case EntityTypes.RadishSeed:
         newCrop = new Radish(cropConfig)
-        this.crops.push(newCrop)
         break
       // case EntityTypes.StrawberrySeed:
       //   newCrop = new Strawberry(cropConfig)
-      //   this.crops.push(newCrop)
       //   break
       case EntityTypes.TomatoSeed:
         newCrop = new Tomato(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.WatermelonSeed:
         newCrop = new Watermelon(cropConfig)
-        this.crops.push(newCrop)
         break
       case EntityTypes.AppleTreeSeed:
         newCrop = new AppleTree(cropConfig)
-        this.crops.push(newCrop)
         break
     }
 
     if (newCrop) {
+      this.crops.push(newCrop)
       newCrop.init()
       this.entityManager.addEntity(newCrop)
+    }
+  }
+
+  plantTree (treeType, x, y) {
+    let tree = null
+    const treeConfig = {
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.imageManager,
+      manager: this
+    }
+
+    switch (treeStart.type) {
+      case EntityTypes.AppleTree:
+        tree = new AppleTree({
+          ...treeConfig,
+          x: treeStart.x,
+          y: treeStart.y
+        })
+        break
+    }
+
+    if (tree) {
+      this.trees.push(tree)
+      tree.init()
+      this.entityManager.addEntity(tree)  
     }
   }
 
