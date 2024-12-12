@@ -272,6 +272,27 @@ export default class GameScene extends Scene {
 
   spawnTrees () {
     // Implement once Trees are created
+    const treeConfig = {
+      game: this.game,
+      scene: this,
+      imageManager: this.imageManager,
+      x: 0,
+      y: 0
+    }
+
+    const treeStarts = this.mapManager.getTreeStarts()
+    for (const treeStart of treeStarts) {
+      treeConfig.x = treeStart.x
+      treeConfig.y = treeStart.y
+      let tree = null
+      switch (treeStart.type) {
+        case EntityTypes.AppleTree:
+          tree = new AppleTree(treeConfig)
+          break
+      }
+      tree.init()
+      this.entityManager.addEntity(tree, true)
+    }
   }
 
   updateWaterSoundVolume () {
