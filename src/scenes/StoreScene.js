@@ -124,15 +124,15 @@ export default class StoreScene extends Scene {
 }
 
 function manageInput (scene) {
-  const downKeys = scene.inputManager.getDownKeys()
+  // const downKeys = scene.inputManager.getDownKeys()
 
-  if (downKeys.includes(Keys.ESCAPE)) {
-    // Go back to the game scene
-    scene.player.x = scene.playerWorldPosition.x
-    scene.player.y = scene.playerWorldPosition.y
-    scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
-    scene.game.changeScene(Scenes.Game)
-  }
+  // if (downKeys.includes(Keys.ESCAPE)) {
+  //   // Go back to the game scene
+  //   scene.player.x = scene.playerWorldPosition.x
+  //   scene.player.y = scene.playerWorldPosition.y
+  //   scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
+  //   scene.game.changeScene(Scenes.Game)
+  // }
 }
 
 function returnToWorld (scene) {

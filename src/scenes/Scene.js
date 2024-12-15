@@ -46,8 +46,8 @@ export default class Scene {
     this.uiScene.hideGiftDialogue()
   }
 
-  isGiftDialogueShowing () {
-    return this.uiScene.giftDialogShowing
+  isMenuDialogueShowing () {
+    return this.uiScene.giftDialogShowing || this.uiScene.buyDialogShowing || this.uiScene.sellDialogShowing
   }
 
   isSignDialogueShowing () {

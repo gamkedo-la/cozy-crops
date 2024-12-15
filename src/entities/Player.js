@@ -174,7 +174,7 @@ function maybePlayFootStepSounds(player) {
 }
 
 function handleInput (player) {
-  if (player.scene.isGiftDialogueShowing()) return // Don't allow player to move while gift dialog is showing
+  if (player.scene.isMenuDialogueShowing()) return // Don't allow player to move while gift dialog is showing
 
   const downKeys = player.game.inputManager.getDownKeys(player.type)
   const playerJustDownKeys = player.game.inputManager.getJustDownKeys(player.type)

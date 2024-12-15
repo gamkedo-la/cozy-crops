@@ -9,6 +9,7 @@ import UISpriteData from '../globals/UISpriteData.js'
 import { FamilyNames } from '../globals/Fonts.js'
 import GiftManager from '../managers/GiftManager.js'
 import GiftButton from '../uiElements/GiftButton.js'
+import BuyManager from '../managers/BuyManager.js'
 import BuyButton from '../uiElements/BuyButton.js'
 import SellButton from '../uiElements/SellButton.js'
 
@@ -61,6 +62,8 @@ export default class UIScene extends Scene {
       container: this.dialogRect
     })
 
+    this.buyManager = null
+
     this.sellButton = new SellButton({
       scene: this,
       x: this.dialogRect.left + this.dialogRect.width - 2 * UISpriteData.GiftButton.width - 20,
@@ -80,6 +83,14 @@ export default class UIScene extends Scene {
       dialogRect: this.dialogRect
     })
     this.giftManager.init()
+
+    this.buyManager = new BuyManager({
+      scene: this,
+      game: this.game,
+      imageManager: this.imageManager,
+      dialogRect: this.dialogRect
+    })
+    this.buyManager.init()
   }
 
   update (deltaTime) {
@@ -88,6 +99,8 @@ export default class UIScene extends Scene {
     const mousePos = this.game.inputManager.getMousePosition()
     if (this.giftDialogShowing) {
       this.giftManager.update(deltaTime, mousePos)
+    } else if (this.buyDialogShowing) {
+      this.buyManager.update(deltaTime, mousePos)
     } else {
       if (mousePos.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
     }
@@ -109,7 +122,11 @@ export default class UIScene extends Scene {
     if (this.shouldShowDialogue) {
       if (this.giftDialogShowing) {
         this.giftManager.draw()
-      } else{
+      } else if (this.buyDialogShowing) {
+        this.buyManager.draw()
+      } else if (this.sellDialogShowing) {
+        // this.sellButton.draw()
+      } else {
         drawDialogue(this, this.dialogRect)
       }
     }
@@ -191,6 +208,14 @@ export default class UIScene extends Scene {
   hideSellDialogue () {
     console.log('Hide sell dialogue')
     this.sellDialogShowing = false
+  }
+
+  hideShowingDialogue () {
+    this.hideDialogue(this.dialogingNPC)
+    this.hideGiftDialogue()
+    this.hideBuyDialogue()
+    this.hideSellDialogue()
+    this.hideSignDialogue()
   }
 
   stop () {

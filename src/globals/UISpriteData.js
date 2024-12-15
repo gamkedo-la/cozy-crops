@@ -20,6 +20,13 @@ const UISpriteData = {
     height: 25,
     padding: 1
   },
+  CancelButtonSmall: {
+    x: 83,
+    y: 223,
+    width: 42,
+    height: 20,
+    padding: 1
+  },
   ConfirmButton: {
     x: 112,
     y: 20,
