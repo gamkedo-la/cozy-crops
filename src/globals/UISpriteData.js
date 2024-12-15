@@ -6,6 +6,13 @@ const UISpriteData = {
     height: 25,
     padding: 1
   },
+  BuyButton: {
+    x: 262,
+    y: 95,
+    width: 37,
+    height: 20,
+    padding: 1
+  },
   CancelButton: {
     x: 0,
     y: 20,
@@ -56,17 +63,17 @@ const UISpriteData = {
     padding: 1
   },
   EnterButton: {
-    x: 168,
-    y: 120,
-    width: 56,
-    height: 25,
+    x: 262,
+    y: 115,
+    width: 37,
+    height: 20,
     padding: 1
   },
   GiftButton: {
     x: 262,
-    y: 90,
+    y: 70,
     width: 37,
-    height: 25,
+    height: 20,
     padding: 1
   },
   InventoryIcons: {
@@ -207,6 +214,13 @@ const UISpriteData = {
     y: 95,
     width: 24,
     height: 13,
+    padding: 1
+  },
+  SellButton: {
+    x: 262,
+    y: 135,
+    width: 37,
+    height: 20,
     padding: 1
   },
   Stamina: {

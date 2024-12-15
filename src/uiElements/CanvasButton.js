@@ -1,12 +1,14 @@
 import { UISprites } from '../globals/Images.js'
 
-export default class GiftButton {
+export default class CanvasButton {
   constructor (config) {
     Object.assign(this, config)
 
     this.rect = {
-      top: this.container.top + this.container.height - 2 * this.height - 20,
-      left: this.container.left + this.container.width - 2 * this.width - 20,
+      // top: this.container.top + this.container.height - 2 * this.height - 20,
+      // left: this.container.left + this.container.width - 2 * this.width - 20,
+      top: this.y,
+      left: this.x,
       width: 2 * this.width,
       height: 2 * this.height
     }

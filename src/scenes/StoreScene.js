@@ -74,7 +74,7 @@ export default class StoreScene extends Scene {
   checkMapCollision (entity) {
     const tileIndex = this.mapManager.getTileAtPixelPos(entity.x + StorePosition.x, entity.y + StorePosition.y, this.mapManager.storeData)
     if (tileIndex && this.registerTiles.includes(tileIndex)) {
-      this.shopkeep.showDialog()
+      this.shopkeep.showDialog(['buy', 'sell'])
     }
   }
 

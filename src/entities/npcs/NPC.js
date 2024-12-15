@@ -58,9 +58,9 @@ export default class NPC {
     }
   }
 
-  showDialog () {
+  showDialog (buttons = this.hasMetPlayer ? ['give'] : []) {
     this.showingDialogue = true
-    this.scene.showNPCDialogue(this.type, this.getDialogue(), this.hasMetPlayer)
+    this.scene.showNPCDialogue(this.type, this.getDialogue(), buttons)
   }
 
   giveItem (item) {

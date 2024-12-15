@@ -28,8 +28,8 @@ export default class Scene {
     if (value) this.uiScene.hideSignDialogue()
   }
 
-  showNPCDialogue (npcType, dialogue, showGiveButton) {
-    const justShowedDialog = this.uiScene.showDialogue(npcType, dialogue, showGiveButton)
+  showNPCDialogue (npcType, dialogue, buttons) {
+    const justShowedDialog = this.uiScene.showDialogue(npcType, dialogue, buttons)
     if (justShowedDialog) this.showingNPCDialogue = true
   }
 

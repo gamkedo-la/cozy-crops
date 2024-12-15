@@ -9,16 +9,26 @@ import UISpriteData from '../globals/UISpriteData.js'
 import { FamilyNames } from '../globals/Fonts.js'
 import GiftManager from '../managers/GiftManager.js'
 import GiftButton from '../uiElements/GiftButton.js'
+import BuyButton from '../uiElements/BuyButton.js'
+import SellButton from '../uiElements/SellButton.js'
 
 export default class UIScene extends Scene {
   constructor (config) {
     super(config)
     this.gameScene = null
+
     this.shouldShowDialogue = false
     this.dialogue = null
     this.dialogingNPC = null
+
     this.showGiveButton = false
+    this.showBuyButton = false
+    this.showSellButton = false
+
     this.giftDialogShowing = false
+    this.buyDialogShowing = false
+    this.sellDialogShowing = false
+
     this.signDialogShowing = false
 
     this.scoreboardRect = {
@@ -38,11 +48,25 @@ export default class UIScene extends Scene {
     this.giftButton = new GiftButton({
       scene: this,
       x: this.dialogRect.left + this.dialogRect.width - 2 * UISpriteData.GiftButton.width - 20,
-      y: this.dialogRect.top + this.dialogRect.height - 70,
+      y: this.dialogRect.top + this.dialogRect.height - 60,
       container: this.dialogRect
     })
 
     this.giftManager = null
+
+    this.buyButton = new BuyButton({
+      scene: this,
+      x: this.dialogRect.left + 20,
+      y: this.dialogRect.top + this.dialogRect.height - 60,
+      container: this.dialogRect
+    })
+
+    this.sellButton = new SellButton({
+      scene: this,
+      x: this.dialogRect.left + this.dialogRect.width - 2 * UISpriteData.GiftButton.width - 20,
+      y: this.dialogRect.top + this.dialogRect.height - 60,
+      container: this.dialogRect
+    })
   }
 
   init (data) {
@@ -91,12 +115,14 @@ export default class UIScene extends Scene {
     }
   }
 
-  showDialogue (npcType, dialogue, showGiveButton) {
+  showDialogue (npcType, dialogue, buttons) {
     if (!this.shouldShowDialogue) {
       this.shouldShowDialogue = true
       this.dialogue = dialogue
       this.dialogingNPC = npcType
-      this.showGiveButton = showGiveButton
+      this.showGiveButton = buttons.includes('give')
+      this.showBuyButton = buttons.includes('buy')
+      this.showSellButton = buttons.includes('sell')
       return true
     }
 
@@ -147,6 +173,26 @@ export default class UIScene extends Scene {
     this.giftDialogShowing = false
   }
 
+  showBuyDialogue () {
+    console.log('Show buy dialogue')
+    this.buyDialogShowing = true
+  }
+
+  hideBuyDialogue () {
+    console.log('Hide buy dialogue')
+    this.buyDialogShowing = false
+  }
+
+  showSellDialogue () {
+    console.log('Show sell dialogue')
+    this.sellDialogShowing = true
+  }
+
+  hideSellDialogue () {
+    console.log('Hide sell dialogue')
+    this.sellDialogShowing = false
+  }
+
   stop () {
     super.stop() // Call the stop method of the parent class
 
@@ -161,6 +207,10 @@ function checkMouseClick (scene, x, y) {
     scene.inventoryManager.setSelectedItem(clickedInventoryItem)
   } else if (scene.showGiveButton && scene.giftButton.checkClicked(x, y)) {
     scene.giftButton.activate()
+  } else if (scene.showBuyButton && scene.buyButton.checkClicked(x, y)) {
+    scene.buyButton.activate()
+  } else if (scene.showSellButton && scene.sellButton.checkClicked(x, y)) {
+    scene.sellButton.activate()
   }
 }
 
@@ -264,5 +314,13 @@ function drawDialogue (scene, dialogBkgdRect) {
 
   if (scene.showGiveButton) {
     scene.giftButton.draw()
+  }
+  
+  if (scene.showBuyButton) {
+    scene.buyButton.draw()
+  }
+  
+  if (scene.showSellButton) {
+    scene.sellButton.draw()
   }
 }
