@@ -13,14 +13,14 @@ import Radish from '../entities/crops/Radish.js'
 import Tomato from '../entities/crops/Tomato.js'
 import Watermelon from '../entities/crops/Watermelon.js'
 import AppleTree from '../entities/trees/AppleTree.js'
-// import CherryTree from '../entities/trees/CherryTree.js'
-// import LemonTree from '../entities/trees/LemonTree.js'
-// import LimeTree from '../entities/trees/LimeTree.js'
-// import MapleTree from '../entities/trees/MapleTree.js'
-// import OakTree from '../entities/trees/OakTree.js'
-// import OrangeTree from '../entities/trees/OrangeTree.js'
-// import PineTree from '../entities/trees/PineTree.js'
-// import PlumTree from '../entities/trees/PlumTree.js'
+import CherryTree from '../entities/trees/CherryTree.js'
+import LemonTree from '../entities/trees/LemonTree.js'
+import LimeTree from '../entities/trees/LimeTree.js'
+import MapleTree from '../entities/trees/MapleTree.js'
+import OakTree from '../entities/trees/OakTree.js'
+import OrangeTree from '../entities/trees/OrangeTree.js'
+import PineTree from '../entities/trees/PineTree.js'
+import PlumTree from '../entities/trees/PlumTree.js'
 
 export default class CropManager {
   constructor (config) {
@@ -33,10 +33,56 @@ export default class CropManager {
   }
 
   initializeTrees (treeStarts) {
-
+    let newTree = null
+    const treeConfig = {
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.imageManager,
+      manager: this,
+      x: 0,
+      y: 0
+    }
 
     for (const treeStart of treeStarts) {
+      treeConfig.x = treeStart.x
+      treeConfig.y = treeStart.y
 
+      switch (treeStart.type) {
+        case EntityTypes.AppleTree:
+          newTree = new AppleTree(treeConfig)
+          break
+        case EntityTypes.CherryTree:
+          newTree = new CherryTree(treeConfig)
+          break
+        case EntityTypes.LemonTree:
+          newTree = new LemonTree(treeConfig)
+          break
+        case EntityTypes.LimeTree:
+          newTree = new LimeTree(treeConfig)
+          break
+        case EntityTypes.MapleTree:
+          newTree = new MapleTree(treeConfig)
+          break
+        case EntityTypes.OakTree:
+          newTree = new OakTree(treeConfig)
+          break
+        case EntityTypes.OrangeTree:
+          newTree = new OrangeTree(treeConfig)
+          break
+        case EntityTypes.PineTree:
+          newTree = new PineTree(treeConfig)
+          break
+        case EntityTypes.PlumTree:
+          newTree = new PlumTree(treeConfig)
+          break
+      }
+
+      if (newTree) {
+        this.trees.push(newTree)
+        newTree.currentGrowthStage = newTree.growthStages.length - 4 // Start at MatureTree
+        newTree.init()
+        this.entityManager.addEntity(newTree)
+      }
     }
   }
 
