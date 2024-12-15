@@ -160,8 +160,16 @@ export const Watermelon = {
 const SeedPacketAnimations = {
   [EntityTypes.CarrotSeed]: Carrot,
   [EntityTypes.CornSeed]: Corn,
+  [EntityTypes.EggplantSeed]: Eggplant,
   [EntityTypes.LettuceSeed]: Lettuce,
-  [EntityTypes.OnionSeed]: Onion
+  [EntityTypes.OnionSeed]: Onion,
+  [EntityTypes.PepperSeed]: Pepper,
+  [EntityTypes.PotatoSeed]: Potato,
+  [EntityTypes.PumpkinSeed]: Pumpkin,
+  [EntityTypes.RadishSeed]: Radish,
+  [EntityTypes.StrawberrySeed]: Strawberry,
+  [EntityTypes.TomatoSeed]: Tomato,
+  [EntityTypes.WatermelonSeed]: Watermelon
 }
 
 export default SeedPacketAnimations

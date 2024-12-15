@@ -19,13 +19,23 @@ export default class BuyManager {
   }
 
   init () {
-    this.purchasableItems.push(new BuyItemElement({
+    const config = {
       game: this.game,
       scene: this.scene,
-      imageManager: this.imageManager,
-      y: this.dialogRect.top + 6,
+      imageManager: this.imageManager
+    }
+    this.purchasableItems.push(new BuyItemElement({
+      ...config,
       selected: true, // make false for subsequent items
-      type: EntityTypes.LettuceSeed
+      type: EntityTypes.LettuceSeed,
+      y: this.dialogRect.top + 6
+    }))
+
+    this.purchasableItems.push(new BuyItemElement({
+      ...config,
+      selected: false,
+      type: EntityTypes.TomatoSeed,
+      y: this.dialogRect.top + 2 * StoreUIData.BuyItem.height + 6
     }))
 
     this.purchasableItems.forEach(item => item.init())

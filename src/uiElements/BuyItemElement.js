@@ -23,11 +23,12 @@ function getNameForType (type) {
   switch (type) {
     case EntityTypes.LettuceSeed:
       return 'Lettuce Seed'
+    case EntityTypes.TomatoSeed:
+      return 'Tomato Seed'
   }
 }
 
 function getPacketForType (element, type) {
-  let packet = null
   const config = {
     game: element.game,
     imageManager: element.imageManager,
@@ -39,12 +40,8 @@ function getPacketForType (element, type) {
     quantity: 1
   }
 
-  switch (type) {
-    case EntityTypes.LettuceSeed:
-      packet = new SeedPacket(config)
-      break
-  }
-
+  const packet = new SeedPacket(config)
   packet.init()
+
   return packet
 }
