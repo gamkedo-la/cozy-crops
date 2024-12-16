@@ -25,7 +25,9 @@ export default class Carrot extends Crop {
   }
 
   getAnimation (type = 'Idle') {
-    if (this.growthStages[this.currentGrowthStage] === 'YoungPlant' || this.growthStages[this.currentGrowthStage] === 'MaturePlant') {
+    if (this.currentGrowthStage < 0) {
+      return this.animations['Dead']
+    } else if (this.growthStages[this.currentGrowthStage] === 'YoungPlant' || this.growthStages[this.currentGrowthStage] === 'MaturePlant') {
       const key = this.growthStages[this.currentGrowthStage] + type
       return this.animations[key]
     } else {
