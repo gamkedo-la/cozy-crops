@@ -2,6 +2,7 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
+import { Pregame } from '../globals/Images.js'
 import Keys from '../globals/Keys.js'
 import NewGameDialog from '../components/NewGameDialog.js'
 import UIAttributes from '../globals/UIAttributes.js'
@@ -72,6 +73,8 @@ export default class PreGameScene extends Scene {
   init (data) {
     super.init(data) // Call the init method of the parent class
 
+    this.backgroundImage = this.imageManager.getImageWithSrc(Pregame)
+
     // setup resources
     this.saveSlots = this.managers.gameManager.getSaveSlots()
     if (!this.saveSlots) this.saveSlots = []
@@ -118,6 +121,7 @@ export default class PreGameScene extends Scene {
 
   draw () {
     super.draw() // Call the draw method of the parent class
+    drawBackground(this)
 
     if (!this.showingNewGameDialog && !this.showCharacterCreation) {
       this.startGameMenu.draw()
@@ -185,6 +189,10 @@ function manageInput (scene) {
       fontFamily: Constants.MainMenuFontFamily
     })
   }
+}
+
+function drawBackground (title) {
+  title.game.ctx.drawImage(title.backgroundImage, 0, 0, title.game.canvas.width, title.game.canvas.height)
 }
 
 function showNewGameDialog (scene) {

@@ -19,6 +19,7 @@ const Images = {
   RainSprite: '../../img/rain.png',
   SnowSprite: '../../img/snow.png',
   ParticleSprite: '../../img/particles.png',
+  Pregame: '../../img/PreGame.png',
 }
 
 export default Images
@@ -43,4 +44,5 @@ export const {
   RainSprite,
   SnowSprite,
   ParticleSprite,
+  Pregame,
 } =  Images
