@@ -21,22 +21,44 @@ export default class BuyItemElement extends StoreItemElement {
 
 function getNameForType (type) {
   switch (type) {
+    case EntityTypes.CarrotSeed:
+      return 'Carrot'
+    case EntityTypes.CornSeed:
+      return 'Corn'
+    case EntityTypes.EggplantSeed:
+      return 'Eggplant'
     case EntityTypes.LettuceSeed:
-      return 'Lettuce Seed'
+      return 'Lettuce'
+    case EntityTypes.OnionSeed:
+      return 'Onion'
+    case EntityTypes.PepperSeed:
+      return 'Pepper'
+    case EntityTypes.PotatoSeed:
+      return 'Potato'
+    case EntityTypes.PumpkinSeed:
+      return 'Pumpkin'
+    case EntityTypes.RadishSeed:
+      return 'Radish'
+    case EntityTypes.StrawberrySeed:
+      return 'Strawberry'
     case EntityTypes.TomatoSeed:
-      return 'Tomato Seed'
+      return 'Tomato'
+    case EntityTypes.WatermelonSeed:
+      return 'Watermelon'
   }
 }
 
 function getPacketForType (element, type) {
+  // Need to account for tall crops being twice as high so they aren't drawn squished
+  const height = isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight
   const config = {
     game: element.game,
     imageManager: element.imageManager,
     type,
     x: element.x + element.width - element.itemWidth - 8,
-    y: element.y + 8,
+    y: element.y + (isTallCropSeed(type) ? 16 - element.itemHeight : 8),
     width: element.itemWidth,
-    height: element.itemHeight,
+    height: isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight,
     quantity: 1
   }
 
@@ -44,4 +66,8 @@ function getPacketForType (element, type) {
   packet.init()
 
   return packet
+}
+
+function isTallCropSeed (type) {
+  return type === EntityTypes.CornSeed || type === EntityTypes.EggplantSeed || type === EntityTypes.PepperSeed || type === EntityTypes.StrawberrySeed
 }

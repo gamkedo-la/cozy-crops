@@ -131,6 +131,20 @@ export default class EntityManager {
     }
   }
 
+  isTallCrop (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.Corn:
+      case EntityTypes.Eggplant:
+      case EntityTypes.Pepper:
+      case EntityTypes.Strawberry:
+        return true
+      default:
+        return false
+    }
+  }
+
   isFish (entity) {
     if (!entity) return false
 
