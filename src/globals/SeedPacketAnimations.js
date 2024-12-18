@@ -1,5 +1,5 @@
 import EntityTypes from './EntityTypes.js'
-import { ShortCrops, TallCrops } from './Images.js'
+import { ShortCrops, TallCrops, TreeCrops } from './Images.js'
 
 export const Carrot = {
   Inventory: {
@@ -157,6 +157,123 @@ export const Watermelon = {
   }
 }
 
+export const Apple = {
+  Inventory: {
+    name: 'AppleSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [0],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Orange = {
+  Inventory: {
+    name: 'OrangeSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [10],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Lime = {
+  Inventory: {
+    name: 'LimeSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [20],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Cherry = {
+  Inventory: {
+    name: 'CherrySeedPacket',
+    spritesheet: TreeCrops,
+    frames: [30],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Lemon = {
+  Inventory: {
+    name: 'LemonSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [40],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Maple = {
+  Inventory: {
+    name: 'MapleSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [50],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Oak = {
+  Inventory: {
+    name: 'OakSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [60],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Pine = {
+  Inventory: {
+    name: 'PineSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [70],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
+export const Plum = {
+  Inventory: {
+    name: 'PlumSeedPacket',
+    spritesheet: TreeCrops,
+    frames: [80],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 16,
+    duration: 500,
+    loop: true
+  }
+}
+
 const SeedPacketAnimations = {
   [EntityTypes.CarrotSeed]: Carrot,
   [EntityTypes.CornSeed]: Corn,
@@ -169,7 +286,16 @@ const SeedPacketAnimations = {
   [EntityTypes.RadishSeed]: Radish,
   [EntityTypes.StrawberrySeed]: Strawberry,
   [EntityTypes.TomatoSeed]: Tomato,
-  [EntityTypes.WatermelonSeed]: Watermelon
+  [EntityTypes.WatermelonSeed]: Watermelon,
+  [EntityTypes.AppleSeed]: Apple,
+  [EntityTypes.OrangeSeed]: Orange,
+  [EntityTypes.LimeSeed]: Lime,
+  [EntityTypes.CherrySeed]: Cherry,
+  [EntityTypes.LemonSeed]: Lemon,
+  [EntityTypes.MapleSeed]: Maple,
+  [EntityTypes.OakSeed]: Oak,
+  [EntityTypes.PineSeed]: Pine,
+  [EntityTypes.PlumSeed]: Plum
 }
 
 export default SeedPacketAnimations

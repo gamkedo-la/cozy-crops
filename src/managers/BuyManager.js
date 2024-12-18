@@ -11,6 +11,7 @@ import BuyButton from '../uiElements/BuyButton.js'
 import CancelButton from '../uiElements/CancelButton.js'
 import BuyItemElement from '../uiElements/BuyItemElement.js'
 import CropData from '../globals/CropData.js'
+import TreeData from '../globals/TreeData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 
@@ -57,7 +58,7 @@ export default class BuyManager {
     }
 
     initializePage0(this, config)
-    // initializePage1(this, config)
+    initializePage1(this, config)
     // initializePage2(this, config)
     // initializePage3(this, config)
     // initializePage4(this, config)
@@ -102,8 +103,6 @@ export default class BuyManager {
 
   draw () {
     drawDialogue(this, this.dialogRect)
-    this.nextButton.draw()
-    this.prevButton.draw()
   }
 }
 
@@ -133,20 +132,9 @@ function initializePage0 (manager, config) {
   let currentY = manager.pageTitleHeight
   const deltaY = 2 * StoreUIData.BuyItem.height
 
-  // const apple = new BuyItemElement({
-  //   ...config,
-  //   selected: true, // make false for subsequent items
-  //   type: EntityTypes.AppleSeed,
-  //   y: currentY
-  // })
-  // apple.init()
-  // manager.pages[0].push(apple)
-
-  // currentY += deltaY
-
   const carrot = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.CarrotSeed,
     price: CropData[EntityTypes.Carrot].seedPrice,
     y: currentY
@@ -156,20 +144,9 @@ function initializePage0 (manager, config) {
 
   currentY += deltaY
 
-  // const cherry = new BuyItemElement({
-  //   ...config,
-  //   selected: false, // make false for subsequent items
-  //   type: EntityTypes.CherrySeed,
-  //   y: currentY
-  // })
-  // cherry.init()
-  // manager.pages[0].push(cherry)
-
-  // currentY += deltaY
-
   const corn = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.CornSeed,
     price: CropData[EntityTypes.Corn].seedPrice,
     y: currentY
@@ -181,7 +158,7 @@ function initializePage0 (manager, config) {
 
   const eggplant = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.EggplantSeed,
     price: CropData[EntityTypes.Eggplant].seedPrice,
     y: currentY
@@ -193,7 +170,7 @@ function initializePage0 (manager, config) {
 
   const lettuce = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.LettuceSeed,
     price: CropData[EntityTypes.Lettuce].seedPrice,
     y: currentY
@@ -205,7 +182,7 @@ function initializePage0 (manager, config) {
 
   const onion = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.OnionSeed,
     price: CropData[EntityTypes.Onion].seedPrice,
     y: currentY
@@ -217,7 +194,7 @@ function initializePage0 (manager, config) {
 
   const pepper = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.PepperSeed,
     price: CropData[EntityTypes.Pepper].seedPrice,
     y: currentY
@@ -229,7 +206,7 @@ function initializePage0 (manager, config) {
 
   const potato = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.PotatoSeed,
     price: CropData[EntityTypes.Potato].seedPrice,
     y: currentY
@@ -241,7 +218,7 @@ function initializePage0 (manager, config) {
 
   const pumpkin = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.PumpkinSeed,
     price: CropData[EntityTypes.Pumpkin].seedPrice,
     y: currentY
@@ -253,7 +230,7 @@ function initializePage0 (manager, config) {
 
   const radish = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.RadishSeed,
     price: CropData[EntityTypes.Radish].seedPrice,
     y: currentY
@@ -265,7 +242,7 @@ function initializePage0 (manager, config) {
 
   const strawberry = new BuyItemElement({
     ...config,
-    selected: false, // make false for subsequent items
+    selected: false,
     type: EntityTypes.StrawberrySeed,
     price: CropData[EntityTypes.Strawberry].seedPrice,
     y: currentY
@@ -304,11 +281,122 @@ function initializePage0 (manager, config) {
 
 }
 
+function initializePage1 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * StoreUIData.BuyItem.height
+
+  const apple = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.AppleSeed,
+    price: TreeData[EntityTypes.AppleTree].seedPrice,
+    y: currentY
+  })
+  apple.init()
+  manager.pages[1].push(apple)
+
+  currentY += deltaY
+
+  const orange = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.OrangeSeed,
+    price: TreeData[EntityTypes.OrangeTree].seedPrice,
+    y: currentY
+  })
+  orange.init()
+  manager.pages[1].push(orange)
+
+  currentY += deltaY
+
+  const lime = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.LimeSeed,
+    price: TreeData[EntityTypes.LimeTree].seedPrice,
+    y: currentY
+  })
+  lime.init()
+  manager.pages[1].push(lime)
+
+  currentY += deltaY
+
+  const cherry = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.CherrySeed,
+    price: TreeData[EntityTypes.CherryTree].seedPrice,
+    y: currentY
+  })
+  cherry.init()
+  manager.pages[1].push(cherry)
+
+  currentY += deltaY
+
+  const lemon = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.LemonSeed,
+    price: TreeData[EntityTypes.LemonTree].seedPrice,
+    y: currentY
+  })
+  lemon.init()
+  manager.pages[1].push(lemon)
+
+  currentY += deltaY
+
+  const maple = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.MapleSeed,
+    price: TreeData[EntityTypes.MapleTree].seedPrice,
+    y: currentY
+  })
+  maple.init()
+  manager.pages[1].push(maple)
+
+  currentY += deltaY
+
+  const oak = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.OakSeed,
+    price: TreeData[EntityTypes.OakTree].seedPrice,
+    y: currentY
+  })
+  oak.init()
+  manager.pages[1].push(oak)
+
+  currentY += deltaY
+
+  const pine = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.PineSeed,
+    price: TreeData[EntityTypes.PineTree].seedPrice,
+    y: currentY
+  })
+  pine.init()
+  manager.pages[1].push(pine)
+
+  currentY += deltaY
+
+  const plum = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.PlumSeed,
+    price: TreeData[EntityTypes.PlumTree].seedPrice,
+    y: currentY
+  })
+  plum.init()
+  manager.pages[1].push(plum)
+}
+
 function drawCurrentPage (manager, dialogBkgdRect) {
   drawBackgroundForItemCount(manager, dialogBkgdRect, manager.pages[manager.currentPageIndex].length)
   drawPageTitle(manager, dialogBkgdRect)
-  drawItemsOnCurrentPage(manager, dialogBkgdRect)
-  drawButtons(manager, dialogBkgdRect)
+  drawItemsOnCurrentPage(manager)
+  drawButtons(manager)
 }
 
 function drawBackgroundForItemCount (manager, dialogBkgdRect, itemCount) {
@@ -365,27 +453,14 @@ function drawPageTitle (manager, dialogBkgdRect) {
   manager.game.ctx.fillText(manager.pageTitles[manager.currentPageIndex], manager.game.canvas.width / 2, dialogBkgdRect.top + 36)
 }
 
-function drawItemsOnCurrentPage (manager, dialogBkgdRect) {
+function drawItemsOnCurrentPage (manager) {
   const items = manager.pages[manager.currentPageIndex]
   items.forEach(item => item.draw())
 }
 
-function drawButtons (manager, dialogBkgdRect) {}
-
-function drawItemsWhichCanBeBought (manager, dialogBkgdRect) {
-  // TODO: Just drawing a single empty item for now
-  // manager.game.ctx.drawImage(
-  //   manager.imageManager.getImageWithSrc(StoreUI),
-  //   StoreUIData.BuyItem.x,
-  //   StoreUIData.BuyItem.y,
-  //   StoreUIData.BuyItem.width,
-  //   StoreUIData.BuyItem.height,
-  //   manager.game.canvas.width / 2 - StoreUIData.BuyItem.width,
-  //   dialogBkgdRect.top,
-  //   2 * StoreUIData.BuyItem.width,
-  //   2 * StoreUIData.BuyItem.height
-  // )
-  manager.purchaseableCrops.forEach(item => item.draw())
+function drawButtons (manager) {
+  manager.nextButton.draw()
+  manager.prevButton.draw()
 }
 
 function checkMouseClick (manager, x, y) {

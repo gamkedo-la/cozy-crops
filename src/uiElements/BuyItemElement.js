@@ -45,6 +45,24 @@ function getNameForType (type) {
       return 'Tomato'
     case EntityTypes.WatermelonSeed:
       return 'Watermelon'
+    case EntityTypes.AppleSeed:
+      return 'Apple'
+    case EntityTypes.OrangeSeed:
+      return 'Orange'
+    case EntityTypes.LimeSeed:
+      return 'Lime'
+    case EntityTypes.CherrySeed:
+      return 'Cherry'
+    case EntityTypes.LemonSeed:
+      return 'Lemon'
+    case EntityTypes.MapleSeed:
+      return 'Maple'
+    case EntityTypes.OakSeed:
+      return 'Oak'
+    case EntityTypes.PineSeed:
+      return 'Pine'
+    case EntityTypes.PlumSeed:
+      return 'Plum'
   }
 }
 
