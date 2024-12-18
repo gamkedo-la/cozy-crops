@@ -5,16 +5,18 @@ export default class CanvasButton {
     Object.assign(this, config)
 
     this.rect = {
-      // top: this.container.top + this.container.height - 2 * this.height - 20,
-      // left: this.container.left + this.container.width - 2 * this.width - 20,
       top: this.y,
       left: this.x,
       width: 2 * this.width,
       height: 2 * this.height
     }
+
+    this.visible = true
   }
 
   draw () {
+    if (!this.visible) return
+
     this.scene.game.ctx.drawImage(
       this.scene.imageManager.getImageWithSrc(UISprites),
       this.sourceX,
@@ -28,7 +30,16 @@ export default class CanvasButton {
     )
   }
 
+  setPosition (x, y) {
+    this.x = x
+    this.y = y
+    this.rect.left = x
+    this.rect.top = y
+  }
+
   checkClicked (x, y) {
+    if (!this.visible) return false
+
     return (x >= this.rect.left &&
       x <= this.rect.left + this.rect.width &&
       y >= this.rect.top &&

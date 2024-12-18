@@ -90,6 +90,13 @@ const UISpriteData = {
     height: 20,
     padding: 1
   },
+  NextButtonSmall: {
+    x: 162,
+    y: 223,
+    width: 37,
+    height: 20,
+    padding: 1
+  },
   NoButton: {
     x: 142,
     y: 131,
@@ -172,6 +179,13 @@ const UISpriteData = {
     y: 45,
     width: 56,
     height: 25,
+    padding: 1
+  },
+  PreviousButton: {
+    x: 125,
+    y: 223,
+    width: 37,
+    height: 20,
     padding: 1
   },
   Scoreboard: {
@@ -292,6 +306,7 @@ export const {
   EnterButton,
   GiftButton,
   InventoryIcons,
+  NextButtonSmall,
   NoButton,
   Number0,
   Number1,
@@ -303,6 +318,8 @@ export const {
   Number7,
   Number8,
   Number9,
+  OptionsButton,
+  PreviousButton,
   Scoreboard,
   SelectedInventoryItem,
   SeasonCool,

@@ -11,6 +11,8 @@ import BuyButton from '../uiElements/BuyButton.js'
 import CancelButton from '../uiElements/CancelButton.js'
 import BuyItemElement from '../uiElements/BuyItemElement.js'
 import CropData from '../globals/CropData.js'
+import NextButton from '../uiElements/NextButton.js'
+import PreviousButton from '../uiElements/PreviousButton.js'
 
 export default class BuyManager {
   constructor (config) {
@@ -40,6 +42,10 @@ export default class BuyManager {
 
     this.currentPageIndex = 0
     this.selectedItemIndex = 0
+
+    this.nextButton = null
+    this.prevButton = null
+    this.pageTitleHeight = this.dialogRect.top + 6 + 2 * StoreUIData.BuyBackgroundTop.height
   }
 
   init () {
@@ -58,6 +64,21 @@ export default class BuyManager {
     // initializePage5(this, config)
     // initializePage6(this, config)
     // initializePage7(this, config)
+
+    const buttonYPos = this.pageTitleHeight + this.pages[this.currentPageIndex].length * 2 * StoreUIData.BuyItem.height + 10
+    this.nextButton = new NextButton({
+      ...config,
+      scene: this,
+      x: this.game.canvas.width / 2 + StoreUIData.BuyBackgroundTop.width - (2 * UISpriteData.PreviousButton.width) - 10,
+      y: buttonYPos
+    })
+
+    this.prevButton = new PreviousButton({
+      ...config,
+      scene: this,
+      x: this.game.canvas.width / 2 - StoreUIData.BuyBackgroundTop.width + 10,
+      y: buttonYPos
+    })
   }
 
   update (deltaTime, mousePos) {
@@ -66,8 +87,18 @@ export default class BuyManager {
     manageInput(this)
   }
 
+  showNextPage () {
+    console.log('showNextPage')
+  }
+
+  showPreviousPage () {
+    console.log('showPreviousPage')
+  }
+
   draw () {
     drawDialogue(this, this.dialogRect)
+    this.nextButton.draw()
+    this.prevButton.draw()
   }
 }
 
@@ -94,7 +125,7 @@ function drawDialogue (manager, dialogBkgdRect) {
 }
 
 function initializePage0 (manager, config) {
-  let currentY = manager.dialogRect.top + 6 + 2 * StoreUIData.BuyBackgroundTop.height
+  let currentY = manager.pageTitleHeight
   const deltaY = 2 * StoreUIData.BuyItem.height
 
   // const apple = new BuyItemElement({
@@ -264,6 +295,8 @@ function initializePage0 (manager, config) {
   if (manager.currentPageIndex === 0) {
     manager.pages[0][manager.selectedItemIndex].selected = true
   }
+
+
 }
 
 function drawCurrentPage (manager, dialogBkgdRect) {
