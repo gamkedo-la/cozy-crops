@@ -79,6 +79,7 @@ export default class BuyManager {
       x: this.game.canvas.width / 2 - StoreUIData.BuyBackgroundTop.width + 10,
       y: buttonYPos
     })
+    this.prevButton.setDisabled(true)
   }
 
   update (deltaTime, mousePos) {
@@ -88,11 +89,15 @@ export default class BuyManager {
   }
 
   showNextPage () {
-    console.log('showNextPage')
+    this.currentPageIndex = (this.currentPageIndex + 1) % this.pages.length
+    setButtonDisabled(this)
+    positionButtons(this)
   }
 
   showPreviousPage () {
-    console.log('showPreviousPage')
+    this.currentPageIndex = (this.currentPageIndex - 1 + this.pages.length) % this.pages.length
+    setButtonDisabled(this)
+    positionButtons(this)
   }
 
   draw () {
@@ -384,14 +389,8 @@ function drawItemsWhichCanBeBought (manager, dialogBkgdRect) {
 }
 
 function checkMouseClick (manager, x, y) {
-  // const clickedInventoryItem = manager.scene.inventoryManager.getClickedItem(x, y)
-  // if (clickedInventoryItem) {
-  //   manager.scene.gameScene.handleInventoryItemClick(clickedInventoryItem)
-  //   manager.scene.inventoryManager.setSelectedItem(clickedInventoryItem)
-  // } else if (manager.scene.showGiveButton && manager.scene.giftButton.checkClicked(x, y)) {
-  //   manager.scene.giftButton.activate()
-  // }
-  console.log('checkMouseClick')
+  manager.nextButton.checkClicked(x, y)
+  manager.prevButton.checkClicked(x, y)
 }
 
 function manageInput (manager) {
@@ -403,6 +402,26 @@ function manageInput (manager) {
   } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {
     selectPreviousItem(manager)
   }
+}
+
+function setButtonDisabled (manager) {
+  if (manager.currentPageIndex === 0) {
+    manager.prevButton.setDisabled(true)
+  } else {
+    manager.prevButton.setDisabled(false)
+  }
+
+  if (manager.currentPageIndex === manager.pages.length - 1) {
+    manager.nextButton.setDisabled(true)
+  } else {
+    manager.nextButton.setDisabled(false)
+  }
+}
+
+function positionButtons (manager) {
+  const buttonYPos = manager.pageTitleHeight + manager.pages[manager.currentPageIndex].length * 2 * StoreUIData.BuyItem.height + 10
+  manager.nextButton.setPosition(manager.nextButton.x, buttonYPos)
+  manager.prevButton.setPosition(manager.prevButton.x, buttonYPos)
 }
 
 function selectNextItem (manager) {

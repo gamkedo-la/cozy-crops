@@ -19,4 +19,23 @@ export default class NextButton extends CanvasButton {
   activate () {
     this.scene.showNextPage()
   }
+
+  checkClicked (x, y) {
+    const wasClicked = super.checkClicked(x, y)
+    if (wasClicked && this.visible && !this.disabled) {
+      this.activate()
+    }
+  }
+
+  draw () {
+    if (this.disabled) {
+      this.scene.game.ctx.globalAlpha = 0.5
+    }
+
+    super.draw()
+
+    if (this.disabled) {
+      this.scene.game.ctx.globalAlpha = 1
+    }
+  }
 }
