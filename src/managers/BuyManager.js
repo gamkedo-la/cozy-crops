@@ -39,6 +39,7 @@ export default class BuyManager {
     ]
 
     this.currentPageIndex = 0
+    this.selectedItemIndex = 0
   }
 
   init () {
@@ -109,7 +110,7 @@ function initializePage0 (manager, config) {
 
   const carrot = new BuyItemElement({
     ...config,
-    selected: true, // make false for subsequent items
+    selected: false, // make false for subsequent items
     type: EntityTypes.CarrotSeed,
     price: CropData[EntityTypes.Carrot].seedPrice,
     y: currentY
@@ -259,6 +260,10 @@ function initializePage0 (manager, config) {
   })
   watermelon.init()
   manager.pages[0].push(watermelon)
+
+  if (manager.currentPageIndex === 0) {
+    manager.pages[0][manager.selectedItemIndex].selected = true
+  }
 }
 
 function drawCurrentPage (manager, dialogBkgdRect) {
@@ -357,14 +362,26 @@ function checkMouseClick (manager, x, y) {
 }
 
 function manageInput (manager) {
-  const downKeys = manager.scene.inputManager.getDownKeys()
-
-  if (downKeys.includes(Keys.ESCAPE)) {
-    manager.scene.hideBuyDialogue()
-  }
-
   const justDownKeys = manager.scene.inputManager.getJustDownKeys()
-  // if (justDownKeys.includes(Keys.N)) {
+  if (justDownKeys.includes(Keys.ESCAPE)) {
+    manager.scene.hideBuyDialogue()
+  } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN)) {
+    selectNextItem(manager)
+  } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {
+    selectPreviousItem(manager)
+  }
+}
 
-  // }
+function selectNextItem (manager) {
+  const items = manager.pages[manager.currentPageIndex]
+  items[manager.selectedItemIndex].selected = false
+  manager.selectedItemIndex = (manager.selectedItemIndex + 1) % items.length
+  items[manager.selectedItemIndex].selected = true
+}
+
+function selectPreviousItem (manager) {
+  const items = manager.pages[manager.currentPageIndex]
+  items[manager.selectedItemIndex].selected = false
+  manager.selectedItemIndex = (manager.selectedItemIndex - 1 + items.length) % items.length
+  items[manager.selectedItemIndex].selected = true
 }

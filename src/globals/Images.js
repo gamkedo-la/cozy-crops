@@ -4,9 +4,13 @@ const Images = {
   ForageableItems: '../../img/Forage.png',
   Museum: '../../img/Museum.png',
   NPCs: '../../img/NPCs.png',
+  ParticleSprite: '../../img/particles.png',
   Plaques: '../../img/Plaques.png',
   Portraits: '../../img/Portraits.png',
+  Pregame: '../../img/PreGame.png',
+  RainSprite: '../../img/rain.png',
   ShortCrops: '../../img/ShortCrops.png',
+  SnowSprite: '../../img/snow.png',
   Statues: '../../img/Statues.png',
   StoreUI: '../../img/StoreUI.png',
   TallCrops: '../../img/TallCrops.png',
@@ -15,11 +19,7 @@ const Images = {
   Tools: '../../img/Tools.png',
   TreeCrops: '../../img/TreeCrops.png',
   UISprites: '../../img/UISprites.png',
-  WildlifeSprites: '../../img/Wildlife.png',
-  RainSprite: '../../img/rain.png',
-  SnowSprite: '../../img/snow.png',
-  ParticleSprite: '../../img/particles.png',
-  Pregame: '../../img/PreGame.png',
+  WildlifeSprites: '../../img/Wildlife.png'
 }
 
 export default Images
@@ -29,9 +29,13 @@ export const {
   ForageableItems,
   Museum,
   NPCs,
+  ParticleSprite,
   Plaques,
   Portraits,
+  Pregame,
+  RainSprite,
   ShortCrops,
+  SnowSprite,
   Statues,
   StoreUI,
   TallCrops,
@@ -40,9 +44,5 @@ export const {
   Tools,
   TreeCrops,
   UISprites,
-  WildlifeSprites,
-  RainSprite,
-  SnowSprite,
-  ParticleSprite,
-  Pregame,
+  WildlifeSprites
 } =  Images

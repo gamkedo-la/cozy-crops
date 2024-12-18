@@ -52,7 +52,11 @@ export default class StoreItemElement {
     this.icon.drawAsInventory(this.icon.x, this.icon.y, this.icon.width, this.icon.height)
 
     if (this.selected) {
-      this.selectedFrame.draw(this.icon.x, this.icon.y)
+      if (this.icon.width === this.icon.height) {
+        this.selectedFrame.draw(this.icon.x, this.icon.y)
+      } else {
+        this.selectedFrame.draw(this.icon.x, this.icon.y + (this.icon.height / 2) - 8) // Adjust for tall crops, -8 is padding and scale
+      }
     }
 
     for (let i = 0; i < this.priceString.length; i++) {
