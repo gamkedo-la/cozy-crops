@@ -209,7 +209,8 @@ export default class Particles {
             let r = 0.2
             let g = 1
             let b = 0.3
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        
+        }
     }
 
     // a little dust when you plant a seed
@@ -228,7 +229,8 @@ export default class Particles {
             let r = 0
             let g = 1
             let b = 0
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)
+        }
     }
     
     // dirt particles when you plow mud
@@ -247,7 +249,8 @@ export default class Particles {
             let r = 1
             let g = 0.6
             let b = 0.1
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)
+        }
     }
 
     // water droplets when you water a terrain tile
@@ -266,7 +269,31 @@ export default class Particles {
             let r = 0
             let g = 0.2
             let b = 1
-            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        }
+            this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)        
+        }
+    }
+
+    // FIXME: nothing seems to render but I don't know why
+    riverSplashes() {
+        // this was done manually by clicking interesting spots of the map and recording the x,y
+        const xy = [[1532,1546],[1550,1534],[1576,1544],[1588,1534],[1604,1543],[1449,1702],[1475,1718],[1692,1286],[1999,1580],[2009,1582],[2024,1574],[2033,1582],[2048,1579],];
+        let size = 8
+        let rotspd = 0
+        let ang = 0
+        let alpha = 1
+        let drag = 0
+        let gravity = 0
+        let r = 1
+        let g = 1
+        let b = 1
+        // SOUTH
+        for (let splash of xy) {
+            let life = randomInt(1000,2000)
+            let velx = 0
+            let vely = Math.random()*8
+            //console.log("water splash at "+splash[0]+","+splash[1])
+            this.add(splash[0],splash[1],life,size,rotspd,ang,velx,vely,alpha,drag,gravity,r,g,b)
+        }
     }
 
 } // end of Particles class

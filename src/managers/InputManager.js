@@ -17,6 +17,7 @@ export default class InputManager {
   constructor (config) {
     Object.assign(this, config)
 
+    this.DEBUG_LOG_CLICK_XY = true; // only used during dev - leave this set to false
     this.justDown = {}
     this.stillDown = {}
     this.justUp = {}

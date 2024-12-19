@@ -339,6 +339,19 @@ export default class GameScene extends Scene {
     for (const waterfall of this.waterfalls) {
       this.particles.splash(waterfall.x, waterfall.y)
     }
+
+    /*
+    // FIXME: nothing is visible - not sure why
+    // hardcoded river water turbulence particles scattered here and there manually
+    this.particles.riverSplashes();
+    // this is how I collected the x,y data for them:
+    if (this.camera && this.inputManager.mouse.justDown) {
+        if (!this.allMouseClicks) this.allMouseClicks = "const xy = ["
+        let cam = this.camera.getTopLeft()
+        this.allMouseClicks += "["+(this.inputManager.mouse.x+cam.x)+","+(this.inputManager.mouse.y+cam.y)+"],"
+        console.log(this.allMouseClicks+"];")
+    }
+    */
     
     this.particles.update(deltaTime)
 
