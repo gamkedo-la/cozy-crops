@@ -333,8 +333,10 @@ export default class GameScene extends Scene {
       this.particles.dust(this.steve.collisionPoint.x, this.steve.collisionPoint.y)
     }
     this.playerIsWalkingNow(false)
-    const waterfalls = this.mapManager.getWaterfallTilesXY()
-    for (const waterfall of waterfalls) {
+    
+    // optimization: only search all the level data once instead of every frame
+    if (!this.waterfalls) this.waterfalls = this.mapManager.getWaterfallTilesXY()
+    for (const waterfall of this.waterfalls) {
       this.particles.splash(waterfall.x, waterfall.y)
     }
     
