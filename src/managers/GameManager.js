@@ -249,6 +249,43 @@ export default class GameManager {
     this.state.NPCs[npc] = data
     this.saveGame()
   }
+
+  addCrop (crop) {
+    this.state.Map.Crops.push({
+      x: crop.x,
+      y: crop.y,
+      type: crop.type,
+      currentGrowthStage: crop.currentGrowthStage
+    })
+    this.saveGame()
+  }
+
+  updateCrop (crop) {
+    const existingCrop = this.state.Map.Crops.find(c => c.x === crop.x && c.y === crop.y)
+    if (existingCrop) {
+      existingCrop.currentGrowthStage = crop.currentGrowthStage
+    }
+    this.saveGame()
+  }
+
+  updateCrops (crops) {
+    for (const crop of crops) {
+      const existingCrop = this.state.Map.Crops.find(c => c.x === crop.x && c.y === crop.y)
+      if (existingCrop) {
+        existingCrop.currentGrowthStage = crop.currentGrowthStage
+      }
+    }
+    this.saveGame()
+  }
+
+  removeCrop (crop) {
+    this.state.Map.Crops = this.state.Map.Crops.filter(c => c.x !== crop.x || c.y !== crop.y)
+    this.saveGame()
+  }
+
+  getCrops () {
+    return this.state.Map.Crops
+  }
 }
 
 function initializeNewGame (manager, saveSlot) {
@@ -302,9 +339,7 @@ function initializeNewGame (manager, saveSlot) {
     Inventory: [
       { type: EntityTypes.ShovelWooden, quantity: 1 },
       { type: EntityTypes.WateringCanWooden, quantity: 1 },
-      { type: EntityTypes.HoeWooden, quantity: 1 },
-      { type: EntityTypes.LettuceSeed, quantity: 1 },
-      { type: EntityTypes.Sunflower, quantity: 1 },
+      { type: EntityTypes.HoeWooden, quantity: 1 }
     ],
     Map: {
       Achievements: [

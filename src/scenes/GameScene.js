@@ -92,6 +92,7 @@ export default class GameScene extends Scene {
 
     this.spawnNPCs()
     this.spawnTrees()
+    this.restoreCrops()
 
     this.particles = new Particles({
         game: this.game,
@@ -273,6 +274,10 @@ export default class GameScene extends Scene {
   spawnTrees () {
     // Implement once Trees are created
     this.cropManager.initializeTrees(this.mapManager.getTreeStarts())
+  }
+
+  restoreCrops () {
+    this.cropManager.restoreCrops()
   }
 
   updateWaterSoundVolume () {

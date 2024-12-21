@@ -86,63 +86,28 @@ export default class CropManager {
     }
   }
 
-  plantCrop (cropType, x, y) {
-    let newCrop = null
-    const cropConfig = {
-      game: this.game,
-      scene: this.scene,
-      imageManager: this.imageManager,
-      manager: this,
-      x,
-      y
-    }
+  restoreCrops () {
+    const crops = this.gameManager.getCrops()
 
-    switch (cropType) {
-      case EntityTypes.CarrotSeed:
-        newCrop = new Carrot(cropConfig)
-        break
-      case EntityTypes.CornSeed:
-        newCrop = new Corn(cropConfig)
-        break
-      case EntityTypes.EggplantSeed:
-        newCrop = new Eggplant(cropConfig)
-        break
-      case EntityTypes.LettuceSeed:
-        newCrop = new Lettuce(cropConfig)
-        break
-      case EntityTypes.OnionSeed:
-        newCrop = new Onion(cropConfig)
-        break
-      case EntityTypes.PepperSeed:
-        newCrop = new Pepper(cropConfig)
-        break
-      case EntityTypes.PotatoSeed:
-        newCrop = new Potato(cropConfig)
-        break
-      case EntityTypes.PumpkinSeed:
-        newCrop = new Pumpkin(cropConfig)
-        break
-      case EntityTypes.RadishSeed:
-        newCrop = new Radish(cropConfig)
-        break
-      case EntityTypes.StrawberrySeed:
-        newCrop = new Strawberry(cropConfig)
-        break
-      case EntityTypes.TomatoSeed:
-        newCrop = new Tomato(cropConfig)
-        break
-      case EntityTypes.WatermelonSeed:
-        newCrop = new Watermelon(cropConfig)
-        break
-      case EntityTypes.AppleTreeSeed:
-        newCrop = new AppleTree(cropConfig)
-        break
-    }
+    crops.forEach(crop => {
+      const newCrop = restoreCropFromMemory(this, crop.type, crop.x, crop.y)
+      if (newCrop) {
+        newCrop.currentGrowthStage = crop.currentGrowthStage
+        this.crops.push(newCrop)
+        newCrop.init()
+        this.entityManager.addEntity(newCrop)  
+      }
+    })
+  }
+
+  plantCrop (cropType, x, y) {
+    const newCrop = createCropFromSeed(this, cropType, x, y)
 
     if (newCrop) {
       this.crops.push(newCrop)
       newCrop.init()
       this.entityManager.addEntity(newCrop)
+      this.gameManager.addCrop(newCrop)
     }
   }
 
@@ -198,15 +163,131 @@ export default class CropManager {
     this.crops.forEach(crop => {
       crop.advanceDay()
     })
+    this.gameManager.updateCrops(this.crops)
 
     this.wateredCrops = []
   }
 
   harvestCrop (crop) {
     const index = this.crops.indexOf(crop)
-    if (index > -1) this.crops.splice(index, 1)
+    if (index > -1) {
+      this.crops.splice(index, 1)
+      this.gameManager.removeCrop(crop)
+    }
 
     const wateredIndex = this.wateredCrops.indexOf(crop)
     if (wateredIndex > -1) this.wateredCrops.splice(wateredIndex, 1)
   }
+}
+
+function createCropFromSeed (manager, cropType, x, y) {
+  let newCrop = null
+  const cropConfig = {
+    game: manager.game,
+    scene: manager.scene,
+    imageManager: manager.imageManager,
+    manager,
+    x,
+    y
+  }
+
+  switch (cropType) {
+    case EntityTypes.CarrotSeed:
+      newCrop = new Carrot(cropConfig)
+      break
+    case EntityTypes.CornSeed:
+      newCrop = new Corn(cropConfig)
+      break
+    case EntityTypes.EggplantSeed:
+      newCrop = new Eggplant(cropConfig)
+      break
+    case EntityTypes.LettuceSeed:
+      newCrop = new Lettuce(cropConfig)
+      break
+    case EntityTypes.OnionSeed:
+      newCrop = new Onion(cropConfig)
+      break
+    case EntityTypes.PepperSeed:
+      newCrop = new Pepper(cropConfig)
+      break
+    case EntityTypes.PotatoSeed:
+      newCrop = new Potato(cropConfig)
+      break
+    case EntityTypes.PumpkinSeed:
+      newCrop = new Pumpkin(cropConfig)
+      break
+    case EntityTypes.RadishSeed:
+      newCrop = new Radish(cropConfig)
+      break
+    case EntityTypes.StrawberrySeed:
+      newCrop = new Strawberry(cropConfig)
+      break
+    case EntityTypes.TomatoSeed:
+      newCrop = new Tomato(cropConfig)
+      break
+    case EntityTypes.WatermelonSeed:
+      newCrop = new Watermelon(cropConfig)
+      break
+    case EntityTypes.AppleTreeSeed:
+      newCrop = new AppleTree(cropConfig)
+      break
+  }
+
+  return newCrop
+}
+
+function restoreCropFromMemory (manager, cropType, x, y) {
+  let newCrop = null
+  const cropConfig = {
+    game: manager.game,
+    scene: manager.scene,
+    imageManager: manager.imageManager,
+    manager,
+    x,
+    y
+  }
+
+  switch (cropType) {
+    case EntityTypes.Carrot:
+      newCrop = new Carrot(cropConfig)
+      break
+    case EntityTypes.Corn:
+      newCrop = new Corn(cropConfig)
+      break
+    case EntityTypes.Eggplant:
+      newCrop = new Eggplant(cropConfig)
+      break
+    case EntityTypes.Lettuce:
+      newCrop = new Lettuce(cropConfig)
+      break
+    case EntityTypes.Onion:
+      newCrop = new Onion(cropConfig)
+      break
+    case EntityTypes.Pepper:
+      newCrop = new Pepper(cropConfig)
+      break
+    case EntityTypes.Potato:
+      newCrop = new Potato(cropConfig)
+      break
+    case EntityTypes.Pumpkin:
+      newCrop = new Pumpkin(cropConfig)
+      break
+    case EntityTypes.Radish:
+      newCrop = new Radish(cropConfig)
+      break
+    case EntityTypes.Strawberry:
+      newCrop = new Strawberry(cropConfig)
+      break
+    case EntityTypes.Tomato:
+      newCrop = new Tomato(cropConfig)
+      break
+    case EntityTypes.Watermelon:
+      newCrop = new Watermelon(cropConfig)
+      break
+    case EntityTypes.AppleTree:
+      newCrop = new AppleTree(cropConfig)
+      break
+  }
+
+  return newCrop
 }
