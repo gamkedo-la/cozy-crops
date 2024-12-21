@@ -6,10 +6,10 @@ import Eggplant from '../entities/crops/Eggplant.js'
 import Lettuce from '../entities/crops/Lettuce.js'
 import Onion from '../entities/crops/Onion.js'
 import Pepper from '../entities/crops/Pepper.js'
-// import Potato from '../entities/crops/Potato.js'
-// import Pumpkin from '../entities/crops/Pumpkin.js'
+import Potato from '../entities/crops/Potato.js'
+import Pumpkin from '../entities/crops/Pumpkin.js'
 import Radish from '../entities/crops/Radish.js'
-// import Strawberry from '../entities/crops/Strawberry.js'
+import Strawberry from '../entities/crops/Strawberry.js'
 import Tomato from '../entities/crops/Tomato.js'
 import Watermelon from '../entities/crops/Watermelon.js'
 import AppleTree from '../entities/trees/AppleTree.js'
@@ -116,18 +116,18 @@ export default class CropManager {
       case EntityTypes.PepperSeed:
         newCrop = new Pepper(cropConfig)
         break
-      // case EntityTypes.PotatoSeed:
-      //   newCrop = new Potato(cropConfig)
-      //   break
-      // case EntityTypes.PumpkinSeed:
-      //   newCrop = new Pumpkin(cropConfig)
-      //   break
+      case EntityTypes.PotatoSeed:
+        newCrop = new Potato(cropConfig)
+        break
+      case EntityTypes.PumpkinSeed:
+        newCrop = new Pumpkin(cropConfig)
+        break
       case EntityTypes.RadishSeed:
         newCrop = new Radish(cropConfig)
         break
-      // case EntityTypes.StrawberrySeed:
-      //   newCrop = new Strawberry(cropConfig)
-      //   break
+      case EntityTypes.StrawberrySeed:
+        newCrop = new Strawberry(cropConfig)
+        break
       case EntityTypes.TomatoSeed:
         newCrop = new Tomato(cropConfig)
         break
@@ -173,17 +173,21 @@ export default class CropManager {
   }
 
   waterAt (x, y) {
-    const tileX = Math.floor(x / TileWidth)
-    const tileY = Math.floor(y / TileHeight)
-
-    const crop = this.crops.find(crop => {
-      const cropTileX = Math.floor(crop.x / TileWidth)
-      const cropTileY = Math.floor(crop.y / TileHeight)
-
-      return cropTileX === tileX && cropTileY === tileY
-    })
+    const crop = this.getCropAt(x, y)
 
     if (crop) this.wateredCrops.push(crop)
+  }
+
+  getCropAt (x, y) {
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+
+    const crop = this.crops.find(crop => {
+      const cropTopLeft = this.mapManager.getTileTopLeftAtPixelPos((crop.collisionPoint?.x || crop.x), (crop.collisionPoint?.y || crop.y))
+
+      return cropTopLeft.x === tileTopLeft.x && cropTopLeft.y === tileTopLeft.y
+    })
+
+    return crop
   }
 
   isWatered (crop) {

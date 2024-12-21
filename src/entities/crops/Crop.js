@@ -29,7 +29,7 @@ export default class Crop {
 
     this.collisionPoint = {
       x: this.x + this.currentAnimation.width / 2,
-      y: this.y + this.currentAnimation.height
+      y: this.y + this.currentAnimation.height / 2
     }
   }
 
@@ -63,7 +63,7 @@ export default class Crop {
     this.currentAnimation?.update(deltaTime)
     this.collisionPoint = {
       x: this.x + this.currentAnimation.width / 2,
-      y: this.y + this.currentAnimation.height
+      y: this.y + this.currentAnimation.height / 2
     }
   }
 

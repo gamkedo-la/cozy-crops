@@ -492,11 +492,13 @@ export default class GameScene extends Scene {
 
   plantSeed (seedType, x, y) {
     // Find the top left of the tile identified by x, y
-    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
-    const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
+    const offsetY = this.entityManager.isTallCropSeed({ type: seedType }) ? -TileHeight : 0
+    const groundPos = { x: x, y: y + offsetY }
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(groundPos.x, groundPos.y)
+    const crop = this.cropManager.getCropAt(tileTopLeft.x, tileTopLeft.y)
 
     // If there are no entities at the tile, plant the seed
-    if (entities.length === 0) {
+    if (!crop) {
       this.cropManager.plantCrop(seedType, tileTopLeft.x, tileTopLeft.y)
     }
   }

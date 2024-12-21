@@ -98,7 +98,7 @@ function buildManagers (game) {
   game.fontManager = new FontManager({ ...managerConfig })
   game.inputManager = new InputManager({ ...managerConfig })
   game.calendarManager = new CalendarManager({ ...managerConfig })
-  game.cropManager = new CropManager({ ...managerConfig, entityManager: game.entityManager, imageManager: game.imageManager })
+  game.cropManager = new CropManager({ ...managerConfig, entityManager: game.entityManager, imageManager: game.imageManager, mapManager: game.mapManager })
 
   game.loadManager = new LoadManager({
     ...managerConfig,
