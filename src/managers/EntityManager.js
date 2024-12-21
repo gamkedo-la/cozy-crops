@@ -145,6 +145,20 @@ export default class EntityManager {
     }
   }
 
+  isTallCropSeed (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.CornSeed:
+      case EntityTypes.EggplantSeed:
+      case EntityTypes.PepperSeed:
+      case EntityTypes.StrawberrySeed:
+        return true
+      default:
+        return false
+    }
+  }
+
   isFish (entity) {
     if (!entity) return false
 

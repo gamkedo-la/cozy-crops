@@ -24,7 +24,7 @@ import WildRose from '../entities/forageables/WildRose.js'
 import Carrot from '../entities/crops/Carrot.js'
 // import Cherry from '../entities/crops/Cherry.js'
 import Corn from '../entities/crops/Corn.js'
-// import Eggplant from '../entities/crops/Eggplant.js'
+import Eggplant from '../entities/crops/Eggplant.js'
 // import Lemon from '../entities/crops/Lemon.js'
 import Lettuce from '../entities/crops/Lettuce.js'
 // import Lime from '../entities/crops/Lime.js'
@@ -32,15 +32,15 @@ import Lettuce from '../entities/crops/Lettuce.js'
 // import Oak from '../entities/crops/Oak.js'
 import Onion from '../entities/crops/Onion.js'
 // import Orange from '../entities/crops/Orange.js'
-// import Pepper from '../entities/crops/Pepper.js'
+import Pepper from '../entities/crops/Pepper.js'
 // import Pine from '../entities/crops/Pine.js'
 // import Plum from '../entities/crops/Plum.js'
-// import Potato from '../entities/crops/Potato.js'
-// import Pumpkin from '../entities/crops/Pumpkin.js'
-// import Radish from '../entities/crops/Radish.js'
-// import Strawberry from '../entities/crops/Strawberry.js'
-// import Tomato from '../entities/crops/Tomato.js'
-// import Watermelon from '../entities/crops/Watermelon.js'
+import Potato from '../entities/crops/Potato.js'
+import Pumpkin from '../entities/crops/Pumpkin.js'
+import Radish from '../entities/crops/Radish.js'
+import Strawberry from '../entities/crops/Strawberry.js'
+import Tomato from '../entities/crops/Tomato.js'
+import Watermelon from '../entities/crops/Watermelon.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -154,12 +154,21 @@ export default class InventoryManager {
     })
 
     this.getSeeds().forEach((seed, index) => {
-      seed.drawAsInventory(
-        seed.x,
-        seed.y,
-        this.itemWidth,
-        this.itemHeight
-      )
+      if (this.entityManager.isTallCropSeed(seed)) {
+        seed.drawAsInventory(
+          seed.x,
+          seed.y - (3 * this.itemHeight / 4) - 1,
+          this.itemWidth,
+          2 * this.itemHeight
+        )  
+      } else {
+        seed.drawAsInventory(
+          seed.x,
+          seed.y,
+          this.itemWidth,
+          this.itemHeight
+        )
+      }
     })
 
     this.getForagables().forEach((foragable, index) => {
@@ -172,12 +181,21 @@ export default class InventoryManager {
     })
 
     this.getCrops().forEach((crop, index) => {
-      crop.drawAsInventory(
-        crop.x,
-        crop.y,
-        this.itemWidth,
-        this.itemHeight
-      )
+      if (this.entityManager.isTallCrop(crop)) {
+        crop.drawAsInventory(
+          crop.x,
+          crop.y - (3 * this.itemHeight / 4) - 1,
+          this.itemWidth,
+          2 * this.itemHeight
+        )  
+      } else {
+        crop.drawAsInventory(
+          crop.x,
+          crop.y,
+          this.itemWidth,
+          this.itemHeight
+        )  
+      }
     })
 
     if (this.selectedItem) {

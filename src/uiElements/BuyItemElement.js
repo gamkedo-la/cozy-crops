@@ -15,7 +15,11 @@ export default class BuyItemElement extends StoreItemElement {
 
     super(config)
 
-    this.icon = getPacketForType(this, config.type)
+    this.icon = getItemForType(this, config.type)
+  }
+
+  getPurchasedItem () {
+    return getItemForType(this, this.type)
   }
 }
 
@@ -66,7 +70,13 @@ function getNameForType (type) {
   }
 }
 
-function getPacketForType (element, type) {
+function getItemForType (element, type) {
+  if (element.entityManager.isSeed({ type })) {
+    return getSeedPacket(element, type)
+  }
+}
+
+function getSeedPacket (element, type) {
   // Need to account for tall crops being twice as high so they aren't drawn squished
   const height = isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight
   const config = {

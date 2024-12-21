@@ -19,27 +19,44 @@ export default class BuyManager {
   constructor (config) {
     Object.assign(this, config)
 
-    this.pages = [
-      [], // crops
-      [], // trees
-      [], // base tools
-      [], // upgraded tools
-      [], // premium tools
-      [], // furniture
-      [], // upgraded furniture
-      [] // premium furniture
-    ]
-
-    this.pageTitles = [
-      'Crop Seeds',
-      'Tree Seeds',
-      'Base Tools',
-      'Upgraded Tools',
-      'Premium Tools',
-      'Furniture',
-      'Upgraded Furniture',
-      'Premium Furniture'
-    ]
+    this.pages = []
+    this.pageTitles = []
+    switch (this.shopType) {
+      case 'store':
+        this.pages = [
+          [], // crops
+          [] // trees
+        ]
+        this.pageTitles = [
+          'Crop Seeds',
+          'Tree Seeds'
+        ]
+        break
+      case 'blacksmithshop':
+        this.pages = [
+          [], // base tools
+          [], // upgraded tools
+          [] // premium tools
+        ]
+        this.pageTitles = [
+          'Base Tools',
+          'Upgraded Tools',
+          'Premium Tools'
+        ]
+        break
+      case 'carpentryshop':
+        this.pages = [
+          [], // furniture
+          [], // upgraded furniture
+          [] // premium furniture
+        ]
+        this.pageTitles = [
+          'Furniture',
+          'Upgraded Furniture',
+          'Premium Furniture'
+        ]
+        break
+    }
 
     this.currentPageIndex = 0
     this.selectedItemIndex = 0
@@ -57,14 +74,22 @@ export default class BuyManager {
       entityManager: this.entityManager
     }
 
-    initializePage0(this, config)
-    initializePage1(this, config)
-    // initializePage2(this, config)
-    // initializePage3(this, config)
-    // initializePage4(this, config)
-    // initializePage5(this, config)
-    // initializePage6(this, config)
-    // initializePage7(this, config)
+    switch (this.shopType) {
+      case 'store':
+        initializeStorePage0(this, config)
+        initializeStorePage1(this, config)
+        break
+      case 'blacksmithshop':
+        initializeBlacksmithPage0(this, config)
+        initializeBlacksmithPage1(this, config)
+        initializeBlacksmithPage2(this, config)
+        break
+      case 'carpentryshop':
+        initializeCarpentryPage0(this, config)
+        initializeCarpentryPage1(this, config)
+        initializeCarpentryPage2(this, config)
+        break
+    }
 
     const buttonYPos = this.pageTitleHeight + this.pages[this.currentPageIndex].length * 2 * StoreUIData.BuyItem.height + 10
     this.nextButton = new NextButton({
@@ -90,13 +115,23 @@ export default class BuyManager {
   }
 
   showNextPage () {
+    this.pages[this.currentPageIndex][this.selectedItemIndex].selected = false
+
     this.currentPageIndex = (this.currentPageIndex + 1) % this.pages.length
+    this.selectedItemIndex = 0
+    this.pages[this.currentPageIndex][this.selectedItemIndex].selected = true
+
     setButtonDisabled(this)
     positionButtons(this)
   }
 
   showPreviousPage () {
+    this.pages[this.currentPageIndex][this.selectedItemIndex].selected = false
+
     this.currentPageIndex = (this.currentPageIndex - 1 + this.pages.length) % this.pages.length
+    this.selectedItemIndex = 0
+    this.pages[this.currentPageIndex][this.selectedItemIndex].selected = true
+
     setButtonDisabled(this)
     positionButtons(this)
   }
@@ -128,7 +163,7 @@ function drawDialogue (manager, dialogBkgdRect) {
   // }
 }
 
-function initializePage0 (manager, config) {
+function initializeStorePage0 (manager, config) {
   let currentY = manager.pageTitleHeight
   const deltaY = 2 * StoreUIData.BuyItem.height
 
@@ -281,7 +316,7 @@ function initializePage0 (manager, config) {
 
 }
 
-function initializePage1 (manager, config) {
+function initializeStorePage1 (manager, config) {
   let currentY = manager.pageTitleHeight
   const deltaY = 2 * StoreUIData.BuyItem.height
 
@@ -392,6 +427,18 @@ function initializePage1 (manager, config) {
   manager.pages[1].push(plum)
 }
 
+function initializeBlacksmithPage0 (manager, config) {}
+
+function initializeBlacksmithPage1 (manager, config) {}
+
+function initializeBlacksmithPage2 (manager, config) {}
+
+function initializeCarpentryPage0 (manager, config) {}
+
+function initializeCarpentryPage1 (manager, config) {}
+
+function initializeCarpentryPage2 (manager, config) {}
+
 function drawCurrentPage (manager, dialogBkgdRect) {
   drawBackgroundForItemCount(manager, dialogBkgdRect, manager.pages[manager.currentPageIndex].length)
   drawPageTitle(manager, dialogBkgdRect)
@@ -470,8 +517,17 @@ function checkMouseClick (manager, x, y) {
 
 function manageInput (manager) {
   const justDownKeys = manager.scene.inputManager.getJustDownKeys()
+  const controls  = manager.scene.gameManager.getPlayerControls(EntityTypes.Player1)
   if (justDownKeys.includes(Keys.ESCAPE)) {
     manager.scene.hideBuyDialogue()
+  } else if (justDownKeys.includes(controls.Action)) {
+    const items = manager.pages[manager.currentPageIndex]
+    const selectedItem = items[manager.selectedItemIndex]
+
+    if (selectedItem.price <= manager.scene.gameManager.getMoney()) {
+      manager.scene.gameManager.setMoney(manager.scene.gameManager.getMoney() - selectedItem.price)
+      manager.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem())
+    }
   } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN)) {
     selectNextItem(manager)
   } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {

@@ -89,7 +89,9 @@ export default class UIScene extends Scene {
       game: this.game,
       imageManager: this.imageManager,
       entityManager: this.entityManager,
-      dialogRect: this.dialogRect
+      inventoryManager: this.inventoryManager,
+      dialogRect: this.dialogRect,
+      shopType: 'store' // Need to figure out how to determine this
     })
     this.buyManager.init()
   }

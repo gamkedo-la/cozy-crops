@@ -1,13 +1,11 @@
 import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
-import { Player1Start, Player2Start } from '../globals/Map.js'
 import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound, stepSound1, stepSound2, stepSound3, stepSound4 } from '../globals/Sounds.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
 import { CheatKeys } from '../globals/Debug.js'
-import EntityTypes from '../globals/EntityTypes.js'
 
 export default class Player {
   constructor (config) {
