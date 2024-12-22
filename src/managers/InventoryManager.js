@@ -98,6 +98,24 @@ export default class InventoryManager {
     this.game.gameManager.addToInventory(itemToAdd.type, quantity)
   }
 
+  removeItemFromInventory (itemToRemove, quantity = 1) {
+    let item = null
+
+    if (this.entityManager.isSeed(itemToRemove) ||
+        this.entityManager.isCrop(itemToRemove) ||
+        this.entityManager.isForageable(itemToRemove) ||
+        this.entityManager.isTool(itemToRemove)) {
+      const index = this.inventory.findIndex(item => item.type === itemToRemove.type)
+      if (index >= 0) {
+        item = this.inventory[index]
+        this.inventory.splice(index, 1)
+      }
+    }
+
+    this.updateInventoryPlacement()
+    this.game.gameManager.removeFromInventory(itemToRemove.type, quantity)
+  }
+
   updateInventoryPlacement () {
     this.inventory.forEach((item, index) => {
       item.x = this.x + (index * this.itemWidth)

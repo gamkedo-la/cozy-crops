@@ -11,6 +11,7 @@ import GiftManager from '../managers/GiftManager.js'
 import GiftButton from '../uiElements/GiftButton.js'
 import BuyManager from '../managers/BuyManager.js'
 import BuyButton from '../uiElements/BuyButton.js'
+import SellManager from '../managers/SellManager.js'
 import SellButton from '../uiElements/SellButton.js'
 
 export default class UIScene extends Scene {
@@ -70,6 +71,8 @@ export default class UIScene extends Scene {
       y: this.dialogRect.top + this.dialogRect.height - 60,
       container: this.dialogRect
     })
+
+    this.sellManager = null
   }
 
   init (data) {
@@ -84,16 +87,18 @@ export default class UIScene extends Scene {
     })
     this.giftManager.init()
 
-    this.buyManager = new BuyManager({
+    const managerConfig = {
       scene: this,
       game: this.game,
       imageManager: this.imageManager,
       entityManager: this.entityManager,
       inventoryManager: this.inventoryManager,
-      dialogRect: this.dialogRect,
-      shopType: 'store' // Need to figure out how to determine this
-    })
+      dialogRect: this.dialogRect
+    }
+    this.buyManager = new BuyManager(managerConfig)
     this.buyManager.init()
+    this.sellManager = new SellManager(managerConfig)
+    this.sellManager.init()
   }
 
   update (deltaTime) {
@@ -104,6 +109,8 @@ export default class UIScene extends Scene {
       this.giftManager.update(deltaTime, mousePos)
     } else if (this.buyDialogShowing) {
       this.buyManager.update(deltaTime, mousePos)
+    } else if (this.sellDialogShowing) {
+      this.sellManager.update(deltaTime, mousePos)
     } else {
       if (mousePos.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
     }
@@ -128,11 +135,16 @@ export default class UIScene extends Scene {
       } else if (this.buyDialogShowing) {
         this.buyManager.draw()
       } else if (this.sellDialogShowing) {
-        // this.sellButton.draw()
+        this.sellManager.draw()
       } else {
         drawDialogue(this, this.dialogRect)
       }
     }
+  }
+
+  setShopType (shopType) {
+    this.buyManager.setShopType(shopType)
+    this.sellManager.setShopType(shopType)
   }
 
   showDialogue (npcType, dialogue, buttons) {

@@ -13,6 +13,7 @@ export default class StoreScene extends Scene {
   constructor (config) {
     super(config)
 
+    this.uiScene = null
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
     this.shopkeep = null
@@ -47,6 +48,11 @@ export default class StoreScene extends Scene {
   }
 
   start (data) {
+    if (data?.uiScene) {
+      this.uiScene = data.uiScene
+      this.uiScene.setShopType('store')
+    }
+
     if (data?.player) {
       this.playerWorldPosition = { x: data.player.x, y: data.player.y }
       this.player = data.player

@@ -1,14 +1,10 @@
-import Constants from '../globals/Constants.js'
-import Colors from '../globals/Colors.js'
-import Keys, { E } from '../globals/Keys.js'
+import Keys from '../globals/Keys.js'
 import UIAttributes from '../globals/UIAttributes.js'
-import { UISprites, StoreUI } from '../globals/Images.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
+import { StoreUI } from '../globals/Images.js'
 import StoreUIData from '../globals/StoreUIData.js'
 import { FamilyNames } from '../globals/Fonts.js'
-import BuyButton from '../uiElements/BuyButton.js'
-import CancelButton from '../uiElements/CancelButton.js'
 import BuyItemElement from '../uiElements/BuyItemElement.js'
 import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
@@ -21,6 +17,51 @@ export default class BuyManager {
 
     this.pages = []
     this.pageTitles = []
+
+    this.currentPageIndex = 0
+    this.selectedItemIndex = 0
+
+    this.nextButton = null
+    this.prevButton = null
+
+    this.pageTitleHeight = this.dialogRect.top + 6 + 2 * StoreUIData.BuyBackgroundTop.height
+  }
+
+  init () {
+    // const buttonYPos = this.pageTitleHeight + this.pages[this.currentPageIndex].length * 2 * StoreUIData.BuyItem.height + 10
+    const config = {
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.imageManager,
+      entityManager: this.entityManager
+    }
+
+    this.nextButton = new NextButton({
+      ...config,
+      scene: this,
+      x: this.game.canvas.width / 2 + StoreUIData.BuyBackgroundTop.width - (2 * UISpriteData.PreviousButton.width) - 10,
+      y: 0 // buttonYPos
+    })
+
+    this.prevButton = new PreviousButton({
+      ...config,
+      scene: this,
+      x: this.game.canvas.width / 2 - StoreUIData.BuyBackgroundTop.width + 10,
+      y: 0 // buttonYPos
+    })
+    this.prevButton.setDisabled(true)
+  }
+
+  setShopType (shopType) {
+    this.shopType = shopType
+
+    const config = {
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.imageManager,
+      entityManager: this.entityManager
+    }
+
     switch (this.shopType) {
       case 'store':
         this.pages = [
@@ -31,6 +72,9 @@ export default class BuyManager {
           'Crop Seeds',
           'Tree Seeds'
         ]
+
+        initializeStorePage0(this, config)
+        initializeStorePage1(this, config)
         break
       case 'blacksmithshop':
         this.pages = [
@@ -43,6 +87,9 @@ export default class BuyManager {
           'Upgraded Tools',
           'Premium Tools'
         ]
+        initializeBlacksmithPage0(this, config)
+        initializeBlacksmithPage1(this, config)
+        initializeBlacksmithPage2(this, config)
         break
       case 'carpentryshop':
         this.pages = [
@@ -55,57 +102,14 @@ export default class BuyManager {
           'Upgraded Furniture',
           'Premium Furniture'
         ]
-        break
-    }
-
-    this.currentPageIndex = 0
-    this.selectedItemIndex = 0
-
-    this.nextButton = null
-    this.prevButton = null
-    this.pageTitleHeight = this.dialogRect.top + 6 + 2 * StoreUIData.BuyBackgroundTop.height
-  }
-
-  init () {
-    const config = {
-      game: this.game,
-      scene: this.scene,
-      imageManager: this.imageManager,
-      entityManager: this.entityManager
-    }
-
-    switch (this.shopType) {
-      case 'store':
-        initializeStorePage0(this, config)
-        initializeStorePage1(this, config)
-        break
-      case 'blacksmithshop':
-        initializeBlacksmithPage0(this, config)
-        initializeBlacksmithPage1(this, config)
-        initializeBlacksmithPage2(this, config)
-        break
-      case 'carpentryshop':
         initializeCarpentryPage0(this, config)
         initializeCarpentryPage1(this, config)
         initializeCarpentryPage2(this, config)
         break
     }
 
-    const buttonYPos = this.pageTitleHeight + this.pages[this.currentPageIndex].length * 2 * StoreUIData.BuyItem.height + 10
-    this.nextButton = new NextButton({
-      ...config,
-      scene: this,
-      x: this.game.canvas.width / 2 + StoreUIData.BuyBackgroundTop.width - (2 * UISpriteData.PreviousButton.width) - 10,
-      y: buttonYPos
-    })
-
-    this.prevButton = new PreviousButton({
-      ...config,
-      scene: this,
-      x: this.game.canvas.width / 2 - StoreUIData.BuyBackgroundTop.width + 10,
-      y: buttonYPos
-    })
-    this.prevButton.setDisabled(true)
+    setButtonDisabled(this)
+    positionButtons(this)
   }
 
   update (deltaTime, mousePos) {
@@ -143,24 +147,6 @@ export default class BuyManager {
 
 function drawDialogue (manager, dialogBkgdRect) {
   drawCurrentPage(manager, dialogBkgdRect)
-  // drawBackgroundForItemCount(manager, dialogBkgdRect, 1)
-
-  // drawItemsWhichCanBeBought(manager, dialogBkgdRect)
-
-  manager.game.ctx.fillStyle = 'black'
-  manager.game.ctx.font = `48px ${FamilyNames.FarmVintage}`
-  manager.game.ctx.textAlign = UIAttributes.CenterAlign
-  // const textLines = scene.dialogue.split('\n')
-
-  // let lineY = dialogBkgdRect.top + 30
-  // for (const line of textLines) {
-  //   manager.game.ctx.fillText(line, manager.game.canvas.width / 2, lineY)
-  //   lineY += 30
-  // }
-
-  // if (scene.showGiveButton) {
-  //   scene.giftButton.draw()
-  // }
 }
 
 function initializeStorePage0 (manager, config) {
