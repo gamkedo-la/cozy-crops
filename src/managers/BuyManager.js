@@ -10,6 +10,7 @@ import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
+import StoreConfirmation from '../uiElements/StoreConfirmation.js'
 
 export default class BuyManager {
   constructor (config) {
@@ -111,8 +112,32 @@ export default class BuyManager {
     positionButtons(this)
   }
 
+  hideStoreConfirmation () {
+    this.storeConfirmation = null
+  }
+
+  completePurchase () {
+    const items = this.pages[this.currentPageIndex]
+    const selectedItem = items[this.selectedItemIndex]
+
+    if (selectedItem.price <= this.scene.gameManager.getMoney()) {
+      this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() - (selectedItem.price * this.storeConfirmation.quantity))
+      this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem())
+    }
+
+    this.storeConfirmation = null
+  }
+
+  cancelPurchase () {
+    this.storeConfirmation = null
+  }
+
   draw () {
-    drawDialogue(this, this.dialogRect)
+    if (this.storeConfirmation) {
+      this.storeConfirmation.draw()
+    } else {
+      drawDialogue(this, this.dialogRect)
+    }
   }
 }
 
@@ -208,6 +233,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.CarrotSeed,
+    name: 'Carrot Seeds',
     price: CropData[EntityTypes.Carrot].seedPrice,
     y: currentY
   })
@@ -220,6 +246,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.CornSeed,
+    name: 'Corn Seeds',
     price: CropData[EntityTypes.Corn].seedPrice,
     y: currentY
   })
@@ -232,6 +259,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.EggplantSeed,
+    name: 'Eggplant Seeds',
     price: CropData[EntityTypes.Eggplant].seedPrice,
     y: currentY
   })
@@ -244,6 +272,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.LettuceSeed,
+    name: 'Lettuce Seeds',
     price: CropData[EntityTypes.Lettuce].seedPrice,
     y: currentY
   })
@@ -256,6 +285,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.OnionSeed,
+    name: 'Onion Seeds',
     price: CropData[EntityTypes.Onion].seedPrice,
     y: currentY
   })
@@ -268,6 +298,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.PepperSeed,
+    name: 'Pepper Seeds',
     price: CropData[EntityTypes.Pepper].seedPrice,
     y: currentY
   })
@@ -280,6 +311,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.PotatoSeed,
+    name: 'Potato Seeds',
     price: CropData[EntityTypes.Potato].seedPrice,
     y: currentY
   })
@@ -292,6 +324,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.PumpkinSeed,
+    name: 'Pumpkin Seeds',
     price: CropData[EntityTypes.Pumpkin].seedPrice,
     y: currentY
   })
@@ -304,6 +337,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.RadishSeed,
+    name: 'Radish Seeds',
     price: CropData[EntityTypes.Radish].seedPrice,
     y: currentY
   })
@@ -316,6 +350,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.StrawberrySeed,
+    name: 'Strawberry Seeds',
     price: CropData[EntityTypes.Strawberry].seedPrice,
     y: currentY
   })
@@ -328,6 +363,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.TomatoSeed,
+    name: 'Tomato Seeds',
     price: CropData[EntityTypes.Tomato].seedPrice,
     y: currentY
   })
@@ -340,6 +376,7 @@ function initializeStorePage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.WatermelonSeed,
+    name: 'Watermelon Seeds',
     price: CropData[EntityTypes.Watermelon].seedPrice,
     y: currentY
   })
@@ -363,6 +400,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.AppleSeed,
+    name: 'Apple Tree Seeds',
     price: TreeData[EntityTypes.AppleTree].seedPrice,
     y: currentY
   })
@@ -375,6 +413,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.OrangeSeed,
+    name: 'Orange Tree Seeds',
     price: TreeData[EntityTypes.OrangeTree].seedPrice,
     y: currentY
   })
@@ -387,6 +426,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.LimeSeed,
+    name: 'Lime Tree Seeds',
     price: TreeData[EntityTypes.LimeTree].seedPrice,
     y: currentY
   })
@@ -399,6 +439,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.CherrySeed,
+    name: 'Cherry Tree Seeds',
     price: TreeData[EntityTypes.CherryTree].seedPrice,
     y: currentY
   })
@@ -411,6 +452,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.LemonSeed,
+    name: 'Lemon Tree Seeds',
     price: TreeData[EntityTypes.LemonTree].seedPrice,
     y: currentY
   })
@@ -423,6 +465,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.MapleSeed,
+    name: 'Maple Tree Seeds',
     price: TreeData[EntityTypes.MapleTree].seedPrice,
     y: currentY
   })
@@ -435,6 +478,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.OakSeed,
+    name: 'Oak Tree Seeds',
     price: TreeData[EntityTypes.OakTree].seedPrice,
     y: currentY
   })
@@ -447,6 +491,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.PineSeed,
+    name: 'Pine Tree Seeds',
     price: TreeData[EntityTypes.PineTree].seedPrice,
     y: currentY
   })
@@ -459,6 +504,7 @@ function initializeStorePage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.PlumSeed,
+    name: 'Plum Tree Seeds',
     price: TreeData[EntityTypes.PlumTree].seedPrice,
     y: currentY
   })
@@ -562,23 +608,53 @@ function drawButtons (manager) {
 }
 
 function checkMouseClick (manager, x, y) {
-  manager.nextButton.checkClicked(x, y)
-  manager.prevButton.checkClicked(x, y)
+  if (manager.storeConfirmation) {
+    manager.storeConfirmation.checkClicked(x, y)
+  } else {
+    manager.nextButton.checkClicked(x, y)
+    manager.prevButton.checkClicked(x, y)
+  }
 }
 
 function manageInput (manager) {
   const justDownKeys = manager.scene.inputManager.getJustDownKeys()
   const controls  = manager.scene.gameManager.getPlayerControls(EntityTypes.Player1)
+  if (manager.storeConfirmation) {
+    manageStoreConfirmationInput(manager, justDownKeys, controls)
+  } else {
+    manageBuyDialogueInput(manager, justDownKeys, controls)
+  }
+}
+
+function  manageStoreConfirmationInput (manager, justDownKeys, controls) {
+  if (justDownKeys.includes(Keys.ESCAPE)) {
+    manager.storeConfirmation = null
+  }
+}
+
+function manageBuyDialogueInput (manager, justDownKeys, controls) {
   if (justDownKeys.includes(Keys.ESCAPE)) {
     manager.scene.hideBuyDialogue()
   } else if (justDownKeys.includes(controls.Action)) {
     const items = manager.pages[manager.currentPageIndex]
     const selectedItem = items[manager.selectedItemIndex]
 
-    if (selectedItem.price <= manager.scene.gameManager.getMoney()) {
-      manager.scene.gameManager.setMoney(manager.scene.gameManager.getMoney() - selectedItem.price)
-      manager.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem())
+    const config = {
+      game: manager.game,
+      scene: manager.scene,
+      manager,
+      imageManager: manager.imageManager,
+      entityManager: manager.entityManager,
+      itemPrice: selectedItem.price,
+      itemName: selectedItem.name,
+      dialogRect: manager.dialogRect,
+      maxQuantity: 99,
+      buy: true
     }
+
+    manager.storeConfirmation = new StoreConfirmation(config)
+    manager.storeConfirmation.init()
+    manager.storeConfirmation.setShopType(manager.shopType)
   } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN)) {
     selectNextItem(manager)
   } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {

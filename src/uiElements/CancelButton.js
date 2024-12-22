@@ -11,6 +11,10 @@ export default class CancelButton extends CanvasButton {
   }
 
   activate () {
-    this.scene.hideShowingDialogue()
+    if (this.scene.hideShowingDialogue) {
+      this.scene.hideShowingDialogue()
+    } else if (this.scene.cancelPurchase) {
+      this.scene.cancelPurchase()
+    }
   }
 }

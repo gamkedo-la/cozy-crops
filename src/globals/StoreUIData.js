@@ -55,6 +55,13 @@ const StoreUISpriteData = {
     height: 22,
     padding: 1
   },
+  ExtendedPriceDisplay: {
+    x: 0,
+    y: 313,
+    width: 61,
+    height: 37,
+    padding: 1
+  },
   StoreItem: {
     x: 3,
     y: 28,
@@ -95,6 +102,7 @@ export const {
   CarpentryBackgroundTop,
   CarpentryBackgroundMiddle,
   CarpentryBackgroundBottom,
+  ExtendedPriceDisplay,
   StoreItem,
   StoreBackgroundTop,
   StoreBackgroundMiddle,
