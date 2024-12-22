@@ -3,10 +3,13 @@ import UIAttributes from '../globals/UIAttributes.js'
 import SelectedInventoryHighlight from './SelectedInventoryHighlight.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import { UISprites } from '../globals/Images.js'
+import StoreUIData from '../globals/StoreUIData.js'
 
 export default class StoreItemElement {
   constructor (config) {
     Object.assign(this, config)
+
+    setImageSourceData(this)
 
     this.x  = this.game.canvas.width / 2 - this.sourceWidth
     this.width = 2 * this.sourceWidth
@@ -115,5 +118,28 @@ export default class StoreItemElement {
       x < this.game.canvas.width / 2 + this.sourceWidth &&
       y > this.y &&
       y < this.y + 2 * this.sourceHeight
+  }
+}
+
+function setImageSourceData (element) {
+  switch (element.shopType) {
+    case 'store':
+      element.sourceX = StoreUIData.StoreItem.x
+      element.sourceY = StoreUIData.StoreItem.y
+      element.sourceWidth = StoreUIData.StoreItem.width
+      element.sourceHeight = StoreUIData.StoreItem.height
+    break
+    case 'blacksmithshop':
+      element.sourceX = StoreUIData.BlacksmithItem.x
+      element.sourceY = StoreUIData.BlacksmithItem.y
+      element.sourceWidth = StoreUIData.BlacksmithItem.width
+      element.sourceHeight = StoreUIData.BlacksmithItem.height
+    break
+    case 'carpentryshop':
+      element.sourceX = StoreUIData.CarpentryItem.x
+      element.sourceY = StoreUIData.CarpentryItem.y
+      element.sourceWidth = StoreUIData.CarpentryItem.width
+      element.sourceHeight = StoreUIData.CarpentryItem.height
+    break    
   }
 }
