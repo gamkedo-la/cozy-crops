@@ -10,6 +10,7 @@ import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
+import StoreConfirmation from '../uiElements/StoreConfirmation.js'
 
 export default class SellManager {
   constructor (config) {
@@ -27,6 +28,7 @@ export default class SellManager {
     this.pageTitleHeight = 0
 
     this.shopType = null
+    this.storeConfirmation = null
     this.itemContainer = null
     this.backgroundTop = null
     this.backgroundMiddle = null
@@ -63,6 +65,7 @@ export default class SellManager {
     const config = {
       game: this.game,
       scene: this.scene,
+      manager: this,
       imageManager: this.imageManager,
       entityManager: this.entityManager
     }
@@ -111,9 +114,32 @@ export default class SellManager {
     positionButtons(this)
   }
 
-  draw () {
-    drawDialogue(this, this.dialogRect)
+  hideStoreConfirmation () {
+    this.storeConfirmation = null
   }
+
+  completePurchase () {
+    const items = this.pages[this.currentPageIndex]
+    const selectedItem = items[this.selectedItemIndex]
+
+    if (selectedItem.price <= this.scene.gameManager.getMoney()) {
+      this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() + (selectedItem.price * this.storeConfirmation.quantity))
+      this.scene.inventoryManager.removeItemToInventory(selectedItem.getPurchasedItem(), this.storeConfirmation.quantity)
+    }
+
+    this.storeConfirmation = null
+  }
+
+  cancelPurchase () {
+    this.storeConfirmation = null
+  }
+
+  draw () {
+    if (this.storeConfirmation) {
+      this.storeConfirmation.draw()
+    } else {
+      drawDialogue(this, this.dialogRect)
+    }  }
 }
 
 function drawDialogue (manager, dialogBkgdRect) {
@@ -127,8 +153,8 @@ function setStoreShopType (manager, config) {
     [] // forage items
   ]
   manager.pageTitles = [
-    'Sell Crop Seeds',
-    'Sell Tree Seeds',
+    'Sell Crops',
+    'Sell Tree Fruit',
     'Sell Forage Items'
   ]
 
@@ -212,13 +238,16 @@ function initializeStorePage0 (manager, config) {
       ...config,
       x: manager.game.canvas.width / 2 - manager.itemContainer.width,
       y: currentY,
+      type: crop.type,
       name: cropData.name,
       price: cropData.sellingPrice,
-      icon: cropData.icon,
-      selected: false
+      selected: false,
+      shopType: manager.shopType,
+      cropManager: manager.scene.cropManager
     })
     item.init()
     manager.pages[0].push(item)
+    if (manager.pages[0].length === 1) item.selected = true
     currentY += deltaY
   })
 }
@@ -277,7 +306,7 @@ function drawBackgroundForItemCount (manager, dialogBkgdRect, itemCount) {
   
   const pageLength = itemCount * (manager.itemContainer.height + 4) // + 4 accounts for spacing between items
   // add one section to make room for buttons at the bottom, add one section for the page title at the top
-  const numMiddleSections = 2 + Math.ceil((pageLength - manager.backgroundTop.height - manager.backgroundBottom.height) / manager.backgroundMiddle.height)
+  const numMiddleSections = 3 + Math.ceil((pageLength - manager.backgroundTop.height - manager.backgroundBottom.height) / manager.backgroundMiddle.height)
 
   let currentY = dialogBkgdRect.top + manager.backgroundTop.height
   for (let i = 0; i < numMiddleSections; i++) {
@@ -337,11 +366,25 @@ function manageInput (manager) {
   if (justDownKeys.includes(Keys.ESCAPE)) {
     manager.scene.hideSellDialogue()
   } else if (justDownKeys.includes(controls.Action)) {
-    const items = manager.pages[manager.currentPageIndex]
-    const selectedItem = items[manager.selectedItemIndex]
-
-    manager.scene.gameManager.setMoney(manager.scene.gameManager.getMoney() + selectedItem.price)
-    manager.inventoryManager.removeItemFromInventory(selectedItem)
+        const items = manager.pages[manager.currentPageIndex]
+        const selectedItem = items[manager.selectedItemIndex]
+    
+        const config = {
+          game: manager.game,
+          scene: manager.scene,
+          manager,
+          imageManager: manager.imageManager,
+          entityManager: manager.entityManager,
+          itemPrice: selectedItem.price,
+          itemName: selectedItem.name,
+          dialogRect: manager.dialogRect,
+          maxQuantity: manager.inventoryManager.getQuantity(selectedItem.type),
+          buy: true
+        }
+    
+        manager.storeConfirmation = new StoreConfirmation(config)
+        manager.storeConfirmation.init()
+        manager.storeConfirmation.setShopType(manager.shopType)
   } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN)) {
     selectNextItem(manager)
   } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {

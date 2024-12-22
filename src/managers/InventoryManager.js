@@ -98,6 +98,10 @@ export default class InventoryManager {
     this.game.gameManager.addToInventory(itemToAdd.type, quantity)
   }
 
+  getItem (itemType) {
+    return this.inventory.find(item => item.type === itemType)
+  }
+
   removeItemFromInventory (itemToRemove, quantity = 1) {
     let item = null
 
@@ -121,6 +125,11 @@ export default class InventoryManager {
       item.x = this.x + (index * this.itemWidth)
       item.y = this.y + (Math.floor(index / this.itemsPerRow) * this.itemHeight)
     })
+  }
+
+  getQuantity (item) {
+    const inventoryItem = this.inventory.find(inventoryItem => inventoryItem.type === item.type)
+    return inventoryItem ? inventoryItem.quantity : 0
   }
 
   getTools () {

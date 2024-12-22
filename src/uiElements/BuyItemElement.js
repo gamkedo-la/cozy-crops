@@ -72,8 +72,6 @@ function getItemForType (element, type) {
 }
 
 function getSeedPacket (element, type) {
-  // Need to account for tall crops being twice as high so they aren't drawn squished
-  const height = isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight
   const config = {
     game: element.game,
     imageManager: element.imageManager,

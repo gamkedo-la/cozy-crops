@@ -111,6 +111,10 @@ export default class CropManager {
     }
   }
 
+  getCropForType (cropType, x, y) {
+    return restoreCropFromMemory(this, cropType, x, y)
+  }
+  
   plantTree (treeType, x, y) {
     let tree = null
     const treeConfig = {

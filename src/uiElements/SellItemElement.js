@@ -6,95 +6,98 @@ import EntityTypes from '../globals/EntityTypes.js'
 export default class SellItemElement extends StoreItemElement {
   constructor (config) {
     config.sourceImage = config.imageManager.getImageWithSrc(StoreUI)
-    config.sourceX = StoreUIData.SellItem.x
-    config.sourceY = StoreUIData.SellItem.y
-    config.sourceWidth = StoreUIData.SellItem.width
-    config.sourceHeight = StoreUIData.SellItem.height
     config.name = getNameForType(config.type)
 
     super(config)
 
+    getSourceDataForShopType(this.shopType)
     this.icon = getItemForType(this, config.type)
+    this.icon.init()
+    this.icon.width = this.itemWidth
+    this.icon.height = isTallCrop(config.type) ? 2 * this.itemHeight : this.itemHeight
   }
 
   getSoldItem () {
-    return getItemForType(this, this.type)
+    const item = {}
+    Object.assign(item, this.icon)
+    return item
   }
 }
 
 function getNameForType (type) {
   switch (type) {
-    case EntityTypes.CarrotSeed:
+    case EntityTypes.Carrot:
       return 'Carrot'
-    case EntityTypes.CornSeed:
+    case EntityTypes.Corn:
       return 'Corn'
-    case EntityTypes.EggplantSeed:
+    case EntityTypes.Eggplant:
       return 'Eggplant'
-    case EntityTypes.LettuceSeed:
+    case EntityTypes.Lettuce:
       return 'Lettuce'
-    case EntityTypes.OnionSeed:
+    case EntityTypes.Onion:
       return 'Onion'
-    case EntityTypes.PepperSeed:
+    case EntityTypes.Pepper:
       return 'Pepper'
-    case EntityTypes.PotatoSeed:
+    case EntityTypes.Potato:
       return 'Potato'
-    case EntityTypes.PumpkinSeed:
+    case EntityTypes.Pumpkin:
       return 'Pumpkin'
-    case EntityTypes.RadishSeed:
+    case EntityTypes.Radish:
       return 'Radish'
-    case EntityTypes.StrawberrySeed:
+    case EntityTypes.Strawberry:
       return 'Strawberry'
-    case EntityTypes.TomatoSeed:
+    case EntityTypes.Tomato:
       return 'Tomato'
-    case EntityTypes.WatermelonSeed:
+    case EntityTypes.Watermelon:
       return 'Watermelon'
-    case EntityTypes.AppleSeed:
+    case EntityTypes.Apple:
       return 'Apple'
-    case EntityTypes.OrangeSeed:
+    case EntityTypes.Orange:
       return 'Orange'
-    case EntityTypes.LimeSeed:
+    case EntityTypes.Lime:
       return 'Lime'
-    case EntityTypes.CherrySeed:
+    case EntityTypes.Cherry:
       return 'Cherry'
-    case EntityTypes.LemonSeed:
+    case EntityTypes.Lemon:
       return 'Lemon'
-    case EntityTypes.MapleSeed:
+    case EntityTypes.MapleTree:
       return 'Maple'
-    case EntityTypes.OakSeed:
+    case EntityTypes.Oak:
       return 'Oak'
-    case EntityTypes.PineSeed:
+    case EntityTypes.Pine:
       return 'Pine'
-    case EntityTypes.PlumSeed:
+    case EntityTypes.Plum:
       return 'Plum'
   }
 }
 
-function getItemForType (element, type) {
-  // if (element.entityManager.isSeed({ type })) {
-  //   return getSeedPacket(element, type)
-  // }
+function getSourceDataForShopType (element, shopType) {
+  switch (shopType) {
+    case 'store':
+      element.sourceX = StoreUIData.StoreItem.x
+      element.sourceY = StoreUIData.StoreItem.y
+      element.sourceWidth = StoreUIData.StoreItem.width
+      element.sourceHeight = StoreUIData.StoreItem.height
+      break
+    case 'blacksmithshop':
+      element.sourceX = StoreUIData.BlacksmithItem.x
+      element.sourceY = StoreUIData.BlacksmithItem.y
+      element.sourceWidth = StoreUIData.BlacksmithItem.width
+      element.sourceHeight = StoreUIData.BlacksmithItem.height
+      break
+    case 'carpentryshop':
+      element.sourceX = StoreUIData.CarpentryItem.x
+      element.sourceY = StoreUIData.CarpentryItem.y
+      element.sourceWidth = StoreUIData.CarpentryItem.width
+      element.sourceHeight = StoreUIData.CarpentryItem.height
+      break
+  }
 }
 
-// function getSeedPacket (element, type) {
-//   // Need to account for tall crops being twice as high so they aren't drawn squished
-//   const height = isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight
-//   const config = {
-//     game: element.game,
-//     imageManager: element.imageManager,
-//     type,
-//     x: element.x + element.width - element.itemWidth - 8,
-//     y: element.y + (isTallCropSeed(type) ? 16 - element.itemHeight : 8),
-//     width: element.itemWidth,
-//     height: isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight,
-//     quantity: 1
-//   }
+function getItemForType (element, type) {
+  return element.cropManager.getCropForType(type, element.x + element.width - element.itemWidth - 8, element.y + (isTallCrop(type) ? -22 : 8))
+}
 
-//   const packet = new SeedPacket(config)
-//   packet.init()
-
-//   return packet
-// }
-
-// function isTallCropSeed (type) {
-//   return type === EntityTypes.CornSeed || type === EntityTypes.EggplantSeed || type === EntityTypes.PepperSeed || type === EntityTypes.StrawberrySeed
-// }
+function isTallCrop (type) {
+  return type === EntityTypes.Corn || type === EntityTypes.Eggplant || type === EntityTypes.Pepper || type === EntityTypes.Strawberry
+}

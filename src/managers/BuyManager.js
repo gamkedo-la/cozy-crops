@@ -28,6 +28,7 @@ export default class BuyManager {
     this.pageTitleHeight = 0
 
     this.shopType = null
+    this.storeConfirmation = null
     this.itemContainer = null
     this.backgroundTop = null
     this.backgroundMiddle = null
@@ -122,7 +123,7 @@ export default class BuyManager {
 
     if (selectedItem.price <= this.scene.gameManager.getMoney()) {
       this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() - (selectedItem.price * this.storeConfirmation.quantity))
-      this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem())
+      this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem(), this.storeConfirmation.quantity)
     }
 
     this.storeConfirmation = null
