@@ -4,6 +4,7 @@ import UISpriteData from '../globals/UISpriteData.js'
 import { UISprites, StoreUI } from '../globals/Images.js'
 import StoreUIData from '../globals/StoreUIData.js'
 import BuyButton from './BuyButton.js'
+import SellButton from './SellButton.js'
 import CancelButton from './CancelButton.js'
 import MinusButton from './MinusButton.js'
 import PlusButton from './PlusButton.js'
@@ -17,6 +18,7 @@ export default class StoreConfirmation {
     this.uiSpriteSource = this.imageManager.getImageWithSrc(UISprites)
 
     this.buyButton = null
+    this.sellButton = null
     this.cancelButton = null
     this.plusButton = null
     this.minusButton = null
@@ -41,6 +43,24 @@ export default class StoreConfirmation {
       height: 20,
       scene: this
     })
+    if (!this.buy) {
+      // this.buyButton.setDisabled(true)
+      this.buyButton.visible = false
+    }
+
+    this.sellButton = new SellButton({
+      game: this.game,
+      imageManager: this.imageManager,
+      x: this.x + 20,
+      y: this.y + 80,
+      width: 100,
+      height: 20,
+      scene: this
+    })
+    if (this.buy) {
+      // this.sellButton.setDisabled(true)
+      this.sellButton.visible = false
+    }
 
     this.cancelButton = new CancelButton({
       game: this.game,
@@ -117,10 +137,13 @@ export default class StoreConfirmation {
   }
 
   checkClicked (x, y) {
-    if (this.buyButton.checkClicked(x, y)) {
+    if (this.buy && this.buyButton.checkClicked(x, y)) {
       this.buyItem()
+    } else if (!this.buy && this.sellButton.checkClicked(x, y)) {
+      this.sellItem()
     } else if (this.cancelButton.checkClicked(x, y)) {
-      this.cancelPurchase()
+      if (this.buy) this.cancelPurchase()
+      if (!this.buy) this.cancelSale()
     }
 
     this.plusButton.checkClicked(x, y)
@@ -143,8 +166,16 @@ export default class StoreConfirmation {
     this.manager.completePurchase()
   }
 
+  sellItem () {
+    this.manager.completeSale()
+  }
+
   cancelPurchase () {
     this.manager.cancelPurchase()
+  }
+
+  cancelSale () {
+    this.manager.cancelSale()
   }
 
   draw () {
@@ -278,7 +309,8 @@ function drawItem (manager, dialogBkgdRect) {
 }
 
 function drawButtons (manager) {
-  manager.buyButton.draw()
+  if (manager.buy) manager.buyButton.draw()
+  if(!manager.buy) manager.sellButton.draw()
   manager.cancelButton.draw()
   manager.plusButton.draw()
   manager.minusButton.draw()
@@ -360,6 +392,11 @@ function positionButtons (manager, itemContainerRect) {
   )
 
   manager.buyButton.setPosition(
+    manager.backgroundTop.x + 10,
+    manager.backgroundBottom.y - manager.buyButton.height - 10
+  )
+
+  manager.sellButton.setPosition(
     manager.backgroundTop.x + 10,
     manager.backgroundBottom.y - manager.buyButton.height - 10
   )

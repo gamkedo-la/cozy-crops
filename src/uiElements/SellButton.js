@@ -11,6 +11,10 @@ export default class SellButton extends CanvasButton {
   }
 
   activate () {
-    this.scene.showSellDialogue()
+    if (this.scene.showSellDialogue) {
+      this.scene.showSellDialogue()
+    } else if (this.scene.sellItem) {
+      this.scene.sellItem()
+    }
   }
 }

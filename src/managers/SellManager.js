@@ -130,7 +130,19 @@ export default class SellManager {
     this.storeConfirmation = null
   }
 
+  completeSale () {
+    const items = this.pages[this.currentPageIndex]
+    const selectedItem = items[this.selectedItemIndex]
+
+    this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() + (selectedItem.price * this.storeConfirmation.quantity))
+    this.scene.inventoryManager.removeItemFromInventory(selectedItem.getSoldItem(), this.storeConfirmation.quantity)
+  }
+
   cancelPurchase () {
+    this.storeConfirmation = null
+  }
+
+  cancelSale () {
     this.storeConfirmation = null
   }
 
@@ -356,8 +368,12 @@ function drawButtons (manager) {
 }
 
 function checkMouseClick (manager, x, y) {
-  manager.nextButton.checkClicked(x, y)
-  manager.prevButton.checkClicked(x, y)
+  if (manager.storeConfirmation) {
+    manager.storeConfirmation.checkClicked(x, y)
+  } else {
+    manager.nextButton.checkClicked(x, y)
+    manager.prevButton.checkClicked(x, y)
+  }
 }
 
 function manageInput (manager) {
@@ -378,8 +394,8 @@ function manageInput (manager) {
           itemPrice: selectedItem.price,
           itemName: selectedItem.name,
           dialogRect: manager.dialogRect,
-          maxQuantity: manager.inventoryManager.getQuantity(selectedItem.type),
-          buy: true
+          maxQuantity: manager.inventoryManager.getQuantity(selectedItem),
+          buy: false
         }
     
         manager.storeConfirmation = new StoreConfirmation(config)
