@@ -6,7 +6,6 @@ import SelectedInventoryHighlight from '../uiElements/SelectedInventoryHighlight
 import Axe from '../entities/tools/Axe.js'
 import FishingRod from '../entities/tools/FishingRod.js'
 import Hoe from '../entities/tools/Hoe.js'
-import PickAxe from '../entities/tools/Pickaxe.js'
 import Shovel from '../entities/tools/Shovel.js'
 import WateringCan from '../entities/tools/WateringCan.js'
 // import Seeds
@@ -315,11 +314,6 @@ function initializeTools (manager, itemToAdd, quantity = 1) {
     case EntityTypes.HoeSteel:
     case EntityTypes.HoeWooden:
       item = new Hoe(config)
-      break
-    case EntityTypes.PickaxeCopper:
-    case EntityTypes.PickaxeSteel:
-    case EntityTypes.PickaxeTitanium:
-      item = new PickAxe(config)
       break
     case EntityTypes.ShovelCopper:
     case EntityTypes.ShovelSteel:

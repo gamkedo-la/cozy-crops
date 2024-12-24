@@ -252,9 +252,6 @@ export default class EntityManager {
       case EntityTypes.HoeCopper:
       case EntityTypes.HoeSteel:
       case EntityTypes.HoeWooden:
-      case EntityTypes.PickaxeCopper:
-      case EntityTypes.PickaxeSteel:
-      case EntityTypes.PickaxeTitanium:
       case EntityTypes.ShovelCopper:
       case EntityTypes.ShovelSteel:
       case EntityTypes.ShovelWooden:
@@ -318,19 +315,6 @@ export default class EntityManager {
       case EntityTypes.HoeCopper:
       case EntityTypes.HoeSteel:
       case EntityTypes.HoeWooden:
-        return true
-      default:
-        return false
-    }
-  }
-
-  isPickaxe (entity) {
-    if (!entity) return false
-
-    switch (entity.type) {
-      case EntityTypes.PickaxeCopper:
-      case EntityTypes.PickaxeSteel:
-      case EntityTypes.PickaxeTitanium:
         return true
       default:
         return false
