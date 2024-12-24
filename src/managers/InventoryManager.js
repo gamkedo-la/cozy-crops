@@ -208,6 +208,7 @@ export default class InventoryManager {
           this.itemHeight
         )
       }
+      drawQuantity(this.game.ctx, seed.x, seed.y, seed.quantity, this.itemWidth, this.itemHeight)
     })
 
     this.getForagables().forEach((foragable, index) => {
@@ -217,6 +218,7 @@ export default class InventoryManager {
         this.itemWidth,
         this.itemHeight
       )
+      drawQuantity(this.game.ctx, foragable.x, foragable.y, foragable.quantity, this.itemWidth, this.itemHeight)
     })
 
     this.getCrops().forEach((crop, index) => {
@@ -235,6 +237,8 @@ export default class InventoryManager {
           this.itemHeight
         )  
       }
+
+      drawQuantity(this.game.ctx, crop.x, crop.y, crop.quantity, this.itemWidth, this.itemHeight)
     })
 
     if (this.selectedItem) {
@@ -453,4 +457,18 @@ function initializeCrops (manager, itemToAdd, quantity = 1) {
 
   item.init()
   manager.inventory.push(item)
+}
+
+function drawQuantity (ctx, x, y, quantity, width, height) {
+  // draw a small grey circle behind where we're going to draw the quantity
+  ctx.fillStyle = 'grey'
+  ctx.beginPath()
+  ctx.arc(x + width - 10, y + height - 10, 8, 0, Math.PI * 2)
+  ctx.fill()
+
+  // draw the quantity in the bottom right corner of the item
+  ctx.fillStyle = 'black'
+  ctx.font = '14px Arial'
+  ctx.textAlign = 'right'
+  ctx.fillText(`${quantity > 9 ? '9+' : quantity}`, x + width - 8, y + height - 9)
 }
