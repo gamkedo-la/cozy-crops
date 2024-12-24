@@ -518,6 +518,7 @@ export default class GameScene extends Scene {
     const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
     for (const entity of entities) {
       if (this.entityManager.isHarvestable(entity)) {
+        this.cropManager.harvestCrop(entity)
         this.entityManager.removeEntity(entity)
         this.inventoryManager.addItemToInventory(entity, 1)
         return true

@@ -90,8 +90,14 @@ export default class InventoryManager {
         this.entityManager.isCrop(itemToAdd) ||
         this.entityManager.isForageable(itemToAdd) ||
         this.entityManager.isTool(itemToAdd)) {
-      this.inventory.push(itemToAdd)
-      item = itemToAdd
+      let item = this.getItem(itemToAdd.type)
+      if (item) {
+        item.quantity += quantity
+      } else {
+        itemToAdd.quantity = quantity
+        this.inventory.push(itemToAdd)
+        item = itemToAdd
+      }
     }
 
     this.updateInventoryPlacement()
@@ -109,10 +115,16 @@ export default class InventoryManager {
         this.entityManager.isCrop(itemToRemove) ||
         this.entityManager.isForageable(itemToRemove) ||
         this.entityManager.isTool(itemToRemove)) {
-      const index = this.inventory.findIndex(item => item.type === itemToRemove.type)
-      if (index >= 0) {
-        item = this.inventory[index]
-        this.inventory.splice(index, 1)
+      let item = this.getItem(itemToRemove.type)
+      if (item) {
+        item.quantity -= quantity
+        if (item.quantity <= 0) {
+          const index = this.inventory.findIndex(item => item.type === itemToRemove.type)
+          if (index >= 0) {
+            item = this.inventory[index]
+            this.inventory.splice(index, 1)
+          }
+        }
       }
     }
 
