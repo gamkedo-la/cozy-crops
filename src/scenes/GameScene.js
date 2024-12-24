@@ -505,6 +505,7 @@ export default class GameScene extends Scene {
     // If there are no entities at the tile, plant the seed
     if (!crop) {
       this.cropManager.plantCrop(seedType, tileTopLeft.x, tileTopLeft.y)
+      this.inventoryManager.removeItemFromInventory(seedType, 1)
     }
   }
 

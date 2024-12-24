@@ -106,6 +106,7 @@ export default class CropManager {
     if (newCrop) {
       this.crops.push(newCrop)
       newCrop.init()
+      this.inventoryManager.removeItemFromInventory({ type: cropType }, 1)
       this.entityManager.addEntity(newCrop)
       this.gameManager.addCrop(newCrop)
     }
