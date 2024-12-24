@@ -5,8 +5,8 @@ export const AxeCopper = {
     name: 'AxeCopperInventory',
     spritesheet: Tools,
     frames: [3],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -18,8 +18,8 @@ export const AxeSteel = {
     name: 'AxeSteelInventory',
     spritesheet: Tools,
     frames: [3],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -31,8 +31,8 @@ export const AxeTitanium = {
     name: 'AxeTitaniumInventory',
     spritesheet: Tools,
     frames: [3],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -44,8 +44,8 @@ export const FishingRodBamboo = {
     name: 'FishingRodBambooInventory',
     spritesheet: Tools,
     frames: [5],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -57,8 +57,8 @@ export const FishingRodFiberglass = {
     name: 'FishingRodFiberglassInventory',
     spritesheet: Tools,
     frames: [5],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -70,8 +70,8 @@ export const FishingRodSteel = {
     name: 'FishingRodSteelInventory',
     spritesheet: Tools,
     frames: [5],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -83,8 +83,8 @@ export const HoeCopper = {
     name: 'HoeCopperInventory',
     spritesheet: Tools,
     frames: [1],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -96,8 +96,8 @@ export const HoeSteel = {
     name: 'HoeSteelInventory',
     spritesheet: Tools,
     frames: [1],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -109,8 +109,8 @@ export const HoeWooden = {
     name: 'HoeWoodenInventory',
     spritesheet: Tools,
     frames: [1],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -122,8 +122,8 @@ export const PickaxeCopper = {
     name: 'PickaxeCopperInventory',
     spritesheet: Tools,
     frames: [4], // Don't think this is right
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -135,8 +135,8 @@ export const PickaxeSteel = {
     name: 'PickaxeSteelInventory',
     spritesheet: Tools,
     frames: [4], // Don't think this is right
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -148,8 +148,8 @@ export const PickaxeTitanium = {
     name: 'PickaxeTitaniumInventory',
     spritesheet: Tools,
     frames: [4], // Don't think this is right
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -161,8 +161,8 @@ export const ShovelCopper = {
     name: 'ShovelCopperInventory',
     spritesheet: Tools,
     frames: [2],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -174,8 +174,8 @@ export const ShovelSteel = {
     name: 'ShovelSteelInventory',
     spritesheet: Tools,
     frames: [2],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -187,8 +187,8 @@ export const ShovelWooden = {
     name: 'ShovelWoodenInventory',
     spritesheet: Tools,
     frames: [2],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -200,8 +200,8 @@ export const WateringCanCopper = {
     name: 'WateringCanCopperInventory',
     spritesheet: Tools,
     frames: [0],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -213,8 +213,8 @@ export const WateringCanSteel = {
     name: 'WateringCanSteelInventory',
     spritesheet: Tools,
     frames: [0],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
@@ -226,8 +226,8 @@ export const WateringCanWooden = {
     name: 'WateringCanWoodenInventory',
     spritesheet: Tools,
     frames: [0],
-    frameWidth: 18,
-    frameHeight: 18,
+    frameWidth: 16,
+    frameHeight: 16,
     padding: 1,
     duration: 500,
     loop: true
