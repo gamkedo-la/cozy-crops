@@ -9,7 +9,6 @@ export default class Shopkeep extends NPC {
     
     this.type =  EntityTypes.Shopkeep
     this.dialogue = {
-      // TODO: Remove this with the correct dialogue
       default: `Hello there! I'm the village shopkeep.\nI can help you with all your shopping needs.\nAre you here to Buy or Sell something?`,
       bought: `Thank you for your purchase!`,
       canceledBuy: `No problem! Let me know if you need anything.`,

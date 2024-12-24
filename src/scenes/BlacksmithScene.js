@@ -6,12 +6,13 @@ import { BlacksmithPosition, BlacksmithEntrance, BlacksmithDialogPosition } from
 import EntityTypes from '../globals/EntityTypes.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
-
+import { RegisterBottomLeft, RegisterBottomRight, RegisterTopRight } from '../globals/TilesBlacksmith.js'
 
 export default class BlacksmithScene extends Scene {
   constructor (config) {
     super(config)
 
+    this.uiScene = null
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
     this.blacksmith = null
@@ -19,7 +20,7 @@ export default class BlacksmithScene extends Scene {
     this.drawlist = []
     this.shouldShowUI = false
     this.textBackground = null
-
+    this.registerTiles = []
   }
 
   init (data) {
@@ -38,12 +39,19 @@ export default class BlacksmithScene extends Scene {
     this.blacksmith.init()
     this.drawlist.push(this.blacksmith)
 
+    this.registerTiles = [RegisterBottomLeft, RegisterBottomRight, RegisterTopRight]
+
     this.blacksmithCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }
   }
 
   start (data) {
+    if (data?.uiScene) {
+      this.uiScene = data.uiScene
+      this.uiScene.setShopType('blacksmithshop')
+    }
+
     if (data?.player) {
       this.playerWorldPosition = { x: data.player.x, y: data.player.y }
       this.player = data.player
@@ -62,9 +70,17 @@ export default class BlacksmithScene extends Scene {
     if (this.player) {
       this.player.update(deltaTime)
       this.blacksmith.checkCollision(this.player)
+      this.checkMapCollision(this.player)
     }
 
     manageInput(this)
+  }
+
+  checkMapCollision (entity) {
+    const tileIndex = this.mapManager.getTileAtPixelPos(entity.x + BlacksmithPosition.x, entity.y + BlacksmithPosition.y, this.mapManager.blacksmithData)
+    if (tileIndex && this.registerTiles.includes(tileIndex)) {
+      this.blacksmith.showDialog(['buy', 'sell'])
+    }
   }
 
   draw (scene) {
@@ -113,15 +129,6 @@ export default class BlacksmithScene extends Scene {
 }
 
 function manageInput (scene) {
-  const downKeys = scene.inputManager.getDownKeys()
-
-  if (downKeys.includes(Keys.ESCAPE)) {
-    // Go back to the game scene
-    scene.player.x = scene.playerWorldPosition.x
-    scene.player.y = scene.playerWorldPosition.y
-    scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
-    scene.game.changeScene(Scenes.Game)
-  }
 }
 
 function returnToWorld (scene) {

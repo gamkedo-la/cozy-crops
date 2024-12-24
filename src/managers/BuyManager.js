@@ -8,6 +8,7 @@ import { FamilyNames } from '../globals/Fonts.js'
 import BuyItemElement from '../uiElements/BuyItemElement.js'
 import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
+import ToolData from '../globals/ToolData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 import StoreConfirmation from '../uiElements/StoreConfirmation.js'
@@ -387,8 +388,6 @@ function initializeStorePage0 (manager, config) {
   if (manager.currentPageIndex === 0) {
     manager.pages[0][manager.selectedItemIndex].selected = true
   }
-
-
 }
 
 function initializeStorePage1 (manager, config) {
@@ -514,15 +513,225 @@ function initializeStorePage1 (manager, config) {
 }
 
 function initializeBlacksmithPage0 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'blacksmithshop'
+
+  const woodenHoe = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.HoeWooden,
+    name: 'Hoe',
+    price: ToolData[EntityTypes.HoeWooden].price,
+    y: currentY
+  })
+  woodenHoe.init()
+  manager.pages[0].push(woodenHoe)
+
+  currentY += deltaY
+
+  const copperAxe = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.AxeCopper,
+    name: 'Axe',
+    price: ToolData[EntityTypes.AxeCopper].price,
+    y: currentY
+  })
+  copperAxe.init()
+  manager.pages[0].push(copperAxe)
+
+  currentY += deltaY
+
+  const fishingRodBamboo = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.FishingRodBamboo,
+    name: 'Fishing Rod',
+    price: ToolData[EntityTypes.FishingRodBamboo].price,
+    y: currentY
+  })
+  fishingRodBamboo.init()
+  manager.pages[0].push(fishingRodBamboo)
+
+  currentY += deltaY
+
+  const woodenShovel = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.ShovelWooden,
+    name: 'Shovel',
+    price: ToolData[EntityTypes.ShovelWooden].price,
+    y: currentY
+  })
+  woodenShovel.init()
+  manager.pages[0].push(woodenShovel)
+
+  currentY += deltaY
+
+  const woodenWateringCan = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WateringCanWooden,
+    name: 'Watering Can',
+    price: ToolData[EntityTypes.WateringCanWooden].price,
+    y: currentY
+  })
+  woodenWateringCan.init()
+  manager.pages[0].push(woodenWateringCan)
+
+  if (manager.currentPageIndex === 0) {
+    manager.pages[0][manager.selectedItemIndex].selected = true
+  }
 }
 
 function initializeBlacksmithPage1 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'blacksmithshop'
+
+  const copperHoe = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.HoeCopper,
+    name: 'Hoe',
+    price: ToolData[EntityTypes.HoeCopper].price,
+    y: currentY
+  })
+  copperHoe.init()
+  manager.pages[1].push(copperHoe)
+  
+  currentY += deltaY
+
+  const steelAxe = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.AxeSteel,
+    name: 'Axe',
+    price: ToolData[EntityTypes.AxeSteel].price,
+    y: currentY
+  })
+  steelAxe.init()
+  manager.pages[1].push(steelAxe)
+
+  currentY += deltaY
+
+  const fishingRodFiberglass = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.FishingRodFiberglass,
+    name: 'Fishing Rod',
+    price: ToolData[EntityTypes.FishingRodFiberglass].price,
+    y: currentY
+  })
+  fishingRodFiberglass.init()
+  manager.pages[1].push(fishingRodFiberglass)
+
+  currentY += deltaY
+
+  const copperShovel = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.ShovelCopper,
+    name: 'Shovel',
+    price: ToolData[EntityTypes.ShovelCopper].price,
+    y: currentY
+  })
+  copperShovel.init()
+  manager.pages[1].push(copperShovel)
+
+  currentY += deltaY
+
+  const copperWateringCan = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WateringCanCopper,
+    name: 'Watering Can',
+    price: ToolData[EntityTypes.WateringCanCopper].price,
+    y: currentY
+  })
+  copperWateringCan.init()
+  manager.pages[1].push(copperWateringCan)
+
+  if (manager.currentPageIndex === 1) {
+    manager.pages[1][manager.selectedItemIndex].selected = true
+  }
 }
 
 function initializeBlacksmithPage2 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'blacksmithshop'
+
+  const steelHoe = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.HoeSteel,
+    name: 'Hoe',
+    price: ToolData[EntityTypes.HoeSteel].price,
+    y: currentY
+  })
+  steelHoe.init()
+  manager.pages[2].push(steelHoe)
+
+  currentY += deltaY
+
+  const titaniumAxe = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.AxeTitanium,
+    name: 'Axe',
+    price: ToolData[EntityTypes.AxeTitanium].price,
+    y: currentY
+  })
+  titaniumAxe.init()
+  manager.pages[2].push(titaniumAxe)
+
+  currentY += deltaY
+
+  const steelFishingRod = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.FishingRodSteel,
+    name: 'Fishing Rod',
+    price: ToolData[EntityTypes.FishingRodSteel].price,
+    y: currentY
+  })
+  steelFishingRod.init()
+  manager.pages[2].push(steelFishingRod)
+
+  currentY += deltaY
+
+  const steelShovel = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.ShovelSteel,
+    name: 'Shovel',
+    price: ToolData[EntityTypes.ShovelSteel].price,
+    y: currentY
+  })
+  steelShovel.init()
+  manager.pages[2].push(steelShovel)
+
+  currentY += deltaY
+
+  const steelWateringCan = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WateringCanSteel,
+    name: 'Watering Can',
+    price: ToolData[EntityTypes.WateringCanSteel].price,
+    y: currentY
+  })
+  steelWateringCan.init()
+  manager.pages[2].push(steelWateringCan)
+
+  if (manager.currentPageIndex === 2) {
+    manager.pages[2][manager.selectedItemIndex].selected = true
+  }
 }
 
 function initializeCarpentryPage0 (manager, config) {

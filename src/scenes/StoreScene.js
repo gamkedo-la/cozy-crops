@@ -8,7 +8,6 @@ import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
 import { RegisterBottomLeft, RegisterBottomMiddle, RegisterBottomRight, RegisterTopLeft, RegisterTopMiddle, RegisterTopRight } from '../globals/TilesStore.js'
 
-
 export default class StoreScene extends Scene {
   constructor (config) {
     super(config)
