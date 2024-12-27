@@ -8,6 +8,7 @@ import { FamilyNames } from '../globals/Fonts.js'
 import SellItemElement from '../uiElements/SellItemElement.js'
 import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
+import ForageableData from '../globals/ForageableData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 import StoreConfirmation from '../uiElements/StoreConfirmation.js'
@@ -230,6 +231,8 @@ function initializeStorePage0 (manager, config) {
   let currentY = manager.pageTitleHeight
   const deltaY = 2 * manager.itemContainer.height
 
+  config.shopType = 'store'
+
   const crops = manager.inventoryManager.getCrops()
   crops.forEach(crop => {
     const cropData = CropData[crop.type]
@@ -241,7 +244,6 @@ function initializeStorePage0 (manager, config) {
       name: cropData.name,
       price: cropData.sellingPrice,
       selected: false,
-      shopType: manager.shopType,
       cropManager: manager.scene.cropManager
     })
     item.init()
@@ -252,34 +254,97 @@ function initializeStorePage0 (manager, config) {
 }
 
 function initializeStorePage1 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'store'
+
+  const treeFruit = manager.inventoryManager.getTreeFruit()
+  treeFruit.forEach(fruit => {
+    const treeData = TreeData[fruit.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: fruit.type,
+      name: treeData.name,
+      price: treeData.sellingPrice,
+      selected: false,
+      cropManager: manager.scene.cropManager
+    })
+    item.init()
+    manager.pages[1].push(item)
+    if (manager.pages[1].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeStorePage2 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'store'
+
+  const forageItems = manager.inventoryManager.getForagables()
+  forageItems.forEach(item => {
+    const itemData = ForageableData[item.type]
+    const sellItem = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: item.type,
+      name: itemData.name,
+      price: itemData.sellingPrice,
+      selected: false,
+      cropManager: manager.scene.cropManager
+    })
+    sellItem.init()
+    manager.pages[2].push(sellItem)
+    if (manager.pages[2].length === 1) sellItem.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeBlacksmithPage0 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
+
   config.shopType = 'blacksmithshop'
 }
 
 function initializeBlacksmithPage1 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'blacksmithshop'
 }
 
 function initializeBlacksmithPage2 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'blacksmithshop'
 }
 
 function initializeCarpentryPage0 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'carpentryshop'
 }
 
 function initializeCarpentryPage1 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'carpentryshop'
 }
 
 function initializeCarpentryPage2 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'carpentryshop'
 }
 

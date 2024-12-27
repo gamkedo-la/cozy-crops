@@ -366,6 +366,23 @@ export default class EntityManager {
     }
   }
 
+  isTreeFruit (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.Apple:
+      case EntityTypes.Cherry:
+      case EntityTypes.Lemon:
+      case EntityTypes.Lime:
+      case EntityTypes.MapleSyrup:
+      case EntityTypes.Orange:
+      case EntityTypes.Plum:
+        return true
+      default:
+        return false
+    }
+  }
+
   isWood (entity) {
     if (!entity) return false
 

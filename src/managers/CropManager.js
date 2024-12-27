@@ -21,6 +21,12 @@ import OakTree from '../entities/trees/OakTree.js'
 import OrangeTree from '../entities/trees/OrangeTree.js'
 import PineTree from '../entities/trees/PineTree.js'
 import PlumTree from '../entities/trees/PlumTree.js'
+import Daffodil from '../entities/forageables/Daffodil.js'
+import Sunflower from '../entities/forageables/Sunflower.js'
+import Truffel from '../entities/forageables/Truffel.js'
+import Tulip from '../entities/forageables/Tulip.js'
+import WildGarlic from '../entities/forageables/WildGarlic.js'
+import WildRose from '../entities/forageables/WildRose.js'
 
 export default class CropManager {
   constructor (config) {
@@ -114,6 +120,89 @@ export default class CropManager {
 
   getCropForType (cropType, x, y) {
     return restoreCropFromMemory(this, cropType, x, y)
+  }
+
+  getTreeForType (treeType, x, y) {
+    let newTree = null
+    const treeConfig = {
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.imageManager,
+      manager: this,
+      x,
+      y
+    }
+
+    switch (treeType) {
+      case EntityTypes.AppleTree:
+        newTree = new AppleTree(treeConfig)
+        break
+      case EntityTypes.CherryTree:
+        newTree = new CherryTree(treeConfig)
+        break
+      case EntityTypes.LemonTree:
+        newTree = new LemonTree(treeConfig)
+        break
+      case EntityTypes.LimeTree:
+        newTree = new LimeTree(treeConfig)
+        break
+      case EntityTypes.MapleTree:
+        newTree = new MapleTree(treeConfig)
+        break
+      case EntityTypes.OakTree:
+        newTree = new OakTree(treeConfig)
+        break
+      case EntityTypes.OrangeTree:
+        newTree = new OrangeTree(treeConfig)
+        break
+      case EntityTypes.PineTree:
+        newTree = new PineTree(treeConfig)
+        break
+      case EntityTypes.PlumTree:
+        newTree = new PlumTree(treeConfig)
+        break
+    }
+
+    newTree.init()
+
+    return newTree
+  }
+
+  getForagableForType (foragableType, x, y) {
+    let newForagable = null
+    const foragableConfig = {
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.imageManager,
+      manager: this,
+      x,
+      y
+    }
+
+    switch (foragableType) {
+      case EntityTypes.Daffodil:
+        newForagable = new Daffodil(foragableConfig)
+        break
+      case EntityTypes.Sunflower:
+        newForagable = new Sunflower(foragableConfig)
+        break
+      case EntityTypes.Truffel:
+        newForagable = new Truffel(foragableConfig)
+        break
+      case EntityTypes.Tulip:
+        newForagable = new Tulip(foragableConfig)
+        break
+      case EntityTypes.WildGarlic:
+        newForagable = new WildGarlic(foragableConfig)
+        break
+      case EntityTypes.WildRose:
+        newForagable = new WildRose(foragableConfig)
+        break
+    }
+
+    newForagable.init()
+
+    return newForagable
   }
   
   plantTree (treeType, x, y) {
@@ -293,6 +382,8 @@ function restoreCropFromMemory (manager, cropType, x, y) {
       newCrop = new AppleTree(cropConfig)
       break
   }
+
+  newCrop.init()
 
   return newCrop
 }

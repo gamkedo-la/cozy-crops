@@ -14,7 +14,14 @@ export default class SellItemElement extends StoreItemElement {
     this.icon = getItemForType(this, config.type)
     this.icon.init()
     this.icon.width = this.itemWidth
-    this.icon.height = isTallCrop(config.type) ? 2 * this.itemHeight : this.itemHeight
+    if (isTallCrop(config.type)) {
+      this.icon.height = 2 * this.itemHeight
+    } else if (this.manager.entityManager.isTree({ type: config.type })) {
+      this.icon.height = 3 * this.itemHeight
+    } else if (this.manager.entityManager.isForageable({ type: config.type })) {
+      this.icon.height = 2 * this.itemHeight
+    }
+    // this.icon.height = isTallCrop(config.type) ? 2 * this.itemHeight : this.itemHeight
   }
 
   getSoldItem () {
@@ -68,6 +75,18 @@ function getNameForType (type) {
       return 'Pine'
     case EntityTypes.Plum:
       return 'Plum'
+    case EntityTypes.Daffodil:
+      return 'Daffodil'
+    case EntityTypes.Sunflower:
+      return 'Sunflower'
+    case EntityTypes.Truffel:
+      return 'Truffel'
+    case EntityTypes.Tulip:
+      return 'Tulip'
+    case EntityTypes.WildGarlic:
+      return 'Wild Garlic'
+    case EntityTypes.WildRose:
+      return 'Wild Rose'
   }
 }
 
@@ -95,9 +114,24 @@ function getSourceDataForShopType (element, shopType) {
 }
 
 function getItemForType (element, type) {
-  return element.cropManager.getCropForType(type, element.x + element.width - element.itemWidth - 8, element.y + (isTallCrop(type) ? -22 : 8))
+  if (element.entityManager.isCrop({ type })) {
+    return element.cropManager.getCropForType(type, element.x + element.width - element.itemWidth - 8, element.y + (isTallCrop(type) ? -22 : 8))
+  } else if (element.entityManager.isTree({ type })) {
+    return element.cropManager.getTreeForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
+  } else if (element.entityManager.isForageable({ type })) {
+    return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
+  }
 }
 
 function isTallCrop (type) {
-  return type === EntityTypes.Corn || type === EntityTypes.Eggplant || type === EntityTypes.Pepper || type === EntityTypes.Strawberry
+  return type === EntityTypes.Corn ||
+         type === EntityTypes.Eggplant ||
+         type === EntityTypes.Pepper ||
+         type === EntityTypes.Strawberry // ||
+        //  type === EntityTypes.Daffodil ||
+        //  type === EntityTypes.Sunflower ||
+        //  type === EntityTypes.Truffel ||
+        //  type === EntityTypes.Tulip ||
+        //  type === EntityTypes.WildGarlic ||
+        //  type === EntityTypes.WildRose
 }

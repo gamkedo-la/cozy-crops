@@ -163,6 +163,11 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isCrop(item))
   }
 
+  getTreeFruit () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isTreeFruit(item))
+  }
+
   getClickedItem (x, y) {
     const clickedItem = this.inventory.find(item => {
       return (
