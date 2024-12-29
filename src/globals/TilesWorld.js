@@ -16,6 +16,7 @@ export const Seafoam = 14
 export const WetSand = 15
 export const Waterfall = 19
 export const Hilltop = 10
+export const Grass5 = 128
 export const fencefull = 160
 export const fenceleft = 161
 export const fenceright = 162
@@ -24,69 +25,71 @@ export const NearShoreOcean = 164
 export const LockedDoor = 165
 
 export const WorldIndexes = {
-  Empty,
-  Stone,
-  Water,
-  Sand,
-  RockyGround,
-  Grass1,
-  Pink,
   Bridge,
-  HorizontalStripe,
-  Grass2,
-  Grass3,
-  Grass4,
-  Empty2,
   DarkStone,
-  Seafoam,
-  WetSand,
-  Waterfall,
-  Hilltop,
+  Empty,
+  Empty2,
   fencefull,
   fenceleft,
   fenceright,
   fencevert,
+  Grass1,
+  Grass2,
+  Grass3,
+  Grass4,
+  Grass5,
+  Hilltop,
+  HorizontalStripe,
+  LockedDoor,
   NearShoreOcean,
-  LockedDoor
+  Pink,
+  RockyGround,
+  Sand,
+  Seafoam,
+  Stone,
+  Water,
+  Waterfall,
+  WetSand
 }
 
 export const WorldTileNames = {
-  [Empty]: 'Empty',
-  [Stone]: 'Stone',
-  [Water]: 'Water',
-  [Sand]: 'Sand',
-  [RockyGround]: 'RockyGround',
-  [Grass1]: 'Grass1',
-  [Pink]: 'Pink',
   [Bridge]: 'Bridge',
-  [HorizontalStripe]: 'HorizontalStripe',
-  [Grass2]: 'Grass2',
-  [Grass3]: 'Grass3',
-  [Grass4]: 'Grass4',
-  [Empty2]: 'Empty2',
   [DarkStone]: 'DarkStone',
-  [Seafoam]: 'Seafoam',
-  [WetSand]: 'WetSand',
-  [Waterfall]: 'Waterfall',
-  [Hilltop]: 'Hilltop',
+  [Empty]: 'Empty',
+  [Empty2]: 'Empty2',
   [fencefull]: 'fencefull',
   [fenceleft]: 'fenceleft',
   [fenceright]: 'fenceright',
   [fencevert]: 'fencevert',
+  [Grass1]: 'Grass1',
+  [Grass2]: 'Grass2',
+  [Grass3]: 'Grass3',
+  [Grass4]: 'Grass4',
+  [Grass5]: 'Grass5',
+  [Hilltop]: 'Hilltop',
+  [HorizontalStripe]: 'HorizontalStripe',
+  [LockedDoor]: 'LockedDoor',
   [NearShoreOcean]: 'NearShoreOcean',
-  [LockedDoor]: 'LockedDoor'
+  [Pink]: 'Pink',
+  [RockyGround]: 'RockyGround',
+  [Sand]: 'Sand',
+  [Seafoam]: 'Seafoam',
+  [Stone]: 'Stone',
+  [Water]: 'Water',
+  [Waterfall]: 'Waterfall',
+  [WetSand]: 'WetSand'
 }
 
 export const WorldUnwalkable = [
-  Water,
-  Waterfall,
-  RockyGround,
-  Pink,
-  Hilltop,
   fencefull,
   fenceleft,
   fenceright,
   fencevert,
+  Hilltop,
+  LockedDoor,
   NearShoreOcean,
-  LockedDoor
+  Pink,
+  RockyGround,
+  Waterfall,
+  Water,
 ]
