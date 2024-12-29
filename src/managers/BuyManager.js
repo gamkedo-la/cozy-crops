@@ -67,7 +67,8 @@ export default class BuyManager {
       game: this.game,
       scene: this.scene,
       imageManager: this.imageManager,
-      entityManager: this.entityManager
+      entityManager: this.entityManager,
+      money: this.scene.gameManager.getMoney(),
     }
 
     switch (this.shopType) {
@@ -122,7 +123,7 @@ export default class BuyManager {
     const items = this.pages[this.currentPageIndex]
     const selectedItem = items[this.selectedItemIndex]
 
-    if (selectedItem.price <= this.scene.gameManager.getMoney()) {
+    if (this.storeConfirmation.quantity * selectedItem.price <= this.scene.gameManager.getMoney()) {
       this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() - (selectedItem.price * this.storeConfirmation.quantity))
       this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem(), this.storeConfirmation.quantity)
     }
@@ -849,6 +850,8 @@ function manageBuyDialogueInput (manager, justDownKeys, controls) {
     const items = manager.pages[manager.currentPageIndex]
     const selectedItem = items[manager.selectedItemIndex]
 
+    if (selectedItem.disabled) return
+
     const config = {
       game: manager.game,
       scene: manager.scene,
@@ -858,7 +861,7 @@ function manageBuyDialogueInput (manager, justDownKeys, controls) {
       itemPrice: selectedItem.price,
       itemName: selectedItem.name,
       dialogRect: manager.dialogRect,
-      maxQuantity: 99,
+      money: manager.scene.gameManager.getMoney(),
       buy: true
     }
 

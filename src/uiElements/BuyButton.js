@@ -11,6 +11,8 @@ export default class BuyButton extends CanvasButton {
   }
 
   activate () {
+    if (!this.visible || this.disabled) return
+
     if (this.scene.showBuyDialogue) {
       this.scene.showBuyDialogue()
     } else if (this.scene.buyItem) {

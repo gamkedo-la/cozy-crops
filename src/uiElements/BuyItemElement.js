@@ -15,11 +15,30 @@ export default class BuyItemElement extends StoreItemElement {
 
     super(config)
 
+    this.disabled = false
     this.icon = getItemForType(this, config.type)
+  }
+
+  init () {
+    if (this.money < this.price) this.disabled = true
+
+    super.init()
   }
 
   getPurchasedItem () {
     return getItemForType(this, this.type)
+  }
+
+  draw () {
+    if (this.disabled) {
+      this.game.ctx.globalAlpha = 0.5
+    }
+
+    super.draw()
+
+    if (this.disabled) {
+      this.game.ctx.globalAlpha = 1
+    }
   }
 }
 

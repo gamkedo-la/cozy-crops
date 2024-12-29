@@ -8,12 +8,6 @@ export default class PreviousButton extends CanvasButton {
     config.width = UISpriteData.PreviousButton.width
     config.height = UISpriteData.PreviousButton.height
     super(config)
-
-    this.disabled = false
-  }
-
-  setDisabled (disabled) {
-    this.disabled = disabled
   }
 
   activate () {
@@ -24,18 +18,6 @@ export default class PreviousButton extends CanvasButton {
     const wasClicked = super.checkClicked(x, y)
     if (wasClicked && this.visible && !this.disabled) {
       this.activate()
-    }
-  }
-
-  draw () {
-    if (this.disabled) {
-      this.scene.game.ctx.globalAlpha = 0.5
-    }
-
-    super.draw()
-
-    if (this.disabled) {
-      this.scene.game.ctx.globalAlpha = 1
     }
   }
 }

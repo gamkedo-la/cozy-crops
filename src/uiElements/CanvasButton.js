@@ -12,10 +12,19 @@ export default class CanvasButton {
     }
 
     this.visible = true
+    this.disabled = false
+  }
+
+  setDisabled (disabled) {
+    this.disabled = disabled
   }
 
   draw () {
     if (!this.visible) return
+
+    if (this.disabled) {
+      this.scene.game.ctx.globalAlpha = 0.5
+    }
 
     this.scene.game.ctx.drawImage(
       this.scene.imageManager.getImageWithSrc(UISprites),
@@ -28,6 +37,10 @@ export default class CanvasButton {
       this.rect.width,
       this.rect.height
     )
+
+    if (this.disabled) {
+      this.scene.game.ctx.globalAlpha = 1
+    }
   }
 
   setPosition (x, y) {

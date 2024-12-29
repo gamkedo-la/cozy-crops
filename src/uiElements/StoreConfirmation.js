@@ -44,7 +44,6 @@ export default class StoreConfirmation {
       scene: this
     })
     if (!this.buy) {
-      // this.buyButton.setDisabled(true)
       this.buyButton.visible = false
     }
 
@@ -58,7 +57,6 @@ export default class StoreConfirmation {
       scene: this
     })
     if (this.buy) {
-      // this.sellButton.setDisabled(true)
       this.sellButton.visible = false
     }
 
@@ -138,9 +136,9 @@ export default class StoreConfirmation {
 
   checkClicked (x, y) {
     if (this.buy && this.buyButton.checkClicked(x, y)) {
-      this.buyItem()
+      if (this.buyButton.visible && !this.buyButton.disabled) this.buyItem()
     } else if (!this.buy && this.sellButton.checkClicked(x, y)) {
-      this.sellItem()
+      if (this.sellButton.visible && !this.sellButton.disabled) this.sellItem()
     } else if (this.cancelButton.checkClicked(x, y)) {
       if (this.buy) this.cancelPurchase()
       if (!this.buy) this.cancelSale()
@@ -376,8 +374,19 @@ function manageInput (manager) {
 }
 
 function setButtonDisabled (manager) {
-  manager.minusButton.setDisabled(manager.quantity === 1)
-  manager.plusButton.setDisabled(manager.quantity === manager.maxQuantity)
+  manager.minusButton.setDisabled(manager.quantity <= 1)
+
+  if (manager.maxQuantity) {
+    manager.plusButton.setDisabled(manager.quantity === manager.maxQuantity)
+  } else if (manager.money) {
+    manager.plusButton.setDisabled((manager.quantity + 1) * manager.itemPrice > manager.money)
+  }
+
+  if (manager.buy) {
+    manager.buyButton.setDisabled(manager.quantity * manager.itemPrice > manager.money)
+  } else {
+    manager.sellButton.setDisabled(manager.quantity > manager.inventory)
+  }
 }
 
 function positionButtons (manager, itemContainerRect) {
