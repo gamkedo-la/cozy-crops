@@ -55,10 +55,12 @@ export default class StoreItemElement {
     this.icon.drawAsInventory(this.icon.x, this.icon.y, this.icon.width, this.icon.height)
 
     if (this.selected) {
-      if (this.icon.width === this.icon.height) {
+      if (this.entityManager.isTallCrop({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x, this.icon.y - 8) // Adjust for tall crops, -8 is padding and scale
+      } else if (this.entityManager.isTree({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x, this.icon.y - 16) // Adjust for tall crops, -8 is padding and scale
+      } else if (this.entityManager.isForageable({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
-      } else {
-        this.selectedFrame.draw(this.icon.x, this.icon.y + (this.icon.height / 2) - 8) // Adjust for tall crops, -8 is padding and scale
       }
     }
 

@@ -19,9 +19,8 @@ export default class SellItemElement extends StoreItemElement {
     } else if (this.manager.entityManager.isTree({ type: config.type })) {
       this.icon.height = 3 * this.itemHeight
     } else if (this.manager.entityManager.isForageable({ type: config.type })) {
-      this.icon.height = 2 * this.itemHeight
+      this.icon.height = this.itemHeight
     }
-    // this.icon.height = isTallCrop(config.type) ? 2 * this.itemHeight : this.itemHeight
   }
 
   getSoldItem () {
@@ -119,7 +118,7 @@ function getItemForType (element, type) {
   } else if (element.entityManager.isTree({ type })) {
     return element.cropManager.getTreeForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
   } else if (element.entityManager.isForageable({ type })) {
-    return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
+    return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 72)
   }
 }
 
@@ -127,11 +126,5 @@ function isTallCrop (type) {
   return type === EntityTypes.Corn ||
          type === EntityTypes.Eggplant ||
          type === EntityTypes.Pepper ||
-         type === EntityTypes.Strawberry // ||
-        //  type === EntityTypes.Daffodil ||
-        //  type === EntityTypes.Sunflower ||
-        //  type === EntityTypes.Truffel ||
-        //  type === EntityTypes.Tulip ||
-        //  type === EntityTypes.WildGarlic ||
-        //  type === EntityTypes.WildRose
+         type === EntityTypes.Strawberry
 }
