@@ -9,6 +9,7 @@ import SellItemElement from '../uiElements/SellItemElement.js'
 import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
 import ForageableData from '../globals/ForageableData.js'
+import ToolData from '../globals/ToolData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 import StoreConfirmation from '../uiElements/StoreConfirmation.js'
@@ -309,8 +310,25 @@ function initializeBlacksmithPage0 (manager, config) {
   let currentY = manager.pageTitleHeight
   const deltaY = 2 * manager.itemContainer.height
 
-
   config.shopType = 'blacksmithshop'
+
+  const tools = manager.inventoryManager.getBaseTools()
+  tools.forEach(tool => {
+    const toolData = ToolData[tool.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: tool.type,
+      name: toolData.name,
+      price: toolData.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[0].push(item)
+    if (manager.pages[0].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeBlacksmithPage1 (manager, config) {
@@ -318,6 +336,23 @@ function initializeBlacksmithPage1 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'blacksmithshop'
+
+  const tools = manager.inventoryManager.getUpgradedTools()
+  tools.forEach(tool => {
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: tool.type,
+      name: tool.name,
+      price: tool.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[1].push(item)
+    if (manager.pages[1].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeBlacksmithPage2 (manager, config) {
@@ -325,6 +360,23 @@ function initializeBlacksmithPage2 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'blacksmithshop'
+
+  const tools = manager.inventoryManager.getPremiumTools()
+  tools.forEach(tool => {
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: tool.type,
+      name: tool.name,
+      price: tool.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[2].push(item)
+    if (manager.pages[2].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeCarpentryPage0 (manager, config) {
@@ -432,27 +484,31 @@ function manageInput (manager) {
   const justDownKeys = manager.scene.inputManager.getJustDownKeys()
   const controls  = manager.scene.gameManager.getPlayerControls(EntityTypes.Player1)
   if (justDownKeys.includes(Keys.ESCAPE)) {
+    manager.currentPageIndex = 0
+    manager.selectedItemIndex = 0
+    setButtonDisabled(manager)
+    positionButtons(manager)
     manager.scene.hideSellDialogue()
   } else if (justDownKeys.includes(controls.Action)) {
-        const items = manager.pages[manager.currentPageIndex]
-        const selectedItem = items[manager.selectedItemIndex]
-    
-        const config = {
-          game: manager.game,
-          scene: manager.scene,
-          manager,
-          imageManager: manager.imageManager,
-          entityManager: manager.entityManager,
-          itemPrice: selectedItem.price,
-          itemName: selectedItem.name,
-          dialogRect: manager.dialogRect,
-          maxQuantity: manager.inventoryManager.getQuantity(selectedItem),
-          buy: false
-        }
-    
-        manager.storeConfirmation = new StoreConfirmation(config)
-        manager.storeConfirmation.init()
-        manager.storeConfirmation.setShopType(manager.shopType)
+    const items = manager.pages[manager.currentPageIndex]
+    const selectedItem = items[manager.selectedItemIndex]
+
+    const config = {
+      game: manager.game,
+      scene: manager.scene,
+      manager,
+      imageManager: manager.imageManager,
+      entityManager: manager.entityManager,
+      itemPrice: selectedItem.price,
+      itemName: selectedItem.name,
+      dialogRect: manager.dialogRect,
+      maxQuantity: manager.inventoryManager.getQuantity(selectedItem),
+      buy: false
+    }
+
+    manager.storeConfirmation = new StoreConfirmation(config)
+    manager.storeConfirmation.init()
+    manager.storeConfirmation.setShopType(manager.shopType)
   } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN)) {
     selectNextItem(manager)
   } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {

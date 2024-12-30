@@ -736,14 +736,23 @@ function initializeBlacksmithPage2 (manager, config) {
 }
 
 function initializeCarpentryPage0 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'carpentryshop'
 }
 
 function initializeCarpentryPage1 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'carpentryshop'
 }
 
 function initializeCarpentryPage2 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
   config.shopType = 'carpentryshop'
 }
 
@@ -845,6 +854,10 @@ function  manageStoreConfirmationInput (manager, justDownKeys, controls) {
 
 function manageBuyDialogueInput (manager, justDownKeys, controls) {
   if (justDownKeys.includes(Keys.ESCAPE)) {
+    manager.currentPageIndex = 0
+    manager.selectedItemIndex = 0
+    setButtonDisabled(manager)
+    positionButtons(manager)
     manager.scene.hideBuyDialogue()
   } else if (justDownKeys.includes(controls.Action)) {
     const items = manager.pages[manager.currentPageIndex]

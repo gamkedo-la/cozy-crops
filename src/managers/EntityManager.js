@@ -264,6 +264,51 @@ export default class EntityManager {
     }
   }
 
+  isBaseTool (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.AxeCopper:
+      case EntityTypes.FishingRodBamboo:
+      case EntityTypes.HoeWooden:
+      case EntityTypes.ShovelWooden:
+      case EntityTypes.WateringCanWooden:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isUpgradedTool (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.AxeSteel:
+      case EntityTypes.FishingRodFiberglass:
+      case EntityTypes.HoeCopper:
+      case EntityTypes.ShovelCopper:
+      case EntityTypes.WateringCanCopper:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isPremiumTool (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.AxeTitanium:
+      case EntityTypes.FishingRodSteel:
+      case EntityTypes.HoeSteel:
+      case EntityTypes.ShovelSteel:
+      case EntityTypes.WateringCanSteel:
+        return true
+      default:
+        return false
+    }
+  }
+
   isAxe (entity) {
     if (!entity) return false
 

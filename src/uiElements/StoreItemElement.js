@@ -4,6 +4,12 @@ import SelectedInventoryHighlight from './SelectedInventoryHighlight.js'
 import UISpriteData from '../globals/UISpriteData.js'
 import { UISprites } from '../globals/Images.js'
 import StoreUIData from '../globals/StoreUIData.js'
+import EntityTypes from '../globals/EntityTypes.js'
+import Axe from '../entities/tools/Axe.js'
+import FishingRod from '../entities/tools/FishingRod.js'
+import Hoe from '../entities/tools/Hoe.js'
+import Shovel from '../entities/tools/Shovel.js'
+import WateringCan from '../entities/tools/WateringCan.js'
 
 export default class StoreItemElement {
   constructor (config) {
@@ -60,6 +66,8 @@ export default class StoreItemElement {
       } else if (this.entityManager.isTree({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y - 16) // Adjust for tall crops, -8 is padding and scale
       } else if (this.entityManager.isForageable({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x, this.icon.y)
+      } else if (this.entityManager.isTool({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
       }
     }
@@ -120,6 +128,52 @@ export default class StoreItemElement {
       x < this.game.canvas.width / 2 + this.sourceWidth &&
       y > this.y &&
       y < this.y + 2 * this.sourceHeight
+  }
+
+  getTool (element, type) {
+    const config = {
+      game: element.game,
+      imageManager: element.imageManager,
+      type,
+      x: element.x + element.width - element.itemWidth - 8,
+      y: element.y + 8,
+      width: element.itemWidth,
+      height: element.itemHeight,
+      quantity: 1
+    }
+  
+    let tool = null
+    switch (type) {
+      case EntityTypes.AxeCopper:
+      case EntityTypes.AxeSteel:
+      case EntityTypes.AxeTitanium:
+        tool = new Axe(config)
+        break
+      case EntityTypes.FishingRodBamboo:
+      case EntityTypes.FishingRodFiberglass:
+      case EntityTypes.FishingRodSteel:
+        tool = new FishingRod(config)
+        break
+      case EntityTypes.HoeWooden:
+      case EntityTypes.HoeCopper:
+      case EntityTypes.HoeSteel:
+        tool = new Hoe(config)
+        break
+      case EntityTypes.ShovelWooden:
+      case EntityTypes.ShovelCopper:
+      case EntityTypes.ShovelSteel:
+        tool = new Shovel(config)
+        break
+      case EntityTypes.WateringCanWooden:
+      case EntityTypes.WateringCanCopper:
+      case EntityTypes.WateringCanSteel:
+        tool = new WateringCan(config)
+        break
+    }
+  
+    tool.init()
+  
+    return tool
   }
 }
 

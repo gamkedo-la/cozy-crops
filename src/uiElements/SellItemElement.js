@@ -86,6 +86,26 @@ function getNameForType (type) {
       return 'Wild Garlic'
     case EntityTypes.WildRose:
       return 'Wild Rose'
+    case EntityTypes.AxeCopper:
+    case EntityTypes.AxeSteel:
+    case EntityTypes.AxeTitanium:
+        return 'Axe'
+    case EntityTypes.FishingRodBamboo:
+    case EntityTypes.FishingRodFiberglass:
+    case EntityTypes.FishingRodSteel:
+        return 'Fishing Rod'
+    case EntityTypes.HoeWooden:
+    case EntityTypes.HoeCopper:
+    case EntityTypes.HoeSteel:
+        return 'Hoe'
+    case EntityTypes.ShovelWooden:
+    case EntityTypes.ShovelCopper:
+    case EntityTypes.ShovelSteel:
+        return 'Shovel'
+    case EntityTypes.WateringCanWooden:
+    case EntityTypes.WateringCanCopper:
+    case EntityTypes.WateringCanSteel:
+        return 'Watering Can'
   }
 }
 
@@ -119,6 +139,8 @@ function getItemForType (element, type) {
     return element.cropManager.getTreeForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
   } else if (element.entityManager.isForageable({ type })) {
     return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 72)
+  } else if (element.entityManager.isTool({ type })) {
+    return element.getTool(element, type)
   }
 }
 

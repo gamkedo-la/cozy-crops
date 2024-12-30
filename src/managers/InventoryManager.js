@@ -148,6 +148,21 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isTool(item))
   }
 
+  getBaseTools () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isBaseTool(item))
+  }
+
+  getUpgradedTools () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isUpgradedTool(item))
+  }
+
+  getPremiumTools () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isPremiumTool(item))
+  }
+
   getSeeds () {
     const inventory = this.getInventory()
     return inventory.filter(item => this.entityManager.isSeed(item))

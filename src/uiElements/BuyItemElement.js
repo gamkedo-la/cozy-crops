@@ -2,11 +2,6 @@ import StoreItemElement from './StoreItemElement.js'
 import { StoreUI } from '../globals/Images.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import SeedPacket from '../entities/crops/SeedPacket.js'
-import Axe from '../entities/tools/Axe.js'
-import FishingRod from '../entities/tools/FishingRod.js'
-import Hoe from '../entities/tools/Hoe.js'
-import Shovel from '../entities/tools/Shovel.js'
-import WateringCan from '../entities/tools/WateringCan.js'
 
 export default class BuyItemElement extends StoreItemElement {
   constructor (config) {
@@ -123,7 +118,7 @@ function getItemForType (element, type) {
   if (element.entityManager.isSeed({ type })) {
     return getSeedPacket(element, type)
   } else if (element.entityManager.isTool({ type })) {
-    return getTool(element, type)
+    return element.getTool(element, type)
   }
 }
 
@@ -143,52 +138,6 @@ function getSeedPacket (element, type) {
   packet.init()
 
   return packet
-}
-
-function getTool (element, type) {
-  const config = {
-    game: element.game,
-    imageManager: element.imageManager,
-    type,
-    x: element.x + element.width - element.itemWidth - 8,
-    y: element.y + 8,
-    width: element.itemWidth,
-    height: element.itemHeight,
-    quantity: 1
-  }
-
-  let tool = null
-  switch (type) {
-    case EntityTypes.AxeCopper:
-    case EntityTypes.AxeSteel:
-    case EntityTypes.AxeTitanium:
-      tool = new Axe(config)
-      break
-    case EntityTypes.FishingRodBamboo:
-    case EntityTypes.FishingRodFiberglass:
-    case EntityTypes.FishingRodSteel:
-      tool = new FishingRod(config)
-      break
-    case EntityTypes.HoeWooden:
-    case EntityTypes.HoeCopper:
-    case EntityTypes.HoeSteel:
-      tool = new Hoe(config)
-      break
-    case EntityTypes.ShovelWooden:
-    case EntityTypes.ShovelCopper:
-    case EntityTypes.ShovelSteel:
-      tool = new Shovel(config)
-      break
-    case EntityTypes.WateringCanWooden:
-    case EntityTypes.WateringCanCopper:
-    case EntityTypes.WateringCanSteel:
-      tool = new WateringCan(config)
-      break
-  }
-
-  tool.init()
-
-  return tool
 }
 
 function isTallCropSeed (type) {
