@@ -1,9 +1,12 @@
 import ToolAnimations from '../../globals/ToolAnimations.js'
 import Animation from '../../components/Animation.js'
+import ToolData from '../../globals/ToolData.js'
 
 export default class Tool {
   constructor (config) {
     Object.assign(this, config)
+    const toolData = ToolData[this.type]
+    Object.assign(this, toolData)
 
     this.animations = {}
     this.currentAnimation = null // Initialize once animations are built

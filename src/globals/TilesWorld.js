@@ -93,3 +93,13 @@ export const WorldUnwalkable = [
   Waterfall,
   Water,
 ]
+
+const grassTiles = [Grass1, Grass2, Grass3, Grass4, Grass5]
+export function isGrass (index) {
+  return grassTiles.includes(index)
+}
+
+const sandTiles = [Sand, WetSand]
+export function isSand (index) {
+  return sandTiles.includes(index)
+}

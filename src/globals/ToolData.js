@@ -7,7 +7,7 @@ const ToolData = {
     name: 'Wooden Hoe',
     level: 0,
     sellingPrice: 25,
-    size: 'singleSquare'
+    size: 'singleTile'
   },
   [EntityTypes.HoeCopper]: {
     type: EntityTypes.HoeCopper,
@@ -15,7 +15,7 @@ const ToolData = {
     name: 'Copper Hoe',
     level: 1,
     sellingPrice: 50,
-    size: 'threeSquares'
+    size: 'threeTiles'
   },
   [EntityTypes.HoeSteel]: {
     type: EntityTypes.HoeSteel,
@@ -23,7 +23,7 @@ const ToolData = {
     name: 'Steel Hoe',
     level: 2,
     sellingPrice: 100,
-    size: 'nineSquares'
+    size: 'nineTiles'
   },
   [EntityTypes.AxeCopper]: {
     type: EntityTypes.AxeCopper,
@@ -79,7 +79,7 @@ const ToolData = {
     name: 'Wooden Shovel',
     level: 0,
     sellingPrice: 25,
-    size: 'singleSquare'
+    size: 'singleTile'
   },
   [EntityTypes.ShovelCopper]: {
     type: EntityTypes.ShovelCopper,
@@ -87,7 +87,7 @@ const ToolData = {
     name: 'Copper Shovel',
     level: 1,
     sellingPrice: 50,
-    size: 'threeSquares'
+    size: 'threeTiles'
   },
   [EntityTypes.ShovelSteel]: {
     type: EntityTypes.ShovelSteel,
@@ -95,7 +95,7 @@ const ToolData = {
     name: 'Steel Shovel',
     level: 2,
     sellingPrice: 100,
-    size: 'nineSquares'
+    size: 'nineTiles'
   },
   [EntityTypes.WateringCanWooden]: {
     type: EntityTypes.WateringCanWooden,
@@ -103,7 +103,7 @@ const ToolData = {
     name: 'Wooden Watering Can',
     level: 0,
     sellingPrice: 25,
-    size: 'singleSquare'
+    size: 'singleTile'
   },
   [EntityTypes.WateringCanCopper]: {
     type: EntityTypes.WateringCanCopper,
@@ -111,7 +111,7 @@ const ToolData = {
     name: 'Copper Watering Can',
     level: 1,
     sellingPrice: 50,
-    size: 'threeSquares'
+    size: 'threeTiles'
   },
   [EntityTypes.WateringCanSteel]: {
     type: EntityTypes.WateringCanSteel,
@@ -119,7 +119,7 @@ const ToolData = {
     name: 'Steel Watering Can',
     level: 2,
     sellingPrice: 100,
-    size: 'nineSquares'
+    size: 'nineTiles'
   }
 }
 

@@ -8,7 +8,7 @@ import { TileHeight, TileWidth } from '../globals/Constants.js'
 import { TileSet } from '../globals/Images.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import { TileNames } from '../globals/Tiles.js'
-import { NearShoreOcean, Sand, Waterfall, WetSand } from '../globals/TilesWorld.js'
+import { NearShoreOcean, Sand, Waterfall, WetSand, isGrass, isSand } from '../globals/TilesWorld.js'
 
 export default class MapManager {
   constructor (config) {
@@ -262,6 +262,14 @@ export default class MapManager {
     })
   }
 
+  isGrassTile (tileIndex) {
+    return isGrass(tileIndex)
+  }
+
+  isSandTile (tileIndex) {
+    return isSand(tileIndex)
+  }
+
   getWaterfallTilesXY () {
     if (!this.waterfallTileXYs) {
       this.waterfallTileXYs = []
@@ -365,6 +373,7 @@ export default class MapManager {
       x * TileWidth, y * TileHeight, TileWidth, TileHeight
     )
     this.mapData[y][x] = tileIndex
+    this.gameManager.setModifiedTile(x, y, tileIndex, getTimeForTileIndex(tileIndex))
   }
 
   updateTileAtPixelPos (x, y, tileIndex) {
@@ -374,7 +383,6 @@ export default class MapManager {
     const tileX = Math.floor(x / TileWidth)
     const tileY = Math.floor(y / TileHeight)
     this.updateTileAtXY(tileX, tileY, tileIndex)
-    this.gameManager.setModifiedTile(tileX, tileY, tileIndex, getTimeForTileIndex(tileIndex))
   }
 
   getTileAtXY (x, y, map = this.mapData) {

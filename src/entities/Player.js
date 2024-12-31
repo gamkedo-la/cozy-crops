@@ -192,7 +192,7 @@ function handleInput (player) {
         player.scene.openDoor(groundPoint.x, groundPoint.y)
         player.scene.audioManager?.playSource(openDoorSound,SFX_VOL)
       } else if (mapActions.includes('Till') && player.scene.entityManager.isShovel(player.activeTool)) {
-        player.scene.tillGround(groundPoint.x, groundPoint.y)
+        player.scene.tillGround(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
         player.scene.particles?.tillGroundFX(groundPoint.x, groundPoint.y) 
         player.scene.audioManager?.playSource(tillGroundSound,SFX_VOL)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
@@ -202,7 +202,7 @@ function handleInput (player) {
         player.scene.particles?.plantSeedFX(groundPoint.x, groundPoint.y) 
         deductConsumedStamina(player, 0.25) // magic number for planting a seed, could be a property of the seed type
       } else if (mapActions.includes('Water') && player.scene.entityManager.isWateringCan(player.activeTool)) {
-        player.scene.waterGround(groundPoint.x, groundPoint.y)
+        player.scene.waterGround(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
         player.scene.particles?.waterGroundFX(groundPoint.x, groundPoint.y) 
         player.scene.audioManager?.playSource(waterGroundSound,SFX_VOL)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
@@ -282,7 +282,7 @@ function handleInput (player) {
   }
 }
 
-function setStaminaForLocation(player) {
+function setStaminaForLocation (player) {
   // Need to check if player is near thier bed
   // If so, set stamina to 100, otherwise, set stamina to 50
   setMaxStamina(player)
@@ -298,23 +298,35 @@ function updateStamina (player) {
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }
 
-function deductConsumedStamina(player, amount) {
+function deductConsumedStamina (player, amount) {
   player.stamina -= amount
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }
 
-function setMaxStamina(player) {
+function setMaxStamina (player) {
   player.stamina = 100
   player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }
 
-function updateMoney(player) {
+function updateMoney (player) {
   player.scene.gameManager.setMoney(player.scene.gameManager.getMoney() + 10)
   console.log(player.scene.gameManager.getMoney())
 }
 
-function setLocationToHome(player) {
+function setLocationToHome (player) {
   const homePos = player.game.mapManager.getPlayerStart(player.type)
   player.x = homePos.x
   player.y = homePos.y
+}
+
+function getFacing (player) {
+  if (player.animation === player.animations.SteveIdleUp || player.animation === player.animations.SteveWalkUp) {
+    return 'up'
+  } else if (player.animation === player.animations.SteveIdleDown || player.animation === player.animations.SteveWalkDown) {
+    return 'down'
+  } else if (player.animation === player.animations.SteveIdleLeft || player.animation === player.animations.SteveWalkLeft) {
+    return 'left'
+  } else if (player.animation === player.animations.SteveIdleRight || player.animation === player.animations.SteveWalkRight) {
+    return 'right'
+  }
 }

@@ -492,8 +492,13 @@ export default class GameScene extends Scene {
     }
   }
 
-  tillGround (x, y) {
-    this.mapManager.updateTileAtPixelPos(x, y, 'Sand')
+  tillGround (x, y, toolSize, direction) {
+    const affectedTileColRows = getAffectedTilesForTool(this, toolSize, x, y, direction)
+    for (const colRow of affectedTileColRows) {
+      if (this.mapManager.isGrassTile(this.mapManager.getTileAtXY(colRow.col, colRow.row))) {
+        this.mapManager.updateTileAtXY(colRow.col, colRow.row, Sand)
+      }
+    }
   }
 
   plantSeed (seedType, x, y) {
@@ -510,9 +515,14 @@ export default class GameScene extends Scene {
     }
   }
 
-  waterGround (x, y) {
-    this.mapManager.updateTileAtPixelPos(x, y, 'WetSand')
-    this.cropManager.waterAt(x, y)
+  waterGround (x, y, toolSize, direction) {
+    const affectedTileColRows = getAffectedTilesForTool(this, toolSize, x, y, direction)
+    for (const colRow of affectedTileColRows) {
+      if (this.mapManager.isSandTile(this.mapManager.getTileAtXY(colRow.col, colRow.row))) {
+        this.mapManager.updateTileAtXY(colRow.col, colRow.row, WetSand)
+        this.cropManager.waterAt(colRow.col * TileWidth, colRow.row * TileHeight)
+          }
+    }
   }
 
   harvestCrop (x, y) {
@@ -634,5 +644,47 @@ function checkCalendarCheatKeys (scene, justDownKeys) {
 function checkSceneCheatKeys (scene, justDownKeys) {
   if (justDownKeys.includes(Keys.M)) {
     scene.game.changeScene(Scenes.Museum, { player: scene.steve })
+  }
+}
+
+function getAffectedTilesForTool (scene, toolSize, x, y, direction) {
+  if (toolSize === 'singleTile') {
+    return [scene.mapManager.getTileColRowAtPixelPos(x, y)]
+  } else if (toolSize === 'threeTiles') {
+    const tileColRow = scene.mapManager.getTileColRowAtPixelPos(x, y)
+    const result = [tileColRow]
+    switch (direction) {
+      case 'up':
+        result.push({ col: tileColRow.col, row: tileColRow.row - 1 })
+        result.push({ col: tileColRow.col, row: tileColRow.row - 2 })
+        break
+      case 'down':
+        result.push({ col: tileColRow.col, row: tileColRow.row + 1 })
+        result.push({ col: tileColRow.col, row: tileColRow.row + 2 })
+        break
+      case 'left':
+        result.push({ col: tileColRow.col - 1, row: tileColRow.row })
+        result.push({ col: tileColRow.col - 2, row: tileColRow.row })
+        break
+      case 'right':
+        result.push({ col: tileColRow.col + 1, row: tileColRow.row })
+        result.push({ col: tileColRow.col + 2, row: tileColRow.row })
+        break
+    }
+
+    return result
+  } else if (toolSize === 'nineTiles') {
+    const tileColRow = scene.mapManager.getTileColRowAtPixelPos(x, y)
+    return [
+      tileColRow,
+      { col: tileColRow.col, row: tileColRow.row - 1 },
+      { col: tileColRow.col + 1, row: tileColRow.row - 1 },
+      { col: tileColRow.col + 1, row: tileColRow.row },
+      { col: tileColRow.col + 1, row: tileColRow.row + 1 },
+      { col: tileColRow.col, row: tileColRow.row + 1 },
+      { col: tileColRow.col - 1, row: tileColRow.row + 1 },
+      { col: tileColRow.col - 1, row: tileColRow.row },
+      { col: tileColRow.col - 1, row: tileColRow.row - 1 }
+    ]
   }
 }
