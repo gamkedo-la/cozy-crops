@@ -205,7 +205,7 @@ function drawCharacterCreateScreen (scene) {
   scene.game.ctx.fillStyle = UIAttributes.UIColor
   scene.game.ctx.font = `${Constants.SceneTitleFontSize}px ${Constants.TitleFontFamily}`
   scene.game.ctx.textAlign = UIAttributes.CenterAlign
-  scene.game.ctx.fillText('Create Character', scene.game.canvas.width / 2, Constants.SceneTitleFontSize / 2)
+  scene.game.ctx.fillText('Create Character', scene.game.canvas.width / 2, (Constants.SceneTitleFontSize / 2) + 50)
 
   //splitCharacterCreateScreen(scene.game.canvas, scene.game.ctx)
   drawPlayerTitles(scene.game.canvas, scene.game.ctx)
@@ -218,7 +218,7 @@ function drawCharacterCreateScreen (scene) {
   const offsetX = 40 + (scene.game.canvas.width / 8)
   const borderY = (1.5 * Constants.SceneTitleFontSize) - 5
 
-  const player1X = (scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
+  const player1X = (scene.game.canvas.width / 4 - borderWidth / 2 - (offsetX - 40))
   if (scene.player1.images.composite) drawPlayerImage(scene, scene.player1.images.composite, player1X, borderY)
 
    /* const player2X = (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
@@ -249,7 +249,7 @@ function drawPlayerTitles (canvas, ctx) {
   ctx.fillStyle = UIAttributes.UIColor
   ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
   ctx.textAlign = UIAttributes.CenterAlign
-  ctx.fillText('Player', canvas.width / 4, Constants.SceneTitleFontSize)
+  ctx.fillText('', canvas.width / 4, Constants.SceneTitleFontSize)
  // ctx.fillText('Player 2', 3 * canvas.width / 4, Constants.SceneTitleFontSize)
 }
 
@@ -262,7 +262,7 @@ function drawPlayerImageBorders (canvas, ctx) {
   const borderWidth = canvas.width / 8
   const borderHeight = 2 * borderWidth
   const offsetX = 40 + canvas.width / 8
-  const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
+  const player1X = canvas.width / 4 - borderWidth / 2 - (offsetX - 42)
  // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = 1.5 * Constants.SceneTitleFontSize
 
@@ -314,7 +314,7 @@ function drawCharacterCreateOptions (canvas, ctx) {
 }
 
 function drawPlayerControlsTitles (canvas, ctx) {
-  const borderY = (3 * canvas.height / 4)
+  const borderY = (2.75 * canvas.height / 4)
 
   ctx.fillStyle = UIAttributes.UIColor
   ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
@@ -342,7 +342,7 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls/*, player2Contr
     `Action: ${player1Controls.Action}`.toUpperCase()
   ]
 
-  const optionsYStart = borderY + 1.5 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
+  const optionsYStart = borderY + 0.25 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
   const lineHeight = 1.5 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
 
   player1Options.forEach((option, index) => {
