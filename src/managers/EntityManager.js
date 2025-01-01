@@ -131,6 +131,24 @@ export default class EntityManager {
     }
   }
 
+  isShortCropSeed (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.CarrotSeed:
+      case EntityTypes.LettuceSeed:
+      case EntityTypes.OnionSeed:
+      case EntityTypes.PotatoSeed:
+      case EntityTypes.PumpkinSeed:
+      case EntityTypes.RadishSeed:
+      case EntityTypes.TomatoSeed:
+      case EntityTypes.WatermelonSeed:
+        return true
+      default:
+        return false
+    }
+  }
+
   isTallCrop (entity) {
     if (!entity) return false
 
@@ -153,6 +171,25 @@ export default class EntityManager {
       case EntityTypes.EggplantSeed:
       case EntityTypes.PepperSeed:
       case EntityTypes.StrawberrySeed:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isTreeSeed (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.AppleSeed:
+      case EntityTypes.CherrySeed:
+      case EntityTypes.LemonSeed:
+      case EntityTypes.LimeSeed:
+      case EntityTypes.MapleSeed:
+      case EntityTypes.OakSeed:
+      case EntityTypes.OrangeSeed:
+      case EntityTypes.PineSeed:
+      case EntityTypes.PlumSeed:
         return true
       default:
         return false

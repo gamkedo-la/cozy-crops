@@ -63,11 +63,17 @@ export default class StoreItemElement {
     if (this.selected) {
       if (this.entityManager.isTallCrop({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y - 8) // Adjust for tall crops, -8 is padding and scale
+      } else if (this.entityManager.isTallCropSeed({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x, this.icon.y + 32)
       } else if (this.entityManager.isTree({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y - 16) // Adjust for tall crops, -8 is padding and scale
+      } else if (this.entityManager.isTreeSeed({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x + 20, this.icon.y + 20)
       } else if (this.entityManager.isForageable({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
       } else if (this.entityManager.isTool({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x, this.icon.y)
+      } else {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
       }
     }
