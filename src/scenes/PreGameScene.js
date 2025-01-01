@@ -35,9 +35,9 @@ export default class PreGameScene extends Scene {
         pantsColor: null
       },
       styles: {
-        hairStyle: null,
-        shirtStyle: null,
-        pantsStyle: null
+        hairStyle: null
+       // shirtStyle: null,
+       // pantsStyle: null
       },
       images: {
         composite: null,
@@ -48,7 +48,7 @@ export default class PreGameScene extends Scene {
       }
     }
 
-    this.player2 = {
+   /* this.player2 = {
       colors: {
         composite: null,
         skinTone: null,
@@ -57,9 +57,9 @@ export default class PreGameScene extends Scene {
         pantsColor: null
       },
       styles: {
-        hairStyle: null,
-        shirtStyle: null,
-        pantsStyle: null
+        hairStyle: null
+      //  shirtStyle: null,
+       // pantsStyle: null
       },
       images: {
         body: null,
@@ -67,7 +67,7 @@ export default class PreGameScene extends Scene {
         shirt: null,
         pants: null
       }
-    }
+    }*/
   }
 
   init (data) {
@@ -103,8 +103,8 @@ export default class PreGameScene extends Scene {
 
       if (this.skinToneButtons) {
         this.skinToneButtons.forEach((button, index) => {
-          button.top = `${(canvasRect.top + 115) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`
-          button.left = `${canvasRect.left + 392 + (index % 4) * (2 * StandardUIBox.width)}px`
+          button.top = `${(canvasRect.top + 150) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`
+          button.left = `${canvasRect.left + 392 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`
         })  
       }
     })
@@ -205,14 +205,14 @@ function drawCharacterCreateScreen (scene) {
   scene.game.ctx.fillStyle = UIAttributes.UIColor
   scene.game.ctx.font = `${Constants.SceneTitleFontSize}px ${Constants.TitleFontFamily}`
   scene.game.ctx.textAlign = UIAttributes.CenterAlign
-  scene.game.ctx.fillText('Create Characters', scene.game.canvas.width / 2, Constants.SceneTitleFontSize / 2)
+  scene.game.ctx.fillText('Create Character', scene.game.canvas.width / 2, Constants.SceneTitleFontSize / 2)
 
-  splitCharacterCreateScreen(scene.game.canvas, scene.game.ctx)
+  //splitCharacterCreateScreen(scene.game.canvas, scene.game.ctx)
   drawPlayerTitles(scene.game.canvas, scene.game.ctx)
   drawPlayerImageBorders(scene.game.canvas, scene.game.ctx)
   drawCharacterCreateOptions(scene.game.canvas, scene.game.ctx)
   drawPlayerControlsTitles(scene.game.canvas, scene.game.ctx)
-  drawPlayerControlsOptions(scene.game.canvas, scene.game.ctx, scene.inputManager.getPlayerControls(Player1), scene.inputManager.getPlayerControls(Player2))
+  drawPlayerControlsOptions(scene.game.canvas, scene.game.ctx, scene.inputManager.getPlayerControls(Player1)/*, scene.inputManager.getPlayerControls(Player2)*/)
 
   const borderWidth = scene.game.canvas.width / 8
   const offsetX = 40 + (scene.game.canvas.width / 8)
@@ -221,9 +221,9 @@ function drawCharacterCreateScreen (scene) {
   const player1X = (scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
   if (scene.player1.images.composite) drawPlayerImage(scene, scene.player1.images.composite, player1X, borderY)
 
-    const player2X = (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
+   /* const player2X = (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
   if (scene.player2.images.composite) drawPlayerImage(scene, scene.player2.images.composite, player2X, borderY)
-
+*/
   scene.startGameButton.show()
   scene.skinToneButtons.forEach(button => button.show())
   scene.hairColorButtons.forEach(button => button.show())
@@ -231,7 +231,7 @@ function drawCharacterCreateScreen (scene) {
   scene.pantsColorButtons.forEach(button => button.show())
 }
 
-function splitCharacterCreateScreen (canvas, ctx) {
+/*function splitCharacterCreateScreen (canvas, ctx) {
   ctx.lineWidth = 2
   ctx.strokeStyle = UIAttributes.UIColor
 
@@ -243,14 +243,14 @@ function splitCharacterCreateScreen (canvas, ctx) {
   ctx.moveTo(middleX, Constants.SceneTitleFontSize - 20)
   ctx.lineTo(middleX, canvas.height - Constants.MainMenuFontSize - 30)
   ctx.stroke()
-}
+}*/
 
 function drawPlayerTitles (canvas, ctx) {
   ctx.fillStyle = UIAttributes.UIColor
   ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
   ctx.textAlign = UIAttributes.CenterAlign
-  ctx.fillText('Player 1', canvas.width / 4, Constants.SceneTitleFontSize)
-  ctx.fillText('Player 2', 3 * canvas.width / 4, Constants.SceneTitleFontSize)
+  ctx.fillText('Player', canvas.width / 4, Constants.SceneTitleFontSize)
+ // ctx.fillText('Player 2', 3 * canvas.width / 4, Constants.SceneTitleFontSize)
 }
 
 function drawPlayerImageBorders (canvas, ctx) {
@@ -263,14 +263,14 @@ function drawPlayerImageBorders (canvas, ctx) {
   const borderHeight = 2 * borderWidth
   const offsetX = 40 + canvas.width / 8
   const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
-  const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
+ // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = 1.5 * Constants.SceneTitleFontSize
 
   // Draw the border for Player 1
   ctx.strokeRect(player1X, borderY, borderWidth, borderHeight)
 
   // Draw the border for Player 2
-  ctx.strokeRect(player2X, borderY, borderWidth, borderHeight)
+  //ctx.strokeRect(player2X, borderY, borderWidth, borderHeight)
 }
 
 function drawCharacterCreateOptions (canvas, ctx) {
@@ -284,17 +284,18 @@ function drawCharacterCreateOptions (canvas, ctx) {
     'Skin Tone:',
     'Hair Color:',
     'Hair Style:',
+    'Accessories:',
     'Shirt Color:',
-    'Shirt Style:',
+    //'Shirt Style:',
     'Pants Color:',
-    'Pants Style:'
+    //'Pants Style:'
   ]
 
   // Calculate the positions
   const borderWidth = canvas.width / 8
   const offsetX = canvas.width / 8
   const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
-  const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
+ // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = 1.5 * Constants.SceneTitleFontSize + UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) / 2 // 1.5 * title font size - 1 * UI font size
   const optionsX = player1X + borderWidth + 5 // 5px offset to the right of the border
   const optionsYStart = borderY
@@ -306,10 +307,10 @@ function drawCharacterCreateOptions (canvas, ctx) {
   })
 
   // Draw the options for Player 2
-  const optionsX2 = player2X + borderWidth + 5 // 5px offset to the right of the border
-  options.forEach((option, index) => {
-    ctx.fillText(option, optionsX2, optionsYStart + index * lineHeight)
-  })
+ // const optionsX2 = player2X + borderWidth + 5 // 5px offset to the right of the border
+  //options.forEach((option, index) => {
+  //  ctx.fillText(option, optionsX2, optionsYStart + index * lineHeight)
+  //})
 }
 
 function drawPlayerControlsTitles (canvas, ctx) {
@@ -318,15 +319,15 @@ function drawPlayerControlsTitles (canvas, ctx) {
   ctx.fillStyle = UIAttributes.UIColor
   ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
   ctx.textAlign = UIAttributes.CenterAlign
-  ctx.fillText('Controls', (canvas.width / 4), borderY)
-  ctx.fillText('Controls', 3 * (canvas.width / 4), borderY)
+  ctx.fillText('Controls', (canvas.width / 2), borderY)
+ // ctx.fillText('Controls', 3 * (canvas.width / 4), borderY)
 }
 
-function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Controls) {
+function drawPlayerControlsOptions (canvas, ctx, player1Controls/*, player2Controls*/) {
   const borderWidth = canvas.width / 8
   const offsetX = 40 + canvas.width / 8
   const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
-  const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
+ // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = (3 * canvas.height / 4)
 
   ctx.font = UIAttributes.UIFontSize
@@ -346,15 +347,15 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
 
   player1Options.forEach((option, index) => {
     if (index < 2) {
-      ctx.fillText(option, player1X, optionsYStart + index * lineHeight)
+      ctx.fillText(option, player1X + 350, optionsYStart + index * lineHeight)
     } else if (index < 4) {
-      ctx.fillText(option, player1X + 325, optionsYStart + (index - 2) * lineHeight)
+      ctx.fillText(option, player1X + 650, optionsYStart + (index - 2) * lineHeight)
     } else {
-      ctx.fillText(option, player1X + 235, optionsYStart + (index - 2) * lineHeight)
+      ctx.fillText(option, player1X + 550, optionsYStart + (index - 2) * lineHeight)
     }
   })
 
-  const player2Options = [
+ /* const player2Options = [
     `Up: ${player2Controls.Up}`.toUpperCase(),
     `Down: ${player2Controls.Down}`.toUpperCase(),
     `Left: ${player2Controls.Left}`.toUpperCase(),
@@ -370,7 +371,7 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls, player2Control
     } else {
       ctx.fillText(option, player2X + 235, optionsYStart + (index - 2) * lineHeight)
     }
-  })
+  })*/
 }
 
 function drawPlayerImage (scene, playerImage, playerX, borderY) {
@@ -410,8 +411,8 @@ function buildSkinToneButtons (scene) {
     const skinToneButton = new ColorButton({
       imageManager: scene.managers.imageManager,
       id: `skinToneButton${color}`,
-      top: `${(canvasRect.top + 115) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 392 + (index % 4) * (2 * StandardUIBox.width)}px`,
+      top: `${(canvasRect.top + 140) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 392 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`,
       imgDims: StandardUIBox,
       color: color,
       onClick: () => {
@@ -438,8 +439,8 @@ function buildHairColorButtons (scene) {
     const hairColorButton = new ColorButton({
       imageManager: scene.managers.imageManager,
       id: `hairColorButton${color}`,
-      top: `${(canvasRect.top + 200) + Math.floor(index / 6) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 392 + (index % 6) * (2 * StandardUIBox.width)}px`,
+      top: `${(canvasRect.top + 210) + Math.floor(index / /*6*/ 11) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 392 + (index % /*6*/ 11) * (2 * StandardUIBox.width)}px`,
       imgDims: StandardUIBox,
       color: color,
       onClick: () => {
@@ -466,8 +467,8 @@ function buildShirtColorButtons (scene) {
     const shirtColorButton = new ColorButton({
       imageManager: scene.managers.imageManager,
       id: `shirtColorButton${color}`,
-      top: `${(canvasRect.top + 340) + Math.floor(index / 4) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 392 + (index % 4) * (2 * StandardUIBox.width)}px`,
+      top: `${(canvasRect.top + 430) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 410 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`,
       imgDims: StandardUIBox,
       color: color,
       onClick: () => {
@@ -494,8 +495,8 @@ function buildPantsColorButtons (scene) {
     const pantsColorButton = new ColorButton({
       imageManager: scene.managers.imageManager,
       id: `pantsColorButton${color}`,
-      top: `${(canvasRect.top + 480) + Math.floor(index / 3) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 410 + (index % 3) * (2 * StandardUIBox.width)}px`,
+      top: `${(canvasRect.top + 500) + Math.floor(index / /*3*/ 6) * (2 * StandardUIBox.height)}px`,
+      left: `${canvasRect.left + 410 + (index % /*3*/ 6) * (2 * StandardUIBox.width)}px`,
       imgDims: StandardUIBox,
       color: color,
       onClick: () => {
@@ -518,24 +519,24 @@ function createPlayerImages (scene) {
   const basePlayerImage = scene.managers.imageManager.getPlayerImage(EntityTypes.Player1)
 
   scene.player1.images.body = createPlayerBodyImage(scene, basePlayerImage)
-  scene.player2.images.body = createPlayerBodyImage(scene, basePlayerImage)
+ // scene.player2.images.body = createPlayerBodyImage(scene, basePlayerImage)
 
   scene.player1.images.hair = createPlayerHairImage(scene, basePlayerImage)
-  scene.player2.images.hair = createPlayerHairImage(scene, basePlayerImage)
+//  scene.player2.images.hair = createPlayerHairImage(scene, basePlayerImage)
 
   scene.player1.images.shirt = createPlayerShirtImage(scene, basePlayerImage)
-  scene.player2.images.shirt = createPlayerShirtImage(scene, basePlayerImage)
+ // scene.player2.images.shirt = createPlayerShirtImage(scene, basePlayerImage)
 
   scene.player1.images.pants = createPlayerPantsImage(scene, basePlayerImage)
-  scene.player2.images.pants = createPlayerPantsImage(scene, basePlayerImage)
+ // scene.player2.images.pants = createPlayerPantsImage(scene, basePlayerImage)
 
   scene.player1.images.composite = createCompositePlayerImage(scene.player1)
-  scene.player2.images.composite = createCompositePlayerImage(scene.player2)
+ // scene.player2.images.composite = createCompositePlayerImage(scene.player2)
 }
 
 function createPlayerBodyImage (scene, basePlayerImage) {
   if (!scene.player1.colors.skinTone) scene.player1.colors.skinTone = scene.gameManager.getPlayerColor(Player1, 'Body') // PlayerImageData.Body.baseColor
-  if (!scene.player2.colors.skinTone) scene.player2.colors.skinTone = scene.gameManager.getPlayerColor(Player2, 'Body') // PlayerImageData.Body.baseColor
+//  if (!scene.player2.colors.skinTone) scene.player2.colors.skinTone = scene.gameManager.getPlayerColor(Player2, 'Body') // PlayerImageData.Body.baseColor
 
   const bodyCanvas = document.createElement('canvas')
   const body1Ctx = bodyCanvas.getContext('2d')
@@ -549,7 +550,7 @@ function createPlayerBodyImage (scene, basePlayerImage) {
 
 function createPlayerHairImage (scene, basePlayerImage) {
   if (!scene.player1.colors.hairColor) scene.player1.colors.hairColor = scene.gameManager.getPlayerColor(Player1, 'Hair')
-  if (!scene.player2.colors.hairColor) scene.player2.colors.hairColor = scene.gameManager.getPlayerColor(Player2, 'Hair')
+ // if (!scene.player2.colors.hairColor) scene.player2.colors.hairColor = scene.gameManager.getPlayerColor(Player2, 'Hair')
 
   const hairCanvas = document.createElement('canvas')
   const hairCtx = hairCanvas.getContext('2d')
@@ -562,7 +563,7 @@ function createPlayerHairImage (scene, basePlayerImage) {
 
 function createPlayerShirtImage (scene, basePlayerImage) {
   if (!scene.player1.colors.shirtColor) scene.player1.colors.shirtColor = scene.gameManager.getPlayerColor(Player1, 'Shirt')
-  if (!scene.player2.colors.shirtColor) scene.player2.colors.shirtColor = scene.gameManager.getPlayerColor(Player2, 'Shirt')
+ // if (!scene.player2.colors.shirtColor) scene.player2.colors.shirtColor = scene.gameManager.getPlayerColor(Player2, 'Shirt')
 
   const shirtCanvas = document.createElement('canvas')
   const shirtCtx = shirtCanvas.getContext('2d')
@@ -575,7 +576,7 @@ function createPlayerShirtImage (scene, basePlayerImage) {
 
 function createPlayerPantsImage (scene, basePlayerImage) {
   if (!scene.player1.colors.pantsColor) scene.player1.colors.pantsColor = scene.gameManager.getPlayerColor(Player1, 'Pants')
-  if (!scene.player2.colors.pantsColor) scene.player2.colors.pantsColor = scene.gameManager.getPlayerColor(Player1, 'Pants')
+ // if (!scene.player2.colors.pantsColor) scene.player2.colors.pantsColor = scene.gameManager.getPlayerColor(Player1, 'Pants')
 
   const pantsCanvas = document.createElement('canvas')
   const pantsCtx = pantsCanvas.getContext('2d')
@@ -603,10 +604,10 @@ function updatePlayerSkinTone (scene, player, newSkinTone) {
   if (player === EntityTypes.Player1) {
     scene.player1.images.body = scene.imageManager.replaceColorInImage(scene.player1.images.body, scene.player1.colors.skinTone, newSkinTone)
     scene.player1.colors.skinTone = newSkinTone
-  } else {
+  }/* else {
     scene.player2.images.body = scene.imageManager.replaceColorInImage(scene.player2.images.body, scene.player2.colors.skinTone, newSkinTone)
     scene.player2.images.skinTone = newSkinTone
-  }
+  }*/
 
   updateCompositePlayerImage(scene, player)
   scene.gameManager.setPlayerColor(player, 'Body', newSkinTone)
@@ -616,10 +617,10 @@ function updatePlayerHairColor (scene, player, newHairColor) {
   if (player === EntityTypes.Player1) {
     scene.player1.images.hair = scene.imageManager.replaceColorInImage(scene.player1.images.hair, scene.player1.colors.hairColor, newHairColor)
     scene.player1.colors.hairColor = newHairColor
-  } else {
+  } /*else {
     scene.player2.images.hair = scene.imageManager.replaceColorInImage(scene.player2.images.hair, scene.player2.colors.hairColor, newHairColor)
     scene.player2.colors.hairColor = newHairColor
-  }
+  }*/
 
   updateCompositePlayerImage(scene, player)
   scene.gameManager.setPlayerColor(player, 'Hair', newHairColor)
@@ -629,10 +630,10 @@ function updatePlayerShirtColor (scene, player, newShirtColor) {
   if (player === EntityTypes.Player1) {
     scene.player1.images.shirt = scene.imageManager.replaceColorInImage(scene.player1.images.shirt, scene.player1.colors.shirtColor, newShirtColor)
     scene.player1.colors.shirtColor = newShirtColor
-  } else {
+  }/* else {
     scene.player2.images.shirt = scene.imageManager.replaceColorInImage(scene.player2.images.shirt, scene.player2.colors.shirtColor, newShirtColor)
     scene.player2.colors.shirtColor = newShirtColor
-  }
+  }*/
 
   updateCompositePlayerImage(scene, player)
   scene.gameManager.setPlayerColor(player, 'Shirt', newShirtColor)
@@ -642,10 +643,10 @@ function updatePlayerPantsColor (scene, player, newPantsColor) {
   if (player === EntityTypes.Player1) {
     scene.player1.images.pants = scene.imageManager.replaceColorInImage(scene.player1.images.pants, scene.player1.colors.pantsColor, newPantsColor)
     scene.player1.colors.pantsColor = newPantsColor
-  } else {
+  } /*else {
     scene.player2.images.pants = scene.imageManager.replaceColorInImage(scene.player2.images.pants, scene.player2.colors.pantsColor, newPantsColor)
     scene.player2.colors.pantsColor = newPantsColor
-  }
+  }*/
 
   updateCompositePlayerImage(scene, player)
   scene.gameManager.setPlayerColor(player, 'Pants', newPantsColor)
@@ -659,12 +660,12 @@ function updateCompositePlayerImage (scene, player) {
     compositeCtx.drawImage(scene.player1.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
-  } else {
+  }/* else {
     const compositeCanvas = scene.player2.images.composite
     const compositeCtx = compositeCanvas.getContext('2d')
     compositeCtx.drawImage(scene.player2.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player2.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player2.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player2.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
-  }
+  }*/
 }
