@@ -174,7 +174,7 @@ export const Orange = {
   Inventory: {
     name: 'OrangeSeedPacket',
     spritesheet: TreeCrops,
-    frames: [10],
+    frames: [11],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -187,7 +187,7 @@ export const Lime = {
   Inventory: {
     name: 'LimeSeedPacket',
     spritesheet: TreeCrops,
-    frames: [20],
+    frames: [22],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -200,7 +200,7 @@ export const Cherry = {
   Inventory: {
     name: 'CherrySeedPacket',
     spritesheet: TreeCrops,
-    frames: [30],
+    frames: [33],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -213,7 +213,7 @@ export const Lemon = {
   Inventory: {
     name: 'LemonSeedPacket',
     spritesheet: TreeCrops,
-    frames: [40],
+    frames: [44],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -226,7 +226,7 @@ export const Maple = {
   Inventory: {
     name: 'MapleSeedPacket',
     spritesheet: TreeCrops,
-    frames: [50],
+    frames: [55],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -239,7 +239,7 @@ export const Oak = {
   Inventory: {
     name: 'OakSeedPacket',
     spritesheet: TreeCrops,
-    frames: [60],
+    frames: [66],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -252,7 +252,7 @@ export const Pine = {
   Inventory: {
     name: 'PineSeedPacket',
     spritesheet: TreeCrops,
-    frames: [70],
+    frames: [77],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,
@@ -265,7 +265,7 @@ export const Plum = {
   Inventory: {
     name: 'PlumSeedPacket',
     spritesheet: TreeCrops,
-    frames: [80],
+    frames: [88],
     frameWidth: 16,
     frameHeight: 16,
     padding: 16,

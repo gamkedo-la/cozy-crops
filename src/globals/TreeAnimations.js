@@ -81,6 +81,16 @@ export const AppleTree = {
     duration: 500,
     loop: true
   },
+  Log: {
+    name: 'AppleTreeLog',
+    spritesheet: TreeCrops,
+    frames: [10],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
   Inventory: {
     name: 'AppleTreeInventory',
     spritesheet: TreeCrops,
@@ -97,7 +107,7 @@ export const OrangeTree = {
   Sprout: {
     name: 'OrangeTreeSprout',
     spritesheet: TreeCrops,
-    frames: [12],
+    frames: [13],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -107,7 +117,7 @@ export const OrangeTree = {
   YoungSapling: {
     name: 'OrangeTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [13],
+    frames: [14],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -117,7 +127,7 @@ export const OrangeTree = {
   Sapling: {
     name: 'OrangeTreeSapling',
     spritesheet: TreeCrops,
-    frames: [14],
+    frames: [15],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -127,7 +137,7 @@ export const OrangeTree = {
   YoungTree: {
     name: 'OrangeTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [15],
+    frames: [16],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -137,7 +147,7 @@ export const OrangeTree = {
   MatureTree: {
     name: 'OrangeTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [16],
+    frames: [17],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -147,7 +157,7 @@ export const OrangeTree = {
   FruitingTree: {
     name: 'OrangeTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [17],
+    frames: [18],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -157,7 +167,7 @@ export const OrangeTree = {
   DeadTree: {
     name: 'OrangeTreeDeadTree',
     spritesheet: TreeCrops,
-    frames: [18],
+    frames: [19],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -167,7 +177,17 @@ export const OrangeTree = {
   Stump: {
     name: 'OrangeTreeStump',
     spritesheet: TreeCrops,
-    frames: [19],
+    frames: [20],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'OrangeTreeLog',
+    spritesheet: TreeCrops,
+    frames: [21],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -177,7 +197,7 @@ export const OrangeTree = {
   Inventory: {
     name: 'OrangeTreeInventory',
     spritesheet: TreeCrops,
-    frames: [11],
+    frames: [12],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -190,7 +210,7 @@ export const LimeTree = {
   Sprout: {
     name: 'LimeTreeSprout',
     spritesheet: TreeCrops,
-    frames: [22],
+    frames: [24],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -200,7 +220,7 @@ export const LimeTree = {
   YoungSapling: {
     name: 'LimeTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [23],
+    frames: [25],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -210,7 +230,7 @@ export const LimeTree = {
   Sapling: {
     name: 'LimeTreeSapling',
     spritesheet: TreeCrops,
-    frames: [24],
+    frames: [26],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -220,7 +240,7 @@ export const LimeTree = {
   YoungTree: {
     name: 'LimeTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [25],
+    frames: [27],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -230,7 +250,7 @@ export const LimeTree = {
   MatureTree: {
     name: 'LimeTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [26],
+    frames: [28],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -240,7 +260,7 @@ export const LimeTree = {
   FruitingTree: {
     name: 'LimeTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [27],
+    frames: [29],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -250,7 +270,7 @@ export const LimeTree = {
   DeadTree: {
     name: 'LimeTreeDeadTree',
     spritesheet: TreeCrops,
-    frames: [28],
+    frames: [30],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -260,7 +280,17 @@ export const LimeTree = {
   Stump: {
     name: 'LimeTreeStump',
     spritesheet: TreeCrops,
-    frames: [29],
+    frames: [31],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'LimeTreeLog',
+    spritesheet: TreeCrops,
+    frames: [32],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -270,7 +300,7 @@ export const LimeTree = {
   Inventory: {
     name: 'LimeTreeInventory',
     spritesheet: TreeCrops,
-    frames: [21],
+    frames: [23],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -283,7 +313,7 @@ export const CherryTree = {
   Sprout: {
     name: 'CherryTreeSprout',
     spritesheet: TreeCrops,
-    frames: [32],
+    frames: [35],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -293,7 +323,7 @@ export const CherryTree = {
   YoungSapling: {
     name: 'CherryTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [33],
+    frames: [36],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -303,7 +333,7 @@ export const CherryTree = {
   Sapling: {
     name: 'CherryTreeSapling',
     spritesheet: TreeCrops,
-    frames: [34],
+    frames: [37],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -313,7 +343,7 @@ export const CherryTree = {
   YoungTree: {
     name: 'CherryTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [35],
+    frames: [38],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -323,7 +353,7 @@ export const CherryTree = {
   MatureTree: {
     name: 'CherryTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [36],
+    frames: [39],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -333,7 +363,7 @@ export const CherryTree = {
   FruitingTree: {
     name: 'CherryTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [37],
+    frames: [40],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -343,7 +373,7 @@ export const CherryTree = {
   DeadTree: {
     name: 'CherryTreeDeadTree',
     spritesheet: TreeCrops,
-    frames: [38],
+    frames: [41],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -353,7 +383,17 @@ export const CherryTree = {
   Stump: {
     name: 'CherryTreeStump',
     spritesheet: TreeCrops,
-    frames: [39],
+    frames: [42],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'CherryTreeLog',
+    spritesheet: TreeCrops,
+    frames: [43],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -363,7 +403,7 @@ export const CherryTree = {
   Inventory: {
     name: 'CherryTreeInventory',
     spritesheet: TreeCrops,
-    frames: [31],
+    frames: [34],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -376,7 +416,7 @@ export const LemonTree = {
   Sprout: {
     name: 'LemonTreeSprout',
     spritesheet: TreeCrops,
-    frames: [42],
+    frames: [46],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -386,7 +426,7 @@ export const LemonTree = {
   YoungSapling: {
     name: 'LemonTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [43],
+    frames: [47],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -396,7 +436,7 @@ export const LemonTree = {
   Sapling: {
     name: 'LemonTreeSapling',
     spritesheet: TreeCrops,
-    frames: [44],
+    frames: [48],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -406,7 +446,7 @@ export const LemonTree = {
   YoungTree: {
     name: 'LemonTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [45],
+    frames: [49],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -416,7 +456,7 @@ export const LemonTree = {
   MatureTree: {
     name: 'LemonTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [46],
+    frames: [50],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -426,7 +466,7 @@ export const LemonTree = {
   FruitingTree: {
     name: 'LemonTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [47],
+    frames: [51],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -436,7 +476,7 @@ export const LemonTree = {
   Dead: {
     name: 'LemonTreeDead',
     spritesheet: TreeCrops,
-    frames: [48],
+    frames: [52],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -446,7 +486,17 @@ export const LemonTree = {
   Stump: {
     name: 'LemonTreeStump',
     spritesheet: TreeCrops,
-    frames: [49],
+    frames: [53],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'LemonTreeLog',
+    spritesheet: TreeCrops,
+    frames: [54],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -456,7 +506,7 @@ export const LemonTree = {
   Inventory: {
     name: 'LemonTreeInventory',
     spritesheet: TreeCrops,
-    frames: [41],
+    frames: [45],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -469,7 +519,7 @@ export const MapleTree = {
   Sprout: {
     name: 'MapleTreeSprout',
     spritesheet: TreeCrops,
-    frames: [52],
+    frames: [57],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -479,7 +529,7 @@ export const MapleTree = {
   YoungSapling: {
     name: 'MapleTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [53],
+    frames: [58],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -489,7 +539,7 @@ export const MapleTree = {
   Sapling: {
     name: 'MapleTreeSapling',
     spritesheet: TreeCrops,
-    frames: [54],
+    frames: [59],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -499,7 +549,7 @@ export const MapleTree = {
   YoungTree: {
     name: 'MapleTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [55],
+    frames: [60],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -509,7 +559,7 @@ export const MapleTree = {
   MatureTree: {
     name: 'MapleTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [56],
+    frames: [61],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -519,7 +569,7 @@ export const MapleTree = {
   FruitingTree: {
     name: 'MapleTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [57],
+    frames: [62],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -529,7 +579,7 @@ export const MapleTree = {
   Dead: {
     name: 'MapleTreeDead',
     spritesheet: TreeCrops,
-    frames: [58],
+    frames: [63],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -539,7 +589,17 @@ export const MapleTree = {
   Stump: {
     name: 'MapleTreeStump',
     spritesheet: TreeCrops,
-    frames: [59],
+    frames: [64],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'MapleTreeLog',
+    spritesheet: TreeCrops,
+    frames: [65],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -549,7 +609,7 @@ export const MapleTree = {
   Inventory: {
     name: 'MapleTreeInventory',
     spritesheet: TreeCrops,
-    frames: [51],
+    frames: [56],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -562,7 +622,7 @@ export const OakTree = {
   Sprout: {
     name: 'OakTreeSprout',
     spritesheet: TreeCrops,
-    frames: [62],
+    frames: [68],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -572,7 +632,7 @@ export const OakTree = {
   YoungSapling: {
     name: 'OakTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [63],
+    frames: [69],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -582,7 +642,7 @@ export const OakTree = {
   Sapling: {
     name: 'OakTreeSapling',
     spritesheet: TreeCrops,
-    frames: [64],
+    frames: [70],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -592,7 +652,7 @@ export const OakTree = {
   YoungTree: {
     name: 'OakTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [65],
+    frames: [71],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -602,7 +662,7 @@ export const OakTree = {
   MatureTree: {
     name: 'OakTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [66],
+    frames: [72],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -612,7 +672,7 @@ export const OakTree = {
   FruitingTree: {
     name: 'OakTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [67],
+    frames: [73],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -622,7 +682,7 @@ export const OakTree = {
   Dead: {
     name: 'OakTreeDead',
     spritesheet: TreeCrops,
-    frames: [68],
+    frames: [74],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -632,7 +692,17 @@ export const OakTree = {
   Stump: {
     name: 'OakTreeStump',
     spritesheet: TreeCrops,
-    frames: [69],
+    frames: [75],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'OakTreeLog',
+    spritesheet: TreeCrops,
+    frames: [76],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -642,7 +712,7 @@ export const OakTree = {
   Inventory: {
     name: 'OakTreeInventory',
     spritesheet: TreeCrops,
-    frames: [61],
+    frames: [67],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -655,7 +725,7 @@ export const PineTree = {
   Sprout: {
     name: 'PineTreeSprout',
     spritesheet: TreeCrops,
-    frames: [72],
+    frames: [79],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -665,7 +735,7 @@ export const PineTree = {
   YoungSapling: {
     name: 'PineTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [73],
+    frames: [80],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -675,7 +745,7 @@ export const PineTree = {
   Sapling: {
     name: 'PineTreeSapling',
     spritesheet: TreeCrops,
-    frames: [74],
+    frames: [81],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -685,7 +755,7 @@ export const PineTree = {
   YoungTree: {
     name: 'PineTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [75],
+    frames: [82],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -695,7 +765,7 @@ export const PineTree = {
   MatureTree: {
     name: 'PineTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [76],
+    frames: [83],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -705,7 +775,7 @@ export const PineTree = {
   FruitingTree: {
     name: 'PineTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [77],
+    frames: [84],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -715,7 +785,7 @@ export const PineTree = {
   Dead: {
     name: 'PineTreeDead',
     spritesheet: TreeCrops,
-    frames: [78],
+    frames: [85],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -725,7 +795,17 @@ export const PineTree = {
   Stump: {
     name: 'PineTreeStump',
     spritesheet: TreeCrops,
-    frames: [79],
+    frames: [86],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'PineTreeLog',
+    spritesheet: TreeCrops,
+    frames: [87],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -735,7 +815,7 @@ export const PineTree = {
   Inventory: {
     name: 'PineTreeInventory',
     spritesheet: TreeCrops,
-    frames: [71],
+    frames: [78],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -748,7 +828,7 @@ export const PlumTree = {
   Sprout: {
     name: 'PlumTreeSprout',
     spritesheet: TreeCrops,
-    frames: [82],
+    frames: [90],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -758,7 +838,7 @@ export const PlumTree = {
   YoungSapling: {
     name: 'PlumTreeYoungSapling',
     spritesheet: TreeCrops,
-    frames: [83],
+    frames: [91],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -768,7 +848,7 @@ export const PlumTree = {
   Sapling: {
     name: 'PlumTreeSapling',
     spritesheet: TreeCrops,
-    frames: [84],
+    frames: [92],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -778,7 +858,7 @@ export const PlumTree = {
   YoungTree: {
     name: 'PlumTreeYoungTree',
     spritesheet: TreeCrops,
-    frames: [85],
+    frames: [93],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -788,7 +868,7 @@ export const PlumTree = {
   MatureTree: {
     name: 'PlumTreeMatureTree',
     spritesheet: TreeCrops,
-    frames: [86],
+    frames: [94],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -798,7 +878,7 @@ export const PlumTree = {
   FruitingTree: {
     name: 'PlumTreeFruitingTree',
     spritesheet: TreeCrops,
-    frames: [87],
+    frames: [95],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -808,7 +888,7 @@ export const PlumTree = {
   Dead: {
     name: 'PlumTreeDead',
     spritesheet: TreeCrops,
-    frames: [88],
+    frames: [96],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -818,7 +898,17 @@ export const PlumTree = {
   Stump: {
     name: 'PlumTreeStump',
     spritesheet: TreeCrops,
-    frames: [89],
+    frames: [97],
+    frameWidth: 48,
+    frameHeight: 48,
+    padding: 0,
+    duration: 500,
+    loop: true
+  },
+  Log: {
+    name: 'PlumTreeLog',
+    spritesheet: TreeCrops,
+    frames: [98],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,
@@ -828,7 +918,7 @@ export const PlumTree = {
   Inventory: {
     name: 'PlumTreeInventory',
     spritesheet: TreeCrops,
-    frames: [81],
+    frames: [89],
     frameWidth: 48,
     frameHeight: 48,
     padding: 0,

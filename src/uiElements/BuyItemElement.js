@@ -127,10 +127,10 @@ function getSeedPacket (element, type) {
     game: element.game,
     imageManager: element.imageManager,
     type,
-    x: element.x + element.width - element.itemWidth - 8,
-    y: element.y + (isTallCropSeed(type) ? 16 - element.itemHeight : 8),
-    width: element.itemWidth,
-    height: isTallCropSeed(type) ? element.itemHeight * 2 : element.itemHeight,
+    x: element.x + element.width - element.itemWidth - (isTreeSeed(type) ? 28 : 8),
+    y: element.y + (isTreeSeed(type) ? 28 - element.itemHeight : isTallCropSeed(type) ? 16 - element.itemHeight : 8),
+    width: isTreeSeed(type) ? 2 * element.itemWidth : element.itemWidth,
+    height: isTallCropSeed(type) || isTreeSeed(type) ? element.itemHeight * 2 : element.itemHeight,
     quantity: 1
   }
 
@@ -142,4 +142,16 @@ function getSeedPacket (element, type) {
 
 function isTallCropSeed (type) {
   return type === EntityTypes.CornSeed || type === EntityTypes.EggplantSeed || type === EntityTypes.PepperSeed || type === EntityTypes.StrawberrySeed
+}
+
+function isTreeSeed (type) {
+  return type === EntityTypes.AppleSeed ||
+  type === EntityTypes.OrangeSeed ||
+  type === EntityTypes.LimeSeed ||
+  type === EntityTypes.CherrySeed ||
+  type === EntityTypes.LemonSeed ||
+  type === EntityTypes.MapleSeed ||
+  type === EntityTypes.OakSeed ||
+  type === EntityTypes.PineSeed ||
+  type === EntityTypes.PlumSeed
 }
