@@ -1,80 +1,95 @@
-import Constants from '../globals/Constants.js'
-import Colors from '../globals/Colors.js'
-import Keys, { S } from '../globals/Keys.js'
-import UIAttributes from '../globals/UIAttributes.js'
-import { UISprites } from '../globals/Images.js'
-import { Player1 } from '../globals/EntityTypes.js'
+import SellManager from './SellManager.js'
+import StoreUIData from '../globals/StoreUIData.js'
+import GiftItemElement from '../uiElements/GiftItemElement.js'
 import UISpriteData from '../globals/UISpriteData.js'
-import { FamilyNames } from '../globals/Fonts.js'
-import GiftButton from '../uiElements/GiftButton.js'
 
-export default class GiftManager {
+export default class GiftManager extends SellManager {
   constructor (config) {
-    Object.assign(this, config)
+    super(config)
+    this.shopType = 'gift'
+    this.itemsPerPage = 10
+    this.pageCount = this.inventoryManager.getInventory().length / this.itemsPerPage
   }
 
-  init () {}
-
-  update (deltaTime, mousePos) {
-    if (mousePos?.justDown) checkMouseClick(this, mousePos.x, mousePos.y)
-
-    manageInput(this)
-  }
-
-  draw () {
-    drawDialogue(this, this.dialogRect)
+  setShopType () {
+    setGiftShopType (this, {
+      game: this.game,
+      scene: this.scene,
+      manager: this,
+      imageManager: this.imageManager,
+      entityManager: this.entityManager
+    })
   }
 }
 
-function drawDialogue (manager, dialogBkgdRect) {
-  manager.game.ctx.drawImage(
-    manager.imageManager.getImageWithSrc(UISprites),
-    UISpriteData.TextBackground.x,
-    UISpriteData.TextBackground.y,
-    UISpriteData.TextBackground.width,
-    UISpriteData.TextBackground.height,
-    dialogBkgdRect.left,
-    dialogBkgdRect.top,
-    dialogBkgdRect.width,
-    dialogBkgdRect.height
-  )
+function setGiftShopType (manager, config) {
+  manager.pages = []
+  manager.pageTitles = []
 
-  manager.game.ctx.fillStyle = 'black'
-  manager.game.ctx.font = `48px ${FamilyNames.FarmVintage}`
-  manager.game.ctx.textAlign = UIAttributes.CenterAlign
-  // const textLines = scene.dialogue.split('\n')
+  manager.itemContainer = StoreUIData.GiftItem
+  manager.backgroundTop = StoreUIData.StoreBackgroundTop
+  manager.backgroundMiddle = StoreUIData.StoreBackgroundMiddle
+  manager.backgroundBottom = StoreUIData.StoreBackgroundBottom
 
-  // let lineY = dialogBkgdRect.top + 30
-  // for (const line of textLines) {
-  //   manager.game.ctx.fillText(line, manager.game.canvas.width / 2, lineY)
-  //   lineY += 30
-  // }
+  manager.pageTitleHeight = manager.dialogRect.top + 6 + 2 * manager.backgroundTop.height
 
-  // if (scene.showGiveButton) {
-  //   scene.giftButton.draw()
-  // }
-}
-
-function checkMouseClick (manager, x, y) {
-  // const clickedInventoryItem = manager.scene.inventoryManager.getClickedItem(x, y)
-  // if (clickedInventoryItem) {
-  //   manager.scene.gameScene.handleInventoryItemClick(clickedInventoryItem)
-  //   manager.scene.inventoryManager.setSelectedItem(clickedInventoryItem)
-  // } else if (manager.scene.showGiveButton && manager.scene.giftButton.checkClicked(x, y)) {
-  //   manager.scene.giftButton.activate()
-  // }
-  console.log('checkMouseClick')
-}
-
-function manageInput (manager) {
-  const downKeys = manager.scene.inputManager.getDownKeys()
-
-  if (downKeys.includes(Keys.ESCAPE)) {
-    manager.scene.hideGiftDialogue()
+  for (let i = 0; i < manager.pageCount; i++) {
+    manager.pages.push([])
+    manager.pageTitles.push(`Page ${i + 1}`)
+    initializePage(manager, i, config)
   }
 
-  const justDownKeys = manager.scene.inputManager.getJustDownKeys()
-  // if (justDownKeys.includes(Keys.N)) {
+  manager.prevButton.x = manager.game.canvas.width / 2 - manager.backgroundTop.width + 10
+  manager.nextButton.x = manager.game.canvas.width / 2 + manager.backgroundTop.width - (2 * UISpriteData.NextButtonSmall.width) - 10
 
-  // }
+  setButtonDisabled(manager)
+  positionButtons(manager)
+}
+
+function initializePage (manager, pageIndex, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
+  config.shopType = 'gift'
+
+  const items = manager.inventoryManager.getInventory()
+  const start = pageIndex * manager.itemsPerPage
+  const end = Math.min((pageIndex + 1) * manager.itemsPerPage, items.length)
+
+  for (let i = start; i < end; i++) {
+    const item = items[i]
+    const itemElement = new GiftItemElement({
+      ...config,
+      manager,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: item.type,
+      selected: false,
+      cropManager: manager.scene.cropManager
+    })
+    itemElement.init()
+    manager.pages[pageIndex].push(itemElement)
+    if (manager.pages[pageIndex].length === 1) itemElement.selected = true
+    currentY += deltaY
+  }
+}
+
+function setButtonDisabled (manager) {
+  if (manager.currentPageIndex === 0) {
+    manager.prevButton.setDisabled(true)
+  } else {
+    manager.prevButton.setDisabled(false)
+  }
+
+  if (manager.currentPageIndex === manager.pages.length - 1) {
+    manager.nextButton.setDisabled(true)
+  } else {
+    manager.nextButton.setDisabled(false)
+  }
+}
+
+function positionButtons (manager) {
+  const buttonYPos = manager.pageTitleHeight + manager.pages[manager.currentPageIndex].length * 2 * manager.itemContainer.height + 10
+  manager.nextButton.setPosition(manager.nextButton.x, buttonYPos)
+  manager.prevButton.setPosition(manager.prevButton.x, buttonYPos)
 }

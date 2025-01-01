@@ -8,6 +8,7 @@ import SellButton from './SellButton.js'
 import CancelButton from './CancelButton.js'
 import MinusButton from './MinusButton.js'
 import PlusButton from './PlusButton.js'
+import GiftButton from './GiftButton.js'
 
 export default class StoreConfirmation {
   constructor (config) {
@@ -22,6 +23,7 @@ export default class StoreConfirmation {
     this.cancelButton = null
     this.plusButton = null
     this.minusButton = null
+    this.giftButton = null
 
     this.pageTitleHeight = 0
 
@@ -90,8 +92,16 @@ export default class StoreConfirmation {
       scene: this
     })
 
-    this.itemContainer = StoreUIData.ExtendedPriceDisplay
-    this.itemContainer.source = this.imageManager.getImageWithSrc(StoreUI)
+    this.giftButton = new GiftButton({
+      game: this.game,
+      imageManager: this.imageManager,
+      x: this.x + 20,
+      y: this.y + 80,
+      width: 100,
+      height: 20,
+      scene: this
+    })
+    this.giftButton.visible = false
   }
 
   setShopType (shopType) {
@@ -113,15 +123,28 @@ export default class StoreConfirmation {
 
     switch (this.shopType) {
       case 'store':
-        setStoreShopType(this, config)
+        setStoreShopType(this)
         break
       case 'blacksmithshop':
-        setBlacksmithShopType(this, config)
+        setBlacksmithShopType(this)
         break
       case 'carpentryshop':
-        setCarpentryShopType(this, config)
+        setCarpentryShopType(this)
+        break
+      case 'gift':
+        setGiftShopType(this)
         break
     }
+
+    if (this.shopType === 'gift') {
+      this.buyButton.visible = false
+      this.sellButton.visible = false
+      this.giftButton.visible = true
+      this.itemContainer = StoreUIData.GiftConfirmationDisplay
+    } else {
+      this.itemContainer = StoreUIData.ExtendedPriceDisplay
+    }
+    this.itemContainer.source = this.imageManager.getImageWithSrc(StoreUI)
 
     this.itemContainer.rect = {
       x: (this.game.canvas.width / 2) - (Math.floor(3 * this.itemContainer.width / 2)),
@@ -180,7 +203,7 @@ export default class StoreConfirmation {
     drawBackground(this, this.dialogRect)
     drawItem(this, this.dialogRect)
     drawPageTitleAndQuantity(this, this.dialogRect)
-    drawPrice(this)
+    if (this.shopType !== 'gift') drawPrice(this)
     drawButtons(this)
   }
 }
@@ -234,7 +257,7 @@ function drawPageTitleAndQuantity (manager, dialogBkgdRect) {
     manager.game.ctx.fillStyle = 'black'
     manager.game.ctx.font = `48px ${FamilyNames.FarmVintage}`
     manager.game.ctx.textAlign = UIAttributes.CenterAlign
-    manager.game.ctx.fillText(`${manager.buy ? 'Purchase' : 'Sell '}`, manager.game.canvas.width / 2, dialogBkgdRect.top + 24)
+    manager.game.ctx.fillText(`${manager.buy ? 'Purchase' : manager.shopType === 'gift' ? 'Give' : 'Sell '}`, manager.game.canvas.width / 2, dialogBkgdRect.top + 24)
     manager.game.ctx.fillText(`${manager.itemName}s x${manager.quantity}`, manager.game.canvas.width / 2, dialogBkgdRect.top + 66)
 }
 
@@ -308,14 +331,14 @@ function drawItem (manager, dialogBkgdRect) {
 
 function drawButtons (manager) {
   if (manager.buy) manager.buyButton.draw()
-  if(!manager.buy) manager.sellButton.draw()
+  if(!manager.buy && manager.shopType !== 'gift') manager.sellButton.draw()
+  if (manager.shopType === 'gift') manager.giftButton.draw()
   manager.cancelButton.draw()
   manager.plusButton.draw()
   manager.minusButton.draw()
 }
 
-function setStoreShopType (manager, config) {
-  // manager.itemContainer = StoreUIData.StoreItem
+function setStoreShopType (manager) {
   manager.backgroundTop = StoreUIData.StoreBackgroundTop
   manager.backgroundMiddle = StoreUIData.StoreBackgroundMiddle
   manager.backgroundBottom = StoreUIData.StoreBackgroundBottom
@@ -323,8 +346,7 @@ function setStoreShopType (manager, config) {
   manager.pageTitleHeight = manager.dialogRect.top + 6 + 2 * manager.backgroundTop.height
 }
 
-function setBlacksmithShopType (manager, config) {
-  // manager.itemContainer = StoreUIData.BlacksmithItem
+function setBlacksmithShopType (manager) {
   manager.backgroundTop = StoreUIData.BlacksmithBackgroundTop
   manager.backgroundMiddle = StoreUIData.BlacksmithBackgroundMiddle
   manager.backgroundBottom = StoreUIData.BlacksmithBackgroundBottom
@@ -332,13 +354,16 @@ function setBlacksmithShopType (manager, config) {
   manager.pageTitleHeight = manager.dialogRect.top + 6 + 2 * manager.backgroundTop.height
 }
 
-function setCarpentryShopType (manager, config) {
-  // manager.itemContainer = StoreUIData.CarpentryItem
+function setCarpentryShopType (manager) {
   manager.backgroundTop = StoreUIData.CarpentryBackgroundTop
   manager.backgroundMiddle = StoreUIData.CarpentryBackgroundMiddle
   manager.backgroundBottom = StoreUIData.CarpentryBackgroundBottom
 
   manager.pageTitleHeight = manager.dialogRect.top + 6 + 2 * manager.backgroundTop.height
+}
+
+function setGiftShopType (manager) {
+  setStoreShopType(manager)
 }
 
 function setImageSourceData (element) {
@@ -415,4 +440,8 @@ function positionButtons (manager, itemContainerRect) {
     manager.backgroundBottom.y - manager.buyButton.height - 10
   )
 
+  manager.giftButton.setPosition(
+    manager.backgroundTop.x + 10,
+    manager.backgroundBottom.y - manager.buyButton.height - 10
+  )
 }

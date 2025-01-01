@@ -72,6 +72,7 @@ export default class StoreItemElement {
       }
     }
 
+    if (this.shopType === 'gift') return // No price for gifts
     for (let i = 0; i < this.priceString.length; i++) {
       let spriteData = null
       const priceDigit = this.priceString[i]
@@ -196,6 +197,11 @@ function setImageSourceData (element) {
       element.sourceY = StoreUIData.CarpentryItem.y
       element.sourceWidth = StoreUIData.CarpentryItem.width
       element.sourceHeight = StoreUIData.CarpentryItem.height
-    break    
+    break
+    case 'gift':
+      element.sourceX = StoreUIData.GiftItem.x
+      element.sourceY = StoreUIData.GiftItem.y
+      element.sourceWidth = StoreUIData.GiftItem.width
+      element.sourceHeight = StoreUIData.GiftItem.height
   }
 }

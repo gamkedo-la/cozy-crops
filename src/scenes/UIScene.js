@@ -79,13 +79,6 @@ export default class UIScene extends Scene {
     super.init(data) // Call the init method of the parent class
 
     this.gameScene = data.gameScene
-    this.giftManager = new GiftManager({
-      scene: this,
-      game: this.game,
-      imageManager: this.imageManager,
-      dialogRect: this.dialogRect
-    })
-    this.giftManager.init()
 
     const managerConfig = {
       scene: this,
@@ -95,6 +88,8 @@ export default class UIScene extends Scene {
       inventoryManager: this.inventoryManager,
       dialogRect: this.dialogRect
     }
+    this.giftManager = new GiftManager(managerConfig)
+    this.giftManager.init()
     this.buyManager = new BuyManager(managerConfig)
     this.buyManager.init()
     this.sellManager = new SellManager(managerConfig)
@@ -143,6 +138,7 @@ export default class UIScene extends Scene {
   }
 
   setShopType (shopType) {
+    this.giftManager.setShopType()
     this.buyManager.setShopType(shopType)
     this.sellManager.setShopType(shopType)
   }
@@ -197,6 +193,7 @@ export default class UIScene extends Scene {
 
   showGiftDialogue () {
     console.log('Show gift dialogue')
+    this.giftManager.setShopType()
     this.giftDialogShowing = true
   }
 

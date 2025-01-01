@@ -129,6 +129,12 @@ function getSourceDataForShopType (element, shopType) {
       element.sourceWidth = StoreUIData.CarpentryItem.width
       element.sourceHeight = StoreUIData.CarpentryItem.height
       break
+    case 'gift':
+      element.sourceX = StoreUIData.GiftItem.x
+      element.sourceY = StoreUIData.GiftItem.y
+      element.sourceWidth = StoreUIData.GiftItem.width
+      element.sourceHeight = StoreUIData.GiftItem.height
+      break
   }
 }
 

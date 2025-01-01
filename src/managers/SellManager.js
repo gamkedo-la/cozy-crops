@@ -140,7 +140,8 @@ export default class SellManager {
       this.storeConfirmation.draw()
     } else {
       drawDialogue(this, this.dialogRect)
-    }  }
+    }
+  }
 }
 
 function drawDialogue (manager, dialogBkgdRect) {
@@ -488,7 +489,7 @@ function manageInput (manager) {
     manager.selectedItemIndex = 0
     setButtonDisabled(manager)
     positionButtons(manager)
-    manager.scene.hideSellDialogue()
+    manager.scene.hideShowingDialogue()
   } else if (justDownKeys.includes(controls.Action)) {
     const items = manager.pages[manager.currentPageIndex]
     const selectedItem = items[manager.selectedItemIndex]
