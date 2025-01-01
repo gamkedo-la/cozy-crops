@@ -10,8 +10,8 @@ export default class Grandma extends NPC {
     this.type =  EntityTypes.Grandma
     this.collisionPoint = { x: 0, y: 0 }
     this.quest = {
-      name: 'Grandma Mae\'s Quest',
-      achievement: 'Favored Grandchild',
+      name: 'Favored Grandchild',
+      achievement: 'Grandma Mae\'s Quest',
       description: 'Give Grandma Mae 5 sunflowers so she can make a bouquet',
       progress: {
         [EntityTypes.Sunflower]: config.currentCount || 0
@@ -26,10 +26,18 @@ export default class Grandma extends NPC {
     this.dialogue = {
       firstEncounter: 'Hello there! Welcome to the village!\nI am Grandma Mae. I have been here for many years,\ndon\'t let that fisherman fool you\nhe hasn\'t seen half of what he talks about\nbut I have. I hope you enjoy your stay here!',
       unknownQuest: 'Hello dear! I hope you are doing well.\nDon\'t you think the perfect bouquet needs 5 sunflowers?\nI think so too!',
-      partialQuest: `Hello dear! I hope you are doing well.\nI still need ${this.quest.requirements[EntityTypes.Sunflower] - this.quest.progress[EntityTypes.Sunflower]} more sunflowers to make\nthe perfect bouquet!`,
+      partialQuest: () => { return `Hello dear! I hope you are doing well.\nI still need ${this.quest.requirements[EntityTypes.Sunflower] - this.quest.progress[EntityTypes.Sunflower]} more sunflowers to make\nthe perfect bouquet!`},
       fullQuest: 'Hello dear! I think we were right,\n5 sunflowers DOES make the perfect bouquet!\nThank you for your help!',
       giveSunflower: 'Oh, a sunflower! Thank you dear!\nI will add this to my bouquet!',
       giveOtherGift: 'Oh, a gift! Thank you dear!\nI will cherish this!'
+    }
+  }
+
+  init () {
+    super.init()
+    const progress = this.scene.gameManager.getAchievementProgress(this.quest.name)
+    if (progress) {
+      this.quest.progress[EntityTypes.Sunflower] = progress
     }
   }
 
@@ -50,9 +58,10 @@ export default class Grandma extends NPC {
     return this.animations[type]
   }
 
-  giveItem (item) {
+  giveItem (item, quantity) {
     if (item.type === EntityTypes.Sunflower) {
-      this.quest.progress[EntityTypes.Sunflower]++
+      this.quest.progress[EntityTypes.Sunflower] += quantity
+      this.scene.gameManager.setAchievementProgress(this.quest.name, this.quest.progress[EntityTypes.Sunflower])
       if (this.quest.progress[EntityTypes.Sunflower] >= this.quest.requirements[EntityTypes.Sunflower]) {
         this.questComplete = true
         return this.dialogue.fullQuest
@@ -73,7 +82,9 @@ export default class Grandma extends NPC {
       this.playerKnowsQuest = true
       dialog = this.dialogue.unknownQuest
     } else if (this.quest.progress[EntityTypes.Sunflower] < this.quest.requirements[EntityTypes.Sunflower]) {
-      dialog = this.dialogue.partialQuest
+      dialog = this.dialogue.partialQuest()
+    } else if (this.quest.progress[EntityTypes.Sunflower] >= this.quest.requirements[EntityTypes.Sunflower]) {
+      dialog = this.dialogue.fullQuest
     }
 
     this.scene.gameManager.setNPCData(this.type, {

@@ -20,6 +20,21 @@ export default class GiftManager extends SellManager {
       entityManager: this.entityManager
     })
   }
+
+  completeGift () {
+    const items = this.pages[this.currentPageIndex]
+    const selectedItem = items[this.selectedItemIndex]
+
+    this.scene.giveItem(selectedItem.getSoldItem(), this.storeConfirmation.quantity)
+    this.scene.inventoryManager.removeItemFromInventory(selectedItem.getSoldItem(), this.storeConfirmation.quantity)
+
+    this.storeConfirmation = null
+    this.setShopType(this.shopType)
+  }
+
+  cancelGift () {
+    this.storeConfirmation = null
+  }
 }
 
 function setGiftShopType (manager, config) {

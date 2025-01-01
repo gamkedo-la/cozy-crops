@@ -161,7 +161,11 @@ export default class StoreConfirmation {
     if (this.buy && this.buyButton.checkClicked(x, y)) {
       if (this.buyButton.visible && !this.buyButton.disabled) this.buyItem()
     } else if (!this.buy && this.sellButton.checkClicked(x, y)) {
-      if (this.sellButton.visible && !this.sellButton.disabled) this.sellItem()
+      if (this.sellButton.visible && !this.sellButton.disabled) {
+        this.sellItem()
+      }
+    } else if (this.shopType === 'gift' && this.giftButton.checkClicked(x, y)) {
+      if (this.giftButton.visible && !this.giftButton.disabled) this.giveItem()
     } else if (this.cancelButton.checkClicked(x, y)) {
       if (this.buy) this.cancelPurchase()
       if (!this.buy) this.cancelSale()
@@ -189,6 +193,10 @@ export default class StoreConfirmation {
 
   sellItem () {
     this.manager.completeSale()
+  }
+
+  giveItem () {
+    this.manager.completeGift()
   }
 
   cancelPurchase () {

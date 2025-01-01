@@ -550,6 +550,23 @@ export default class GameScene extends Scene {
     this.mapManager.unWaterAllTiles()
     setNewWeather(this)
   }
+
+  giveItemToNPC (npcType, item, quantity) {
+    switch (npcType) {
+      case EntityTypes.Fisherman:
+        this.fisherman.giveItem(item, quantity)
+        break
+      case EntityTypes.Grandma:
+        this.grandma.giveItem(item, quantity)
+        break
+      case EntityTypes.Lumberjack:
+        this.lumberjack.giveItem(item, quantity)
+        break
+      case EntityTypes.Tiffany:
+        this.tiffany.giveItem(item, quantity)
+        break
+    }
+  }
 }
 
 function manageInput (scene) {

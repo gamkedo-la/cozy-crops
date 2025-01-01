@@ -11,6 +11,10 @@ export default class GiftButton extends CanvasButton {
   }
 
   activate () {
-    this.scene.showGiftDialogue()
+    if (this.scene.shopType === 'gift') {
+      this.scene.giveItem()
+    } else {
+      this.scene.showGiftDialogue()
+    }
   }
 }

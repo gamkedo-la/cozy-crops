@@ -1,7 +1,7 @@
 import LocalStorageKeys from '../globals/LocalStorageKeys.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
-import { ArrowKeys, WASDKeys } from '../globals/Keys.js'
+import { ArrowKeys, E, WASDKeys } from '../globals/Keys.js'
 // import { WetSand } from '../globals/Tiles.js'
 import { WetSand } from '../globals/TilesWorld.js'
 
@@ -241,6 +241,31 @@ export default class GameManager {
     this.saveGame()
   }
 
+  setAchievementProgress (achievement, progress) {
+    const existingAchievement = this.state.Map.Achievements.find(a => a.name === achievement)
+    if (existingAchievement?.currentCount >= 0) {
+      existingAchievement.currentCount = progress
+      if (existingAchievement.currentCount >= existingAchievement.requiredCount) {
+        existingAchievement.complete = true
+      }
+    } else if (existingAchievement?.collected) {
+      existingAchievement.collected.add(progress)
+      if (existingAchievement.collected.size >= existingAchievement.requiredCount) {
+        existingAchievement.complete = true
+      }
+    }
+    this.saveGame()
+  }
+
+  getAchievementProgress (achievement) {
+    const existingAchievement = this.state.Map.Achievements.find(a => a.name === achievement)
+    if (existingAchievement?.currentCount >= 0) {
+      return existingAchievement.currentCount
+    } else if (existingAchievement?.collected) {
+      return existingAchievement.collected
+    }
+  }
+
   getNPCData (npc) {
     return this.state.NPCs ? this.state.NPCs[npc] : null
   }
@@ -353,7 +378,7 @@ function initializeNewGame (manager, saveSlot) {
         { name: 'Gatherer Extrodinaire', incompleteDescription: 'Forage for one of each type\nof item to earn this Painting', completeDescription: 'Congratulations!\nYou found one of\neach type of item', type: EntityTypes.PortraitRGB, requiredCount: 6, collected: new Set(), complete: false },
         { name: 'Furniture Aficionado', incompleteDescription: 'Collect one of each type of\nfurniture to earn this Painting', completeDescription: 'Congratulations!\nYou collected one of\neach type of furniture', type: EntityTypes.PortraitStarry, requiredCount: 10, collected: new Set(), complete: false },
         { name: 'Good Samaritan', incompleteDescription: 'Complete every town quest', completeDescription: 'Congratulations!\nYou completed every town quest', type: EntityTypes.PortraitWave, requiredCount: 4, currentCount: 0, complete: false },
-        { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done!\nYou helped Grandma Mea', type: EntityTypes.StatueBust, requiredCount: 5, currentCount: 5, complete: false },
+        { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done!\nYou helped Grandma Mea', type: EntityTypes.StatueBust, requiredCount: 5, currentCount: 0, complete: false },
         { name: 'Jo Jo\'s Friend', incompleteDescription: 'Complete Jo Jo\'s quest', completeDescription: 'Well done!\nYou helped Jo Jo', type: EntityTypes.StatueFossil, complete: false },
         { name: 'Bob\'s Paul Bunyan', incompleteDescription: 'Complete Bob\'s quest', completeDescription: 'Well done!\nYou helped Bob', type: EntityTypes.StatueMoai, complete: false },
         { name: 'Tiffany\'s Souper Friend', incompleteDescription: 'Complete Tiffany\'s quest', completeDescription: 'Well done!\nYou helped Tiffany', type: EntityTypes.StatuePharaoh, complete: false }
@@ -387,7 +412,7 @@ function initializeNewGame (manager, saveSlot) {
         playerKnowsQuest: false,
         questComplete: false,
         progress: {
-          tuna: 0
+          [EntityTypes.Tuna]: 0
         }
       },
       [EntityTypes.Grandma]: {
@@ -395,7 +420,7 @@ function initializeNewGame (manager, saveSlot) {
         playerKnowsQuest: false,
         questComplete: false,
         progress: {
-          sunflowers: 0
+          [EntityTypes.Sunflower]: 0
         }
       },
       [EntityTypes.Lumberjack]: {
@@ -416,10 +441,10 @@ function initializeNewGame (manager, saveSlot) {
         playerKnowsQuest: false,
         questComplete: false,
         progress: {
-          onion: 0,
-          tomato: 0,
-          carrot: 0,
-          pumpkin: 0
+          [EntityTypes.Onion]: 0,
+          [EntityTypes.Tomato]: 0,
+          [EntityTypes.Carrot]: 0,
+          [EntityTypes.Pumpkin]: 0
         }
       }
     }

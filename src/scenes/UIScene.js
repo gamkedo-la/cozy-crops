@@ -230,6 +230,10 @@ export default class UIScene extends Scene {
     this.hideSignDialogue()
   }
 
+  giveItem (item, quantity) {
+    this.gameScene.giveItemToNPC(this.dialogingNPC, item, quantity)
+  }
+
   stop () {
     super.stop() // Call the stop method of the parent class
 
