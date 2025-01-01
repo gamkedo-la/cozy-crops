@@ -434,22 +434,22 @@ function positionButtons (manager, itemContainerRect) {
   )
 
   manager.buyButton.setPosition(
-    manager.backgroundTop.x + 10,
-    manager.backgroundBottom.y - manager.buyButton.height - 10
+    itemContainerRect.x,
+    itemContainerRect.y + itemContainerRect.height + 2 * manager.plusButton.height
   )
 
   manager.sellButton.setPosition(
-    manager.backgroundTop.x + 10,
-    manager.backgroundBottom.y - manager.buyButton.height - 10
+    itemContainerRect.x,
+    itemContainerRect.y + itemContainerRect.height + 2 * manager.plusButton.height
   )
 
   manager.cancelButton.setPosition(
-    manager.backgroundBottom.x + manager.backgroundBottom.width - manager.cancelButton.width - 10,
-    manager.backgroundBottom.y - manager.buyButton.height - 10
+    itemContainerRect.x + itemContainerRect.width - manager.cancelButton.width,
+    itemContainerRect.y + itemContainerRect.height + 2 * manager.plusButton.height
   )
 
   manager.giftButton.setPosition(
-    manager.backgroundTop.x + 10,
-    manager.backgroundBottom.y - manager.buyButton.height - 10
+    itemContainerRect.x,
+    itemContainerRect.y + itemContainerRect.height + 2 * manager.plusButton.height
   )
 }
