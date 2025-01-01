@@ -65,11 +65,32 @@ export default class GameManager {
       // If the game state does not exist, initialize a new game
       initializeNewGame(this, saveSlot)
     }
+
+    // convert arrays in Achievements to Sets
+    this.state.Map.Achievements.forEach(a => {
+      if (a.collected && Array.isArray(a.collected)) {
+        a.collected = new Set(a.collected)
+      }
+    })
   }
 
   saveGame () {
     // Save the game state to local storage
+    // convert Sets in Achievements to arrays
+    this.state.Map.Achievements.forEach(a => {
+      if (a.collected) {
+        a.collected = Array.from(a.collected)
+      }
+    })
+
     localStorage.setItem(`${LocalStorageKeys.SaveSlot}${this.saveSlot}`, JSON.stringify(this.state))
+
+    // convert arrays in Achievements back to Sets
+    this.state.Map.Achievements.forEach(a => {
+      if (a.collected) {
+        a.collected = new Set(a.collected)
+      }
+    })
   }
 
   getPlayerColors (player) {
@@ -379,9 +400,9 @@ function initializeNewGame (manager, saveSlot) {
         { name: 'Furniture Aficionado', incompleteDescription: 'Collect one of each type of\nfurniture to earn this Painting', completeDescription: 'Congratulations!\nYou collected one of\neach type of furniture', type: EntityTypes.PortraitStarry, requiredCount: 10, collected: new Set(), complete: false },
         { name: 'Good Samaritan', incompleteDescription: 'Complete every town quest', completeDescription: 'Congratulations!\nYou completed every town quest', type: EntityTypes.PortraitWave, requiredCount: 4, currentCount: 0, complete: false },
         { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done!\nYou helped Grandma Mea', type: EntityTypes.StatueBust, requiredCount: 5, currentCount: 0, complete: false },
-        { name: 'Jo Jo\'s Friend', incompleteDescription: 'Complete Jo Jo\'s quest', completeDescription: 'Well done!\nYou helped Jo Jo', type: EntityTypes.StatueFossil, complete: false },
-        { name: 'Bob\'s Paul Bunyan', incompleteDescription: 'Complete Bob\'s quest', completeDescription: 'Well done!\nYou helped Bob', type: EntityTypes.StatueMoai, complete: false },
-        { name: 'Tiffany\'s Souper Friend', incompleteDescription: 'Complete Tiffany\'s quest', completeDescription: 'Well done!\nYou helped Tiffany', type: EntityTypes.StatuePharaoh, complete: false }
+        { name: 'Jo Jo\'s Friend', incompleteDescription: 'Complete Jo Jo\'s quest', completeDescription: 'Well done!\nYou helped Jo Jo', type: EntityTypes.StatueFossil, requiredCount: 1, currentCount: 0, complete: false },
+        { name: 'Bob\'s Paul Bunyan', incompleteDescription: 'Complete Bob\'s quest', completeDescription: 'Well done!\nYou helped Bob', type: EntityTypes.StatueMoai, requiredCount: 20, currentCount: 0, complete: false },
+        { name: 'Tiffany\'s Souper Friend', incompleteDescription: 'Complete Tiffany\'s quest', completeDescription: 'Well done!\nYou helped Tiffany', type: EntityTypes.StatuePharaoh, requiredCount: 4, collected: new Set(), complete: false }
       ],
       Crops: [
         // { x: 0, y: 0, type: EntityTypes.CropCarrot, growth: 0 }
