@@ -3,10 +3,10 @@ import UISpriteData from '../globals/UISpriteData.js'
 
 export default class CancelButton extends CanvasButton {
   constructor (config) {
-    config.sourceX = UISpriteData.CancelButton.x
-    config.sourceY = UISpriteData.CancelButton.y
-    config.width = UISpriteData.CancelButton.width
-    config.height = UISpriteData.CancelButton.height
+    config.sourceX = UISpriteData.CancelButtonSmall.x
+    config.sourceY = UISpriteData.CancelButtonSmall.y
+    config.width = UISpriteData.CancelButtonSmall.width
+    config.height = UISpriteData.CancelButtonSmall.height
     super(config)
   }
 

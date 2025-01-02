@@ -80,7 +80,9 @@ function initializePage (manager, pageIndex, config) {
       y: currentY,
       type: item.type,
       selected: false,
-      cropManager: manager.scene.cropManager
+      cropManager: manager.scene.cropManager,
+      inventoryManager: manager.inventoryManager,
+      entityManager: manager.entityManager
     })
     itemElement.init()
     manager.pages[pageIndex].push(itemElement)

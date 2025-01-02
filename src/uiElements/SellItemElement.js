@@ -2,6 +2,7 @@ import StoreItemElement from './StoreItemElement.js'
 import { StoreUI } from '../globals/Images.js'
 import StoreUIData from '../globals/StoreUIData.js'
 import EntityTypes from '../globals/EntityTypes.js'
+import SeedPacket from '../entities/crops/SeedPacket.js'
 
 export default class SellItemElement extends StoreItemElement {
   constructor (config) {
@@ -36,46 +37,88 @@ function getNameForType (type) {
   switch (type) {
     case EntityTypes.Carrot:
       return 'Carrot'
+    case EntityTypes.CarrotSeed:
+      return 'Carrot Seed'
     case EntityTypes.Corn:
       return 'Corn'
+    case EntityTypes.CornSeed:
+      return 'Corn Seed'
     case EntityTypes.Eggplant:
       return 'Eggplant'
+    case EntityTypes.EggplantSeed:
+      return 'Eggplant Seed'
     case EntityTypes.Lettuce:
       return 'Lettuce'
+    case EntityTypes.LettuceSeed:
+      return 'Lettuce Seed'
     case EntityTypes.Onion:
       return 'Onion'
+    case EntityTypes.OnionSeed:
+      return 'Onion Seed'
     case EntityTypes.Pepper:
       return 'Pepper'
+    case EntityTypes.PepperSeed:
+      return 'Pepper Seed'
     case EntityTypes.Potato:
       return 'Potato'
+    case EntityTypes.PotatoSeed:
+      return 'Potato Seed'
     case EntityTypes.Pumpkin:
       return 'Pumpkin'
+    case EntityTypes.PumpkinSeed:
+      return 'Pumpkin Seed'
     case EntityTypes.Radish:
       return 'Radish'
+    case EntityTypes.RadishSeed:
+      return 'Radish Seed'
     case EntityTypes.Strawberry:
       return 'Strawberry'
+    case EntityTypes.StrawberrySeed:
+      return 'Strawberry Seed'
     case EntityTypes.Tomato:
       return 'Tomato'
+    case EntityTypes.TomatoSeed:
+      return 'Tomato Seed'
     case EntityTypes.Watermelon:
       return 'Watermelon'
+    case EntityTypes.WatermelonSeed:
+      return 'Watermelon Seed'
     case EntityTypes.Apple:
       return 'Apple'
+    case EntityTypes.AppleSeed:
+      return 'Apple Seed'
     case EntityTypes.Orange:
       return 'Orange'
+    case EntityTypes.OrangeSeed:
+      return 'Orange Seed'
     case EntityTypes.Lime:
       return 'Lime'
+    case EntityTypes.LimeSeed:
+      return 'Lime Seed'
     case EntityTypes.Cherry:
       return 'Cherry'
+    case EntityTypes.CherrySeed:
+      return 'Cherry Seed'
     case EntityTypes.Lemon:
       return 'Lemon'
+    case EntityTypes.LemonSeed:
+      return 'Lemon Seed'
     case EntityTypes.MapleTree:
       return 'Maple'
+    case EntityTypes.MapleSeed:
+      return 'Maple Seed'
     case EntityTypes.Oak:
       return 'Oak'
+    case EntityTypes.OakSeed:
+      return 'Oak Seed'
     case EntityTypes.Pine:
       return 'Pine'
+    case EntityTypes.PineSeed:
+      return 'Pine Seed'
     case EntityTypes.Plum:
       return 'Plum'
+    case EntityTypes.PlumSeed:
+      return 'Plum Seed'
     case EntityTypes.Daffodil:
       return 'Daffodil'
     case EntityTypes.Sunflower:
@@ -141,7 +184,9 @@ function getSourceDataForShopType (element, shopType) {
 }
 
 function getItemForType (element, type) {
-  if (element.entityManager.isCrop({ type })) {
+  if (element.entityManager.isSeed({ type })) {
+    return getSeedPacketForType(element, type, element.x + element.width - element.itemWidth - 8, element.y + 8)
+  } if (element.entityManager.isCrop({ type })) {
     return element.cropManager.getCropForType(type, element.x + element.width - element.itemWidth - 8, element.y + (isTallCrop(type) ? -22 : 8))
   } else if (element.entityManager.isTree({ type })) {
     return element.cropManager.getTreeForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
@@ -157,4 +202,22 @@ function isTallCrop (type) {
          type === EntityTypes.Eggplant ||
          type === EntityTypes.Pepper ||
          type === EntityTypes.Strawberry
+}
+
+function getSeedPacketForType (manager, type, x, y) {
+    const config = {
+      game: manager.game,
+      imageManager: manager.imageManager,
+      type,
+      x,
+      y,
+      width: manager.inventoryManager.itemWidth,
+      height: manager.inventoryManager.itemHeight,
+      quantity: 1
+    }
+  
+    const item = new SeedPacket(config)
+    item.init()
+
+    return item
 }
