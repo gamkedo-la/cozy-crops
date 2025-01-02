@@ -22,7 +22,7 @@ import { CarpenterDoor } from '../globals/TilesCarpenter.js'
 import { BlacksmithDoor } from '../globals/TilesBlacksmith.js'
 import { MuseumDoor } from '../globals/TilesMuseum.js'
 import { StoreDoor } from '../globals/TilesStore.js'
-import { Grass1, Grass2, Grass3, Grass4, Grass5, Sand, WetSand } from '../globals/TilesWorld.js'
+import { Grass1, Grass3, Sand, WetSand } from '../globals/TilesWorld.js'
 import { TileNames } from '../globals/Tiles.js'
 import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
@@ -410,10 +410,7 @@ export default class GameScene extends Scene {
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
     switch (tileType) {
       case TileNames[Grass1]:
-      case TileNames[Grass2]:
       case TileNames[Grass3]:
-      case TileNames[Grass4]:
-      case TileNames[Grass5]:
         result.add('Till')
         break
       case TileNames[Door]:

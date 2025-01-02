@@ -7,15 +7,27 @@ export const Grass1 = 5
 export const Pink = 6
 export const Bridge = 7
 export const HorizontalStripe = 8
-export const Grass2 = 9
+export const Dock = 9
 export const Grass3 = 10
-export const Grass4 = 11
+export const HorizontalRamp = 11
 export const Empty2 = 12
 export const DarkStone = 13
 export const Seafoam = 14
 export const WetSand = 15
 export const Waterfall = 19
-export const Hilltop = 10
+export const Path = 31
+export const GrassWaterUL = 66
+export const GrassWaterUR = 67
+export const GrassWaterDL = 98
+export const GrassWaterDR = 99
+export const RockyPathUL = 70
+export const RockyPathUR = 71
+export const RockyPathDL = 72
+export const RockyPathDR = 73
+export const GrassPathUL = 74
+export const GrassPathUR = 75
+export const GrassPathDL = 76
+export const GrassPathDR = 77
 export const Grass5 = 128
 export const fencefull = 160
 export const fenceleft = 161
@@ -34,16 +46,26 @@ export const WorldIndexes = {
   fenceright,
   fencevert,
   Grass1,
-  Grass2,
   Grass3,
-  Grass4,
-  Grass5,
-  Hilltop,
+  GrassPathDL,
+  GrassPathDR,
+  GrassPathUL,
+  GrassPathUR,
+  GrassWaterDL,
+  GrassWaterDR,
+  GrassWaterUL,
+  GrassWaterUR,
+  HorizontalRamp,
   HorizontalStripe,
   LockedDoor,
   NearShoreOcean,
+  Path,
   Pink,
   RockyGround,
+  RockyPathDL,
+  RockyPathDR,
+  RockyPathUL,
+  RockyPathUR,
   Sand,
   Seafoam,
   Stone,
@@ -62,16 +84,27 @@ export const WorldTileNames = {
   [fenceright]: 'fenceright',
   [fencevert]: 'fencevert',
   [Grass1]: 'Grass1',
-  [Grass2]: 'Grass2',
   [Grass3]: 'Grass3',
-  [Grass4]: 'Grass4',
   [Grass5]: 'Grass5',
-  [Hilltop]: 'Hilltop',
+  [GrassPathDL]: 'GrassPathDL',
+  [GrassPathDR]: 'GrassPathDR',
+  [GrassPathUL]: 'GrassPathUL',
+  [GrassPathUR]: 'GrassPathUR',
+  [GrassWaterDL]: 'GrassWaterDL',
+  [GrassWaterDR]: 'GrassWaterDR',
+  [GrassWaterUL]: 'GrassWaterUL',
+  [GrassWaterUR]: 'GrassWaterUR',
+  [HorizontalRamp]: 'HorizontalRamp',
   [HorizontalStripe]: 'HorizontalStripe',
   [LockedDoor]: 'LockedDoor',
   [NearShoreOcean]: 'NearShoreOcean',
+  [Path]: 'Path',
   [Pink]: 'Pink',
   [RockyGround]: 'RockyGround',
+  [RockyPathDL]: 'RockyPathDL',
+  [RockyPathDR]: 'RockyPathDR',
+  [RockyPathUL]: 'RockyPathUL',
+  [RockyPathUR]: 'RockyPathUR',
   [Sand]: 'Sand',
   [Seafoam]: 'Seafoam',
   [Stone]: 'Stone',
@@ -85,7 +118,6 @@ export const WorldUnwalkable = [
   fenceleft,
   fenceright,
   fencevert,
-  Hilltop,
   LockedDoor,
   NearShoreOcean,
   Pink,
@@ -94,7 +126,7 @@ export const WorldUnwalkable = [
   Water,
 ]
 
-const grassTiles = [Grass1, Grass2, Grass3, Grass4, Grass5]
+const grassTiles = [Grass1, Grass3]
 export function isGrass (index) {
   return grassTiles.includes(index)
 }
