@@ -58,7 +58,13 @@ export default class StoreItemElement {
     this.game.ctx.textAlign = UIAttributes.LeftAlign
     this.game.ctx.fillText(this.name, this.x + 10, this.y + 30)
 
-    this.icon.drawAsInventory(this.icon.x, this.icon.y, this.icon.width, this.icon.height)
+    if (this.entityManager.isTallCropSeed({ type: this.type })) {
+      this.icon.drawAsInventory(this.icon.x, this.icon.y - (3 * this.icon.height / 4) - 2, this.icon.width, 2 * this.icon.height)
+    } else if (this.entityManager.isWood({ type: this.type })) {
+      this.icon.drawAsInventory(this.icon.x + 2, this.icon.y - (this.icon.height / 2) - 4, 2 * this.icon.width, (5 * this.icon.height / 4))
+    } else {
+      this.icon.drawAsInventory(this.icon.x, this.icon.y, this.icon.width, this.icon.height)
+    }
 
     if (this.selected) {
       if (this.entityManager.isTallCrop({ type: this.type })) {
@@ -73,6 +79,8 @@ export default class StoreItemElement {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
       } else if (this.entityManager.isTool({ type: this.type })) {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
+      } else if (this.entityManager.isWood({ type: this.type })) {
+        this.selectedFrame.draw(this.icon.x + 20, this.icon.y + 20)
       } else {
         this.selectedFrame.draw(this.icon.x, this.icon.y)
       }

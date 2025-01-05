@@ -10,8 +10,8 @@ export default class Lumberjack extends NPC {
     this.type =  EntityTypes.Lumberjack
     this.collisionPoint = { x: 0, y: 0 }
     this.quest = {
-      name: 'Lumberjack Bob\'s Quest',
-      achievement: 'Bob\'s Paul Bunyan',
+      name: 'Bob\'s Paul Bunyan',
+      achievement: 'Lumberjack Bob\'s Quest',
       description: 'Give 20 wood to Lumberjack Bob so he can finish the project he is working on',
       progress: {
         wood: config.currentCount || 0
@@ -26,10 +26,18 @@ export default class Lumberjack extends NPC {
     this.dialogue = {
       firstEncounter: 'Hello there! Welcome to the village!\nI am Lumberjack Bob. I have built many houses for the villagers\nand I am working on a new project. I hope you enjoy your stay here!',
       unknownQuest: 'Hello again! I hope you are doing well.\nI am working on a new project and need a lot more wood,\nbut there just isn\'t time to chop it and build it!\nI hope you are doing well!',
-      partialQuest: `Good to see you! I am still working on my project and\nneed ${this.quest.requirements.wood - this.quest.progress.wood} more wood to finish it!`,
+      partialQuest: () => { return `Good to see you! I am still working on my project and\nneed ${this.quest.requirements.wood - this.quest.progress.wood} more wood to finish it!` },
       fullQuest: 'Thank you for your help! I have enough wood to finish my project now!\nYou\'re an incredible person to help so much!',
       giveWood: 'Oh, wood! Thank you! This will help me finish my project!\nI hope you enjoy it as much as I do!',
       giveOtherGift: 'Oh, a gift! Thank you so much!\nI will cherish this!'
+    }
+  }
+
+  init () {
+    super.init()
+    const progress = this.scene.gameManager.getAchievementProgress(this.quest.name)
+    if (progress) {
+      this.quest.progress.wood = progress
     }
   }
 
@@ -50,9 +58,10 @@ export default class Lumberjack extends NPC {
     return this.animations[type]
   }
 
-  giveItem (item) {
-    if (this.entityManager.isWood(item)) {
-      this.quest.progress.wood++
+  giveItem (item, quantity) {
+    if (this.scene.entityManager.isWood(item)) {
+      this.quest.progress.wood += quantity
+      this.scene.gameManager.setAchievementProgress(this.quest.name, this.quest.progress.wood)
       if (this.quest.progress.wood >= this.quest.requirements.wood) {
         this.questComplete = true
         return this.dialogue.fullQuest
@@ -73,7 +82,7 @@ export default class Lumberjack extends NPC {
       this.playerKnowsQuest = true
       dialog = this.dialogue.unknownQuest
     } else if (this.quest.progress.wood < this.quest.requirements.wood) {
-      dialog = this.dialogue.partialQuest
+      dialog = this.dialogue.partialQuest()
     }
 
     this.scene.gameManager.setNPCData(this.type, {

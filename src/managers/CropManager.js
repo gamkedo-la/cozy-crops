@@ -3,6 +3,7 @@ import EntityTypes from '../globals/EntityTypes.js'
 import Carrot from '../entities/crops/Carrot.js'
 import Corn from '../entities/crops/Corn.js'
 import Eggplant from '../entities/crops/Eggplant.js'
+import Fruit from '../entities/crops/Fruit.js'
 import Lettuce from '../entities/crops/Lettuce.js'
 import Onion from '../entities/crops/Onion.js'
 import Pepper from '../entities/crops/Pepper.js'
@@ -27,6 +28,7 @@ import Truffel from '../entities/forageables/Truffel.js'
 import Tulip from '../entities/forageables/Tulip.js'
 import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
+import Wood from '../entities/crops/Wood.js'
 
 export default class CropManager {
   constructor (config) {
@@ -401,8 +403,72 @@ function restoreCropFromMemory (manager, cropType, x, y) {
     case EntityTypes.Watermelon:
       newCrop = new Watermelon(cropConfig)
       break
+    case EntityTypes.Apple:
+    case EntityTypes.Cherry:
+    case EntityTypes.Lemon:
+    case EntityTypes.Lime:
+    case EntityTypes.Orange:
+    case EntityTypes.Plum:
+      newCrop = new Fruit({ ...cropConfig, type: cropType })
+      break
+    case EntityTypes.AppleWood:
+    case EntityTypes.CherryWood:
+    case EntityTypes.LemonWood:
+    case EntityTypes.LimeWood:
+    case EntityTypes.MapleWood:
+    case EntityTypes.OakWood:
+    case EntityTypes.OrangeWood:
+    case EntityTypes.PineWood:
+    case EntityTypes.PlumWood:
+      newCrop = new Wood({ ...cropConfig, type: cropType })
+      break
     case EntityTypes.AppleTree:
       newCrop = new AppleTree(cropConfig)
+      break
+    case EntityTypes.CherryTree:
+      newCrop = new CherryTree(cropConfig)
+      break
+    case EntityTypes.LemonTree:
+      newCrop = new LemonTree(cropConfig)
+      break
+    case EntityTypes.LimeTree:
+      newCrop = new LimeTree(cropConfig)
+      break
+    case EntityTypes.MapleTree:
+      newCrop = new MapleTree(cropConfig)
+      break
+    case EntityTypes.OakTree:
+      newCrop = new OakTree(cropConfig)
+      break
+    case EntityTypes.OrangeTree:
+      newCrop = new OrangeTree(cropConfig)
+      break
+    case EntityTypes.PineTree:
+      newCrop = new PineTree(cropConfig)
+      break
+    case EntityTypes.PlumTree:
+      newCrop = new PlumTree(cropConfig)
+      break
+    case EntityTypes.Daffodil:
+      newCrop = new Daffodil(cropConfig)
+      break
+    case EntityTypes.Sunflower:
+      newCrop = new Sunflower(cropConfig)
+      break
+    case EntityTypes.Truffel:
+      newCrop = new Truffel(cropConfig)
+      break
+    case EntityTypes.Tulip:
+      newCrop = new Tulip(cropConfig)
+      break
+    case EntityTypes.WildGarlic:
+      newCrop = new WildGarlic(cropConfig)
+      break
+    case EntityTypes.WildRose:
+      newCrop = new WildRose(cropConfig)
+      break
+    case EntityTypes.Wood:
+      newCrop = new Wood(cropConfig)
       break
   }
 

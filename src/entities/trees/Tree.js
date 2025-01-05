@@ -3,6 +3,7 @@ import Animation from '../../components/Animation.js'
 import TreeData from '../../globals/TreeData.js'
 import EntityTypes from '../../globals/EntityTypes.js'
 import Fruit from '../crops/Fruit.js'
+import Wood from '../crops/Wood.js'
 
 export default class Tree {
   constructor (config) {
@@ -155,6 +156,22 @@ export default class Tree {
     return fruit
   }
 
+  getWood () {
+    const wood = new Wood({
+      game: this.game,
+      imageManager: this.imageManager,
+      type: woodTypeForTreeType(this),
+      x: this.x + this.width - this.itemWidth - 28,
+      y: this.y + 28 - this.itemHeight,
+      width: 2 * this.itemWidth,
+      height: 2 * this.itemHeight,
+      quantity: 1
+    })
+    wood.init()
+
+    return wood
+  }
+
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
     if (!this.currentAnimation) {
@@ -209,5 +226,28 @@ function fruitTypeForTreeType (tree) {
       return EntityTypes.Lemon
     case EntityTypes.PlumTree:
       return EntityTypes.Plum
+  }
+}
+
+function woodTypeForTreeType (tree) {
+  switch (tree.type) {
+    case EntityTypes.AppleTree:
+      return EntityTypes.AppleWood
+    case EntityTypes.OrangeTree:
+      return EntityTypes.OrangeWood
+    case EntityTypes.LimeTree:
+      return EntityTypes.LimeWood
+    case EntityTypes.CherryTree:
+      return EntityTypes.CherryWood
+    case EntityTypes.LemonTree:
+      return EntityTypes.LemonWood
+    case EntityTypes.PlumTree:
+      return EntityTypes.PlumWood
+    case EntityTypes.MapleTree:
+      return EntityTypes.MapleWood
+    case EntityTypes.OakTree:
+      return EntityTypes.OakWood
+    case EntityTypes.PineTree:
+      return EntityTypes.PineWood
   }
 }

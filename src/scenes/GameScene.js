@@ -407,7 +407,7 @@ export default class GameScene extends Scene {
     if (entities.some(entity => this.entityManager.isHarvestable(entity))) result.add('Harvest')
     if (entities.some(entity => this.entityManager.isClearable(entity))) result.add('Clear')
     const trees = this.entityManager.getEntitiesAt(x, y)
-    if (trees.some(tree => tree.isFruiting())) result.add('Harvest')
+    if (trees.some(tree => this.entityManager.isTree(tree) && tree.isFruiting())) result.add('Harvest')
     if (trees.some(tree => this.entityManager.isChoppable(tree))) result.add('Chop')
 
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
@@ -572,7 +572,7 @@ export default class GameScene extends Scene {
       if (tree.health <= 0) {
         // this.cropManager.removeTree(tree)
         tree.convertToStump(tree)
-        this.inventoryManager.addItemToInventory(tree, 1) // TODO: Add correct wood type
+        this.inventoryManager.addItemToInventory(tree.getWood(), 1) // TODO: Add correct wood type
       }
     }
   }

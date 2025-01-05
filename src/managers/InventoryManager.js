@@ -83,7 +83,8 @@ export default class InventoryManager {
     if (this.entityManager.isSeed(itemToAdd) ||
         this.entityManager.isCrop(itemToAdd) ||
         this.entityManager.isForageable(itemToAdd) ||
-        this.entityManager.isTool(itemToAdd)) {
+        this.entityManager.isTool(itemToAdd) ||
+        this.entityManager.isWood(itemToAdd)) {
       let item = this.getItem(itemToAdd.type)
       if (item) {
         item.quantity += quantity
@@ -108,7 +109,8 @@ export default class InventoryManager {
     if (this.entityManager.isSeed(itemToRemove) ||
         this.entityManager.isCrop(itemToRemove) ||
         this.entityManager.isForageable(itemToRemove) ||
-        this.entityManager.isTool(itemToRemove)) {
+        this.entityManager.isTool(itemToRemove) ||
+        this.entityManager.isWood(itemToRemove)) {
       let item = this.getItem(itemToRemove.type)
       if (item) {
         item.quantity -= quantity
@@ -171,6 +173,11 @@ export default class InventoryManager {
   getCrops () {
     const inventory = this.getInventory()
     return inventory.filter(item => this.entityManager.isCrop(item))
+  }
+
+  getWood () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isWood(item))
   }
 
   getTreeFruit () {
@@ -260,6 +267,16 @@ export default class InventoryManager {
       }
 
       drawQuantity(this.game.ctx, crop.x, crop.y, crop.quantity, this.itemWidth, this.itemHeight)
+    })
+
+    this.getWood().forEach((wood, index) => {
+      wood.drawAsInventory(
+        wood.x - this.itemWidth / 2,
+        wood.y - (5 * this.itemHeight / 4) + 2,
+        2 * this.itemWidth,
+        2 * this.itemHeight
+      )
+      drawQuantity(this.game.ctx, wood.x, wood.y, wood.quantity, this.itemWidth, this.itemHeight)
     })
 
     if (this.selectedItem) {

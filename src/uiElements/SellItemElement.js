@@ -3,6 +3,8 @@ import { StoreUI } from '../globals/Images.js'
 import StoreUIData from '../globals/StoreUIData.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import SeedPacket from '../entities/crops/SeedPacket.js'
+import Fruit from '../entities/crops/Fruit.js'
+import Wood from '../entities/crops/Wood.js'
 
 export default class SellItemElement extends StoreItemElement {
   constructor (config) {
@@ -151,6 +153,24 @@ function getNameForType (type) {
     case EntityTypes.WateringCanCopper:
     case EntityTypes.WateringCanSteel:
         return 'Watering Can'
+    case EntityTypes.AppleWood:
+      return 'Apple Wood'
+    case EntityTypes.OrangeWood:
+      return 'Orange Wood'
+    case EntityTypes.LimeWood:
+      return 'Lime Wood'
+    case EntityTypes.CherryWood:
+      return 'Cherry Wood'
+    case EntityTypes.LemonWood:
+      return 'Lemon Wood'
+    case EntityTypes.MapleWood:
+      return 'Maple Wood'
+    case EntityTypes.OakWood:
+      return 'Oak Wood'
+    case EntityTypes.PineWood:
+      return 'Pine Wood'
+    case EntityTypes.PlumWood:
+      return 'Plum Wood'
   }
 }
 
@@ -194,6 +214,10 @@ function getItemForType (element, type) {
     return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 72)
   } else if (element.entityManager.isTool({ type })) {
     return element.getTool(element, type)
+  } else if (element.entityManager.isTreeFruit({ type })) {
+    return getFruitForType(element, type)
+  } else if (element.entityManager.isWood({ type })) {
+    return getWoodForType(element, type)
   }
 }
 
@@ -220,4 +244,53 @@ function getSeedPacketForType (manager, type, x, y) {
     item.init()
 
     return item
+}
+
+function getFruitForType (manager, type) {
+  const fruit = new Fruit({
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: fruitTypeForTreeType(type),
+    x: manager.x + manager.width - manager.itemWidth - 28,
+    y: manager.y + 28 - manager.itemHeight,
+    width: 2 * manager.itemWidth,
+    height: 2 * manager.itemHeight,
+    quantity: 1
+  })
+  fruit.init()
+
+  return fruit
+}
+
+function getWoodForType (manager, type) {
+  const wood = new Wood({
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type,
+    x: manager.x + manager.width - manager.itemWidth - 28,
+    y: manager.y + 28 - manager.itemHeight,
+    width: 2 * manager.itemWidth,
+    height: 2 * manager.itemHeight,
+    quantity: 1
+  })
+  wood.init()
+
+  return wood
+}
+
+function fruitTypeForTreeType (tree) {
+  switch (tree.type) {
+    case EntityTypes.AppleTree:
+      return EntityTypes.Apple
+    case EntityTypes.OrangeTree:
+      return EntityTypes.Orange
+    case EntityTypes.LimeTree:
+      return EntityTypes.Lime
+    case EntityTypes.CherryTree:
+      return EntityTypes.Cherry
+    case EntityTypes.LemonTree:
+      return EntityTypes.Lemon
+    case EntityTypes.PlumTree:
+      return EntityTypes.Plum
+  }
 }
