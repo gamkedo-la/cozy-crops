@@ -187,9 +187,9 @@ export default class InventoryManager {
     const clickedItem = this.inventory.find(item => {
       return (
         x >= item.x &&
-        x <= item.x + item.width &&
+        x <= item.x + this.itemWidth &&
         y >= item.y &&
-        y <= item.y + item.height
+        y <= item.y + this.itemHeight
       )
     })
     return clickedItem
@@ -218,7 +218,14 @@ export default class InventoryManager {
           seed.y - (3 * this.itemHeight / 4) - 1,
           this.itemWidth,
           2 * this.itemHeight
-        )  
+        )
+      } else if (this.entityManager.isTreeSeed(seed)) {
+        seed.drawAsInventory(
+          seed.x - (this.itemWidth / 2),
+          seed.y - (this.itemHeight / 2),
+          2 * this.itemWidth,
+          2 * this.itemHeight
+        )
       } else {
         seed.drawAsInventory(
           seed.x,
