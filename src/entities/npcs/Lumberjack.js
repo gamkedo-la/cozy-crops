@@ -83,6 +83,8 @@ export default class Lumberjack extends NPC {
       dialog = this.dialogue.unknownQuest
     } else if (this.quest.progress.wood < this.quest.requirements.wood) {
       dialog = this.dialogue.partialQuest()
+    } else if (this.quest.progress.wood >= this.quest.requirements.wood) {
+      dialog = this.dialogue.fullQuest
     }
 
     this.scene.gameManager.setNPCData(this.type, {
