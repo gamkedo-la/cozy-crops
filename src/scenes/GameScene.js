@@ -522,19 +522,24 @@ export default class GameScene extends Scene {
     }
   }
 
-  harvestCrop (x, y) {
-    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
-    const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
-    for (const entity of entities) {
-      if (this.entityManager.isHarvestable(entity)) {
-        this.cropManager.harvestCrop(entity)
-        this.entityManager.removeEntity(entity)
-        this.inventoryManager.addItemToInventory(entity, 1)
-        return true
+  harvestCrop (x, y, toolSize, direction) {
+    const affectedTileColRows = getAffectedTilesForTool(this, toolSize, x, y, direction)
+    let didHarvest = false
+    for (const colRow of affectedTileColRows) {
+    // const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+      const entities = this.entityManager.getEntitiesAt(colRow.col * TileWidth, colRow.row * TileHeight)
+      for (const entity of entities) {
+        if (this.entityManager.isHarvestable(entity)) {
+          this.cropManager.harvestCrop(entity)
+          this.entityManager.removeEntity(entity)
+          this.inventoryManager.addItemToInventory(entity, 1)
+          // return true
+          didHarvest = true
+        }
       }
     }
 
-    return false
+    return didHarvest
   }
 
   reachedEndOfDay () {

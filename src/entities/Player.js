@@ -207,7 +207,7 @@ function handleInput (player) {
         player.scene.audioManager?.playSource(waterGroundSound,SFX_VOL)
         deductConsumedStamina(player, player.activeTool.staminaConsumed)
       } else if (mapActions.includes('Harvest') && player.scene.entityManager.isHoe(player.activeTool)) {
-        const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y)
+        const didHarvest = player.scene.harvestCrop(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
         if (didHarvest) {
           deductConsumedStamina(player, player.activeTool.staminaConsumed)
           player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
