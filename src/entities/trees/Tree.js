@@ -1,6 +1,8 @@
 import TreeAnimations from '../../globals/TreeAnimations.js'
 import Animation from '../../components/Animation.js'
 import TreeData from '../../globals/TreeData.js'
+import EntityTypes from '../../globals/EntityTypes.js'
+import Fruit from '../crops/Fruit.js'
 
 export default class Tree {
   constructor (config) {
@@ -31,6 +33,7 @@ export default class Tree {
       x: this.x + this.currentAnimation.width / 2,
       y: this.y + this.currentAnimation.height - 6 // special padding for trees based on spritesheet
     }
+    if (!this.isFruitingType()) this.growthStages.splice(this.growthStages.findIndex(stage => stage === 'FruitingTree'), 1)
     setHealth(this)
   }
 
@@ -44,6 +47,7 @@ export default class Tree {
 
   advanceDay () {
     if (this.currentGrowthStage >= 0 && this.currentGrowthStage < this.growthStages.findIndex(stage => stage === 'MatureTree')) {
+      // This is a growing tree, so it needs to be watered
       if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
         this.wateredYesterday = true
         this.currentGrowthStage++
@@ -60,8 +64,11 @@ export default class Tree {
         this.wateredYesterday = false
       }  
     } else if (this.currentGrowthStage === this.growthStages.findIndex(stage => stage === 'MatureTree')) {
-      this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'FruitingTree')
-      this.currentAnimation = this.getAnimation()
+      // This is a mature tree, so it can fruit (if it fruits). Either way, it doesn't need to be watered
+      if (this.isFruitingType()) {
+        this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'FruitingTree')
+        this.currentAnimation = this.getAnimation()  
+      }
     }
 
     setHealth(this) // recalculate health => heals any damage from yesterday
@@ -96,19 +103,63 @@ export default class Tree {
     this.currentAnimation = this.getAnimation()
   }
 
-  harvestFruit () {
-    // TODO: If this returned a number, it could be used to alter how much based on the season
+  harvestFruit () { // return quantity of fruit harvested
+    if (!this.isFruitingType()) return 0
+
     if (this.currentGrowthStage === this.growthStages.findIndex(stage => stage === 'FruitingTree')) {
       this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'MatureTree')
       this.currentAnimation = this.getAnimation()
-      return true
+      return 1
     }
 
+    return 0
+  }
+
+  isFruiting () {
+    if (!this.isFruitingType()) return false
+    if (this.currentGrowthStage === this.growthStages.findIndex(stage => stage === 'FruitingTree')) {
+      return true
+    }
     return false
+  }
+
+  isFruitingType () {
+    switch (this.type) {
+      case EntityTypes.AppleTree:
+      case EntityTypes.OrangeTree:
+      case EntityTypes.LimeTree:
+      case EntityTypes.CherryTree:
+      case EntityTypes.LemonTree:
+      case EntityTypes.PlumTree:
+        return true
+      default:
+        return false
+    }
+  }
+
+  getFruit () {
+    if (!this.isFruitingType()) return null
+
+    const fruit = new Fruit({
+      game: this.game,
+      imageManager: this.imageManager,
+      type: fruitTypeForTreeType(this),
+      x: this.x + this.width - this.itemWidth - 28,
+      y: this.y + 28 - this.itemHeight,
+      width: 2 * this.itemWidth,
+      height: 2 * this.itemHeight,
+      quantity: 1
+    })
+    fruit.init()
+
+    return fruit
   }
 
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
+    if (!this.currentAnimation) {
+      console.log('No current animation for tree')
+    }
     this.collisionPoint = {
       x: this.x + this.currentAnimation.width / 2,
       y: this.y + this.currentAnimation.height - 6 // special padding for trees based on spritesheet
@@ -141,5 +192,22 @@ function setHealth (tree) {
       break
     default:
       tree.health = tree.health
+  }
+}
+
+function fruitTypeForTreeType (tree) {
+  switch (tree.type) {
+    case EntityTypes.AppleTree:
+      return EntityTypes.Apple
+    case EntityTypes.OrangeTree:
+      return EntityTypes.Orange
+    case EntityTypes.LimeTree:
+      return EntityTypes.Lime
+    case EntityTypes.CherryTree:
+      return EntityTypes.Cherry
+    case EntityTypes.LemonTree:
+      return EntityTypes.Lemon
+    case EntityTypes.PlumTree:
+      return EntityTypes.Plum
   }
 }

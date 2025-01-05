@@ -19,21 +19,16 @@ import WildGarlic from '../entities/forageables/WildGarlic.js'
 import WildRose from '../entities/forageables/WildRose.js'
 
 // import Crops
-// import Apple from '../entities/crops/Apple.js'
+import Fruit from '../entities/crops/Fruit.js'
 import Carrot from '../entities/crops/Carrot.js'
-// import Cherry from '../entities/crops/Cherry.js'
 import Corn from '../entities/crops/Corn.js'
 import Eggplant from '../entities/crops/Eggplant.js'
-// import Lemon from '../entities/crops/Lemon.js'
 import Lettuce from '../entities/crops/Lettuce.js'
-// import Lime from '../entities/crops/Lime.js'
 // import Maple from '../entities/crops/Maple.js'
 // import Oak from '../entities/crops/Oak.js'
 import Onion from '../entities/crops/Onion.js'
-// import Orange from '../entities/crops/Orange.js'
 import Pepper from '../entities/crops/Pepper.js'
 // import Pine from '../entities/crops/Pine.js'
-// import Plum from '../entities/crops/Plum.js'
 import Potato from '../entities/crops/Potato.js'
 import Pumpkin from '../entities/crops/Pumpkin.js'
 import Radish from '../entities/crops/Radish.js'
@@ -412,13 +407,15 @@ function initializeCrops (manager, itemToAdd, quantity = 1) {
 
   switch (itemToAdd.type) {
     case EntityTypes.Apple:
-      item = new Apple(config)
+    case EntityTypes.Cherry:
+    case EntityTypes.Lemon:
+    case EntityTypes.Lime:
+    case EntityTypes.Orange:
+    case EntityTypes.Plum:
+      item = new Fruit(config)
       break
     case EntityTypes.Carrot:
       item = new Carrot(config)
-      break
-    case EntityTypes.Cherry:
-      item = new Cherry(config)
       break
     case EntityTypes.Corn:
       item = new Corn(config)
@@ -426,14 +423,8 @@ function initializeCrops (manager, itemToAdd, quantity = 1) {
     case EntityTypes.Eggplant:
       item = new Eggplant(config)
       break
-    case EntityTypes.Lemon:
-      item = new Lemon(config)
-      break
     case EntityTypes.Lettuce:
       item = new Lettuce(config)
-      break
-    case EntityTypes.Lime:
-      item = new Lime(config)
       break
     case EntityTypes.Maple:
       item = new Maple(config)
@@ -444,17 +435,11 @@ function initializeCrops (manager, itemToAdd, quantity = 1) {
     case EntityTypes.Onion:
       item = new Onion(config)
       break
-    case EntityTypes.Orange:
-      item = new Orange(config)
-      break
     case EntityTypes.Pepper:
       item = new Pepper(config)
       break
     case EntityTypes.Pine:
       item = new Pine(config)
-      break
-    case EntityTypes.Plum:
-      item = new Plum(config)
       break
     case EntityTypes.Potato:
       item = new Potato(config)

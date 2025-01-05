@@ -407,7 +407,8 @@ export default class GameScene extends Scene {
     if (entities.some(entity => this.entityManager.isHarvestable(entity))) result.add('Harvest')
     if (entities.some(entity => this.entityManager.isClearable(entity))) result.add('Clear')
     const trees = this.entityManager.getEntitiesAt(x, y)
-    if (trees.some(entity => this.entityManager.isChoppable(entity))) result.add('Chop')
+    if (trees.some(tree => tree.isFruiting())) result.add('Harvest')
+    if (trees.some(tree => this.entityManager.isChoppable(tree))) result.add('Chop')
 
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
     switch (tileType) {
@@ -502,8 +503,6 @@ export default class GameScene extends Scene {
 
   plantSeed (seedType, x, y) {
     // Find the top left of the tile identified by x, y
-    // const groundPos = { x: x, y: y + offsetY }
-    // const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(groundPos.x, groundPos.y)
     const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
     const crop = this.cropManager.getCropAt(tileTopLeft.x, tileTopLeft.y)
 
@@ -531,7 +530,12 @@ export default class GameScene extends Scene {
     for (const colRow of affectedTileColRows) {
       const entities = this.entityManager.getEntitiesAt(colRow.col * TileWidth, colRow.row * TileHeight)
       for (const entity of entities) {
-        if (this.entityManager.isHarvestable(entity)) {
+        if (this.entityManager.isTree(entity)) {
+          if (entity.isFruiting()) {
+            const quantity = entity.harvestFruit()
+            if (quantity) this.inventoryManager.addItemToInventory(entity.getFruit(), quantity)
+          }
+        } else if (this.entityManager.isHarvestable(entity)) {
           this.cropManager.harvestCrop(entity)
           this.entityManager.removeEntity(entity)
           this.inventoryManager.addItemToInventory(entity, 1)

@@ -398,6 +398,14 @@ export default class EntityManager {
     return false
   }
 
+  isFuiting (entity) {
+    if (!entity || !this.isTree(entity)) return false
+
+    if (entity.getGrowthStage() === 'FruitingTree') return true
+
+    return false
+  }
+
   isHoe (entity) {
     if (!entity) return false
 
