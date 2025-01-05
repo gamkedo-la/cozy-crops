@@ -231,6 +231,21 @@ export default class CropManager {
     }
   }
 
+  getTreeAt (x, y) {
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
+
+    const tree = this.trees.find(tree => {
+      return (
+        tree.collisionPoint.x >= tileTopLeft.x &&
+        tree.collisionPoint.x <= tileTopLeft.x + TileWidth &&
+        tree.collisionPoint.y >= tileTopLeft.y &&
+        tree.collisionPoint.y <= tileTopLeft.y + TileHeight
+      )
+    })
+
+    return tree
+  }
+
   waterAt (x, y) {
     const crop = this.getCropAt(x, y)
 
@@ -257,6 +272,10 @@ export default class CropManager {
     this.crops.forEach(crop => {
       crop.advanceDay()
     })
+    this.trees.forEach(tree => {
+      tree.advanceDay()
+    })
+
     this.gameManager.updateCrops(this.crops)
 
     this.wateredCrops = []

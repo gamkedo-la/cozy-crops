@@ -406,6 +406,8 @@ export default class GameScene extends Scene {
     const entities = this.entityManager.getEntitiesAt(tileTopLeft.x, tileTopLeft.y)
     if (entities.some(entity => this.entityManager.isHarvestable(entity))) result.add('Harvest')
     if (entities.some(entity => this.entityManager.isClearable(entity))) result.add('Clear')
+    const trees = this.entityManager.getEntitiesAt(x, y)
+    if (trees.some(entity => this.entityManager.isChoppable(entity))) result.add('Chop')
 
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
     switch (tileType) {
@@ -500,14 +502,15 @@ export default class GameScene extends Scene {
 
   plantSeed (seedType, x, y) {
     // Find the top left of the tile identified by x, y
-    const offsetY = this.entityManager.isTallCropSeed({ type: seedType }) ? -TileHeight : 0
-    const groundPos = { x: x, y: y + offsetY }
-    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(groundPos.x, groundPos.y)
+    // const groundPos = { x: x, y: y + offsetY }
+    // const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(groundPos.x, groundPos.y)
+    const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
     const crop = this.cropManager.getCropAt(tileTopLeft.x, tileTopLeft.y)
 
     // If there are no entities at the tile, plant the seed
     if (!crop) {
-      this.cropManager.plantCrop(seedType, tileTopLeft.x, tileTopLeft.y)
+      const offsetY = this.entityManager.isTallCropSeed({ type: seedType }) ? -TileHeight : 0
+      this.cropManager.plantCrop(seedType, tileTopLeft.x, tileTopLeft.y + offsetY)
       this.inventoryManager.removeItemFromInventory(seedType, 1)
     }
   }
@@ -556,6 +559,18 @@ export default class GameScene extends Scene {
     }
 
     return didClear
+  }
+
+  chopTree (x, y, toolDamage) {
+    const tree = this.cropManager.getTreeAt(x, y)
+    if (tree) {
+      tree.chop(toolDamage)
+      if (tree.health <= 0) {
+        // this.cropManager.removeTree(tree)
+        tree.convertToStump(tree)
+        this.inventoryManager.addItemToInventory(tree, 1) // TODO: Add correct wood type
+      }
+    }
   }
 
   reachedEndOfDay () {

@@ -390,6 +390,14 @@ export default class EntityManager {
     return false
   }
 
+  isChoppable (entity) {
+    if (!entity) return false
+
+    if (this.isTree(entity) && entity.getGrowthStage() != 'Stump') return true
+
+    return false
+  }
+
   isHoe (entity) {
     if (!entity) return false
 

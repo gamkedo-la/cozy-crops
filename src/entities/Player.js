@@ -220,6 +220,11 @@ function handleInput (player) {
           player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
           player.scene.audioManager?.playSource(harvestCropSound,SFX_VOL)
         }
+      } else if (mapActions.includes('Chop') && player.scene.entityManager.isAxe(player.activeTool)) {
+        player.scene.chopTree(groundPoint.x, groundPoint.y, player.activeTool.damage)
+      } else if (mapActions.includes('Fish') && player.scene.entityManager.isFishingRod(player.activeTool)) {
+        // TODO: Implement fishing
+        // player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
         // Show "no tool selected" message
