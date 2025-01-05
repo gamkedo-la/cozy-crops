@@ -15,10 +15,10 @@ export default class SellItemElement extends StoreItemElement {
     this.icon = getItemForType(this, config.type)
     this.icon.init()
     this.icon.width = this.itemWidth
-    if (this.manager.entityManager.isCrop({ type: config.type })) {
-      this.icon.height = this.itemHeight
-    } else if (this.manager.entityManager.isTallCrop({ type: config.type })) {
+    if (this.manager.entityManager.isTallCrop({ type: config.type })) {
       this.icon.height = 2 * this.itemHeight
+    } else if (this.manager.entityManager.isCrop({ type: config.type })) {
+      this.icon.height = this.itemHeight
     } else if (this.manager.entityManager.isTree({ type: config.type })) {
       this.icon.height = 3 * this.itemHeight
     } else if (this.manager.entityManager.isForageable({ type: config.type })) {
