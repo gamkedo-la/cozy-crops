@@ -213,6 +213,13 @@ function handleInput (player) {
           player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
           player.scene.audioManager?.playSource(harvestCropSound,SFX_VOL)
         }
+      } else if (mapActions.includes('Clear') && player.scene.entityManager.isHoe(player.activeTool)) {
+        const didClear = player.scene.clearCrop(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
+        if (didClear) {
+          deductConsumedStamina(player, player.activeTool.staminaConsumed)
+          player.scene.particles?.harvestCropFX(groundPoint.x, groundPoint.y) 
+          player.scene.audioManager?.playSource(harvestCropSound,SFX_VOL)
+        }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
         // Show "no tool selected" message

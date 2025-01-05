@@ -526,20 +526,36 @@ export default class GameScene extends Scene {
     const affectedTileColRows = getAffectedTilesForTool(this, toolSize, x, y, direction)
     let didHarvest = false
     for (const colRow of affectedTileColRows) {
-    // const tileTopLeft = this.mapManager.getTileTopLeftAtPixelPos(x, y)
       const entities = this.entityManager.getEntitiesAt(colRow.col * TileWidth, colRow.row * TileHeight)
       for (const entity of entities) {
         if (this.entityManager.isHarvestable(entity)) {
           this.cropManager.harvestCrop(entity)
           this.entityManager.removeEntity(entity)
           this.inventoryManager.addItemToInventory(entity, 1)
-          // return true
           didHarvest = true
         }
       }
     }
 
     return didHarvest
+  }
+
+  clearCrop (x, y, toolSize, direction) {
+    const affectedTileColRows = getAffectedTilesForTool(this, toolSize, x, y, direction)
+    let didClear = false
+    for (const colRow of affectedTileColRows) {
+      const entities = this.entityManager.getEntitiesAt(colRow.col * TileWidth, colRow.row * TileHeight)
+      for (const entity of entities) {
+        if (this.entityManager.isClearable(entity)) {
+          this.cropManager.clearCrop(entity)
+          this.entityManager.removeEntity(entity)
+          // this.inventoryManager.addItemToInventory(entity, 1) // TODO: Add compost to inventory
+          didClear = true
+        }
+      }
+    }
+
+    return didClear
   }
 
   reachedEndOfDay () {

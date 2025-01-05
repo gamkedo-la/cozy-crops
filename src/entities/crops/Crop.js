@@ -41,6 +41,14 @@ export default class Crop {
     // override this method in subclasses
   }
 
+  getGrowthStage () {
+    if (this.currentGrowthStage < 0) {
+      return 'Dead'
+    } else {
+      return this.growthStages[this.currentGrowthStage]
+    }
+  }
+
   advanceDay () {
     if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
       this.wateredYesterday = true
@@ -53,6 +61,7 @@ export default class Crop {
     } else {
       if (!this.wateredYesterday) {
         this.currentGrowthStage--
+        if (this.currentGrowthStage < 0) this.currentGrowthStage = -1
         this.currentAnimation = this.getAnimation()
       }
       this.wateredYesterday = false

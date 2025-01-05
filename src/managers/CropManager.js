@@ -272,6 +272,10 @@ export default class CropManager {
     const wateredIndex = this.wateredCrops.indexOf(crop)
     if (wateredIndex > -1) this.wateredCrops.splice(wateredIndex, 1)
   }
+
+  clearCrop (crop) {
+    this.harvestCrop(crop) // Same action, but nobody else needs to know that
+  }
 }
 
 function createCropFromSeed (manager, cropType, x, y) {

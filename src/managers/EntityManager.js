@@ -385,7 +385,7 @@ export default class EntityManager {
   isClearable (entity) {
     if (!entity) return false
 
-    if (this.isCrop(entity) && entity.currentGrowthStage === 'Dead') return true
+    if (this.isCrop(entity) && entity.getGrowthStage() === 'Dead') return true
 
     return false
   }
