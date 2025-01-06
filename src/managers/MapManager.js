@@ -79,7 +79,6 @@ export default class MapManager {
       }
     }
 
-
     this.carpenterCanvas = null
     this.carpenterCtx = null
     this.carpenterData = CarpenterMapData

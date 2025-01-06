@@ -6,11 +6,13 @@ import { CarpenterPosition, CarpenterEntrance, CarpenterDialogPosition } from '.
 import EntityTypes from '../globals/EntityTypes.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
+import { RegisterTopLeft, RegisterTopMiddleLeft, RegisterTopMiddleRight, RegisterTopRight, RegisterMiddleLeft, RegisterMiddleMiddleLeft, RegisterMiddleMiddleRight, RegisterMiddleRight, RegisterBottomLeft, RegisterBottomMiddleLeft, RegisterBottomMiddleRight, RegisterBottomRight } from '../globals/TilesCarpenter.js'
 
 export default class CarpenterScene extends Scene {
   constructor (config) {
     super(config)
 
+    this.uiScene = null
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
     this.carpenter = null
@@ -18,6 +20,7 @@ export default class CarpenterScene extends Scene {
     this.drawlist = []
     this.shouldShowUI = false
     this.textBackground = null
+    this.registerTiles = []
   }
 
   init (data) {
@@ -35,16 +38,24 @@ export default class CarpenterScene extends Scene {
     this.carpenter.init()
     this.drawlist.push(this.carpenter)
 
+    this.registerTiles = [RegisterTopLeft, RegisterTopMiddleLeft, RegisterTopMiddleRight, RegisterTopRight, RegisterMiddleLeft, RegisterMiddleMiddleLeft, RegisterMiddleMiddleRight, RegisterMiddleRight, RegisterBottomLeft, RegisterBottomMiddleLeft, RegisterBottomMiddleRight, RegisterBottomRight]
+
     this.carpenterCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }
   }
 
   start (data) {
+    if (data?.uiScene) {
+      this.uiScene = data.uiScene
+      this.uiScene.setShopType('carpentryshop')
+    }
+
     if (data?.player) {
       this.playerWorldPosition = { x: data.player.x, y: data.player.y }
       this.player = data.player
       this.player.scene = this
+
       this.player.x = CarpenterEntrance.x
       this.player.y = CarpenterEntrance.y
       this.drawlist.push(this.player)
@@ -57,11 +68,18 @@ export default class CarpenterScene extends Scene {
     this.carpenter.update(deltaTime)
     if (this.player) {
       this.player.update(deltaTime)
+      this.carpenter.checkCollision(this.player)
+      this.checkMapCollision(this.player)
     }
 
     manageInput(this)
+  }
 
-    this.carpenter.checkCollision(this.player)
+  checkMapCollision (entity) {
+    const tileIndex = this.mapManager.getTileAtPixelPos(entity.x + CarpenterPosition.x, entity.y + CarpenterPosition.y, this.mapManager.carpenterData)
+    if (tileIndex && this.registerTiles.includes(tileIndex)) {
+      this.carpenter.showDialog(['buy', 'sell'])
+    }
   }
 
   draw (scene) {
@@ -110,15 +128,15 @@ export default class CarpenterScene extends Scene {
 }
 
 function manageInput (scene) {
-  const downKeys = scene.inputManager.getDownKeys()
+  // const downKeys = scene.inputManager.getDownKeys()
 
-  if (downKeys.includes(Keys.ESCAPE)) {
-    // Go back to the game scene
-    scene.player.x = scene.playerWorldPosition.x
-    scene.player.y = scene.playerWorldPosition.y
-    scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
-    scene.game.changeScene(Scenes.Game)
-  }
+  // if (downKeys.includes(Keys.ESCAPE)) {
+  //   // Go back to the game scene
+  //   scene.player.x = scene.playerWorldPosition.x
+  //   scene.player.y = scene.playerWorldPosition.y
+  //   scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
+  //   scene.game.changeScene(Scenes.Game)
+  // }
 }
 
 function returnToWorld (scene) {

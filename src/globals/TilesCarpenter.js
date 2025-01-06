@@ -126,10 +126,10 @@ export const Carpenter1289 = 1289
 export const Carpenter1290 = 1290
 export const Carpenter1291 = 1291
 export const Carpenter1292 = 1292
-export const Carpenter1293 = 1293
-export const Carpenter1294 = 1294
-export const Carpenter1295 = 1295
-export const Carpenter1296 = 1296
+export const RegisterTopLeft = 1293
+export const RegisterTopMiddleLeft = 1294
+export const RegisterTopMiddleRight = 1295
+export const RegisterTopRight = 1296
 export const Carpenter1297 = 1297
 export const Carpenter1298 = 1298
 export const Carpenter1299 = 1299
@@ -149,10 +149,10 @@ export const Carpenter1321 = 1321
 export const Carpenter1322 = 1322
 export const Carpenter1323 = 1323
 export const Carpenter1324 = 1324
-export const Carpenter1325 = 1325
-export const Carpenter1326 = 1326
-export const Carpenter1327 = 1327
-export const Carpenter1328 = 1328
+export const RegisterMiddleLeft = 1325
+export const RegisterMiddleMiddleLeft = 1326
+export const RegisterMiddleMiddleRight = 1327
+export const RegisterMiddleRight = 1328
 export const Carpenter1329 = 1329
 export const Carpenter1330 = 1330
 export const Carpenter1331 = 1331
@@ -172,10 +172,10 @@ export const Carpenter1353 = 1353
 export const Carpenter1354 = 1354
 export const Carpenter1355 = 1355
 export const Carpenter1356 = 1356
-export const Carpenter1357 = 1357
-export const Carpenter1358 = 1358
-export const Carpenter1359 = 1359
-export const Carpenter1360 = 1360
+export const RegisterBottomLeft = 1357
+export const RegisterBottomMiddleLeft = 1358
+export const RegisterBottomMiddleRight = 1359
+export const RegisterBottomRight = 1360
 export const Carpenter1361 = 1361
 export const Carpenter1362 = 1362
 export const Carpenter1363 = 1363
@@ -430,10 +430,10 @@ export const CarpenterIndexes = {
   Carpenter1290,
   Carpenter1291,
   Carpenter1292,
-  Carpenter1293,
-  Carpenter1294,
-  Carpenter1295,
-  Carpenter1296,
+  RegisterTopLeft,
+  RegisterTopMiddleLeft,
+  RegisterTopMiddleRight,
+  RegisterTopRight,
   Carpenter1297,
   Carpenter1298,
   Carpenter1299,
@@ -453,10 +453,10 @@ export const CarpenterIndexes = {
   Carpenter1322,
   Carpenter1323,
   Carpenter1324,
-  Carpenter1325,
-  Carpenter1326,
-  Carpenter1327,
-  Carpenter1328,
+  RegisterMiddleLeft,
+  RegisterMiddleMiddleLeft,
+  RegisterMiddleMiddleRight,
+  RegisterMiddleRight,
   Carpenter1329,
   Carpenter1330,
   Carpenter1331,
@@ -476,10 +476,10 @@ export const CarpenterIndexes = {
   Carpenter1354,
   Carpenter1355,
   Carpenter1356,
-  Carpenter1357,
-  Carpenter1358,
-  Carpenter1359,
-  Carpenter1360,
+  RegisterBottomLeft,
+  RegisterBottomMiddleLeft,
+  RegisterBottomMiddleRight,
+  RegisterBottomRight,
   Carpenter1361,
   Carpenter1362,
   Carpenter1363,
@@ -733,10 +733,10 @@ export const CarpenterTileNames = {
   [Carpenter1290]: 'Carpenter1290',
   [Carpenter1291]: 'Carpenter1291',
   [Carpenter1292]: 'Carpenter1292',
-  [Carpenter1293]: 'Carpenter1293',
-  [Carpenter1294]: 'Carpenter1294',
-  [Carpenter1295]: 'Carpenter1295',
-  [Carpenter1296]: 'Carpenter1296',
+  [RegisterTopLeft]: 'RegisterTopLeft',
+  [RegisterTopMiddleLeft]: 'RegisterTopMiddleLeft',
+  [RegisterTopMiddleRight]: 'RegisterTopMiddleRight',
+  [RegisterTopRight]: 'RegisterTopRight',
   [Carpenter1297]: 'Carpenter1297',
   [Carpenter1298]: 'Carpenter1298',
   [Carpenter1299]: 'Carpenter1299',
@@ -756,10 +756,10 @@ export const CarpenterTileNames = {
   [Carpenter1322]: 'Carpenter1322',
   [Carpenter1323]: 'Carpenter1323',
   [Carpenter1324]: 'Carpenter1324',
-  [Carpenter1325]: 'Carpenter1325',
-  [Carpenter1326]: 'Carpenter1326',
-  [Carpenter1327]: 'Carpenter1327',
-  [Carpenter1328]: 'Carpenter1328',
+  [RegisterMiddleLeft]: 'RegisterMiddleLeft',
+  [RegisterMiddleMiddleLeft]: 'RegisterMiddleMiddleLeft',
+  [RegisterMiddleMiddleRight]: 'RegisterMiddleMiddleRight',
+  [RegisterMiddleRight]: 'RegisterMiddleRight',
   [Carpenter1329]: 'Carpenter1329',
   [Carpenter1330]: 'Carpenter1330',
   [Carpenter1331]: 'Carpenter1331',
@@ -779,10 +779,10 @@ export const CarpenterTileNames = {
   [Carpenter1354]: 'Carpenter1354',
   [Carpenter1355]: 'Carpenter1355',
   [Carpenter1356]: 'Carpenter1356',
-  [Carpenter1357]: 'Carpenter1357',
-  [Carpenter1358]: 'Carpenter1358',
-  [Carpenter1359]: 'Carpenter1359',
-  [Carpenter1360]: 'Carpenter1360',
+  [RegisterBottomLeft]: 'RegisterBottomLeft',
+  [RegisterBottomMiddleLeft]: 'RegisterBottomMiddleLeft',
+  [RegisterBottomMiddleRight]: 'RegisterBottomMiddleRight',
+  [RegisterBottomRight]: 'RegisterBottomRight',
   [Carpenter1361]: 'Carpenter1361',
   [Carpenter1362]: 'Carpenter1362',
   [Carpenter1363]: 'Carpenter1363',
@@ -912,8 +912,8 @@ export const CarpenterUnwalkable = [
   1184, 1185, 1186, 1187, 1188, 1189, 1190, 1191, 1192, 1193, 1194, 1195, 1196, 1197, 1198, 1199, 1200, 1201, 1202, 1203, 1204, 1205, 1206,
   1216, 1217, 1218, 1219, 1220, 1221, 1222, 1223, 1224, 1225, 1226, 1227, 1228, 1229, 1230, 1231, 1232, 1233, 1234, 1235, 1236, 1237, 1238,
   1256, 1257, 1258, 1259, 1457, 1457,	1458,	1459,	1460, 1489,	1490,	1491,	1492, 1293, 1294, 1295, 1296, 1297, 1298,
-1442,	1443,	1444,	1445,	1446,	1447, 1456, 1488,
-1474,	1475,	1476,	1477,	1478,	1479,
+  1442,	1443,	1444,	1445,	1446,	1447, 1456, 1488,
+  1474,	1475,	1476,	1477,	1478,	1479,
   1288, 1289, 1290, 1291,
   1324, 1325, 1326, 1327, 1328, 1329, 1330,
   1356, 1357, 1358, 1359, 1360, 1361, 1362,
