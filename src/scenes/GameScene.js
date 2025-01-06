@@ -607,6 +607,9 @@ export default class GameScene extends Scene {
 }
 
 function manageInput (scene) {
+  
+  scene.inputManager.frameCounter++
+  
   const downKeys = scene.inputManager.getDownKeys()
 
   if (downKeys.includes(Keys.ESCAPE)) {

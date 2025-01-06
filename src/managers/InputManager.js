@@ -24,6 +24,8 @@ export default class InputManager {
     this.player2KeyValues = null
     this.ignore = false
     this.activeGamepad = null
+    this.frameCounter = 0
+    this.frameCounterLastDown = -999
 
     this.mouse = {
       x: 0,
@@ -115,6 +117,10 @@ export default class InputManager {
   }
 
   handleKeyDown (event) {
+    
+    console.log(event.key + " key was pressed on frame "+this.frameCounter)
+    this.frameCounterLastDown = this.frameCounter
+    
     if (this.ignore) return
 
     event.preventDefault()
@@ -127,6 +133,10 @@ export default class InputManager {
   }
 
   handleKeyUp (event) {
+    
+    console.log(event.key + " key was released on frame "+this.frameCounter)
+    if (this.frameCounter == this.frameCounterLastDown) console.log("WARNING: key was released on the same frame it was pressed.")
+
     if (this.ignore) return
 
     event.preventDefault()
