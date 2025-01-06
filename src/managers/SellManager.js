@@ -235,7 +235,7 @@ function initializeStorePage0 (manager, config) {
 
   config.shopType = 'store'
 
-  const crops = manager.inventoryManager.getCrops()
+  const crops = manager.inventoryManager.getCrops(true)
   crops.forEach(crop => {
     const cropData = CropData[crop.type]
     const item = new SellItemElement({
@@ -263,14 +263,14 @@ function initializeStorePage1 (manager, config) {
 
   const treeFruit = manager.inventoryManager.getTreeFruit()
   treeFruit.forEach(fruit => {
-    const treeData = TreeData[fruit.type]
+    const treeData = TreeData[getTreeTypeFromFruitType(fruit.type)]
     const item = new SellItemElement({
       ...config,
       x: manager.game.canvas.width / 2 - manager.itemContainer.width,
       y: currentY,
       type: fruit.type,
       name: treeData.name,
-      price: treeData.sellingPrice,
+      price: treeData.fruitPrice,
       selected: false,
       cropManager: manager.scene.cropManager
     })
@@ -549,4 +549,23 @@ function selectPreviousItem (manager) {
   items[manager.selectedItemIndex].selected = false
   manager.selectedItemIndex = (manager.selectedItemIndex - 1 + items.length) % items.length
   items[manager.selectedItemIndex].selected = true
+}
+
+function getTreeTypeFromFruitType (fruitType) {
+  switch (fruitType) {
+    case EntityTypes.Apple:
+      return EntityTypes.AppleTree
+    case EntityTypes.Cherry:
+      return EntityTypes.CherryTree
+    case EntityTypes.Lemon:
+      return EntityTypes.LemonTree
+    case EntityTypes.Lime:
+      return EntityTypes.LimeTree
+    case EntityTypes.Orange:
+      return EntityTypes.OrangeTree
+    case EntityTypes.Plum:
+      return EntityTypes.PlumTree
+    default:
+      return null
+  }
 }

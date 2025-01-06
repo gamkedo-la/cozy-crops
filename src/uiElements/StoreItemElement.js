@@ -62,6 +62,8 @@ export default class StoreItemElement {
       this.icon.drawAsInventory(this.icon.x, this.icon.y - (3 * this.icon.height / 4) - 2, this.icon.width, 2 * this.icon.height)
     } else if (this.entityManager.isWood({ type: this.type })) {
       this.icon.drawAsInventory(this.icon.x + 2, this.icon.y - (this.icon.height / 2) - 4, 2 * this.icon.width, (5 * this.icon.height / 4))
+    } else if (this.entityManager.isTreeFruit({ type: this.type })) {
+      this.icon.drawAsInventory(this.icon.x - this.icon.width / 2, this.icon.y - this.icon.height / 2, 2 * this.icon.width, 2 * this.icon.height)
     } else {
       this.icon.drawAsInventory(this.icon.x, this.icon.y, this.icon.width, this.icon.height)
     }

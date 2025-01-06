@@ -170,8 +170,12 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isForageable(item))
   }
 
-  getCrops () {
+  getCrops (strict = false) {
     const inventory = this.getInventory()
+    if (strict) {
+      return inventory.filter(item => this.entityManager.isCrop(item) && !this.entityManager.isTreeFruit(item))
+    }
+
     return inventory.filter(item => this.entityManager.isCrop(item))
   }
 
@@ -256,7 +260,14 @@ export default class InventoryManager {
           crop.y - (3 * this.itemHeight / 4) - 1,
           this.itemWidth,
           2 * this.itemHeight
-        )  
+        )
+      } else if (this.entityManager.isTreeFruit(crop)) {
+        crop.drawAsInventory(
+          crop.x - (this.itemWidth / 2),
+          crop.y - (this.itemHeight / 2),
+          2 * this.itemWidth,
+          2 * this.itemHeight
+        )
       } else {
         crop.drawAsInventory(
           crop.x,
