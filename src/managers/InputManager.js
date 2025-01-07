@@ -118,7 +118,7 @@ export default class InputManager {
 
   handleKeyDown (event) {
     
-    console.log(event.key + " key was pressed on frame "+this.frameCounter)
+    // console.log(event.key + " key was pressed on frame "+this.frameCounter)
     this.frameCounterLastDown = this.frameCounter
     
     if (this.ignore) return
@@ -134,8 +134,8 @@ export default class InputManager {
 
   handleKeyUp (event) {
     
-    console.log(event.key + " key was released on frame "+this.frameCounter)
-    if (this.frameCounter == this.frameCounterLastDown) console.log("WARNING: key was released on the same frame it was pressed.")
+    // console.log(event.key + " key was released on frame "+this.frameCounter)
+    // if (this.frameCounter == this.frameCounterLastDown) console.log("WARNING: key was released on the same frame it was pressed.")
 
     if (this.ignore) return
 

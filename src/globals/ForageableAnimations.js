@@ -10,7 +10,7 @@ export const Daffodil = {
     spritesheet: ForageableItems,
     frames: [16],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -20,7 +20,7 @@ export const Daffodil = {
     spritesheet: ForageableItems,
     frames: [17, 18, 19],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -33,7 +33,7 @@ export const Sunflower = {
     spritesheet: ForageableItems,
     frames: [0],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -43,7 +43,7 @@ export const Sunflower = {
     spritesheet: ForageableItems,
     frames: [1, 2, 3, 2],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -56,7 +56,7 @@ export const Truffel = {
     spritesheet: ForageableItems,
     frames: [12],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -66,7 +66,7 @@ export const Truffel = {
     spritesheet: ForageableItems,
     frames: [13, 14, 15],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -79,7 +79,7 @@ export const Tulip = {
     spritesheet: ForageableItems,
     frames: [4],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -89,7 +89,7 @@ export const Tulip = {
     spritesheet: ForageableItems,
     frames: [5, 6, 7],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -102,7 +102,7 @@ export const WildGarlic = {
     spritesheet: ForageableItems,
     frames: [20],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -112,7 +112,7 @@ export const WildGarlic = {
     spritesheet: ForageableItems,
     frames: [21, 22, 23],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -125,7 +125,7 @@ export const WildRose = {
     spritesheet: ForageableItems,
     frames: [24],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true
@@ -135,7 +135,7 @@ export const WildRose = {
     spritesheet: ForageableItems,
     frames: [25, 26, 27],
     frameWidth: 16,
-    frameHeight: 32,
+    frameHeight: 34,
     padding: 1,
     duration: 500,
     loop: true

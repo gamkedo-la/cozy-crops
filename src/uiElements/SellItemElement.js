@@ -211,7 +211,7 @@ function getItemForType (element, type) {
   } else if (element.entityManager.isTree({ type })) {
     return element.cropManager.getTreeForType(type, element.x + element.width - element.itemWidth - 8, element.y + 8)
   } else if (element.entityManager.isForageable({ type })) {
-    return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 72)
+    return element.cropManager.getForagableForType(type, element.x + element.width - element.itemWidth - 8, element.y + 76)
   } else if (element.entityManager.isTool({ type })) {
     return element.getTool(element, type)
   } else if (element.entityManager.isTreeFruit({ type })) {
