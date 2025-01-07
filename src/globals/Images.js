@@ -1,5 +1,7 @@
 const Images = {
   BasePlayer: '../../img/BasePlayer - Copy.png',
+  CarpentryIcons: '../../img/CarpentryIcons.png',
+  CarpentryItems: '../../img/CarpentryItems.png',
   Curator: '../../img/Curator.png',
   ForageableItems: '../../img/Forage.png',
   Museum: '../../img/Museum.png',
@@ -25,6 +27,8 @@ const Images = {
 export default Images
 export const {
   BasePlayer,
+  CarpentryIcons,
+  CarpentryItems,
   Curator,
   ForageableItems,
   Museum,
