@@ -103,9 +103,9 @@ export default class GameScene extends Scene {
         y: 0
       })
     
-    this.spawnButterflies(64)
-    this.spawnBunnies(32)
-    this.spawnForageableItems(32)
+    this.spawnButterflies(12)
+    this.spawnBunnies(10)
+    this.spawnForageableItems(12)
 
     this.weather = new Weather({
         game: this.game,

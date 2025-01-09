@@ -436,6 +436,9 @@ function initializeStorePage1 (manager, config) {
 
   currentY += deltaY
 
+  //plum
+  
+  //lemon
   const cherry = new BuyItemElement({
     ...config,
     selected: false,
