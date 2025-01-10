@@ -1,19 +1,23 @@
+import { ENV } from './Environment.js'
+
+const path = ENV === 'development' ? '../../sounds/' : 'sounds/'
+
 const Sounds = {
-  BackgroundMusic: '../../sounds/cozyCropsMainBackgroundMusic.mp3',
-  RainSound: '../../sounds/rain.mp3',
-  WindSound: '../../sounds/wind.mp3',
-  BackgroundBirds: '../../sounds/birds.mp3',
-  BackgroundWaterfall: '../../sounds/waterfall.mp3',
-  BackgroundSeashore: '../../sounds/seashore.mp3',
-  waterGroundSound: '../../sounds/waterGround.mp3',
-  tillGroundSound: '../../sounds/tillGround.mp3',
-  openDoorSound: '../../sounds/openDoor.mp3',
-  harvestCropSound: '../../sounds/harvestCrop.mp3',
-  plantSeedSound: '../../sounds/plantSeed.mp3',
-  stepSound1: '../../sounds/footStep1.wav',
-  stepSound2: '../../sounds/footStep2.wav',
-  stepSound3: '../../sounds/footStep3.wav',
-  stepSound4: '../../sounds/footStep4.wav',
+  BackgroundMusic: `${path}cozyCropsMainBackgroundMusic.mp3`,
+  RainSound: `${path}rain.mp3`,
+  WindSound: `${path}wind.mp3`,
+  BackgroundBirds: `${path}birds.mp3`,
+  BackgroundWaterfall: `${path}waterfall.mp3`,
+  BackgroundSeashore: `${path}seashore.mp3`,
+  waterGroundSound: `${path}waterGround.mp3`,
+  tillGroundSound: `${path}tillGround.mp3`,
+  openDoorSound: `${path}openDoor.mp3`,
+  harvestCropSound: `${path}harvestCrop.mp3`,
+  plantSeedSound: `${path}plantSeed.mp3`,
+  stepSound1: `${path}footStep1.wav`,
+  stepSound2: `${path}footStep2.wav`,
+  stepSound3: `${path}footStep3.wav`,
+  stepSound4: `${path}footStep4.wav`,
 }
 
 export default Sounds

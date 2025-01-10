@@ -1,27 +1,31 @@
+import { ENV } from './Environment.js'
+
+const path = ENV === 'development' ? '../../img/' : 'img/'
+
 const Images = {
-  BasePlayer: '../../img/BasePlayer - Copy.png',
-  CarpentryIcons: '../../img/CarpentryIcons.png',
-  CarpentryItems: '../../img/CarpentryItems.png',
-  Curator: '../../img/Curator.png',
-  ForageableItems: '../../img/Forage.png',
-  Museum: '../../img/Museum.png',
-  NPCs: '../../img/NPCs.png',
-  ParticleSprite: '../../img/particles.png',
-  Plaques: '../../img/Plaques.png',
-  Portraits: '../../img/Portraits.png',
-  Pregame: '../../img/PreGame.png',
-  RainSprite: '../../img/rain.png',
-  ShortCrops: '../../img/ShortCrops.png',
-  SnowSprite: '../../img/snow.png',
-  Statues: '../../img/Statues.png',
-  StoreUI: '../../img/StoreUI.png',
-  TallCrops: '../../img/TallCrops.png',
-  TileSet: '../../img/tileset.png',
-  TitleBackground: '../../img/TitleScreen.png',
-  Tools: '../../img/Tools.png',
-  TreeCrops: '../../img/TreeCrops.png',
-  UISprites: '../../img/UISprites.png',
-  WildlifeSprites: '../../img/Wildlife.png'
+  BasePlayer: `${path}BasePlayer - Copy.png`,
+  CarpentryIcons: `${path}CarpentryIcons.png`,
+  CarpentryItems: `${path}CarpentryItems.png`,
+  Curator: `${path}Curator.png`,
+  ForageableItems: `${path}Forage.png`,
+  Museum: `${path}Museum.png`,
+  NPCs: `${path}NPCs.png`,
+  ParticleSprite: `${path}particles.png`,
+  Plaques: `${path}Plaques.png`,
+  Portraits: `${path}Portraits.png`,
+  Pregame: `${path}PreGame.png`,
+  RainSprite: `${path}rain.png`,
+  ShortCrops: `${path}ShortCrops.png`,
+  SnowSprite: `${path}snow.png`,
+  Statues: `${path}Statues.png`,
+  StoreUI: `${path}StoreUI.png`,
+  TallCrops: `${path}TallCrops.png`,
+  TileSet: `${path}tileset.png`,
+  TitleBackground: `${path}TitleScreen.png`,
+  Tools: `${path}Tools.png`,
+  TreeCrops: `${path}TreeCrops.png`,
+  UISprites: `${path}UISprites.png`,
+  WildlifeSprites: `${path}Wildlife.png`
 }
 
 export default Images
