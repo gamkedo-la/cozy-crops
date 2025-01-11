@@ -31,10 +31,90 @@ export const PlayerDefaultAccessoriesSection = {
 }
 
 export const PlayerDefaultHairSection = {
+  name: 'default',
   x: 196,
   y: 1416,
   width: 144,
   height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerBaldHairSection = {
+  name: 'bald',
+  x: 337,
+  y: 1416,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerLongHairSection = {
+  name: 'long',
+  x: 489,
+  y: 1416,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerPonyTailHairSection = {
+  name: 'ponytail',
+  x: 636,
+  y: 1415,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerShortHairSection = {
+  name: 'short',
+  x: 783,
+  y: 1415,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerBunHairSection = {
+  name: 'bun',
+  x: 930,
+  y: 1416,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerFlatTopHairSection = {
+  name: 'flattop',
+  x: 1077,
+  y: 1416,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [203, 121, 0, 250]
+}
+
+export const PlayerSpikeyHairSection = {
+  name: 'spikey',
+  x: 1225,
+  y: 1416,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
   baseColor: [203, 121, 0, 250]
 }
 
@@ -53,6 +133,17 @@ const PlayerImageData = {
   Accessories: PlayerDefaultAccessoriesSection,
   Hair: PlayerDefaultHairSection,
   Arms: PlayerDefaultArmsSection
+}
+
+export const PlayerHairData = {
+  Default: PlayerDefaultHairSection,
+  Bald: PlayerBaldHairSection,
+  PonyTail: PlayerPonyTailHairSection,
+  Long: PlayerLongHairSection,
+  Short: PlayerShortHairSection,
+  Bun: PlayerBunHairSection,
+  FlatTop: PlayerFlatTopHairSection,
+  Spikey: PlayerSpikeyHairSection
 }
 
 export default PlayerImageData

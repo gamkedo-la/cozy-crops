@@ -183,6 +183,23 @@ export default class ImageManager {
     }
   }
 
+  replaceImageInImage (image, imageSource, imageData) {
+    try {
+      // Create a temporary canvas
+      const tempCanvas = document.createElement('canvas')
+      const tempCtx = tempCanvas.getContext('2d')
+      tempCanvas.width = image.width
+      tempCanvas.height = image.height
+
+      // Draw the image to replace onto the temporary canvas
+      tempCtx.drawImage(imageSource, imageData.x, imageData.y, imageData.frameWidth, imageData.frameHeight, 0, 0, imageData.frameWidth, imageData.frameHeight)
+      return tempCanvas
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+
 // multiply each pixel and return a new sprite
 tintImage(image,tintR=1,tintG=1,tintB=1,tintA=1) {
     try {

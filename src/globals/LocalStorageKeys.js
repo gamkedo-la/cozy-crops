@@ -6,7 +6,7 @@ const LocalStorageKeys = {
       Shirt: 'Player1Shirt',
       Pants: 'Player1Pants'
     },
-    Syles: {
+    Styles: {
       Hair: 'Player1HairStyle',
       Shirt: 'Player1ShirtStyle',
       Pants: 'Player1PantsStyle'

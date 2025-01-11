@@ -2,17 +2,18 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
-import { Pregame } from '../globals/Images.js'
+import { BasePlayer, Pregame } from '../globals/Images.js'
 import Keys from '../globals/Keys.js'
 import NewGameDialog from '../components/NewGameDialog.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import ImageButton from '../uiElements/ImageButton.js'
 import ColorButton from '../uiElements/ColorButton.js'
+import StyleButton from '../uiElements/StyleButton.js'
 import StartGameButton from '../uiElements/StartGameButton.js'
 import { CheatKeys } from '../globals/Debug.js'
 import { StartButton, StandardUIBox } from '../globals/UISpriteData.js'
-import PlayerImageData from '../globals/PlayerImageData.js'
+import PlayerImageData, { PlayerHairData } from '../globals/PlayerImageData.js'
 import { SteveIdleDown } from '../globals/PlayerAnimations.js'
 import Colors from '../globals/Colors.js'
 
@@ -27,6 +28,10 @@ export default class PreGameScene extends Scene {
 
     this.startGameButton = null
     this.skinToneButtons = []
+    this.hairColorButtons = []
+    this.hairStyleButtons = []
+    this.shirtColorButtons = []
+    this.pantsColorButtons = []
 
     this.player1 = {
       colors: {
@@ -101,13 +106,6 @@ export default class PreGameScene extends Scene {
         this.startGameButton.top = Math.floor(canvasRect.top + canvasRect.height - 2 * StartButton.height)
         this.startGameButton.left = Math.floor(canvasRect.left + (canvasRect.width / 2) - StartButton.width)  
       }
-
-      // if (this.skinToneButtons) {
-      //   this.skinToneButtons.forEach((button, index) => {
-      //     button.top = `${(canvasRect.top + 150) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`
-      //     button.left = `${canvasRect.left + 392 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`
-      //   })  
-      // }
     })
   }
 
@@ -159,10 +157,12 @@ export default class PreGameScene extends Scene {
       this.startGameButton = buildStartGameButton(this)
       // this.startGameButton.hide()
   
-      this.skinToneButtons = buildSkinToneButtons(this)
-      this.hairColorButtons = buildHairColorButtons(this)
-      this.shirtColorButtons = buildShirtColorButtons(this)
-      this.pantsColorButtons = buildPantsColorButtons(this)
+      const canvasRect = this.game.canvas.getBoundingClientRect()
+      this.skinToneButtons = buildSkinToneButtons(this, canvasRect)
+      this.hairColorButtons = buildHairColorButtons(this, canvasRect)
+      this.shirtColorButtons = buildShirtColorButtons(this, canvasRect)
+      this.pantsColorButtons = buildPantsColorButtons(this, canvasRect)
+      this.hairStyleButtons = buildHairStyleButtons(this, canvasRect)
   
       createPlayerImages(this)
     }
@@ -205,6 +205,12 @@ function manageInput (scene) {
       })
 
       scene.hairColorButtons.forEach(button => {
+        if (button.checkClicked(mousePos.x, mousePos.y)) {
+          button.activate()
+        }
+      })
+
+      scene.hairStyleButtons.forEach(button => {
         if (button.checkClicked(mousePos.x, mousePos.y)) {
           button.activate()
         }
@@ -257,6 +263,7 @@ function drawCharacterCreateScreen (scene) {
 
   scene.skinToneButtons.forEach(button => button.draw())
   scene.hairColorButtons.forEach(button => button.draw())
+  scene.hairStyleButtons.forEach(button => button.draw())
   scene.shirtColorButtons.forEach(button => button.draw())
   scene.pantsColorButtons.forEach(button => button.draw())
   scene.startGameButton.draw()
@@ -426,9 +433,8 @@ function buildStartGameButton (scene) {
   return startGameButton
 }
 
-function buildSkinToneButtons (scene) {
+function buildSkinToneButtons (scene, canvasRect) {
   const skinToneButtons = []
-  const canvasRect = scene.game.canvas.getBoundingClientRect()
 
   Colors.Skin.forEach((color, index) => {
     const skinToneButton = new ColorButton({
@@ -450,9 +456,8 @@ function buildSkinToneButtons (scene) {
   return skinToneButtons
 }
 
-function buildHairColorButtons (scene) {
+function buildHairColorButtons (scene, canvasRect) {
   const hairColorButtons = []
-  const canvasRect = scene.game.canvas.getBoundingClientRect()
 
   Colors.Hair.forEach((color, index) => {
     const hairColorButton = new ColorButton({
@@ -474,33 +479,33 @@ function buildHairColorButtons (scene) {
   return hairColorButtons
 }
 
-function buildHairStyleButtons (scene) {
+function buildHairStyleButtons (scene, canvasRect) {
   const hairStyleButtons = []
-  const canvasRect = scene.game.canvas.getBoundingClientRect()
 
-  Colors.Hair.forEach((color, index) => {
-    const hairColorButton = new ColorButton({
+  const hairStyles = Object.keys(PlayerHairData)
+  hairStyles.forEach((styleKey, index) => {
+    const style = PlayerHairData[styleKey]
+    const hairStyleButton = new StyleButton({
       scene,
       imageManager: scene.managers.imageManager,
-      id: `hairColorButton${color}`,
-      top: Math.floor((canvasRect.top + 210) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
+      id: `hairStyleButton${style.name}`,
+      top: Math.floor((canvasRect.top + 270) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
       left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
-      color: color,
+      foreground: style,
       activate: () => {
-        updatePlayerHairColor(scene, Player1, color)
+        updatePlayerHairStyle(scene, Player1, style)
       }
     })
 
-    hairColorButtons.push(hairColorButton)
+    hairStyleButtons.push(hairStyleButton)    
   })
 
-  return hairColorButtons
+  return hairStyleButtons
 }
 
-function buildShirtColorButtons (scene) {
+function buildShirtColorButtons (scene, canvasRect) {
   const shirColorButtons = []
-  const canvasRect = scene.game.canvas.getBoundingClientRect()
 
   Colors.Shirt.forEach((color, index) => {
     const shirtColorButton = new ColorButton({
@@ -522,9 +527,8 @@ function buildShirtColorButtons (scene) {
   return shirColorButtons
 }
 
-function buildPantsColorButtons (scene) {
+function buildPantsColorButtons (scene, canvasRect) {
   const pantsColorButtons = []
-  const canvasRect = scene.game.canvas.getBoundingClientRect()
 
   Colors.Pants.forEach((color, index) => {
     const pantsColorButton = new ColorButton({
@@ -657,6 +661,20 @@ function updatePlayerHairColor (scene, player, newHairColor) {
   scene.gameManager.setPlayerColor(player, 'Hair', newHairColor)
 }
 
+function updatePlayerHairStyle (scene, player, newHairStyle) {
+  if (player === EntityTypes.Player1) {
+    scene.player1.images.hair = scene.imageManager.replaceImageInImage(scene.player1.images.hair, scene.imageManager.getImageWithSrc(BasePlayer), newHairStyle)
+    scene.player1.images.hair = scene.imageManager.replaceColorInImage(scene.player1.images.hair, newHairStyle.baseColor, scene.player1.colors.hairColor)
+    scene.player1.styles.hairStyle = newHairStyle
+  } /*else {
+    scene.player2.images.hair = scene.imageManager.replaceImageInImage(scene.player2.images.hair, scene.player2.images.hair, newHairStyle)
+    scene.player2.styles.hairStyle = newHairStyle
+  }*/
+
+  updateCompositePlayerImage(scene, player)
+  scene.gameManager.setPlayerStyles(player, 'Hair', newHairStyle)
+}
+
 function updatePlayerShirtColor (scene, player, newShirtColor) {
   if (player === EntityTypes.Player1) {
     scene.player1.images.shirt = scene.imageManager.replaceColorInImage(scene.player1.images.shirt, scene.player1.colors.shirtColor, newShirtColor)
@@ -685,12 +703,15 @@ function updatePlayerPantsColor (scene, player, newPantsColor) {
 
 function updateCompositePlayerImage (scene, player) {
   if (player === EntityTypes.Player1) {
-    const compositeCanvas = scene.player1.images.composite
+    const compositeCanvas = document.createElement('canvas')
+    compositeCanvas.width = scene.player1.images.composite.width
+    compositeCanvas.height = scene.player1.images.composite.height
     const compositeCtx = compositeCanvas.getContext('2d')
     compositeCtx.drawImage(scene.player1.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    scene.player1.images.composite = compositeCanvas
   }/* else {
     const compositeCanvas = scene.player2.images.composite
     const compositeCtx = compositeCanvas.getContext('2d')
