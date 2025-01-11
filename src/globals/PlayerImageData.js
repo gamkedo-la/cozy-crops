@@ -110,7 +110,7 @@ export const PlayerFlatTopHairSection = {
 export const PlayerSpikeyHairSection = {
   name: 'spikey',
   x: 1225,
-  y: 1416,
+  y: 1415,
   width: 144,
   height: 472,
   frameWidth: 18,

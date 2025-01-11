@@ -639,6 +639,7 @@ function sleep (scene) {
 
 function addPlayers (scene) {
   const player1Start =  scene.mapManager.getPlayerStart(Player1)
+  const playerStyles = scene.gameManager.getPlayerStyles(Player1)
   scene.steve = new Player({
     type: Player1,
     game: scene.game,
@@ -650,6 +651,7 @@ function addPlayers (scene) {
     hairColor: scene.gameManager.getPlayerColor(Player1, 'Hair'),
     shirtColor: scene.gameManager.getPlayerColor(Player1, 'Shirt'),
     pantsColor: scene.gameManager.getPlayerColor(Player1, 'Pants'),
+    styles: playerStyles,
     accessoriesColor: Colors.Shirt[0], // accessories not implemented yet
     controls: scene.managers.gameManager.getPlayerControls(Player1)
   })
