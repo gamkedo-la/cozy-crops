@@ -16,20 +16,20 @@ export default class ColorButton extends CanvasButton {
     this.action(this.scene, this.color)
   }
 
-  draw () {
-    if (!this.visible) return
+  // draw () {
+  //   if (!this.visible) return
 
-    super.draw()
+  //   super.draw()
 
-    if (this.disabled) {
-      this.scene.game.ctx.globalAlpha = 0.5
-    }
+  //   if (this.disabled) {
+  //     this.scene.game.ctx.globalAlpha = 0.5
+  //   }
 
-    this.scene.game.ctx.fillStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${this.color[3]})`
-    this.scene.game.ctx.fillRect(this.rect.left + 8, this.rect.top + 8, this.rect.width - 16, this.rect.height - 16)
+  //   this.scene.game.ctx.fillStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${this.color[3]})`
+  //   this.scene.game.ctx.fillRect(this.rect.left + 8, this.rect.top + 8, this.rect.width - 16, this.rect.height - 16)
 
-    if (this.disabled) {
-      this.scene.game.ctx.globalAlpha = 1
-    }
-  }
+  //   if (this.disabled) {
+  //     this.scene.game.ctx.globalAlpha = 1
+  //   }
+  // }
 }

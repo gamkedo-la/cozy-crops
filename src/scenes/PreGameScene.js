@@ -9,6 +9,7 @@ import UIAttributes from '../globals/UIAttributes.js'
 import EntityTypes, { Player1, Player2 } from '../globals/EntityTypes.js'
 import ImageButton from '../uiElements/ImageButton.js'
 import ColorButton from '../uiElements/ColorButton.js'
+import StartGameButton from '../uiElements/StartGameButton.js'
 import { CheatKeys } from '../globals/Debug.js'
 import { StartButton, StandardUIBox } from '../globals/UISpriteData.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
@@ -97,16 +98,16 @@ export default class PreGameScene extends Scene {
       const canvasRect = this.game.canvas.getBoundingClientRect()
 
       if (this.startGameButton) {
-        this.startGameButton.top = `${canvasRect.top + canvasRect.height - 2 * StartButton.height}px`
-        this.startGameButton.left = `${canvasRect.left + (canvasRect.width / 2) - StartButton.width}px`  
+        this.startGameButton.top = Math.floor(canvasRect.top + canvasRect.height - 2 * StartButton.height)
+        this.startGameButton.left = Math.floor(canvasRect.left + (canvasRect.width / 2) - StartButton.width)  
       }
 
-      if (this.skinToneButtons) {
-        this.skinToneButtons.forEach((button, index) => {
-          button.top = `${(canvasRect.top + 150) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`
-          button.left = `${canvasRect.left + 392 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`
-        })  
-      }
+      // if (this.skinToneButtons) {
+      //   this.skinToneButtons.forEach((button, index) => {
+      //     button.top = `${(canvasRect.top + 150) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`
+      //     button.left = `${canvasRect.left + 392 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`
+      //   })  
+      // }
     })
   }
 
@@ -156,7 +157,7 @@ export default class PreGameScene extends Scene {
     this.showCharacterCreation = created
     if (created) {
       this.startGameButton = buildStartGameButton(this)
-      this.startGameButton.hide()
+      // this.startGameButton.hide()
   
       this.skinToneButtons = buildSkinToneButtons(this)
       this.hairColorButtons = buildHairColorButtons(this)
@@ -189,6 +190,39 @@ function manageInput (scene) {
       fontFamily: Constants.MainMenuFontFamily
     })
   }
+
+  if (scene.showCharacterCreation) {
+    const mousePos = scene.game.inputManager.getMousePosition()
+    if (mousePos.justDown) {
+      if(scene.startGameButton.checkClicked(mousePos.x, mousePos.y)) {
+        scene.startGameButton.activate()
+      }
+
+      scene.skinToneButtons.forEach(button => {
+        if (button.checkClicked(mousePos.x, mousePos.y)) {
+          button.activate()
+        }
+      })
+
+      scene.hairColorButtons.forEach(button => {
+        if (button.checkClicked(mousePos.x, mousePos.y)) {
+          button.activate()
+        }
+      })
+
+      scene.shirtColorButtons.forEach(button => {
+        if (button.checkClicked(mousePos.x, mousePos.y)) {
+          button.activate()
+        }
+      })
+
+      scene.pantsColorButtons.forEach(button => {
+        if (button.checkClicked(mousePos.x, mousePos.y)) {
+          button.activate()
+        }
+      })
+    }
+  }
 }
 
 function drawBackground (title) {
@@ -214,36 +248,33 @@ function drawCharacterCreateScreen (scene) {
   drawPlayerControlsTitles(scene.game.canvas, scene.game.ctx)
   drawPlayerControlsOptions(scene.game.canvas, scene.game.ctx, scene.inputManager.getPlayerControls(Player1)/*, scene.inputManager.getPlayerControls(Player2)*/)
 
-  const borderWidth = scene.game.canvas.width / 8
-  const offsetX = 40 + (scene.game.canvas.width / 8)
   const borderY = (1.5 * Constants.SceneTitleFontSize) - 5
 
-  const player1X = (scene.game.canvas.width / 4 - borderWidth / 2 - (offsetX - 40))
-  if (scene.player1.images.composite) drawPlayerImage(scene, scene.player1.images.composite, player1X, borderY)
+  if (scene.player1.images.composite) drawPlayerImage(scene, scene.player1.images.composite, 86, borderY)
 
-   /* const player2X = (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
-  if (scene.player2.images.composite) drawPlayerImage(scene, scene.player2.images.composite, player2X, borderY)
-*/
-  scene.startGameButton.show()
-  scene.skinToneButtons.forEach(button => button.show())
-  scene.hairColorButtons.forEach(button => button.show())
-  scene.shirtColorButtons.forEach(button => button.show())
-  scene.pantsColorButtons.forEach(button => button.show())
+  // const player2X = (3 * scene.game.canvas.width / 4 - borderWidth / 2 - offsetX)
+  // if (scene.player2.images.composite) drawPlayerImage(scene, scene.player2.images.composite, player2X, borderY)
+
+  scene.skinToneButtons.forEach(button => button.draw())
+  scene.hairColorButtons.forEach(button => button.draw())
+  scene.shirtColorButtons.forEach(button => button.draw())
+  scene.pantsColorButtons.forEach(button => button.draw())
+  scene.startGameButton.draw()
 }
 
-/*function splitCharacterCreateScreen (canvas, ctx) {
-  ctx.lineWidth = 2
-  ctx.strokeStyle = UIAttributes.UIColor
+// function splitCharacterCreateScreen (canvas, ctx) {
+//   ctx.lineWidth = 2
+//   ctx.strokeStyle = UIAttributes.UIColor
 
-  // Calculate the middle of the canvas
-  const middleX = (canvas.width / 2) - 1
+//   // Calculate the middle of the canvas
+//   const middleX = (canvas.width / 2) - 1
 
-  // Draw the vertical line
-  ctx.beginPath()
-  ctx.moveTo(middleX, Constants.SceneTitleFontSize - 20)
-  ctx.lineTo(middleX, canvas.height - Constants.MainMenuFontSize - 30)
-  ctx.stroke()
-}*/
+//   // Draw the vertical line
+//   ctx.beginPath()
+//   ctx.moveTo(middleX, Constants.SceneTitleFontSize - 20)
+//   ctx.lineTo(middleX, canvas.height - Constants.MainMenuFontSize - 30)
+//   ctx.stroke()
+// }
 
 function drawPlayerTitles (canvas, ctx) {
   ctx.fillStyle = UIAttributes.UIColor
@@ -261,8 +292,7 @@ function drawPlayerImageBorders (canvas, ctx) {
   // Calculate the dimensions and positions
   const borderWidth = canvas.width / 8
   const borderHeight = 2 * borderWidth
-  const offsetX = 40 + canvas.width / 8
-  const player1X = canvas.width / 4 - borderWidth / 2 - (offsetX - 42)
+  const player1X = 90
  // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = 1.5 * Constants.SceneTitleFontSize
 
@@ -297,7 +327,7 @@ function drawCharacterCreateOptions (canvas, ctx) {
   const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
  // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = 1.5 * Constants.SceneTitleFontSize + UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) / 2 // 1.5 * title font size - 1 * UI font size
-  const optionsX = player1X + borderWidth + 5 // 5px offset to the right of the border
+  const optionsX = player1X + borderWidth + 35 // 5px offset to the right of the border
   const optionsYStart = borderY
   const lineHeight = 2.25 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize) // Space between each option
 
@@ -381,24 +411,17 @@ function drawPlayerImage (scene, playerImage, playerX, borderY) {
 function buildStartGameButton (scene) {
   const canvasRect = scene.game.canvas.getBoundingClientRect()
 
-  const startGameButton = new ImageButton({
+  const startGameButton = new StartGameButton({
+    scene,
     imageManager: scene.managers.imageManager,
     id: 'startGameButton',
-    top: `${canvasRect.top + canvasRect.height - 2 * StartButton.height}px`,
-    left: `${canvasRect.left + (canvasRect.width / 2) - (StartButton.width)}px`,
+    top: Math.floor(canvasRect.height - 4.25 * StartButton.height),
+    left: Math.floor((canvasRect.width / 2) - (StartButton.width)),
     imgDims: StartButton,
-    onClick: () => {
-      document.body.removeChild(startGameButton.element)
-      scene.skinToneButtons.forEach(button => document.body.removeChild(button.element))
-      scene.hairColorButtons.forEach(button => document.body.removeChild(button.element))
-      scene.shirtColorButtons.forEach(button => document.body.removeChild(button.element))
-      scene.pantsColorButtons.forEach(button => document.body.removeChild(button.element))
-
+    action: () => {
       scene.game.changeScene(Scenes.Game)
     }
   })
-
-  document.body.appendChild(startGameButton.element)
 
   return startGameButton
 }
@@ -409,23 +432,19 @@ function buildSkinToneButtons (scene) {
 
   Colors.Skin.forEach((color, index) => {
     const skinToneButton = new ColorButton({
+      scene,
       imageManager: scene.managers.imageManager,
       id: `skinToneButton${color}`,
-      top: `${(canvasRect.top + 140) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 392 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`,
+      top: Math.floor((canvasRect.top + 140) + Math.floor(index / 8) * (2 * StandardUIBox.height)),
+      left: Math.floor(canvasRect.left + 350 + (index % 8) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
-      onClick: () => {
+      activate: () => {
         updatePlayerSkinTone(scene, Player1, color)
       }
     })
 
     skinToneButtons.push(skinToneButton)
-  })
-
-  skinToneButtons.forEach(button => {
-    document.body.appendChild(button.element)
-    button.hide()
   })
 
   return skinToneButtons
@@ -437,13 +456,14 @@ function buildHairColorButtons (scene) {
 
   Colors.Hair.forEach((color, index) => {
     const hairColorButton = new ColorButton({
+      scene,
       imageManager: scene.managers.imageManager,
       id: `hairColorButton${color}`,
-      top: `${(canvasRect.top + 210) + Math.floor(index / /*6*/ 11) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 392 + (index % /*6*/ 11) * (2 * StandardUIBox.width)}px`,
+      top: Math.floor((canvasRect.top + 210) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
+      left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
-      onClick: () => {
+      activate: () => {
         updatePlayerHairColor(scene, Player1, color)
       }
     })
@@ -451,9 +471,28 @@ function buildHairColorButtons (scene) {
     hairColorButtons.push(hairColorButton)
   })
 
-  hairColorButtons.forEach(button => {
-    document.body.appendChild(button.element)
-    button.hide()
+  return hairColorButtons
+}
+
+function buildHairStyleButtons (scene) {
+  const hairStyleButtons = []
+  const canvasRect = scene.game.canvas.getBoundingClientRect()
+
+  Colors.Hair.forEach((color, index) => {
+    const hairColorButton = new ColorButton({
+      scene,
+      imageManager: scene.managers.imageManager,
+      id: `hairColorButton${color}`,
+      top: Math.floor((canvasRect.top + 210) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
+      left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
+      imgDims: StandardUIBox,
+      color: color,
+      activate: () => {
+        updatePlayerHairColor(scene, Player1, color)
+      }
+    })
+
+    hairColorButtons.push(hairColorButton)
   })
 
   return hairColorButtons
@@ -465,23 +504,19 @@ function buildShirtColorButtons (scene) {
 
   Colors.Shirt.forEach((color, index) => {
     const shirtColorButton = new ColorButton({
+      scene,
       imageManager: scene.managers.imageManager,
       id: `shirtColorButton${color}`,
-      top: `${(canvasRect.top + 430) + Math.floor(index / /*4*/ 8) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 410 + (index % /*4*/ 8) * (2 * StandardUIBox.width)}px`,
+      top: Math.floor((canvasRect.top + 430) + Math.floor(index / 8) * (2 * StandardUIBox.height)),
+      left: Math.floor(canvasRect.left + 350 + (index % 8) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
-      onClick: () => {
+      activate: () => {
         updatePlayerShirtColor(scene, Player1, color)
       }
     })
 
     shirColorButtons.push(shirtColorButton)
-  })
-
-  shirColorButtons.forEach(button => {
-    document.body.appendChild(button.element)
-    button.hide()
   })
 
   return shirColorButtons
@@ -493,23 +528,19 @@ function buildPantsColorButtons (scene) {
 
   Colors.Pants.forEach((color, index) => {
     const pantsColorButton = new ColorButton({
+      scene,
       imageManager: scene.managers.imageManager,
       id: `pantsColorButton${color}`,
-      top: `${(canvasRect.top + 500) + Math.floor(index / /*3*/ 6) * (2 * StandardUIBox.height)}px`,
-      left: `${canvasRect.left + 410 + (index % /*3*/ 6) * (2 * StandardUIBox.width)}px`,
+      top: Math.floor((canvasRect.top + 500) + Math.floor(index / 6) * (2 * StandardUIBox.height)),
+      left: Math.floor(canvasRect.left + 350 + (index % 6) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
-      onClick: () => {
+      activate: () => {
         updatePlayerPantsColor(scene, Player1, color)
       }
     })
 
     pantsColorButtons.push(pantsColorButton)
-  })
-
-  pantsColorButtons.forEach(button => {
-    document.body.appendChild(button.element)
-    button.hide()
   })
 
   return pantsColorButtons

@@ -266,10 +266,10 @@ const UISpriteData = {
     padding: 1
   },
   StandardUIBox: {
-    x: 0,
-    y: 0,
-    width: 20,
-    height: 20,
+    x: 1,
+    y: 1,
+    width: 18,
+    height: 18,
     padding: 1
   },
   StartButton: {

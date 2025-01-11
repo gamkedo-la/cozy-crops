@@ -19,6 +19,14 @@ export default class CanvasButton {
     this.disabled = disabled
   }
 
+  show () {
+    this.visible = true
+  }
+
+  hide () {
+    this.visible = false
+  }
+
   draw () {
     if (!this.visible) return
 
