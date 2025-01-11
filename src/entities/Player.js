@@ -106,12 +106,13 @@ function buildSpritesheet (player) {
   pantsCtx.drawImage(basePlayerImage, PlayerImageData.Pants.x, PlayerImageData.Pants.y, PlayerImageData.Pants.width, PlayerImageData.Pants.height, 0, 0, PlayerImageData.Pants.width, PlayerImageData.Pants.height)
   const pantsImage = player.imageManager.replaceColorInImage(pantsCanvas, PlayerImageData.Pants.baseColor, player.pantsColor)
 
-  // const accessoriesCanvas = document.createElement('canvas')
-  // const accessoriesCtx = accessoriesCanvas.getContext('2d')
-  // accessoriesCanvas.width = PlayerImageData.Accessories.width
-  // accessoriesCanvas.height = PlayerImageData.Accessories.height
-  // accessoriesCtx.drawImage(basePlayerImage, PlayerImageData.Accessories.x, PlayerImageData.Accessories.y, PlayerImageData.Accessories.width, PlayerImageData.Accessories.height, 0, 0, PlayerImageData.Accessories.width, PlayerImageData.Accessories.height)
-  // const accessoriesImage = player.imageManager.replaceColorInImage(accessoriesCanvas, PlayerImageData.Accessories.baseColor, player.accessoriesColor)
+  const accessoriesCanvas = document.createElement('canvas')
+  const accessoriesCtx = accessoriesCanvas.getContext('2d')
+  accessoriesCanvas.width = PlayerImageData.Accessories.width
+  accessoriesCanvas.height = PlayerImageData.Accessories.height
+  const accessoriesStyle = player.styles.Accessories
+  accessoriesCtx.drawImage(basePlayerImage, accessoriesStyle.x, accessoriesStyle.y, accessoriesStyle.width, accessoriesStyle.height, 0, 0, accessoriesStyle.width, accessoriesStyle.height)
+  const accessoriesImage = player.imageManager.replaceColorInImage(accessoriesCanvas, PlayerImageData.Accessories.baseColor, player.accessoriesColor)
 
   const hairCanvas = document.createElement('canvas')
   const hairCtx = hairCanvas.getContext('2d')
@@ -136,7 +137,7 @@ function buildSpritesheet (player) {
   spritesheetCtx.drawImage(shirtImage, 0, 0)
   spritesheetCtx.drawImage(armImage, 0, 0)
   spritesheetCtx.drawImage(pantsImage, 0, 0)
-  // spritesheetCtx.drawImage(accessoriesImage, 0, 0) // this doesn't work because the accessories are not in the right place
+  spritesheetCtx.drawImage(accessoriesImage, 0, 0) // this doesn't work because the accessories are not in the right place
   spritesheetCtx.drawImage(hairImage, 0, 0)
 
   return spritesheet

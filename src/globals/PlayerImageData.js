@@ -118,6 +118,72 @@ export const PlayerSpikeyHairSection = {
   baseColor: [203, 121, 0, 250]
 }
 
+export const PlayerMustacheSection = {
+  name: 'mustache',
+  x: 197,
+  y: 943,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [252, 205, 121, 250]
+}
+
+export const PlayerBeardSection = {
+  name: 'beard',
+  x: 342,
+  y: 943,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [252, 205, 121, 250]
+}
+
+export const PlayerGlassesSection = {
+  name: 'glasses',
+  x: 489,
+  y: 943,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [252, 205, 121, 250]
+}
+
+export const PlayerMakeupSection = {
+  name: 'makeup',
+  x: 634,
+  y: 943,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [252, 205, 121, 250]
+}
+
+export const PlayerEarringsSection = {
+  name: 'earrings',
+  x: 778,
+  y: 943,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [252, 205, 121, 250]
+}
+
+export const PlayerSunglassesSection = {
+  name: 'sunglasses',
+  x: 923,
+  y: 943,
+  width: 144,
+  height: 472,
+  frameWidth: 18,
+  frameHeight: 32,
+  baseColor: [252, 205, 121, 250]
+}
+
 export const PlayerDefaultArmsSection = {
   x: 196,
   y: 1888,
@@ -144,6 +210,15 @@ export const PlayerHairData = {
   Bun: PlayerBunHairSection,
   FlatTop: PlayerFlatTopHairSection,
   Spikey: PlayerSpikeyHairSection
+}
+
+export const PlayerAccessoriesData = {
+  Mustache: PlayerMustacheSection,
+  Beard: PlayerBeardSection,
+  Glasses: PlayerGlassesSection,
+  Makeup: PlayerMakeupSection,
+  Earrings: PlayerEarringsSection,
+  Sunglasses: PlayerSunglassesSection
 }
 
 export default PlayerImageData

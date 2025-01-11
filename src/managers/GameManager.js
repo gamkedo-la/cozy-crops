@@ -26,7 +26,7 @@ export default class GameManager {
 
   getSaveSlots () {
     // Get the save slots from local storage
-    const slots = localStorage.getItem(LocalStorageKeys.SaveSlots)
+    const slots = localStorage.getItem(LocalStorageKeys.SlotList)
     if (slots) {
       return JSON.parse(slots)
     } else {
@@ -40,7 +40,7 @@ export default class GameManager {
     const existingSlot = currentSlots.find(s => s === slot)
     if (!existingSlot) {
       currentSlots.push(slot)
-      localStorage.setItem(LocalStorageKeys.SaveSlots, JSON.stringify(currentSlots))
+      localStorage.setItem(LocalStorageKeys.SlotList, JSON.stringify(currentSlots))
     }
   }
 
@@ -48,7 +48,7 @@ export default class GameManager {
     let currentSlots = this.getSaveSlots()
     if (!currentSlots) return
     const updatedSlots = currentSlots.filter(s => s !== slot)
-    localStorage.setItem(LocalStorageKeys.SaveSlots, JSON.stringify(updatedSlots))
+    localStorage.setItem(LocalStorageKeys.SlotList, JSON.stringify(updatedSlots))
     localStorage.removeItem(`${LocalStorageKeys.SaveSlot}${slot}`)
   }
 

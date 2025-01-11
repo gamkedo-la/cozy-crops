@@ -13,7 +13,7 @@ import StyleButton from '../uiElements/StyleButton.js'
 import StartGameButton from '../uiElements/StartGameButton.js'
 import { CheatKeys } from '../globals/Debug.js'
 import { StartButton, StandardUIBox } from '../globals/UISpriteData.js'
-import PlayerImageData, { PlayerHairData } from '../globals/PlayerImageData.js'
+import PlayerImageData, { PlayerHairData, PlayerAccessoriesData } from '../globals/PlayerImageData.js'
 import { SteveIdleDown } from '../globals/PlayerAnimations.js'
 import Colors from '../globals/Colors.js'
 
@@ -30,6 +30,7 @@ export default class PreGameScene extends Scene {
     this.skinToneButtons = []
     this.hairColorButtons = []
     this.hairStyleButtons = []
+    this.accessoriesButtons = []
     this.shirtColorButtons = []
     this.pantsColorButtons = []
 
@@ -41,13 +42,15 @@ export default class PreGameScene extends Scene {
         pantsColor: null
       },
       styles: {
-        hairStyle: null
+        hairStyle: null,
+        accessories: null
        // shirtStyle: null,
        // pantsStyle: null
       },
       images: {
         composite: null,
         body: null,
+        accessories: null,
         hair: null,
         shirt: null,
         pants: null
@@ -163,6 +166,7 @@ export default class PreGameScene extends Scene {
       this.shirtColorButtons = buildShirtColorButtons(this, canvasRect)
       this.pantsColorButtons = buildPantsColorButtons(this, canvasRect)
       this.hairStyleButtons = buildHairStyleButtons(this, canvasRect)
+      this.accessoriesButtons = buildAccessoriesButtons(this, canvasRect)
   
       createPlayerImages(this)
     }
@@ -216,6 +220,12 @@ function manageInput (scene) {
         }
       })
 
+      scene.accessoriesButtons.forEach(button => {
+        if (button.checkClicked(mousePos.x, mousePos.y)) {
+          button.activate()
+        }
+      })
+
       scene.shirtColorButtons.forEach(button => {
         if (button.checkClicked(mousePos.x, mousePos.y)) {
           button.activate()
@@ -264,6 +274,7 @@ function drawCharacterCreateScreen (scene) {
   scene.skinToneButtons.forEach(button => button.draw())
   scene.hairColorButtons.forEach(button => button.draw())
   scene.hairStyleButtons.forEach(button => button.draw())
+  scene.accessoriesButtons.forEach(button => button.draw())
   scene.shirtColorButtons.forEach(button => button.draw())
   scene.pantsColorButtons.forEach(button => button.draw())
   scene.startGameButton.draw()
@@ -489,7 +500,7 @@ function buildHairStyleButtons (scene, canvasRect) {
       scene,
       imageManager: scene.managers.imageManager,
       id: `hairStyleButton${style.name}`,
-      top: Math.floor((canvasRect.top + 270) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
+      top: Math.floor((canvasRect.top + 285) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
       left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       foreground: style,
@@ -502,6 +513,31 @@ function buildHairStyleButtons (scene, canvasRect) {
   })
 
   return hairStyleButtons
+}
+
+function buildAccessoriesButtons (scene, canvasRect) {
+  const accessoriesButtons = []
+
+  const accessories = Object.keys(PlayerAccessoriesData)
+  accessories.forEach((styleKey, index) => {
+    const style = PlayerAccessoriesData[styleKey]
+    const accessoriesButton = new StyleButton({
+      scene,
+      imageManager: scene.managers.imageManager,
+      id: `accessoriesButton${style.name}`,
+      top: Math.floor((canvasRect.top + 360) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
+      left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
+      imgDims: StandardUIBox,
+      foreground: style,
+      activate: () => {
+        updatePlayerAccessories(scene, Player1, style)
+      }
+    })
+
+    accessoriesButtons.push(accessoriesButton)    
+  })
+
+  return accessoriesButtons
 }
 
 function buildShirtColorButtons (scene, canvasRect) {
@@ -556,6 +592,8 @@ function createPlayerImages (scene) {
   scene.player1.images.body = createPlayerBodyImage(scene, basePlayerImage)
  // scene.player2.images.body = createPlayerBodyImage(scene, basePlayerImage)
 
+ scene.player1.images.accessories = createPlayerAccessoriesImage(scene, basePlayerImage)
+
   scene.player1.images.hair = createPlayerHairImage(scene, basePlayerImage)
 //  scene.player2.images.hair = createPlayerHairImage(scene, basePlayerImage)
 
@@ -581,6 +619,16 @@ function createPlayerBodyImage (scene, basePlayerImage) {
   body1Ctx.drawImage(basePlayerImage, PlayerImageData.Arms.x, PlayerImageData.Arms.y, bodyCanvas.width, bodyCanvas.height, 0, 0, bodyCanvas.width, bodyCanvas.height)
 
   return bodyCanvas
+}
+
+function createPlayerAccessoriesImage (scene, basePlayerImage) {
+  const accessoriesCanvas = document.createElement('canvas')
+  const accessoriesCtx = accessoriesCanvas.getContext('2d')
+  accessoriesCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
+  accessoriesCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
+  // accessoriesCtx.drawImage(basePlayerImage, PlayerAccessoriesData.Accessories.x, PlayerAccessoriesData.Accessories.y, accessoriesCanvas.width, accessoriesCanvas.height, 0, 0, accessoriesCanvas.width, accessoriesCanvas.height)
+
+  return accessoriesCanvas
 }
 
 function createPlayerHairImage (scene, basePlayerImage) {
@@ -628,6 +676,7 @@ function createCompositePlayerImage (player) {
   compositeCanvas.width = SteveIdleDown.frameWidth + 2 * SteveIdleDown.padding
   compositeCanvas.height = SteveIdleDown.frameHeight + 2 * SteveIdleDown.padding
   compositeCtx.drawImage(player.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+  compositeCtx.drawImage(player.images.accessories, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
   compositeCtx.drawImage(player.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
   compositeCtx.drawImage(player.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
   compositeCtx.drawImage(player.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
@@ -675,6 +724,19 @@ function updatePlayerHairStyle (scene, player, newHairStyle) {
   scene.gameManager.setPlayerStyles(player, 'Hair', newHairStyle)
 }
 
+function updatePlayerAccessories (scene, player, newAccessories) {
+  if (player === EntityTypes.Player1) {
+    scene.player1.images.accessories = scene.imageManager.replaceImageInImage(scene.player1.images.accessories, scene.imageManager.getImageWithSrc(BasePlayer), newAccessories)
+    scene.player1.styles.accessories = newAccessories
+  } /*else {
+    scene.player2.images.accessories = scene.imageManager.replaceImageInImage(scene.player2.images.accessories, scene.imageManager.getImageWithSrc(BasePlayer), newAccessories)
+    scene.player2.styles.accessories = newAccessories
+  }*/
+
+  updateCompositePlayerImage(scene, player)
+  scene.gameManager.setPlayerStyles(player, 'Accessories', newAccessories)
+}
+
 function updatePlayerShirtColor (scene, player, newShirtColor) {
   if (player === EntityTypes.Player1) {
     scene.player1.images.shirt = scene.imageManager.replaceColorInImage(scene.player1.images.shirt, scene.player1.colors.shirtColor, newShirtColor)
@@ -708,6 +770,7 @@ function updateCompositePlayerImage (scene, player) {
     compositeCanvas.height = scene.player1.images.composite.height
     const compositeCtx = compositeCanvas.getContext('2d')
     compositeCtx.drawImage(scene.player1.images.body, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
+    compositeCtx.drawImage(scene.player1.images.accessories, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.hair, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.shirt, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
     compositeCtx.drawImage(scene.player1.images.pants, 0, 0, compositeCanvas.width, compositeCanvas.height, 0, 0, compositeCanvas.width, compositeCanvas.height)
