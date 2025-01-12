@@ -121,9 +121,9 @@ export const Blacksmith896 = 896
 export const Blacksmith897 = 897
 export const Blacksmith898 = 898
 export const Blacksmith899 = 899
-export const Blacksmith900 = 900
-export const Blacksmith901 = 901
-export const RegisterTopRight = 902
+export const RegisterBottomLeft = 900
+export const RegisterTopRight = 901
+export const RegisterBottomRight = 902
 export const Blacksmith903 = 903
 export const Blacksmith904 = 904
 export const Blacksmith905 = 905
@@ -139,8 +139,8 @@ export const Blacksmith929 = 929
 export const Blacksmith930 = 930
 export const Blacksmith931 = 931
 export const Blacksmith932 = 932
-export const RegisterBottomLeft = 933
-export const RegisterBottomRight = 934
+export const Blacksmith933 = 933
+export const RegisterTopLeft = 934
 export const Blacksmith935 = 935
 export const Blacksmith936 = 936
 export const Blacksmith937 = 937
@@ -364,9 +364,9 @@ export const BlacksmithIndexes = {
   Blacksmith897,
   Blacksmith898,
   Blacksmith899,
-  Blacksmith900,
-  Blacksmith901,
+  RegisterBottomLeft,
   RegisterTopRight,
+  RegisterBottomRight,
   Blacksmith903,
   Blacksmith904,
   Blacksmith905,
@@ -382,8 +382,8 @@ export const BlacksmithIndexes = {
   Blacksmith930,
   Blacksmith931,
   Blacksmith932,
-  RegisterBottomLeft,
-  RegisterBottomRight,
+  Blacksmith933,
+  RegisterTopLeft,
   Blacksmith935,
   Blacksmith936,
   Blacksmith937,
@@ -606,9 +606,9 @@ export const BlacksmithTileNames = {
   [Blacksmith897]: 'Blacksmith897',
   [Blacksmith898]: 'Blacksmith898',
   [Blacksmith899]: 'Blacksmith899',
-  [Blacksmith900]: 'Blacksmith900',
-  [Blacksmith901]: 'Blacksmith901',
+  [RegisterBottomLeft]: 'RegisterBottomLeft',
   [RegisterTopRight]: 'RegisterTopRight',
+  [RegisterBottomRight]: 'RegisterBottomRight',
   [Blacksmith903]: 'Blacksmith903',
   [Blacksmith904]: 'Blacksmith904',
   [Blacksmith905]: 'Blacksmith905',
@@ -624,8 +624,8 @@ export const BlacksmithTileNames = {
   [Blacksmith930]: 'Blacksmith930',
   [Blacksmith931]: 'Blacksmith931',
   [Blacksmith932]: 'Blacksmith932',
-  [RegisterBottomLeft]: 'RegisterBottomLeft',
-  [RegisterBottomRight]: 'RegisterBottomRight',
+  [Blacksmith933]: 'Blacksmith933',
+  [RegisterTopLeft]: 'RegisterTopLeft',
   [Blacksmith935]: 'Blacksmith935',
   [Blacksmith936]: 'Blacksmith936',
   [Blacksmith937]: 'Blacksmith937',
@@ -814,6 +814,8 @@ export const BlacksmithUnwalkable = [
   Blacksmith865,
   Blacksmith867,
   Blacksmith868,
+  Blacksmith869,
+  Blacksmith870,
   Blacksmith871,
   Blacksmith872,
   Blacksmith873,
@@ -826,8 +828,10 @@ export const BlacksmithUnwalkable = [
   Blacksmith912,
   Blacksmith928,
   Blacksmith929,
+  Blacksmith933,
   RegisterBottomLeft,
   RegisterBottomRight,
+  RegisterTopLeft,
   Blacksmith935,
   Blacksmith939,
   Blacksmith940,
