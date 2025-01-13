@@ -18,6 +18,7 @@ const Sounds = {
   stepSound2: `${path}footStep2.wav`,
   stepSound3: `${path}footStep3.wav`,
   stepSound4: `${path}footStep4.wav`,
+  treeChopSound: `${path}treeChopping.wav`,
 }
 
 export default Sounds
@@ -37,4 +38,5 @@ export const {
   stepSound2,
   stepSound3,
   stepSound4,    
+  treeChopSound,
  } =  Sounds

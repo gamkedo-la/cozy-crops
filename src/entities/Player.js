@@ -1,7 +1,7 @@
 import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
-import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound, stepSound1, stepSound2, stepSound3, stepSound4 } from '../globals/Sounds.js'
+import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound, stepSound1, stepSound2, stepSound3, stepSound4, treeChopSound } from '../globals/Sounds.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
@@ -224,6 +224,7 @@ function handleInput (player) {
         }
       } else if (mapActions.includes('Chop') && player.scene.entityManager.isAxe(player.activeTool)) {
         player.scene.chopTree(groundPoint.x, groundPoint.y, player.activeTool.damage)
+        player.scene.audioManager?.playSource(treeChopSound,SFX_VOL)
       } else if (mapActions.includes('Fish') && player.scene.entityManager.isFishingRod(player.activeTool)) {
         // TODO: Implement fishing
         // player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
