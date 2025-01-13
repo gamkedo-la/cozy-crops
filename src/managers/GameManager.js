@@ -411,7 +411,7 @@ function initializeNewGame (manager, saveSlot) {
         // { x: 0, y: 0, tileIndex: 0 }
       ]
     },
-    Money: 100,
+    Money: 500,
     NPCs: {
       [EntityTypes.Blacksmith]: {
         hasMetPlayer: false,
