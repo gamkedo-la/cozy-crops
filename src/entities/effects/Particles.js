@@ -139,21 +139,22 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*3-1.5
             let vely = Math.random()*-1.5
-            let alpha = 0.5
+            let alpha = 0.75
             this.add(x,y,life,size,rotspd,ang,velx,vely,alpha)
         }
     }
 
+    // used by many waterfalls - restraint is required
     splash(x,y) {
-        let num = randomInt(2,4)
+        let num = randomInt(0,3)
         for (let i = 0; i < num; i++) {
-            let life = randomInt(100, 200)
+            let life = randomInt(200, 400)
             let size = 8
             let rotspd = Math.random()*0.3-0.15
             let ang = 0
-            let velx = Math.random()*3-1.5
-            let vely = Math.random()*-1.5
-            let alpha = 0.1 
+            let velx = Math.random()*0.5-0.25
+            let vely = Math.random()*-0.5
+            let alpha = 0.5
             let px = x + (Math.random() * TileWidth)
             let py = y + TileHeight + (Math.random() * 4) - 2 
             this.add(px,py,life,size,rotspd,ang,velx,vely,alpha)
@@ -170,7 +171,7 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*1-0.5
-            let alpha = 0.04
+            let alpha = 0.1
             let drag = 0.94
             this.add(x,y,life,size,rotspd,ang,velx,vely,alpha,drag)
         }
@@ -186,7 +187,7 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.15
+            let alpha = 0.2
             let drag = 0.9
             let gravity = 0
             let r = 1
@@ -206,7 +207,7 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.15
+            let alpha = 0.25
             let drag = 0.9
             let gravity = -2
             let r = 0.2
@@ -226,7 +227,7 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.15
+            let alpha = 0.25
             let drag = 0.9
             let gravity = 1
             let r = 0
@@ -246,7 +247,7 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.25
+            let alpha = 0.5
             let drag = 0.9
             let gravity = 0
             let r = 1
@@ -266,7 +267,7 @@ export default class Particles {
             let ang = 0
             let velx = Math.random()*2-1
             let vely = Math.random()*-1
-            let alpha = 0.5
+            let alpha = 0.75
             let drag = 0.9
             let gravity = 2
             let r = 0
