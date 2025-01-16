@@ -146,7 +146,28 @@ export default class Particles {
 
     // used by many waterfalls - restraint is required
     splash(x,y) {
-        let num = randomInt(0,3)
+        // blue water falling from the top
+        let num = randomInt(0,1)
+        for (let i = 0; i < num; i++) {
+            let life = 600
+            let size = 8
+            let rotspd = 0
+            let ang = 0
+            let velx = 0
+            let vely = 0.25
+            let alpha = 0.5
+            let px = x + (Math.random() * TileWidth)
+            let py = y+1
+            let drag = 1
+            let grav = 0
+            // matches the blue shade on the waterfall sprite:
+            let r = 68 / 256
+            let g = 181 / 256
+            let b = 202 / 256
+            this.add(px,py,life,size,rotspd,ang,velx,vely,alpha,drag,grav,r,g,b)
+        }
+        // white water/mist at the bottom
+        num = randomInt(0,3)
         for (let i = 0; i < num; i++) {
             let life = randomInt(200, 400)
             let size = 8
@@ -156,7 +177,7 @@ export default class Particles {
             let vely = Math.random()*-0.5
             let alpha = 0.5
             let px = x + (Math.random() * TileWidth)
-            let py = y + TileHeight + (Math.random() * 4) - 2 
+            let py = y + TileHeight + (Math.random() * 4) - 3 
             this.add(px,py,life,size,rotspd,ang,velx,vely,alpha)
         }
     }
