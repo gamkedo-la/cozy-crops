@@ -483,6 +483,7 @@ function checkMouseClick (manager, x, y) {
 
 function manageInput (manager) {
   const justDownKeys = manager.scene.inputManager.getJustDownKeys()
+
   const controls  = manager.scene.gameManager.getPlayerControls(EntityTypes.Player1)
   if (justDownKeys.includes(Keys.ESCAPE)) {
     manager.currentPageIndex = 0
@@ -539,6 +540,9 @@ function positionButtons (manager) {
 
 function selectNextItem (manager) {
   const items = manager.pages[manager.currentPageIndex]
+
+  if (!items || items.length === 0) return
+
   items[manager.selectedItemIndex].selected = false
   manager.selectedItemIndex = (manager.selectedItemIndex + 1) % items.length
   items[manager.selectedItemIndex].selected = true
@@ -546,6 +550,9 @@ function selectNextItem (manager) {
 
 function selectPreviousItem (manager) {
   const items = manager.pages[manager.currentPageIndex]
+
+  if (!items || items.length === 0) return
+
   items[manager.selectedItemIndex].selected = false
   manager.selectedItemIndex = (manager.selectedItemIndex - 1 + items.length) % items.length
   items[manager.selectedItemIndex].selected = true
