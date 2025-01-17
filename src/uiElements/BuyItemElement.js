@@ -111,6 +111,48 @@ function getNameForType (type) {
       return 'Watering Can'
     case EntityTypes.WateringCanCopper:
       return 'Watering Can'
+    case EntityTypes.BedTwin:
+      return 'Twin Bed'
+    case EntityTypes.BedQueen:
+      return 'Queen Bed'
+    case EntityTypes.FireplaceBrick:
+      return 'Brick Fireplace'
+    case EntityTypes.FireplaceStone:
+      return 'Stone Fireplace'
+    case EntityTypes.LowerCabinetBrown:
+      return 'Lower Cabinet'
+    case EntityTypes.LowerCabinetWhite:
+      return 'Lower Cabinet'
+    case EntityTypes.RefrigeratorGray:
+      return 'Refrigerator'
+    case EntityTypes.RefrigeratorSilver:
+      return 'Refrigerator'
+    case EntityTypes.SleepingBag2:
+      return 'Sleeping Bag'
+    case EntityTypes.StoveGray:
+      return 'Stove'
+    case EntityTypes.StoveWhite:
+      return 'Stove'
+    case EntityTypes.UpperCabinetBrown:
+      return 'Upper Cabinet'
+    case EntityTypes.UpperCabinetWhite:
+      return 'Upper Cabinet'
+    case EntityTypes.WallPaperGray:
+      return 'Gray'
+    case EntityTypes.WallPaperPurple:
+      return 'Purple'
+    case EntityTypes.WallPaperRed:
+      return 'Red'
+    case EntityTypes.WallPaperStriped:
+      return 'Striped'
+    case EntityTypes.WallPaperTan:
+      return 'Tan'
+    case EntityTypes.WallPaperVerticalWood:
+      return 'Vertical Wood'
+    case EntityTypes.WallPaperWoodTiles:
+      return 'Wood Tiles'
+    case EntityTypes.WallPaperX:
+      return 'X'
   }
 }
 

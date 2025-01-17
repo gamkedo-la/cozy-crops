@@ -1,6 +1,6 @@
 import FurnitureAnimations from '../../globals/FurnitureAnimations.js'
 import CarpentryIconData from '../../globals/CarpentryIconData.js'
-import Animation from '../../components/Animation.js'
+// import Animation from '../../components/Animation.js'
 
 export default class Furniture {
   constructor (config) {
@@ -18,18 +18,24 @@ export default class Furniture {
   }
 
   buildAnimations () {
-    let animationData = FurnitureAnimations[this.type]
+    const idleData = FurnitureAnimations[this.type]
+    idleData.owner = this
+    idleData.game = this.game
+    idleData.imageManager = this.imageManager
+    idleData.imageSrc = idleData.spritesheet
+    idleData.canvas = this.imageManager.getImageWithSrc(idleData.spritesheet)
 
-    const animationKeys = Object.keys(animationData)
-    animationKeys.forEach((key, index) => {
-      const config = Object.assign({}, animationData[key])
-      config.owner = this
-      config.game = this.game
-      config.imageManager = this.imageManager
-      config.imageSrc = animationData[key].spritesheet
-      config.canvas = this.imageManager.getImageWithSrc(animationData[key].spritesheet)
-      this.animations[key] = new Animation(config)
-    })
+    // const animationKeys = Object.keys(animationData)
+    // animationKeys.forEach((key, index) => {
+    //   const config = Object.assign({}, animationData[key])
+    //   config.owner = this
+    //   config.game = this.game
+    //   config.imageManager = this.imageManager
+    //   config.imageSrc = animationData[key].spritesheet
+    //   config.canvas = this.imageManager.getImageWithSrc(animationData[key].spritesheet)
+    //   this.animations[key] = new Animation(config)
+    // })
+    this.animations['Idle'] = idleData
 
     const inventoryConfig = CarpentryIconData[this.type]
     inventoryConfig.owner = this
@@ -37,7 +43,7 @@ export default class Furniture {
     inventoryConfig.imageManager = this.imageManager
     inventoryConfig.imageSrc = CarpentryIconData[this.type].spritesheet
     inventoryConfig.canvas = this.imageManager.getImageWithSrc(CarpentryIconData[this.type].spritesheet)
-    this.animations['Inventory'] = new Animation(inventoryConfig)
+    this.animations['Inventory'] = inventoryConfig
   }
 
   getAnimation (type = 'Inventory') {
@@ -48,8 +54,14 @@ export default class Furniture {
     this.currentAnimation?.update(deltaTime)
   }
 
+  draw (x, y, camera) {
+    const imageX = this.animations['Idle'].x
+    const imageY = this.animations['Idle'].y
+    this.imageManager.draw(this.animations['Idle'].canvas, x, y, this.animations['Idle'].width, this.animations['Idle'].height, imageX, imageY, camera, false)
+  }
+
   drawAsInventory (x, y, width, height) {
-    const frame = this.animations['Inventory'].getCurrentFrame()
-    this.game.ctx.drawImage(this.currentAnimation.spritesheet, frame.x, frame.y, frame.width, frame.height, x, y, width, height)
+    const frame = this.animations['Inventory']
+    this.game.ctx.drawImage(this.animations['Inventory'].canvas, frame.x, frame.y, frame.width, frame.height, x, y, width, height)
   }
 }

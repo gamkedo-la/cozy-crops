@@ -5,14 +5,11 @@ export const BedTwin = {
   Idle: {
     name: 'BedTwinIdle',
     spritesheet: CarpentryItems,
-    // TODO: Need to revisit the Frame Data for these animations
-    frames: [88],
-    frameWidth: 16,
-    frameHeight: 16,
-    padding: 16,
-    // END TODO
-    duration: 500,
-    loop: true
+    x: 64,
+    y: 0,
+    width: 14,
+    height: 14,
+    padding: 1
   }
 }
 
