@@ -743,6 +743,8 @@ function initializeCarpentryPage0 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'carpentryshop'
+
+  // const bed = new BuyItemElement({})
 }
 
 function initializeCarpentryPage1 (manager, config) {

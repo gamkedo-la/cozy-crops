@@ -76,7 +76,7 @@ export default class CarpenterScene extends Scene {
   }
 
   checkMapCollision (entity) {
-    const tileIndex = this.mapManager.getTileAtPixelPos(entity.x -450 + CarpenterPosition.x, entity.y + 550 + CarpenterPosition.y, this.mapManager.carpenterData)
+    const tileIndex = this.mapManager.getTileAtPixelPos(entity.x + CarpenterPosition.x, entity.y + CarpenterPosition.y, this.mapManager.carpenterData)
     if (tileIndex && this.registerTiles.includes(tileIndex)) {
       this.carpenter.showDialog(['buy', 'sell'])
     }

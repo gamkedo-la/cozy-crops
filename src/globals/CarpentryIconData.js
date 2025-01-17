@@ -27,7 +27,7 @@ const CarpentryIconData = {
     height: 14,
     padding: 1
   },
-  QueenBed: {
+  BedQueen: {
     x: 64,
     y: 32,
     width: 14,
@@ -69,7 +69,7 @@ const CarpentryIconData = {
     height: 14,
     padding: 1
   },
-  TwinBed: {
+  BedTwin: {
     x: 48,
     y: 32,
     width: 14,
@@ -150,17 +150,17 @@ const CarpentryIconData = {
 
 export default CarpentryIconData
 export const {
+  BedTwin,
+  BedQueen,
   FireplaceBrick,
   FireplaceStone,
   LowerCabinetBrown,
   LowerCabinetWhite,
-  QueenBed,
   RefrigeratorGray,
   RefrigeratorSilver,
   SleepingBag2,
   StoveGray,
   StoveWhite,
-  TwinBed,
   UpperCabinetBrown,
   UpperCabinetGray,
   WallPaperGray,
