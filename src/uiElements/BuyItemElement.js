@@ -119,6 +119,8 @@ function getItemForType (element, type) {
     return getSeedPacket(element, type)
   } else if (element.entityManager.isTool({ type })) {
     return element.getTool(element, type)
+  } else if (element.entityManager.isFurniture({ type })) {
+    return element.getFurniture(element, type)
   }
 }
 

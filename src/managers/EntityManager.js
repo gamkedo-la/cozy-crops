@@ -406,6 +406,37 @@ export default class EntityManager {
     return false
   }
 
+  isFurniture (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.BedTwin:
+      case EntityTypes.BedQueen:
+      case EntityTypes.FireplaceBrick:
+      case EntityTypes.FireplaceStone:
+      case EntityTypes.LowerCabinetBrown:
+      case EntityTypes.LowerCabinetWhite:
+      case EntityTypes.UpperCabinetBrown:
+      case EntityTypes.UpperCabinetWhite:
+      case EntityTypes.RefrigeratorGray:
+      case EntityTypes.RefrigeratorSilver:
+      case EntityTypes.SleepingBag2:
+      case EntityTypes.StoveGray:
+      case EntityTypes.StoveWhite:
+      case EntityTypes.WallPaperGray:
+      case EntityTypes.WallPaperPurple:
+      case EntityTypes.WallPaperRed:
+      case EntityTypes.WallPaperStriped:
+      case EntityTypes.WallPaperTan:
+      case EntityTypes.WallPaperVerticalWood:
+      case EntityTypes.WallPaperWoodTiles:
+      case EntityTypes.WallPaperX:
+        return true
+      default:
+        return false
+    }
+  }
+
   isHoe (entity) {
     if (!entity) return false
 

@@ -744,7 +744,16 @@ function initializeCarpentryPage0 (manager, config) {
 
   config.shopType = 'carpentryshop'
 
-  // const bed = new BuyItemElement({})
+  // const bed = new BuyItemElement({
+  //   ...config,
+  //   selected: false,
+  //   type: EntityTypes.BedTwin,
+  //   name: 'Twin Bed',
+  //   price: 100,
+  //   y: currentY
+  // })
+  // bed.init()
+  // manager.pages[0].push(bed)
 }
 
 function initializeCarpentryPage1 (manager, config) {

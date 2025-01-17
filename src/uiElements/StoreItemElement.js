@@ -10,6 +10,7 @@ import FishingRod from '../entities/tools/FishingRod.js'
 import Hoe from '../entities/tools/Hoe.js'
 import Shovel from '../entities/tools/Shovel.js'
 import WateringCan from '../entities/tools/WateringCan.js'
+import Furniture from '../entities/furniture/Furniture.js'
 
 export default class StoreItemElement {
   constructor (config) {
@@ -191,6 +192,24 @@ export default class StoreItemElement {
     tool.init()
   
     return tool
+  }
+
+  getFurniture (element, type) {
+    const config = {
+      game: element.game,
+      imageManager: element.imageManager,
+      type,
+      x: element.x + element.width - element.itemWidth - 8,
+      y: element.y + 8,
+      width: element.itemWidth,
+      height: element.itemHeight,
+      quantity: 1
+    }
+  
+    const furniture = new Furniture(config)
+    furniture.init()
+  
+    return furniture
   }
 }
 
