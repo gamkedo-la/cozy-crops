@@ -473,7 +473,7 @@ export const LemonTree = {
     duration: 500,
     loop: true
   },
-  Dead: {
+  DeadTree: {
     name: 'LemonTreeDead',
     spritesheet: TreeCrops,
     frames: [52],
@@ -576,7 +576,7 @@ export const MapleTree = {
     duration: 500,
     loop: true
   },
-  Dead: {
+  DeadTree: {
     name: 'MapleTreeDead',
     spritesheet: TreeCrops,
     frames: [63],
@@ -679,7 +679,7 @@ export const OakTree = {
     duration: 500,
     loop: true
   },
-  Dead: {
+  DeadTree: {
     name: 'OakTreeDead',
     spritesheet: TreeCrops,
     frames: [74],
@@ -782,7 +782,7 @@ export const PineTree = {
     duration: 500,
     loop: true
   },
-  Dead: {
+  DeadTree: {
     name: 'PineTreeDead',
     spritesheet: TreeCrops,
     frames: [85],
@@ -885,7 +885,7 @@ export const PlumTree = {
     duration: 500,
     loop: true
   },
-  Dead: {
+  DeadTree: {
     name: 'PlumTreeDead',
     spritesheet: TreeCrops,
     frames: [96],

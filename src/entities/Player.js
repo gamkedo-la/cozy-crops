@@ -56,7 +56,7 @@ export default class Player {
   }
 
   wake () {
-    console.log('Player wake called')
+    // console.log('Player wake called')
   }
 
   draw (camera) {

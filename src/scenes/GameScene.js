@@ -412,8 +412,14 @@ export default class GameScene extends Scene {
     if (entities.some(entity => this.entityManager.isHarvestable(entity))) result.add('Harvest')
     if (entities.some(entity => this.entityManager.isClearable(entity))) result.add('Clear')
     const trees = this.entityManager.getEntitiesAt(x, y)
-    if (trees.some(tree => this.entityManager.isTree(tree) && tree.isFruiting())) result.add('Harvest')
-    if (trees.some(tree => this.entityManager.isChoppable(tree))) result.add('Chop')
+    if (trees.some(tree => this.entityManager.isTree(tree) && tree.isFruiting())) {
+      result.add('Harvest')
+      result.add('Water')
+    }
+    if (trees.some(tree => this.entityManager.isChoppable(tree))) {
+      result.add('Chop')
+      result.add('Water')
+    }
 
     const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
     switch (tileType) {
@@ -525,7 +531,14 @@ export default class GameScene extends Scene {
       if (this.mapManager.isSandTile(this.mapManager.getTileAtXY(colRow.col, colRow.row))) {
         this.mapManager.updateTileAtXY(colRow.col, colRow.row, WetSand)
         this.cropManager.waterAt(colRow.col * TileWidth, colRow.row * TileHeight)
-          }
+      }
+    }
+
+    const affectedTrees = getAffectedTreesForTool(this, toolSize, x, y, direction)
+    if (affectedTrees?.length) {
+      for (const tree of affectedTrees) {
+        this.cropManager.waterTree(tree)
+      }
     }
   }
 
@@ -593,6 +606,10 @@ export default class GameScene extends Scene {
     this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
     setNewWeather(this)
+  }
+
+  getSeason () {
+    return this.calendarManager.season
   }
 
   giveItemToNPC (npcType, item, quantity) {
@@ -753,4 +770,19 @@ function getAffectedTilesForTool (scene, toolSize, x, y, direction) {
       { col: tileColRow.col - 1, row: tileColRow.row - 1 }
     ]
   }
+}
+
+function getAffectedTreesForTool (scene, toolSize, x, y, direction) {
+  const affectedTiles = getAffectedTilesForTool(scene, toolSize, x, y, direction)
+  const result = []
+  for (const tile of affectedTiles) {
+    const entities = scene.entityManager.getEntitiesAt(tile.col * TileWidth, tile.row * TileHeight)
+    for (const entity of entities) {
+      if (scene.entityManager.isTree(entity)) {
+        result.push(entity)
+      }
+    }
+  }
+
+  return result
 }

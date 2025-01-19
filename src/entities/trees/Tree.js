@@ -9,8 +9,9 @@ export default class Tree {
   constructor (config) {
     Object.assign(this, config)
 
-    this.growthStages = ['Sprout', 'YoungSapling', 'Sapling', 'YoungTree', 'MatureTree', 'FruitingTree', 'Dead', 'Stump']
+    this.growthStages = ['Sprout', 'YoungSapling', 'Sapling', 'YoungTree', 'MatureTree', 'FruitingTree', 'DeadTree', 'Stump']
     this.currentGrowthStage = config.currentGrowthStage || 0
+    this.currentGrowDays = 0
     this.width = 0 // Initialize once animations are built
     this.height = 0 // Initialize once animations are built
     this.animations = {}
@@ -53,16 +54,32 @@ export default class Tree {
       // This is a growing tree, so it needs to be watered
       if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
         this.wateredYesterday = true
-        this.currentGrowthStage++
-        if (this.currentGrowthStage >= this.growthStages.length - 2) {
-          this.currentGrowthStage = this.growthStages.length - 3
+        if (this.scene.getSeason() === this.inSeason) {
+          this.currentGrowDays += 3
+        } else {
+          this.currentGrowDays++
         }
+
+        if (this.currentGrowDays >= this.daysToGrow) {
+          this.currentGrowDays = 0
+          this.currentGrowthStage++
+          if (this.currentGrowthStage >= this.growthStages.findIndex(stage => stage === 'DeadTree')) {
+            this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'MatureTree')
+          }
     
-        this.currentAnimation = this.getAnimation()
+          this.currentAnimation = this.getAnimation()
+        }
       } else {
         if (!this.wateredYesterday) {
-          this.currentGrowthStage--
-          this.currentAnimation = this.getAnimation()
+          this.currentGrowDays--
+          if (this.currentGrowDays < 0) {
+            this.currentGrowDays = this.daysToGrow
+            this.currentGrowthStage--
+            if (this.currentGrowthStage < 0) {
+              this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'DeadTree')
+            }
+            this.currentAnimation = this.getAnimation()
+          }
         }
         this.wateredYesterday = false
       }  
@@ -79,7 +96,7 @@ export default class Tree {
 
   getGrowthStage () {
     if (this.currentGrowthStage < 0) {
-      return 'Dead'
+      return 'DeadTree'
     } else {
       return this.growthStages[this.currentGrowthStage]
     }
@@ -102,7 +119,7 @@ export default class Tree {
   }
 
   convertToStump () {
-    this.currentGrowthStage = this.growthStages.length - 1
+    this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'Stump')
     this.currentAnimation = this.getAnimation()
   }
 

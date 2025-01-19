@@ -44,7 +44,7 @@ export default class CropManager {
     let newTree = null
     const treeConfig = {
       game: this.game,
-      scene: this.scene,
+      scene: this.game.sceneManager.scenes.Game,
       imageManager: this.imageManager,
       manager: this,
       x: 0,
@@ -239,10 +239,10 @@ export default class CropManager {
 
     const tree = this.trees.find(tree => {
       return (
-        tree.collisionPoint.x >= tileTopLeft.x &&
-        tree.collisionPoint.x <= tileTopLeft.x + TileWidth &&
+        tree.collisionPoint.x >= tileTopLeft.x - 1.5 * TileWidth &&
+        tree.collisionPoint.x <= tileTopLeft.x + 1.5 * TileWidth &&
         tree.collisionPoint.y >= tileTopLeft.y &&
-        tree.collisionPoint.y <= tileTopLeft.y + TileHeight
+        tree.collisionPoint.y <= tileTopLeft.y + 3 * TileHeight
       )
     })
 
@@ -253,6 +253,16 @@ export default class CropManager {
     const crop = this.getCropAt(x, y)
 
     if (crop) this.wateredCrops.push(crop)
+  }
+
+  waterTree (tree) {
+    const cropTree = this.getTreeAt(tree.x, tree.y)
+    if (cropTree) {
+      this.wateredCrops.push(cropTree)
+      return true
+    }
+
+    return false
   }
 
   getCropAt (x, y) {
@@ -280,6 +290,7 @@ export default class CropManager {
     })
 
     this.gameManager.updateCrops(this.crops)
+    this.gameManager.updateTrees(this.trees)
 
     this.wateredCrops = []
   }

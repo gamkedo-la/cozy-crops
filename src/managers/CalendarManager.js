@@ -32,14 +32,14 @@ export default class CalendarManager {
     this.day++
     dateCheck(this)
     this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
-    console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
+    // console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
   }
 
   advanceWeek () {
     this.week++
     dateCheck(this)
     this.gameManager.setDate({ year: this.year, season: this.season, week: this.week, day: this.day })
-    console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
+    // console.log('Season:', this.seasonDisplay, 'Week:', this.week, 'Day: ', this.day, 'Year:', this.year)
   }
 
   advanceSeason () {
