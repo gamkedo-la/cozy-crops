@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Strawberry extends Crop {
   constructor (config) {
     config.type = EntityTypes.Strawberry
+    config.seedType = EntityTypes.StrawberrySeed
     config = {...config, ...CropData[EntityTypes.Strawberry]}
     super(config)
   }

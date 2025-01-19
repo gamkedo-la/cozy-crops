@@ -9,6 +9,7 @@ export default class Tree {
   constructor (config) {
     Object.assign(this, config)
 
+    this.seedType = seedTypeForTreeType(this)
     this.growthStages = ['Sprout', 'YoungSapling', 'Sapling', 'YoungTree', 'MatureTree', 'FruitingTree', 'DeadTree', 'Stump']
     this.currentGrowthStage = config.currentGrowthStage || 0
     this.currentGrowDays = 0
@@ -124,15 +125,23 @@ export default class Tree {
   }
 
   harvestFruit () { // return quantity of fruit harvested
-    if (!this.isFruitingType()) return 0
+    if (!this.isFruiting()) return { quantity: 0, seedQuantity: 0 }
 
     if (this.currentGrowthStage === this.growthStages.findIndex(stage => stage === 'FruitingTree')) {
       this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'MatureTree')
       this.currentAnimation = this.getAnimation()
-      return 1
+      if (this.scene.getSeason() === this.inSeason) {
+        const quantity = Math.floor(Math.random() * (this.maxInSeasonFruitYield - this.minInSeasonFruitYield + 1) + this.minInSeasonFruitYield)
+        const seedQuantity = Math.random() < this.chanceOfSeedDrop ? Math.floor(Math.random() * (this.maxSeedQuantity - 1 + 1)) + 1 : 0
+        return { quantity, seedQuantity }
+      } else {
+        const quantity = Math.floor(Math.random() * (this.maxOutOfSeasonFruitYield - this.minOutOfSeasonFruitYield + 1) + this.minOutOfSeasonFruitYield)
+        const seedQuantity = Math.random() < this.chanceOfSeedDrop ? Math.floor(Math.random() * (this.maxSeedQuantity - 1 + 1)) + 1 : 0
+        return { quantity, seedQuantity }
+      }
     }
 
-    return 0
+    return { quantity: 0, seedQuantity: 0 }
   }
 
   isFruiting () {
@@ -268,5 +277,19 @@ function woodTypeForTreeType (tree) {
       return EntityTypes.OakWood
     case EntityTypes.PineTree:
       return EntityTypes.PineWood
+  }
+}
+
+function seedTypeForTreeType (tree) {
+  switch (tree.type) {
+    case EntityTypes.AppleTree: return EntityTypes.AppleSeed
+    case EntityTypes.CherryTree: return EntityTypes.CherrySeed
+    case EntityTypes.LemonTree: return EntityTypes.LemonSeed
+    case EntityTypes.LimeTree: return EntityTypes.LimeSeed
+    case EntityTypes.MapleTree: return EntityTypes.MapleSeed
+    case EntityTypes.OakTree: return EntityTypes.OakSeed
+    case EntityTypes.Orange: return EntityTypes.OrangeSeed
+    case EntityTypes.PineTree: return EntityTypes.PineSeed
+    case EntityTypes.Plum: return EntityTypes.PlumSeed
   }
 }

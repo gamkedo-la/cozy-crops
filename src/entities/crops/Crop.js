@@ -8,6 +8,7 @@ export default class Crop {
 
     this.growthStages = ['Seedling', 'YoungSprout', 'Sprout', 'YoungPlant', 'MaturePlant', 'Dead']
     this.currentGrowthStage = config.currentGrowthStage || 0
+    this.currentGrowDays = 0
     this.width = 0 // Initialize once animations are built
     this.height = 0 // Initialize once animations are built
     this.animations = {}
@@ -52,20 +53,43 @@ export default class Crop {
   advanceDay () {
     if (this.manager.isWatered(this) && this.currentGrowthStage >= 0) {
       this.wateredYesterday = true
-      this.currentGrowthStage++
-      if (this.currentGrowthStage >= this.growthStages.length - 1) {
-        this.currentGrowthStage = this.growthStages.length - 2
+      if (this.scene.getSeason() === this.inSeason) {
+        this.currentGrowDays += 3
+      } else {
+        this.currentGrowDays++
+      }
+
+      if (this.currentGrowDays >= this.daysToGrow) {
+        this.currentGrowthStage++
+        if (this.currentGrowthStage >= this.growthStages.findIndex(stage => stage === 'Dead')) {
+          this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'MaturePlant')
+        }
       }
   
       this.currentAnimation = this.getAnimation()
     } else {
       if (!this.wateredYesterday) {
-        this.currentGrowthStage--
-        if (this.currentGrowthStage < 0) this.currentGrowthStage = -1
+        this.currentGrowDays--
+        if (this.currentGrowDays < 0) {
+          this.currentGrowDays = this.daysToGrow
+          this.currentGrowthStage--
+          if (this.currentGrowthStage < 0) {
+            this.currentGrowthStage = this.growthStages.findIndex(stage => stage === 'Dead')
+          }
+        }
         this.currentAnimation = this.getAnimation()
       }
       this.wateredYesterday = false
     }
+  }
+
+  harvest () {
+    const quantity = this.scene.getSeason() === this.inSeason ? Math.floor(Math.random() * (this.maxInSeasonYield - this.minInSeasonYield + 1)) + this.minInSeasonYield : Math.floor(Math.random() * (this.maxOutOfSeasonYield - this.minOutOfSeasonYield + 1)) + this.minOutOfSeasonYield
+    let seedQuantity = 0
+    if (Math.random() < this.chanceOfSeedDrop) {
+      seedQuantity = Math.floor(Math.random() * (this.maxSeedQuantity - 1 + 1)) + 1
+    }
+    return { quantity, seedQuantity }
   }
 
   update (deltaTime) {

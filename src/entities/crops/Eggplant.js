@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Eggplant extends Crop {
   constructor (config) {
     config.type = EntityTypes.Eggplant
+    config.seedType = EntityTypes.EggplantSeed
     config = {...config, ...CropData[EntityTypes.Eggplant]}
     super(config)
   }

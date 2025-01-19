@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Pumpkin extends Crop {
   constructor (config) {
     config.type = EntityTypes.Pumpkin
+    config.seedType = EntityTypes.PumpkinSeed
     config = {...config, ...CropData[EntityTypes.Pumpkin]}
     super(config)
   }

@@ -39,6 +39,10 @@ export default class Forageable {
     // override this method in subclasses
   }
 
+  harvest () {
+    return { quantity: 1, seedQuantity: 0 }
+  }
+
   update (deltaTime) {
     this.currentAnimation?.update(deltaTime)
     this.collisionPoint = {

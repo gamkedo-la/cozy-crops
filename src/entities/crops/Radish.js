@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Radish extends Crop {
   constructor (config) {
     config.type = EntityTypes.Radish
+    config.seedType = EntityTypes.RadishSeed
     config = {...config, ...CropData[EntityTypes.Radish]}
     super(config)
   }

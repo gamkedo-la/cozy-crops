@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Pepper extends Crop {
   constructor (config) {
     config.type = EntityTypes.Pepper
+    config.seedType = EntityTypes.PepperSeed
     config = {...config, ...CropData[EntityTypes.Pepper]}
     super(config)
   }

@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Watermelon extends Crop {
   constructor (config) {
     config.type = EntityTypes.Watermelon
+    config.seedType = EntityTypes.WatermelonSeed
     config = {...config, ...CropData[EntityTypes.Watermelon]}
     super(config)
   }

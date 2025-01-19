@@ -550,13 +550,16 @@ export default class GameScene extends Scene {
       for (const entity of entities) {
         if (this.entityManager.isTree(entity)) {
           if (entity.isFruiting()) {
-            const quantity = entity.harvestFruit()
+            const { quantity, seedQuantity } = entity.harvestFruit()
             if (quantity) this.inventoryManager.addItemToInventory(entity.getFruit(), quantity)
+            if (seedQuantity) this.inventoryManager.addItemToInventory({ type: entity.seedType }, seedQuantity)
           }
         } else if (this.entityManager.isHarvestable(entity)) {
           this.cropManager.harvestCrop(entity)
           this.entityManager.removeEntity(entity)
-          this.inventoryManager.addItemToInventory(entity, 1)
+          const { quantity, seedQuantity } = entity.harvest()
+          this.inventoryManager.addItemToInventory(entity, quantity)
+          if (seedQuantity) this.inventoryManager.addItemToInventory({ type: entity.seedType }, seedQuantity)
           didHarvest = true
         }
       }

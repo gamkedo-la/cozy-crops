@@ -1,5 +1,6 @@
 import FruitAnimations from '../../globals/FruitAnimations.js'
 import Animation from '../../components/Animation.js'
+import EntityTypes from '../../globals/EntityTypes.js'
 
 export default class Fruit {
   constructor (config) {

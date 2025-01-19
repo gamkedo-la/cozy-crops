@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Lettuce extends Crop {
   constructor (config) {
     config.type = EntityTypes.Lettuce
+    config.seedType = EntityTypes.LettuceSeed
     config = {...config, ...CropData[EntityTypes.Lettuce]}
     super(config)
   }

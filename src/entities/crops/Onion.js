@@ -7,6 +7,7 @@ import EntityTypes from '../../globals/EntityTypes.js'
 export default class Onion extends Crop {
   constructor (config) {
     config.type = EntityTypes.Onion
+    config.seedType = EntityTypes.OnionSeed
     config = {...config, ...CropData[EntityTypes.Onion]}
     super(config)
   }
