@@ -273,7 +273,12 @@ export default class GameScene extends Scene {
 
   spawnTrees () {
     // Implement once Trees are created
-    this.cropManager.initializeTrees(this.mapManager.getTreeStarts())
+    const existingTrees = this.gameManager.getTrees()
+    if (existingTrees.length) {
+      this.cropManager.initializeTrees(existingTrees, false)
+    } else {
+      this.cropManager.initializeTrees(this.mapManager.getTreeStarts())
+    }
   }
 
   restoreCrops () {
@@ -570,9 +575,11 @@ export default class GameScene extends Scene {
     if (tree) {
       tree.chop(toolDamage)
       if (tree.health <= 0) {
-        // this.cropManager.removeTree(tree)
         tree.convertToStump(tree)
-        this.inventoryManager.addItemToInventory(tree.getWood(), 1) // TODO: Add correct wood type
+        const wood = tree.getWood()
+        this.inventoryManager.addItemToInventory(wood, wood.quantity) // TODO: Add correct wood type
+        this.gameManager.updateTree(tree)
+        this.gameManager.addWood(wood.type, wood.quantity)
       }
     }
   }

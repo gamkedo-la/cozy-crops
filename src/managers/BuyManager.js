@@ -69,6 +69,7 @@ export default class BuyManager {
       imageManager: this.imageManager,
       entityManager: this.entityManager,
       money: this.scene.gameManager.getMoney(),
+      wood: this.scene.gameManager.getWood()
     }
 
     switch (this.shopType) {
@@ -123,9 +124,20 @@ export default class BuyManager {
     const items = this.pages[this.currentPageIndex]
     const selectedItem = items[this.selectedItemIndex]
 
-    if (this.storeConfirmation.quantity * selectedItem.price <= this.scene.gameManager.getMoney()) {
-      this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() - (selectedItem.price * this.storeConfirmation.quantity))
-      this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem(), this.storeConfirmation.quantity)
+    if (this.shopType === 'carpentryshop') {
+      if (this.storeConfirmation.quantity * selectedItem.price <= this.scene.gameManager.getWood()) {
+        const woodRemoved = this.scene.gameManager.removeWood(null, selectedItem.price * this.storeConfirmation.quantity)
+        // Need to remove the wood from the inventory manager too
+        for (const removed of woodRemoved) {
+          this.scene.inventoryManager.removeItemFromInventory({ type: removed.type }, removed.quantity)
+        }
+        this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem(), this.storeConfirmation.quantity)
+      }
+    } else {
+      if (this.storeConfirmation.quantity * selectedItem.price <= this.scene.gameManager.getMoney()) {
+        this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() - (selectedItem.price * this.storeConfirmation.quantity))
+        this.scene.inventoryManager.addItemToInventory(selectedItem.getPurchasedItem(), this.storeConfirmation.quantity)
+      }  
     }
 
     this.storeConfirmation = null
@@ -749,7 +761,7 @@ function initializeCarpentryPage0 (manager, config) {
     selected: false,
     type: EntityTypes.BedTwin,
     name: 'Twin Bed',
-    price: 100,
+    price: 1,
     y: currentY
   })
   bed.init()
@@ -762,7 +774,7 @@ function initializeCarpentryPage0 (manager, config) {
     selected: false,
     type: EntityTypes.FireplaceBrick,
     name: 'Fireplace',
-    price: 100,
+    price: 1,
     y: currentY
   })
   fireplace.init()
@@ -775,7 +787,7 @@ function initializeCarpentryPage0 (manager, config) {
     selected: false,
     type: EntityTypes.LowerCabinetBrown,
     name: 'Lower Cabinet',
-    price: 100,
+    price: 1,
     y: currentY
   })
   lowerCabinet.init()
@@ -788,7 +800,7 @@ function initializeCarpentryPage0 (manager, config) {
     selected: false,
     type: EntityTypes.UpperCabinetBrown,
     name: 'Upper Cabinet',
-    price: 100,
+    price: 1,
     y: currentY
   })
   upperCabinet.init()
@@ -801,7 +813,7 @@ function initializeCarpentryPage0 (manager, config) {
     selected: false,
     type: EntityTypes.RefrigeratorGray,
     name: 'Fridge',
-    price: 100,
+    price: 1,
     y: currentY
   })
   fridge.init()
@@ -814,7 +826,7 @@ function initializeCarpentryPage0 (manager, config) {
     selected: false,
     type: EntityTypes.StoveGray,
     name: 'Stove',
-    price: 100,
+    price: 1,
     y: currentY
   })
   stove.init()
@@ -832,7 +844,7 @@ function initializeCarpentryPage1 (manager, config) {
     selected: false,
     type: EntityTypes.BedQueen,
     name: 'Queen Bed',
-    price: 100,
+    price: 1,
     y: currentY
   })
   bed.init()
@@ -845,7 +857,7 @@ function initializeCarpentryPage1 (manager, config) {
     selected: false,
     type: EntityTypes.FireplaceStone,
     name: 'Fireplace',
-    price: 100,
+    price: 1,
     y: currentY
   })
   fireplace.init()
@@ -858,7 +870,7 @@ function initializeCarpentryPage1 (manager, config) {
     selected: false,
     type: EntityTypes.LowerCabinetWhite,
     name: 'Lower Cabinet',
-    price: 100,
+    price: 1,
     y: currentY
   })
   lowerCabinet.init()
@@ -871,7 +883,7 @@ function initializeCarpentryPage1 (manager, config) {
     selected: false,
     type: EntityTypes.UpperCabinetGray,
     name: 'Upper Cabinet',
-    price: 100,
+    price: 1,
     y: currentY
   })
   upperCabinet.init()
@@ -884,7 +896,7 @@ function initializeCarpentryPage1 (manager, config) {
     selected: false,
     type: EntityTypes.RefrigeratorSilver,
     name: 'Fridge',
-    price: 100,
+    price: 1,
     y: currentY
   })
   fridge.init()
@@ -897,7 +909,7 @@ function initializeCarpentryPage1 (manager, config) {
     selected: false,
     type: EntityTypes.StoveWhite,
     name: 'Stove',
-    price: 100,
+    price: 1,
     y: currentY
   })
   stove.init()
@@ -915,7 +927,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperGray,
     name: 'Gray Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   gray.init()
@@ -928,7 +940,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperPurple,
     name: 'Purple Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   purple.init()
@@ -941,7 +953,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperRed,
     name: 'Red Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   red.init()
@@ -954,7 +966,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperStriped,
     name: 'Striped Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   striped.init()
@@ -967,7 +979,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperTan,
     name: 'Tan Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   tan.init()
@@ -980,7 +992,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperVerticalWood,
     name: 'Vertical Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   vertical.init()
@@ -993,7 +1005,7 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperWoodTiles,
     name: 'Tile Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
   tiles.init()
@@ -1006,9 +1018,11 @@ function initializeCarpentryPage2 (manager, config) {
     selected: false,
     type: EntityTypes.WallPaperX,
     name: 'X Wallpaper',
-    price: 100,
+    price: 1,
     y: currentY
   })
+  xPaper.init()
+  manager.pages[2].push(xPaper)
 }
 
 function drawCurrentPage (manager, dialogBkgdRect) {
@@ -1130,6 +1144,7 @@ function manageBuyDialogueInput (manager, justDownKeys, controls) {
       itemName: selectedItem.name,
       dialogRect: manager.dialogRect,
       money: manager.scene.gameManager.getMoney(),
+      wood: manager.scene.gameManager.getWood(),
       buy: true
     }
 

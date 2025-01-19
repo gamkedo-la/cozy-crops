@@ -182,6 +182,56 @@ export default class GameManager {
     return this.state.Money
   }
 
+  addWood (type, quantity) {
+    const existingItem = this.state.Inventory.find(i => i.type === type)
+    if (existingItem) {
+      existingItem.quantity += quantity
+    } else {
+      this.state.Inventory.push({ type, quantity })
+    }
+    this.saveGame()
+  }
+
+  removeWood (type, quantity) {
+    const woodRemoved = []
+    if (type) {
+      const existingItem = this.state.Inventory.find(i => i.type === type)
+      if (existingItem) {
+        existingItem.quantity -= quantity
+        if (existingItem.quantity <= 0) {
+          this.state.Inventory = this.state.Inventory.filter(i => i.type !== type)
+        }
+        woodRemoved.push({ type, quantity })
+        this.saveGame()
+      }
+    } else {
+      const wood = this.getWood()
+      if (wood >= quantity) {
+        let remaining = quantity
+        for (let i = this.state.Inventory.length - 1; i >= 0; i--) {
+          if (this.game.entityManager.isWood(this.state.Inventory[i])) {
+            if (this.state.Inventory[i].quantity <= remaining) {
+              remaining -= this.state.Inventory[i].quantity
+              this.state.Inventory.splice(i, 1)
+              woodRemoved.push({ type: this.state.Inventory[i].type, quantity: this.state.Inventory[i].quantity })
+            } else {
+              this.state.Inventory[i].quantity -= remaining
+              woodRemoved.push({ type: this.state.Inventory[i].type, quantity: remaining })
+              break
+            }
+          }
+        }
+        this.saveGame()
+      }
+    }
+
+    return woodRemoved
+  }
+
+  getWood () {
+    return this.state.Inventory.filter(i => this.game.entityManager.isWood(i)).reduce((total, i) => total + i.quantity, 0)
+  }
+
   setInventory (inventory) {
     this.state.Inventory = inventory
     localStorage.setItem(LocalStorageKeys.Inventory, JSON.stringify(inventory))
@@ -332,6 +382,43 @@ export default class GameManager {
   getCrops () {
     return this.state.Map.Crops
   }
+
+  addTree (tree) {
+    this.state.Map.Trees.push({
+      x: tree.x,
+      y: tree.y,
+      type: tree.type,
+      currentGrowthStage: tree.currentGrowthStage
+    })
+    this.saveGame()
+  }
+
+  updateTree (tree) {
+    const existingTree = this.state.Map.Trees.find(t => t.x === tree.x && t.y === tree.y)
+    if (existingTree) {
+      existingTree.currentGrowthStage = tree.currentGrowthStage
+    }
+    this.saveGame()
+  }
+
+  updateTrees (trees) {
+    for (const tree of trees) {
+      const existingTree = this.state.Map.Trees.find(t => t.x === tree.x && t.y === tree.y)
+      if (existingTree) {
+        existingTree.currentGrowthStage = tree.currentGrowthStage
+      }
+    }
+    this.saveGame()
+  }
+
+  removeTree (tree) {
+    this.state.Map.Trees = this.state.Map.Trees.filter(t => t.x !== tree.x || t.y !== tree.y)
+    this.saveGame()
+  }
+
+  getTrees () {
+    return this.state.Map.Trees || []
+  }
 }
 
 function initializeNewGame (manager, saveSlot) {
@@ -409,6 +496,9 @@ function initializeNewGame (manager, saveSlot) {
       ],
       ModifiedTiles: [
         // { x: 0, y: 0, tileIndex: 0 }
+      ],
+      Trees: [
+        // { x: 0, y: 0, type: EntityTypes.AppleTree, growth: 0 }
       ]
     },
     Money: 500,

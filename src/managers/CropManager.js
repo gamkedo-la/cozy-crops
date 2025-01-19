@@ -40,7 +40,7 @@ export default class CropManager {
     this.trees = []
   }
 
-  initializeTrees (treeStarts) {
+  initializeTrees (treeStarts, saveData = true) {
     let newTree = null
     const treeConfig = {
       game: this.game,
@@ -54,6 +54,7 @@ export default class CropManager {
     for (const treeStart of treeStarts) {
       treeConfig.x = treeStart.x
       treeConfig.y = treeStart.y
+      treeConfig.currentGrowthStage = treeStart.currentGrowthStage
 
       switch (treeStart.type) {
         case EntityTypes.AppleTree:
@@ -87,9 +88,9 @@ export default class CropManager {
 
       if (newTree) {
         this.trees.push(newTree)
-        newTree.currentGrowthStage = newTree.growthStages.length - 4 // Start at MatureTree
         newTree.init()
         this.entityManager.addEntity(newTree)
+        if (saveData) this.gameManager.addTree(newTree)
       }
     }
   }

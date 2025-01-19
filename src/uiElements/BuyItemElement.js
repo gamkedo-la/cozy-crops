@@ -15,7 +15,11 @@ export default class BuyItemElement extends StoreItemElement {
   }
 
   init () {
-    if (this.money < this.price) this.disabled = true
+    if (this.shopType === 'carpentryshop') {
+      if (this.wood < this.price) this.disabled = true
+    } else {
+      if (this.money < this.price) this.disabled = true
+    }
 
     super.init()
   }

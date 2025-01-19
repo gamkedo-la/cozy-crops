@@ -35,6 +35,7 @@ import Radish from '../entities/crops/Radish.js'
 import Strawberry from '../entities/crops/Strawberry.js'
 import Tomato from '../entities/crops/Tomato.js'
 import Watermelon from '../entities/crops/Watermelon.js'
+import Wood from '../entities/crops/Wood.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -312,6 +313,8 @@ function initializeInventory (manager, itemToAdd, quantity = 1) {
     initializeForageables(manager, itemToAdd, quantity)
   } else if (manager.entityManager.isCrop(itemToAdd)) {
     initializeCrops(manager, itemToAdd, quantity)
+  } else if (manager.entityManager.isWood(itemToAdd)) {
+    initializeWood(manager, itemToAdd, quantity)
   }
 }
 
@@ -493,6 +496,28 @@ function initializeCrops (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
+function initializeWood (manager, itemToAdd, quantity = 1) {
+  let item  = null
+
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  if (manager.entityManager.isWood(itemToAdd)) {
+    item = new Wood(config)
+  }
+
+  item.init()
+  manager.inventory.push(item)
+}
+
 function drawQuantity (ctx, x, y, quantity, width, height) {
   // draw a small grey circle behind where we're going to draw the quantity
   ctx.fillStyle = 'grey'
@@ -504,5 +529,7 @@ function drawQuantity (ctx, x, y, quantity, width, height) {
   ctx.fillStyle = 'black'
   ctx.font = '14px Arial'
   ctx.textAlign = 'right'
-  ctx.fillText(`${quantity > 9 ? '9+' : quantity}`, x + width - 8, y + height - 9)
+  const quantityString = `${quantity > 9 ? '9+' : quantity}`
+  const quantityXPos = quantity > 9 ? x + width : x + width - 8
+  ctx.fillText(quantityString, quantityXPos, y + height - 9)
 }

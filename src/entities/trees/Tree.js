@@ -25,6 +25,8 @@ export default class Tree {
   init () {
     this.buildAnimations()
 
+    if (!this.isFruitingType()) this.growthStages.splice(this.growthStages.findIndex(stage => stage === 'FruitingTree'), 1)
+
     this.currentAnimation = this.getAnimation()
 
     this.width = this.currentAnimation.width
@@ -34,7 +36,7 @@ export default class Tree {
       x: this.x + this.currentAnimation.width / 2,
       y: this.y + this.currentAnimation.height - 6 // special padding for trees based on spritesheet
     }
-    if (!this.isFruitingType()) this.growthStages.splice(this.growthStages.findIndex(stage => stage === 'FruitingTree'), 1)
+
     setHealth(this)
   }
 
@@ -165,7 +167,7 @@ export default class Tree {
       y: this.y + 28 - this.itemHeight,
       width: 2 * this.itemWidth,
       height: 2 * this.itemHeight,
-      quantity: 1
+      quantity: this.woodCount
     })
     wood.init()
 
