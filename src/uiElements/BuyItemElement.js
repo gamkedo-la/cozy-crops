@@ -116,13 +116,13 @@ function getNameForType (type) {
     case EntityTypes.BedQueen:
       return 'Queen Bed'
     case EntityTypes.FireplaceBrick:
-      return 'Brick Fireplace'
+      return 'Fireplace'
     case EntityTypes.FireplaceStone:
-      return 'Stone Fireplace'
+      return 'Fireplace'
     case EntityTypes.LowerCabinetBrown:
-      return 'Lower Cabinet'
+      return 'Cabinet'
     case EntityTypes.LowerCabinetWhite:
-      return 'Lower Cabinet'
+      return 'Cabinet'
     case EntityTypes.RefrigeratorGray:
       return 'Refrigerator'
     case EntityTypes.RefrigeratorSilver:
@@ -134,9 +134,9 @@ function getNameForType (type) {
     case EntityTypes.StoveWhite:
       return 'Stove'
     case EntityTypes.UpperCabinetBrown:
-      return 'Upper Cabinet'
-    case EntityTypes.UpperCabinetWhite:
-      return 'Upper Cabinet'
+      return 'Cupboard'
+    case EntityTypes.UpperCabinetGray:
+      return 'Cupboard'
     case EntityTypes.WallPaperGray:
       return 'Gray'
     case EntityTypes.WallPaperPurple:
@@ -148,9 +148,9 @@ function getNameForType (type) {
     case EntityTypes.WallPaperTan:
       return 'Tan'
     case EntityTypes.WallPaperVerticalWood:
-      return 'Vertical Wood'
+      return 'Wood'
     case EntityTypes.WallPaperWoodTiles:
-      return 'Wood Tiles'
+      return 'Tiles'
     case EntityTypes.WallPaperX:
       return 'X'
   }

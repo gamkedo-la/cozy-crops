@@ -206,9 +206,9 @@ function setCarpentryShopType (manager, config) {
     [] // premium furniture
   ]
   manager.pageTitles = [
-    'Buy Furniture',
-    'Buy Upgraded Furniture',
-    'Buy Premium Furniture'
+    'Furniture',
+    'Upgraded Furniture',
+    'Wallpaper'
   ]
 
   manager.itemContainer = StoreUIData.CarpentryItem
@@ -754,6 +754,71 @@ function initializeCarpentryPage0 (manager, config) {
   })
   bed.init()
   manager.pages[0].push(bed)
+
+  currentY += deltaY
+
+  const fireplace = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.FireplaceBrick,
+    name: 'Fireplace',
+    price: 100,
+    y: currentY
+  })
+  fireplace.init()
+  manager.pages[0].push(fireplace)
+
+  currentY += deltaY
+
+  const lowerCabinet = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.LowerCabinetBrown,
+    name: 'Lower Cabinet',
+    price: 100,
+    y: currentY
+  })
+  lowerCabinet.init()
+  manager.pages[0].push(lowerCabinet)
+
+  currentY += deltaY
+
+  const upperCabinet = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.UpperCabinetBrown,
+    name: 'Upper Cabinet',
+    price: 100,
+    y: currentY
+  })
+  upperCabinet.init()
+  manager.pages[0].push(upperCabinet)
+
+  currentY += deltaY
+
+  const fridge = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.RefrigeratorGray,
+    name: 'Fridge',
+    price: 100,
+    y: currentY
+  })
+  fridge.init()
+  manager.pages[0].push(fridge)
+
+  currentY += deltaY
+
+  const stove = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.StoveGray,
+    name: 'Stove',
+    price: 100,
+    y: currentY
+  })
+  stove.init()
+  manager.pages[0].push(stove)
 }
 
 function initializeCarpentryPage1 (manager, config) {
@@ -761,6 +826,82 @@ function initializeCarpentryPage1 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'carpentryshop'
+
+  const bed = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.BedQueen,
+    name: 'Queen Bed',
+    price: 100,
+    y: currentY
+  })
+  bed.init()
+  manager.pages[1].push(bed)
+
+  currentY += deltaY
+
+  const fireplace = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.FireplaceStone,
+    name: 'Fireplace',
+    price: 100,
+    y: currentY
+  })
+  fireplace.init()
+  manager.pages[1].push(fireplace)
+
+  currentY += deltaY
+
+  const lowerCabinet = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.LowerCabinetWhite,
+    name: 'Lower Cabinet',
+    price: 100,
+    y: currentY
+  })
+  lowerCabinet.init()
+  manager.pages[1].push(lowerCabinet)
+
+  currentY += deltaY
+
+  const upperCabinet = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.UpperCabinetGray,
+    name: 'Upper Cabinet',
+    price: 100,
+    y: currentY
+  })
+  upperCabinet.init()
+  manager.pages[1].push(upperCabinet)
+
+  currentY += deltaY
+
+  const fridge = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.RefrigeratorSilver,
+    name: 'Fridge',
+    price: 100,
+    y: currentY
+  })
+  fridge.init()
+  manager.pages[1].push(fridge)
+
+  currentY += deltaY
+
+  const stove = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.StoveWhite,
+    name: 'Stove',
+    price: 100,
+    y: currentY
+  })
+  stove.init()
+  manager.pages[1].push(stove)
 }
 
 function initializeCarpentryPage2 (manager, config) {
@@ -768,6 +909,106 @@ function initializeCarpentryPage2 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'carpentryshop'
+
+  const gray = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperGray,
+    name: 'Gray Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  gray.init()
+  manager.pages[2].push(gray)
+
+  currentY += deltaY
+
+  const purple = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperPurple,
+    name: 'Purple Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  purple.init()
+  manager.pages[2].push(purple)
+
+  currentY += deltaY
+
+  const red = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperRed,
+    name: 'Red Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  red.init()
+  manager.pages[2].push(red)
+
+  currentY += deltaY
+
+  const striped = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperStriped,
+    name: 'Striped Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  striped.init()
+  manager.pages[2].push(striped)
+
+  currentY += deltaY
+
+  const tan = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperTan,
+    name: 'Tan Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  tan.init()
+  manager.pages[2].push(tan)
+
+  currentY += deltaY
+
+  const vertical = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperVerticalWood,
+    name: 'Vertical Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  vertical.init()
+  manager.pages[2].push(vertical)
+
+  currentY += deltaY
+
+  const tiles = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperWoodTiles,
+    name: 'Tile Wallpaper',
+    price: 100,
+    y: currentY
+  })
+  tiles.init()
+  manager.pages[2].push(tiles)
+
+  currentY += deltaY
+
+  const xPaper = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.WallPaperX,
+    name: 'X Wallpaper',
+    price: 100,
+    y: currentY
+  })
 }
 
 function drawCurrentPage (manager, dialogBkgdRect) {

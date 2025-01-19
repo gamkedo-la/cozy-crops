@@ -417,7 +417,7 @@ export default class EntityManager {
       case EntityTypes.LowerCabinetBrown:
       case EntityTypes.LowerCabinetWhite:
       case EntityTypes.UpperCabinetBrown:
-      case EntityTypes.UpperCabinetWhite:
+      case EntityTypes.UpperCabinetGray:
       case EntityTypes.RefrigeratorGray:
       case EntityTypes.RefrigeratorSilver:
       case EntityTypes.SleepingBag2:
