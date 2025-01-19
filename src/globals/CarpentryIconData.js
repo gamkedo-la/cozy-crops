@@ -6,8 +6,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 80,
     y: 16,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   FireplaceStone: {
@@ -15,8 +15,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 64,
     y: 16,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   LowerCabinetBrown: {
@@ -24,8 +24,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 32,
     y: 48,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   LowerCabinetWhite: {
@@ -33,8 +33,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 16,
     y: 48,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   BedQueen: {
@@ -42,8 +42,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 64,
     y: 32,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   RefrigeratorGray: {
@@ -51,8 +51,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 16,
     y: 32,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   RefrigeratorSilver: {
@@ -60,8 +60,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 0,
     y: 32,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   SleepingBag2: {
@@ -69,8 +69,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 32,
     y: 32,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   StoveGray: {
@@ -78,8 +78,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 80,
     y: 32,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   StoveWhite: {
@@ -87,8 +87,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 0,
     y: 48,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   BedTwin: {
@@ -96,8 +96,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 48,
     y: 32,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   UpperCabinetBrown: {
@@ -105,8 +105,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 48,
     y: 16,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   UpperCabinetGray: {
@@ -114,8 +114,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 32,
     y: 16,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperGray: {
@@ -123,8 +123,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 48,
     y: 0,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperPurple: {
@@ -132,8 +132,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 80,
     y: 0,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperRed: {
@@ -141,8 +141,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 16,
     y: 0,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperStriped: {
@@ -150,8 +150,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 32,
     y: 0,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperTan: {
@@ -159,8 +159,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 0,
     y: 0,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperVerticalWood: {
@@ -168,8 +168,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 64,
     y: 0,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperWoodTiles: {
@@ -177,8 +177,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 0,
     y: 16,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
   WallPaperX: {
@@ -186,8 +186,8 @@ const CarpentryIconData = {
     spritesheet: CarpentryIcons,
     x: 16,
     y: 16,
-    width: 14,
-    height: 14,
+    width: 16,
+    height: 16,
     padding: 1
   },
 }
