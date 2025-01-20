@@ -10,6 +10,7 @@ import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
 import ForageableData from '../globals/ForageableData.js'
 import ToolData from '../globals/ToolData.js'
+import FurnitureData from '../globals/FurnitureData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 import StoreConfirmation from '../uiElements/StoreConfirmation.js'
@@ -206,12 +207,12 @@ function setCarpentryShopType (manager, config) {
   manager.pages = [
     [], // furniture
     [], // upgraded furniture
-    [] // premium furniture
+    [] // wallpaper
   ]
   manager.pageTitles = [
-    'Sell Furniture',
-    'Sell Upgraded Furniture',
-    'Sell Premium Furniture'
+    'Furniture',
+    'Upgraded Furniture',
+    'Wallpaper'
   ]
 
   manager.itemContainer = StoreUIData.CarpentryItem
@@ -385,6 +386,25 @@ function initializeCarpentryPage0 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'carpentryshop'
+
+  const baseFurniture = manager.inventoryManager.getBaseFurniture()
+  baseFurniture.forEach(tool => {
+    const furnitureData = FurnitureData[tool.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: tool.type,
+      name: furnitureData.name,
+      price: furnitureData.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[0].push(item)
+
+    if (manager.pages[0].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeCarpentryPage1 (manager, config) {

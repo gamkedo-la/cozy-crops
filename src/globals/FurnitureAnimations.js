@@ -169,9 +169,9 @@ export const WallPaperGray = {
   }
 }
 
-export const WallPaperPurple = {
+export const FlooringPurple = {
   Idle: {
-    name: 'WallPaperPurpleIdle',
+    name: 'FlooringPurpleIdle',
     spritesheet: CarpentryItems,
     x: 64,
     y: 0,
@@ -181,9 +181,9 @@ export const WallPaperPurple = {
   }
 }
 
-export const WallPaperRed = {
+export const WallPaperAuburn = {
   Idle: {
-    name: 'WallPaperRedIdle',
+    name: 'WallPaperAuburnIdle',
     spritesheet: CarpentryItems,
     x: 64,
     y: 0,
@@ -217,9 +217,9 @@ export const WallPaperTan = {
   }
 }
 
-export const WallPaperVerticalWood = {
+export const FlooringWood = {
   Idle: {
-    name: 'WallPaperVerticalWoodIdle',
+    name: 'FlooringWoodIdle',
     spritesheet: CarpentryItems,
     x: 64,
     y: 0,
@@ -229,9 +229,9 @@ export const WallPaperVerticalWood = {
   }
 }
 
-export const WallPaperWoodTiles = {
+export const FlooringHerringbone = {
   Idle: {
-    name: 'WallPaperWoodTilesIdle',
+    name: 'FlooringHerringboneIdle',
     spritesheet: CarpentryItems,
     x: 64,
     y: 0,
@@ -241,9 +241,9 @@ export const WallPaperWoodTiles = {
   }
 }
 
-export const WallPaperX = {
+export const FlooringCrosshatch = {
   Idle: {
-    name: 'WallPaperXIdle',
+    name: 'FlooringCrosshatchIdle',
     spritesheet: CarpentryItems,
     x: 64,
     y: 0,
@@ -268,13 +268,13 @@ const FurnitureAnimations = {
   [EntityTypes.StoveGray]: StoveGray,
   [EntityTypes.StoveWhite]: StoveWhite,
   [EntityTypes.WallPaperGray]: WallPaperGray,
-  [EntityTypes.WallPaperPurple]: WallPaperPurple,
-  [EntityTypes.WallPaperRed]: WallPaperRed,
+  [EntityTypes.FlooringPurple]: FlooringPurple,
+  [EntityTypes.WallPaperAuburn]: WallPaperAuburn,
   [EntityTypes.WallPaperStriped]: WallPaperStriped,
   [EntityTypes.WallPaperTan]: WallPaperTan,
-  [EntityTypes.WallPaperVerticalWood]: WallPaperVerticalWood,
-  [EntityTypes.WallPaperWoodTiles]: WallPaperWoodTiles,
-  [EntityTypes.WallPaperX]: WallPaperX
+  [EntityTypes.FlooringWood]: FlooringWood,
+  [EntityTypes.FlooringHerringbone]: FlooringHerringbone,
+  [EntityTypes.FlooringCrosshatch]: FlooringCrosshatch
 }
 
 export default FurnitureAnimations

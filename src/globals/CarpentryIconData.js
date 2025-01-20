@@ -127,8 +127,8 @@ const CarpentryIconData = {
     height: 16,
     padding: 1
   },
-  WallPaperPurple: {
-    name: 'WallPaperPurpleIcon',
+  FlooringPurple: {
+    name: 'FlooringPurpleIcon',
     spritesheet: CarpentryIcons,
     x: 80,
     y: 0,
@@ -136,8 +136,8 @@ const CarpentryIconData = {
     height: 16,
     padding: 1
   },
-  WallPaperRed: {
-    name: 'WallPaperRedIcon',
+  WallPaperAuburn: {
+    name: 'WallPaperAuburnIcon',
     spritesheet: CarpentryIcons,
     x: 16,
     y: 0,
@@ -163,8 +163,8 @@ const CarpentryIconData = {
     height: 16,
     padding: 1
   },
-  WallPaperVerticalWood: {
-    name: 'WallPaperVerticalWoodIcon',
+  FlooringWood: {
+    name: 'FlooringWoodIcon',
     spritesheet: CarpentryIcons,
     x: 64,
     y: 0,
@@ -172,8 +172,8 @@ const CarpentryIconData = {
     height: 16,
     padding: 1
   },
-  WallPaperWoodTiles: {
-    name: 'WallPaperWoodTilesIcon',
+  FlooringHerringbone: {
+    name: 'FlooringHerringboneIcon',
     spritesheet: CarpentryIcons,
     x: 0,
     y: 16,
@@ -181,8 +181,8 @@ const CarpentryIconData = {
     height: 16,
     padding: 1
   },
-  WallPaperX: {
-    name: 'WallPaperXIcon',
+  FlooringCrosshatch: {
+    name: 'FlooringCrosshatchIcon',
     spritesheet: CarpentryIcons,
     x: 16,
     y: 16,
@@ -208,11 +208,11 @@ export const {
   UpperCabinetBrown,
   UpperCabinetGray,
   WallPaperGray,
-  WallPaperPurple,
-  WallPaperRed,
+  FlooringPurple,
+  WallPaperAuburn,
   WallPaperStriped,
   WallPaperTan,
-  WallPaperVerticalWood,
-  WallPaperWoodTiles,
-  WallPaperX
+  FlooringWood,
+  FlooringHerringbone,
+  FlooringCrosshatch
 } = CarpentryIconData

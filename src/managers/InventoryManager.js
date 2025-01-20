@@ -161,6 +161,21 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isPremiumTool(item))
   }
 
+  getBaseFurniture () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isBaseFurniture(item))
+  }
+
+  getUpgradedFurniture () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isUpgradedFurniture(item))
+  }
+
+  getWallpaper () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isWallpaper(item))
+  }
+
   getSeeds () {
     const inventory = this.getInventory()
     return inventory.filter(item => this.entityManager.isSeed(item))
@@ -290,6 +305,8 @@ export default class InventoryManager {
       )
       drawQuantity(this.game.ctx, wood.x, wood.y, wood.quantity, this.itemWidth, this.itemHeight)
     })
+
+    // Don't draw furniture or wallpaper
 
     if (this.selectedItem) {
       this.selectedItemHighlight.draw(this.selectedItem.x, this.selectedItem.y)

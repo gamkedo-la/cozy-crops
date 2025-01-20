@@ -346,6 +346,67 @@ export default class EntityManager {
     }
   }
 
+  isBaseFurniture (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.BedTwin:
+      case EntityTypes.FireplaceBrick:
+      case EntityTypes.LowerCabinetBrown:
+      case EntityTypes.UpperCabinetBrown:
+      case EntityTypes.RefrigeratorGray:
+      case EntityTypes.SleepingBag2:
+      case EntityTypes.StoveGray:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isUpgradedFurniture (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.BedQueen:
+      case EntityTypes.FireplaceStone:
+      case EntityTypes.LowerCabinetWhite:
+      case EntityTypes.UpperCabinetGray:
+      case EntityTypes.RefrigeratorSilver:
+      case EntityTypes.StoveWhite:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isWallpaper (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.WallPaperGray:
+      case EntityTypes.WallPaperAuburn:
+      case EntityTypes.WallPaperStriped:
+      case EntityTypes.WallPaperTan:
+        return true
+      default:
+        return false
+    }
+  }
+
+  isFlooring (entity) {
+    if (!entity) return false
+
+    switch (entity.type) {
+      case EntityTypes.FlooringPurple:
+      case EntityTypes.FlooringWood:
+      case EntityTypes.FlooringHerringbone:
+      case EntityTypes.FlooringCrosshatch:
+        return true
+      default:
+        return false
+    }
+  }
+
   isAxe (entity) {
     if (!entity) return false
 
@@ -424,13 +485,13 @@ export default class EntityManager {
       case EntityTypes.StoveGray:
       case EntityTypes.StoveWhite:
       case EntityTypes.WallPaperGray:
-      case EntityTypes.WallPaperPurple:
-      case EntityTypes.WallPaperRed:
+      case EntityTypes.FlooringPurple:
+      case EntityTypes.WallPaperAuburn:
       case EntityTypes.WallPaperStriped:
       case EntityTypes.WallPaperTan:
-      case EntityTypes.WallPaperVerticalWood:
-      case EntityTypes.WallPaperWoodTiles:
-      case EntityTypes.WallPaperX:
+      case EntityTypes.FlooringWood:
+      case EntityTypes.FlooringHerringbone:
+      case EntityTypes.FlooringCrosshatch:
         return true
       default:
         return false

@@ -213,14 +213,16 @@ function setBlacksmithShopType (manager, config) {
 
 function setCarpentryShopType (manager, config) {
   manager.pages = [
-    [], // furniture
-    [], // upgraded furniture
-    [] // premium furniture
+    [], // Furniture
+    [], // Upgraded Furniture
+    [], // Wallpaper
+    [] // Flooring
   ]
   manager.pageTitles = [
     'Furniture',
     'Upgraded Furniture',
-    'Wallpaper'
+    'Wallpaper',
+    'Flooring'
   ]
 
   manager.itemContainer = StoreUIData.CarpentryItem
@@ -233,6 +235,7 @@ function setCarpentryShopType (manager, config) {
   initializeCarpentryPage0(manager, config)
   initializeCarpentryPage1(manager, config)
   initializeCarpentryPage2(manager, config)
+  initializeCarpentryPage3(manager, config)
 
   manager.prevButton.x = manager.game.canvas.width / 2 - manager.backgroundTop.width + 10
   manager.nextButton.x = manager.game.canvas.width / 2 + manager.backgroundTop.width - (2 * UISpriteData.NextButtonSmall.width) - 10
@@ -831,6 +834,10 @@ function initializeCarpentryPage0 (manager, config) {
   })
   stove.init()
   manager.pages[0].push(stove)
+
+  if (manager.currentPageIndex === 0) {
+    manager.pages[0][manager.selectedItemIndex].selected = true
+  }
 }
 
 function initializeCarpentryPage1 (manager, config) {
@@ -914,6 +921,10 @@ function initializeCarpentryPage1 (manager, config) {
   })
   stove.init()
   manager.pages[1].push(stove)
+
+  if (manager.currentPageIndex === 1) {
+    manager.pages[1][manager.selectedItemIndex].selected = true
+  }
 }
 
 function initializeCarpentryPage2 (manager, config) {
@@ -935,24 +946,11 @@ function initializeCarpentryPage2 (manager, config) {
 
   currentY += deltaY
 
-  const purple = new BuyItemElement({
-    ...config,
-    selected: false,
-    type: EntityTypes.WallPaperPurple,
-    name: 'Purple Wallpaper',
-    price: 1,
-    y: currentY
-  })
-  purple.init()
-  manager.pages[2].push(purple)
-
-  currentY += deltaY
-
   const red = new BuyItemElement({
     ...config,
     selected: false,
-    type: EntityTypes.WallPaperRed,
-    name: 'Red Wallpaper',
+    type: EntityTypes.WallPaperAuburn,
+    name: 'Auburn Wallpaper',
     price: 1,
     y: currentY
   })
@@ -985,44 +983,70 @@ function initializeCarpentryPage2 (manager, config) {
   tan.init()
   manager.pages[2].push(tan)
 
+  if (manager.currentPageIndex === 2) {
+    manager.pages[2][manager.selectedItemIndex].selected = true
+  }
+}
+
+function initializeCarpentryPage3 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
+  config.shopType = 'carpentryshop'
+
+  const purple = new BuyItemElement({
+    ...config,
+    selected: false,
+    type: EntityTypes.FlooringPurple,
+    name: 'Purple Carpet',
+    price: 1,
+    y: currentY
+  })
+  purple.init()
+  manager.pages[3].push(purple)
+
   currentY += deltaY
 
   const vertical = new BuyItemElement({
     ...config,
     selected: false,
-    type: EntityTypes.WallPaperVerticalWood,
-    name: 'Vertical Wallpaper',
+    type: EntityTypes.FlooringWood,
+    name: 'Wood Flooring',
     price: 1,
     y: currentY
   })
   vertical.init()
-  manager.pages[2].push(vertical)
+  manager.pages[3].push(vertical)
 
   currentY += deltaY
 
   const tiles = new BuyItemElement({
     ...config,
     selected: false,
-    type: EntityTypes.WallPaperWoodTiles,
+    type: EntityTypes.FlooringHerringbone,
     name: 'Tile Wallpaper',
     price: 1,
     y: currentY
   })
   tiles.init()
-  manager.pages[2].push(tiles)
+  manager.pages[3].push(tiles)
 
   currentY += deltaY
 
   const xPaper = new BuyItemElement({
     ...config,
     selected: false,
-    type: EntityTypes.WallPaperX,
+    type: EntityTypes.FlooringCrosshatch,
     name: 'X Wallpaper',
     price: 1,
     y: currentY
   })
   xPaper.init()
-  manager.pages[2].push(xPaper)
+  manager.pages[3].push(xPaper)
+
+  if (manager.currentPageIndex === 3) {
+    manager.pages[3][manager.selectedItemIndex].selected = true
+  }
 }
 
 function drawCurrentPage (manager, dialogBkgdRect) {
@@ -1046,8 +1070,9 @@ function drawBackgroundForItemCount (manager, dialogBkgdRect, itemCount) {
   )
   
   const pageLength = itemCount * (manager.itemContainer.height + 4) // + 4 accounts for spacing between items
-  // add one section to make room for buttons at the bottom, add one section for the page title at the top
-  const numMiddleSections = 2 + Math.ceil((pageLength - manager.backgroundTop.height - manager.backgroundBottom.height) / manager.backgroundMiddle.height)
+  // add one section to make room for buttons at the bottom, add one section for the page title at the top, and one to ensure there is room for short pages
+  const extraMiddleSections = itemCount <= 4 ? 3 : 2
+  const numMiddleSections = extraMiddleSections + Math.ceil((pageLength - manager.backgroundTop.height - manager.backgroundBottom.height) / manager.backgroundMiddle.height)
 
   let currentY = dialogBkgdRect.top + manager.backgroundTop.height
   for (let i = 0; i < numMiddleSections; i++) {

@@ -143,20 +143,20 @@ function getNameForType (type) {
       return 'Cupboard'
     case EntityTypes.WallPaperGray:
       return 'Gray'
-    case EntityTypes.WallPaperPurple:
-      return 'Purple'
-    case EntityTypes.WallPaperRed:
+    case EntityTypes.FlooringPurple:
+      return 'Carpet'
+    case EntityTypes.WallPaperAuburn:
       return 'Red'
     case EntityTypes.WallPaperStriped:
       return 'Striped'
     case EntityTypes.WallPaperTan:
       return 'Tan'
-    case EntityTypes.WallPaperVerticalWood:
+    case EntityTypes.FlooringWood:
       return 'Wood'
-    case EntityTypes.WallPaperWoodTiles:
-      return 'Tiles'
-    case EntityTypes.WallPaperX:
-      return 'X'
+    case EntityTypes.FlooringHerringbone:
+      return 'Herringbone'
+    case EntityTypes.FlooringCrosshatch:
+      return 'Crosshatch'
   }
 }
 
