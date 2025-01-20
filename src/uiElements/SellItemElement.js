@@ -5,6 +5,7 @@ import EntityTypes from '../globals/EntityTypes.js'
 import SeedPacket from '../entities/crops/SeedPacket.js'
 import Fruit from '../entities/crops/Fruit.js'
 import Wood from '../entities/crops/Wood.js'
+import Furniture from '../entities/furniture/Furniture.js'
 
 export default class SellItemElement extends StoreItemElement {
   constructor (config) {
@@ -25,6 +26,10 @@ export default class SellItemElement extends StoreItemElement {
       this.icon.height = 3 * this.itemHeight
     } else if (this.manager.entityManager.isForageable({ type: config.type })) {
       this.icon.height = this.itemHeight
+    } else if (this.manager.entityManager.isFurniture({ type: config.type })) {
+      this.icon.height = this.itemHeight
+      this.icon.x += this.itemWidth / 2
+      this.icon.y += this.itemHeight / 2
     }
   }
 
@@ -171,6 +176,48 @@ function getNameForType (type) {
       return 'Pine Wood'
     case EntityTypes.PlumWood:
       return 'Plum Wood'
+    case EntityTypes.BedTwin:
+      return 'Twin Bed'
+    case EntityTypes.BedQueen:
+      return 'Queen Bed'
+    case EntityTypes.FireplaceBrick:
+      return 'Fireplace'
+    case EntityTypes.FireplaceStone:
+      return 'Fireplace'
+    case EntityTypes.LowerCabinetBrown:
+      return 'Cabinet'
+    case EntityTypes.LowerCabinetWhite:
+      return 'Cabinet'
+    case EntityTypes.RefrigeratorGray:
+      return 'Refrigerator'
+    case EntityTypes.RefrigeratorSilver:
+      return 'Refrigerator'
+    case EntityTypes.SleepingBag2:
+      return 'Sleeping Bag'
+    case EntityTypes.StoveGray:
+      return 'Stove'
+    case EntityTypes.StoveWhite:
+      return 'Stove'
+    case EntityTypes.UpperCabinetBrown:
+      return 'Cupboard'
+    case EntityTypes.UpperCabinetGray:
+      return 'Cupboard'
+    case EntityTypes.WallPaperGray:
+      return 'Gray'
+    case EntityTypes.FlooringPurple:
+      return 'Carpet'
+    case EntityTypes.WallPaperAuburn:
+      return 'Red'
+    case EntityTypes.WallPaperStriped:
+      return 'Striped'
+    case EntityTypes.WallPaperTan:
+      return 'Tan'
+    case EntityTypes.FlooringWood:
+      return 'Wood'
+    case EntityTypes.FlooringHerringbone:
+      return 'Herringbone'
+    case EntityTypes.FlooringCrosshatch:
+      return 'Crosshatch'
   }
 }
 
@@ -218,6 +265,8 @@ function getItemForType (element, type) {
     return getFruitForType(element, type)
   } else if (element.entityManager.isWood({ type })) {
     return getWoodForType(element, type)
+  } else if (element.entityManager.isFurniture({ type })) {
+    return getFurnitureForType(element, type)
   }
 }
 
@@ -276,6 +325,24 @@ function getWoodForType (manager, type) {
   wood.init()
 
   return wood
+}
+
+function getFurnitureForType (manager, type) {
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type,
+    x: manager.x + manager.width - manager.itemWidth - 28,
+    y: manager.y + 28 - manager.itemHeight,
+    width: 2 * manager.itemWidth,
+    height: 2 * manager.itemHeight,
+    quantity: 1
+  }
+
+  const item = new Furniture(config)
+  item.init()
+
+  return item
 }
 
 function fruitTypeForTreeType (tree) {

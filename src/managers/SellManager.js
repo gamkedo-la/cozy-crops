@@ -207,12 +207,14 @@ function setCarpentryShopType (manager, config) {
   manager.pages = [
     [], // furniture
     [], // upgraded furniture
-    [] // wallpaper
+    [], // wallpaper
+    [] // flooring
   ]
   manager.pageTitles = [
     'Furniture',
     'Upgraded Furniture',
-    'Wallpaper'
+    'Wallpaper',
+    'Flooring'
   ]
 
   manager.itemContainer = StoreUIData.CarpentryItem
@@ -225,6 +227,7 @@ function setCarpentryShopType (manager, config) {
   initializeCarpentryPage0(manager, config)
   initializeCarpentryPage1(manager, config)
   initializeCarpentryPage2(manager, config)
+  initializeCarpentryPage3(manager, config)
 
   manager.prevButton.x = manager.game.canvas.width / 2 - manager.backgroundTop.width + 10
   manager.nextButton.x = manager.game.canvas.width / 2 + manager.backgroundTop.width - (2 * UISpriteData.NextButtonSmall.width) - 10
@@ -388,13 +391,13 @@ function initializeCarpentryPage0 (manager, config) {
   config.shopType = 'carpentryshop'
 
   const baseFurniture = manager.inventoryManager.getBaseFurniture()
-  baseFurniture.forEach(tool => {
-    const furnitureData = FurnitureData[tool.type]
+  baseFurniture.forEach(furniture => {
+    const furnitureData = FurnitureData[furniture.type]
     const item = new SellItemElement({
       ...config,
       x: manager.game.canvas.width / 2 - manager.itemContainer.width,
       y: currentY,
-      type: tool.type,
+      type: furniture.type,
       name: furnitureData.name,
       price: furnitureData.sellingPrice,
       selected: false
@@ -412,6 +415,25 @@ function initializeCarpentryPage1 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'carpentryshop'
+
+  const upgradedFurniture = manager.inventoryManager.getUpgradedFurniture()
+  upgradedFurniture.forEach(furniture => {
+    const furnitureData = FurnitureData[furniture.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: furniture.type,
+      name: furnitureData.name,
+      price: furnitureData.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[0].push(item)
+
+    if (manager.pages[0].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function initializeCarpentryPage2 (manager, config) {
@@ -419,6 +441,51 @@ function initializeCarpentryPage2 (manager, config) {
   const deltaY = 2 * manager.itemContainer.height
 
   config.shopType = 'carpentryshop'
+
+  const wallpaper = manager.inventoryManager.getWallpaper()
+  wallpaper.forEach(paper => {
+    const furnitureData = FurnitureData[paper.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: paper.type,
+      name: furnitureData.name,
+      price: furnitureData.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[0].push(item)
+
+    if (manager.pages[0].length === 1) item.selected = true
+    currentY += deltaY
+  })
+}
+
+function initializeCarpentryPage3 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
+  config.shopType = 'carpentryshop'
+
+  const flooring = manager.inventoryManager.getFlooring()
+  flooring.forEach(floor => {
+    const furnitureData = FurnitureData[floor.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: floor.type,
+      name: furnitureData.name,
+      price: furnitureData.sellingPrice,
+      selected: false
+    })
+    item.init()
+    manager.pages[0].push(item)
+
+    if (manager.pages[0].length === 1) item.selected = true
+    currentY += deltaY
+  })
 }
 
 function drawCurrentPage (manager, dialogBkgdRect) {

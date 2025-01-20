@@ -36,6 +36,7 @@ import Strawberry from '../entities/crops/Strawberry.js'
 import Tomato from '../entities/crops/Tomato.js'
 import Watermelon from '../entities/crops/Watermelon.js'
 import Wood from '../entities/crops/Wood.js'
+import Furniture from '../entities/furniture/Furniture.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -85,7 +86,8 @@ export default class InventoryManager {
         this.entityManager.isCrop(itemToAdd) ||
         this.entityManager.isForageable(itemToAdd) ||
         this.entityManager.isTool(itemToAdd) ||
-        this.entityManager.isWood(itemToAdd)) {
+        this.entityManager.isWood(itemToAdd) ||
+        this.entityManager.isFurniture(itemToAdd)) {
       let item = this.getItem(itemToAdd.type)
       if (item) {
         item.quantity += quantity
@@ -111,7 +113,8 @@ export default class InventoryManager {
         this.entityManager.isCrop(itemToRemove) ||
         this.entityManager.isForageable(itemToRemove) ||
         this.entityManager.isTool(itemToRemove) ||
-        this.entityManager.isWood(itemToRemove)) {
+        this.entityManager.isWood(itemToRemove) ||
+        this.entityManager.isFurniture(itemToRemove)) {
       let item = this.getItem(itemToRemove.type)
       if (item) {
         item.quantity -= quantity
@@ -174,6 +177,11 @@ export default class InventoryManager {
   getWallpaper () {
     const inventory = this.getInventory()
     return inventory.filter(item => this.entityManager.isWallpaper(item))
+  }
+
+  getFlooring () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isFlooring(item))
   }
 
   getSeeds () {
@@ -332,6 +340,8 @@ function initializeInventory (manager, itemToAdd, quantity = 1) {
     initializeCrops(manager, itemToAdd, quantity)
   } else if (manager.entityManager.isWood(itemToAdd)) {
     initializeWood(manager, itemToAdd, quantity)
+  } else if (manager.entityManager.isFurniture(itemToAdd)) {
+    initializeFurniture(manager, itemToAdd, quantity)
   }
 }
 
@@ -529,6 +539,28 @@ function initializeWood (manager, itemToAdd, quantity = 1) {
 
   if (manager.entityManager.isWood(itemToAdd)) {
     item = new Wood(config)
+  }
+
+  item.init()
+  manager.inventory.push(item)
+}
+
+function initializeFurniture (manager, itemToAdd, quantity = 1) {
+  let item  = null
+
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  if (manager.entityManager.isFurniture(itemToAdd)) {
+    item = new Furniture(config)
   }
 
   item.init()
