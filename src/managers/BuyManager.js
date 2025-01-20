@@ -1,4 +1,4 @@
-import Keys from '../globals/Keys.js'
+import Keys, { F } from '../globals/Keys.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import UISpriteData from '../globals/UISpriteData.js'
@@ -9,6 +9,7 @@ import BuyItemElement from '../uiElements/BuyItemElement.js'
 import CropData from '../globals/CropData.js'
 import TreeData from '../globals/TreeData.js'
 import ToolData from '../globals/ToolData.js'
+import FurnitureData from '../globals/FurnitureData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 import StoreConfirmation from '../uiElements/StoreConfirmation.js'
@@ -763,8 +764,8 @@ function initializeCarpentryPage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.BedTwin,
-    name: 'Twin Bed',
-    price: 1,
+    name: FurnitureData[EntityTypes.BedTwin].name,
+    price: FurnitureData[EntityTypes.BedTwin].price,
     y: currentY
   })
   bed.init()
@@ -776,8 +777,8 @@ function initializeCarpentryPage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.FireplaceBrick,
-    name: 'Fireplace',
-    price: 1,
+    name: FurnitureData[EntityTypes.FireplaceBrick].name,
+    price: FurnitureData[EntityTypes.FireplaceBrick].price,
     y: currentY
   })
   fireplace.init()
@@ -789,8 +790,8 @@ function initializeCarpentryPage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.LowerCabinetBrown,
-    name: 'Lower Cabinet',
-    price: 1,
+    name: FurnitureData[EntityTypes.LowerCabinetBrown].name,
+    price: FurnitureData[EntityTypes.LowerCabinetBrown].price,
     y: currentY
   })
   lowerCabinet.init()
@@ -802,8 +803,8 @@ function initializeCarpentryPage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.UpperCabinetBrown,
-    name: 'Upper Cabinet',
-    price: 1,
+    name: FurnitureData[EntityTypes.UpperCabinetBrown].name,
+    price: FurnitureData[EntityTypes.UpperCabinetBrown].price,
     y: currentY
   })
   upperCabinet.init()
@@ -815,8 +816,8 @@ function initializeCarpentryPage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.RefrigeratorGray,
-    name: 'Fridge',
-    price: 1,
+    name: FurnitureData[EntityTypes.RefrigeratorGray].name,
+    price: FurnitureData[EntityTypes.RefrigeratorGray].price,
     y: currentY
   })
   fridge.init()
@@ -828,8 +829,8 @@ function initializeCarpentryPage0 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.StoveGray,
-    name: 'Stove',
-    price: 1,
+    name: FurnitureData[EntityTypes.StoveGray].name,
+    price: FurnitureData[EntityTypes.StoveGray].price,
     y: currentY
   })
   stove.init()
@@ -850,8 +851,8 @@ function initializeCarpentryPage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.BedQueen,
-    name: 'Queen Bed',
-    price: 1,
+    name: FurnitureData[EntityTypes.BedQueen].name,
+    price: FurnitureData[EntityTypes.BedQueen].price,
     y: currentY
   })
   bed.init()
@@ -863,8 +864,8 @@ function initializeCarpentryPage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.FireplaceStone,
-    name: 'Fireplace',
-    price: 1,
+    name: FurnitureData[EntityTypes.FireplaceStone].name,
+    price: FurnitureData[EntityTypes.FireplaceStone].price,
     y: currentY
   })
   fireplace.init()
@@ -876,8 +877,8 @@ function initializeCarpentryPage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.LowerCabinetWhite,
-    name: 'Lower Cabinet',
-    price: 1,
+    name: FurnitureData[EntityTypes.LowerCabinetWhite].name,
+    price: FurnitureData[EntityTypes.LowerCabinetWhite].price,
     y: currentY
   })
   lowerCabinet.init()
@@ -889,8 +890,8 @@ function initializeCarpentryPage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.UpperCabinetGray,
-    name: 'Upper Cabinet',
-    price: 1,
+    name: FurnitureData[EntityTypes.UpperCabinetGray].name,
+    price: FurnitureData[EntityTypes.UpperCabinetGray].price,
     y: currentY
   })
   upperCabinet.init()
@@ -902,8 +903,8 @@ function initializeCarpentryPage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.RefrigeratorSilver,
-    name: 'Fridge',
-    price: 1,
+    name: FurnitureData[EntityTypes.RefrigeratorSilver].name,
+    price: FurnitureData[EntityTypes.RefrigeratorSilver].price,
     y: currentY
   })
   fridge.init()
@@ -915,8 +916,8 @@ function initializeCarpentryPage1 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.StoveWhite,
-    name: 'Stove',
-    price: 1,
+    name: FurnitureData[EntityTypes.StoveWhite].name,
+    price: FurnitureData[EntityTypes.StoveWhite].price,
     y: currentY
   })
   stove.init()
@@ -937,8 +938,8 @@ function initializeCarpentryPage2 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.WallPaperGray,
-    name: 'Gray Wallpaper',
-    price: 1,
+    name: FurnitureData[EntityTypes.WallPaperGray].name,
+    price: FurnitureData[EntityTypes.WallPaperGray].price,
     y: currentY
   })
   gray.init()
@@ -950,8 +951,8 @@ function initializeCarpentryPage2 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.WallPaperAuburn,
-    name: 'Auburn Wallpaper',
-    price: 1,
+    name: FurnitureData[EntityTypes.WallPaperAuburn].name,
+    price: FurnitureData[EntityTypes.WallPaperAuburn].price,
     y: currentY
   })
   red.init()
@@ -963,8 +964,8 @@ function initializeCarpentryPage2 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.WallPaperStriped,
-    name: 'Striped Wallpaper',
-    price: 1,
+    name: FurnitureData[EntityTypes.WallPaperStriped].name,
+    price: FurnitureData[EntityTypes.WallPaperStriped].price,
     y: currentY
   })
   striped.init()
@@ -976,8 +977,8 @@ function initializeCarpentryPage2 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.WallPaperTan,
-    name: 'Tan Wallpaper',
-    price: 1,
+    name: FurnitureData[EntityTypes.WallPaperTan].name,
+    price: FurnitureData[EntityTypes.WallPaperTan].price,
     y: currentY
   })
   tan.init()
@@ -998,8 +999,8 @@ function initializeCarpentryPage3 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.FlooringPurple,
-    name: 'Purple Carpet',
-    price: 1,
+    name: FurnitureData[EntityTypes.FlooringPurple].name,
+    price: FurnitureData[EntityTypes.FlooringPurple].price,
     y: currentY
   })
   purple.init()
@@ -1011,8 +1012,8 @@ function initializeCarpentryPage3 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.FlooringWood,
-    name: 'Wood Flooring',
-    price: 1,
+    name: FurnitureData[EntityTypes.FlooringWood].name,
+    price: FurnitureData[EntityTypes.FlooringWood].price,
     y: currentY
   })
   vertical.init()
@@ -1024,8 +1025,8 @@ function initializeCarpentryPage3 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.FlooringHerringbone,
-    name: 'Tile Wallpaper',
-    price: 1,
+    name: FurnitureData[EntityTypes.FlooringHerringbone].name,
+    price: FurnitureData[EntityTypes.FlooringHerringbone].price,
     y: currentY
   })
   tiles.init()
@@ -1037,8 +1038,8 @@ function initializeCarpentryPage3 (manager, config) {
     ...config,
     selected: false,
     type: EntityTypes.FlooringCrosshatch,
-    name: 'X Wallpaper',
-    price: 1,
+    name: FurnitureData[EntityTypes.FlooringCrosshatch].name,
+    price: FurnitureData[EntityTypes.FlooringCrosshatch].price,
     y: currentY
   })
   xPaper.init()
