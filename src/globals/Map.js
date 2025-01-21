@@ -150,6 +150,18 @@ export const NPCStarts = {
   Tiffany: TiffanyStart
 }
 
+export const BobberLocations = [
+  // First two spots are at the end of the pier where the fisherman is
+  {
+    dock: { x: 432, y: 1182 },
+    bobber: { x: 400, y: 1190 }
+  },
+  {
+    dock: { x: 432, y: 1198 },
+    bobber: { x: 400, y: 1206 }
+  }
+]
+
 export const TreeStarts = [
   { x: 480, y: 786, type: EntityTypes.AppleTree, currentGrowthStage: 0 },
   { x: 528, y: 722, type: EntityTypes.CherryTree, currentGrowthStage: 1 },

@@ -22,7 +22,7 @@ import { CarpenterDoor } from '../globals/TilesCarpenter.js'
 import { BlacksmithDoor } from '../globals/TilesBlacksmith.js'
 import { MuseumDoor } from '../globals/TilesMuseum.js'
 import { StoreDoor } from '../globals/TilesStore.js'
-import { Grass1, Grass3, Sand, WetSand } from '../globals/TilesWorld.js'
+import { Bridge, Dock, Grass1, Grass3, Sand, Water, WetSand } from '../globals/TilesWorld.js'
 import { TileNames } from '../globals/Tiles.js'
 import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
@@ -421,8 +421,10 @@ export default class GameScene extends Scene {
       result.add('Water')
     }
 
-    const tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
-    switch (tileType) {
+    let tileType = this.mapManager.getTileTypeAtPixelPos(x, y)
+    if (tileType === TileNames[Water]) tileType = this.mapManager.getTileTypeAtPixelPos(x, y + 2)
+
+      switch (tileType) {
       case TileNames[Grass1]:
       case TileNames[Grass3]:
         result.add('Till')
@@ -442,7 +444,8 @@ export default class GameScene extends Scene {
         result.add('Plant')
         result.add('Water')
         break
-      case 'Water':
+      case TileNames[Dock]:
+      case TileNames[Bridge]:
         result.add('Fish')
         break
       case 'RockyGround':
@@ -597,6 +600,16 @@ export default class GameScene extends Scene {
         this.gameManager.updateTree(tree)
         this.gameManager.addWood(wood.type, wood.quantity)
       }
+    }
+  }
+
+  fish (x, y, tool, isFishing) {
+    // console.log(`Fishing at (${x}, ${y})`)
+    if (isFishing) {
+      console.log('Already Fishing - get a fish')
+    } else {
+      const bobberLocation = this.mapManager.getBobberLocationForDockLocation({ x, y })
+      return bobberLocation
     }
   }
 

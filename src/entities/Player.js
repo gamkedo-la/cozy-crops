@@ -24,6 +24,8 @@ export default class Player {
     }
 
     this.activeTool = null
+    this.isFishing = false
+    this.fishingAt = null
   }
 
   init () {
@@ -61,6 +63,10 @@ export default class Player {
 
   draw (camera) {
     this.animation.draw(this.x, this.y, camera)
+
+    if (this.fishingAt) {
+      console.log('draw the bobber')
+    }
   }
 
   setActiveTool (tool) {
@@ -226,8 +232,8 @@ function handleInput (player) {
         player.scene.chopTree(groundPoint.x, groundPoint.y, player.activeTool.damage)
         player.scene.audioManager?.playSource(treeChopSound,SFX_VOL)
       } else if (mapActions.includes('Fish') && player.scene.entityManager.isFishingRod(player.activeTool)) {
-        // TODO: Implement fishing
-        // player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool.size, getFacing(player))
+        player.fishingAt = player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool, player.isFishing)
+        player.fishingAt ? player.isFishing = true : player.isFishing = false
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
         // Show "no tool selected" message

@@ -1,4 +1,4 @@
-import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts, TreeStarts } from '../globals/Map.js'
+import MapData, { Player1Start, Player2Start, mapPosition, NPCStarts, BobberLocations, TreeStarts } from '../globals/Map.js'
 import MuseumMapData, { MuseumPosition } from '../globals/MuseumMap.js'
 import StoreMapData, { StorePosition } from '../globals/StoreMap.js'
 import HomeMapData, { HomePosition } from '../globals/PlayerHomeMap.js'
@@ -328,6 +328,17 @@ export default class MapManager {
 
   getTreeStarts () {
     return TreeStarts
+  }
+
+  getBobberLocationForDockLocation (dockLocation) {
+    const bobberLocation = BobberLocations.find(location => {
+      return location.dock.x <= dockLocation.x &&
+      location.dock.x + TileWidth >= dockLocation.x &&
+      location.dock.y <= dockLocation.y &&
+      location.dock.y + TileHeight >= dockLocation.y
+    })
+
+    return (bobberLocation ? bobberLocation.bobber : null)
   }
 
   drawMap (mapToDraw) {
