@@ -117,7 +117,7 @@ function buildSpritesheet (player) {
   accessoriesCanvas.width = PlayerImageData.Accessories.width
   accessoriesCanvas.height = PlayerImageData.Accessories.height
   const accessoriesStyle = player.styles.Accessories
-  accessoriesCtx.drawImage(basePlayerImage, accessoriesStyle.x, accessoriesStyle.y, accessoriesStyle.width, accessoriesStyle.height, 0, 0, accessoriesStyle.width, accessoriesStyle.height)
+  if (accessoriesStyle) accessoriesCtx.drawImage(basePlayerImage, accessoriesStyle.x, accessoriesStyle.y, accessoriesStyle.width, accessoriesStyle.height, 0, 0, accessoriesStyle.width, accessoriesStyle.height)
   const accessoriesImage = player.imageManager.replaceColorInImage(accessoriesCanvas, PlayerImageData.Accessories.baseColor, player.accessoriesColor)
 
   const hairCanvas = document.createElement('canvas')
@@ -125,7 +125,7 @@ function buildSpritesheet (player) {
   hairCanvas.width = PlayerImageData.Hair.width
   hairCanvas.height = PlayerImageData.Hair.height
   const hairStyle = player.styles.Hair
-  hairCtx.drawImage(basePlayerImage, hairStyle.x, hairStyle.y, hairStyle.width, hairStyle.height, 0, 0, hairStyle.width, hairStyle.height)
+  if (hairStyle) hairCtx.drawImage(basePlayerImage, hairStyle.x, hairStyle.y, hairStyle.width, hairStyle.height, 0, 0, hairStyle.width, hairStyle.height)
   const hairImage = player.imageManager.replaceColorInImage(hairCanvas, PlayerImageData.Hair.baseColor, player.hairColor)
 
   const armCanvas = document.createElement('canvas')
