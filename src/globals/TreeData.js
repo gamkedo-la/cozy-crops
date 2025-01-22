@@ -88,7 +88,7 @@ const TreeData = {
     daysToGrow: 9,
     bearsFruit: false,
     daysForFruit: 0,
-    seedPrice: 3,
+    seedPrice: 8,
     fruitPrice: 0,
     woodPrice: 2,
     health: 200
@@ -103,7 +103,7 @@ const TreeData = {
     daysToGrow: 9,
     bearsFruit: false,
     daysForFruit: 0,
-    seedPrice: 3,
+    seedPrice: 8,
     fruitPrice: 0,
     woodPrice: 2,
     health: 200
@@ -137,7 +137,7 @@ const TreeData = {
     daysToGrow: 9,
     bearsFruit: false,
     daysForFruit: 0,
-    seedPrice: 3,
+    seedPrice: 8,
     fruitPrice: 0,
     woodPrice: 2,
     health: 200
