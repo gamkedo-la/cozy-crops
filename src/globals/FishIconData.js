@@ -73,6 +73,15 @@ const FishIconData = {
     height: 16,
     padding: 1
   },
+  UnknownFish: {
+    name: 'UnknownFishIcon',
+    spritesheet: Fish,
+    x: 0,
+    y: 0,
+    width: 16,
+    height: 16,
+    padding: 1
+  },
   Walleye: {
     name: 'WalleyeIcon',
     spritesheet: Fish,
@@ -94,5 +103,6 @@ export const {
   Salmon,
   Sardine,
   Tuna,
+  UnknownFish,
   Walleye
 } = FishIconData
