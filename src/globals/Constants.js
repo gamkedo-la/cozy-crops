@@ -14,7 +14,8 @@ const Constants = {
   TileWidth: 16,
   TitleFontSize: 300,
   TitleFontFamily: FontFamilies.FarmVintage,
-  TitleTextColor: 'beige'
+  TitleTextColor: 'beige',
+  SHADOWS_ENABLED: false, // if true, imageManager.draw renders a darkened upside-down version of every sprite
 }
 
 export default Constants
@@ -26,5 +27,6 @@ export const {
   ImageScale,
   MainMenuTextColor,
   TileHeight,
-  TileWidth
+  TileWidth,
+  SHADOWS_ENABLED
 } =  Constants

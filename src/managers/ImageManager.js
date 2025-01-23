@@ -1,6 +1,6 @@
 import Events from '../globals/Events.js'
 import Images from '../globals/Images.js'
-import { ImageScale } from '../globals/Constants.js'
+import { ImageScale, SHADOWS_ENABLED } from '../globals/Constants.js'
 import EntityTypes from '../globals/EntityTypes.js'
 
 export default class ImageManager {
@@ -73,7 +73,7 @@ export default class ImageManager {
     return this.images[this.srcToKeyMap[src]]
   }
 
-  draw (image, x, y, width, height, imageX = 0, imageY = 0, camera = null, flipped = false, alpha = 1) {
+  draw (image, x, y, width, height, imageX = 0, imageY = 0, camera = null, flipped = false, alpha = 1, drawShadow=true) {
     const cameraPos = camera ? camera.getTopLeft() : this.camera.getTopLeft()
 
     // Return early if the image is offscreen
@@ -81,14 +81,28 @@ export default class ImageManager {
 
     if (flipped) {
       this.internalCtx.save()
-
       const updatedX = (cameraPos.x - x) - width
       this.internalCtx.scale(-1, 1)
       this.internalCtx.drawImage(image, imageX, imageY, width, height, updatedX, (y - cameraPos.y), width, height)
-
       this.internalCtx.restore()
+      if (drawShadow && SHADOWS_ENABLED) {
+        this.internalCtx.save()
+        this.internalCtx.scale(1, -1)
+        this.internalCtx.globalCompositeOperation = "hue";
+        this.internalCtx.globalAlpha = 0.15
+        this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), 2 -height*2 + -1*(y - cameraPos.y), width, height)
+        this.internalCtx.restore()
+      }
     } else {
       this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), (y - cameraPos.y), width, height)
+      if (drawShadow && SHADOWS_ENABLED) {
+        this.internalCtx.save()
+        this.internalCtx.scale(1, -1)
+        this.internalCtx.globalCompositeOperation = "hue";
+        this.internalCtx.globalAlpha = 0.15
+        this.internalCtx.drawImage(image, imageX, imageY, width, height, (x - cameraPos.x), 2 -height*2 + -1*(y - cameraPos.y), width, height)
+        this.internalCtx.restore()
+      }
     }
   }
 

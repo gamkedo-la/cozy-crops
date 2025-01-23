@@ -98,11 +98,11 @@ export default class Particles {
             // each color is drawn additively - new temp canvas required for sprite tinting this way
             this.imageManager.internalCtx.globalCompositeOperation = "lighter" // additive
             this.imageManager.internalCtx.globalAlpha = p.alpha * p.red
-            this.imageManager.draw(this.imgR, Math.round(p.x - p.size / 2), Math.round(p.y - p.size / 2), p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            this.imageManager.draw(this.imgR, Math.round(p.x - p.size / 2), Math.round(p.y - p.size / 2), p.size, p.size, 0, 0, this.scene.camera, false, p.alpha, false)
             this.imageManager.internalCtx.globalAlpha = p.alpha * p.green
-            this.imageManager.draw(this.imgG, Math.round(p.x - p.size / 2), Math.round(p.y - p.size / 2), p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            this.imageManager.draw(this.imgG, Math.round(p.x - p.size / 2), Math.round(p.y - p.size / 2), p.size, p.size, 0, 0, this.scene.camera, false, p.alpha, false)
             this.imageManager.internalCtx.globalAlpha = p.alpha * p.blue
-            this.imageManager.draw(this.imgB, Math.round(p.x - p.size / 2), Math.round(p.y - p.size / 2), p.size, p.size, 0, 0, this.scene.camera, false, p.alpha)
+            this.imageManager.draw(this.imgB, Math.round(p.x - p.size / 2), Math.round(p.y - p.size / 2), p.size, p.size, 0, 0, this.scene.camera, false, p.alpha, false)
             this.imageManager.internalCtx.globalCompositeOperation = "source-over" // reset to normal blending
 
             // faster gpu tinting without having to set each pixel one at a time in a loop
