@@ -1,5 +1,4 @@
 import FishIconData from '../../globals/FishIconData.js'
-import Animation from '../../components/Animation.js'
 import EntityTypes from '../../globals/EntityTypes.js'
 
 export default class Fish {
@@ -12,6 +11,7 @@ export default class Fish {
 
   init () {
     this.animation = FishIconData[this.type]
+    this.animation.canvas = this.imageManager.getImageWithSrc(this.animation.spritesheet)
   }
 
   update (deltaTime) {

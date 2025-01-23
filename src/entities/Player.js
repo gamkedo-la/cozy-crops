@@ -2,6 +2,7 @@ import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound, stepSound1, stepSound2, stepSound3, stepSound4, treeChopSound } from '../globals/Sounds.js'
+import Bobber from './fish/Bobber.js'
 
 //These are for Cheats
 import { K, M } from '../globals/Keys.js'
@@ -26,6 +27,7 @@ export default class Player {
     this.activeTool = null
     this.isFishing = false
     this.fishingAt = null
+    this.bobber = null
   }
 
   init () {
@@ -40,6 +42,15 @@ export default class Player {
 
     this.width = this.animation.width
     this.height = this.animation.height
+
+    this.bobber = new Bobber({
+      game: this.game,
+      scene: this.scene,
+      imageManager: this.scene.imageManager,
+      x: this.x,
+      y: this.y
+    })
+    this.bobber.init()
   }
 
   update (deltaTime) {
@@ -49,6 +60,10 @@ export default class Player {
     this.collisionPoint = {
       x: this.x + this.animation.width / 2, // Center of the player
       y: this.y + this.animation.height // Bottom of the player
+    }
+
+    if (this.isFishing && this.fishingAt) {
+      this.bobber.update(deltaTime)
     }
   }
 
@@ -64,8 +79,8 @@ export default class Player {
   draw (camera) {
     this.animation.draw(this.x, this.y, camera)
 
-    if (this.fishingAt) {
-      console.log('draw the bobber')
+    if (this.isFishing && this.fishingAt) {
+      this.bobber.draw(camera)
     }
   }
 
@@ -186,6 +201,13 @@ function handleInput (player) {
   const playerJustDownKeys = player.game.inputManager.getJustDownKeys(player.type)
   const SFX_VOL = 0.2 // how loud the sound effects made by the player are
 
+  const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 } // -2 to check the tile just above the bottom of th player's feet
+  const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y)
+  if (player.isFishing && !mapActions.includes('Fish')) {
+    player.isFishing = false
+    player.fishingAt = null
+  }
+
   if (playerJustDownKeys.includes(player.controls.Action)) {
     if (player.scene.showingNPCDialogue) {
       // player is trying to give a gift to an NPC
@@ -194,8 +216,6 @@ function handleInput (player) {
       // Show sleep dialogue/confirmation
     } else {
       // player action is determined by the tool they have selected (pick, axe, hoe, etc.)
-      const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 } // -2 to check the tile just above the bottom of th player's feet
-      const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y)
       if (mapActions.includes('Open Door')) {
         player.scene.openDoor(groundPoint.x, groundPoint.y)
         player.scene.audioManager?.playSource(openDoorSound,SFX_VOL)
@@ -234,6 +254,10 @@ function handleInput (player) {
       } else if (mapActions.includes('Fish') && player.scene.entityManager.isFishingRod(player.activeTool)) {
         player.fishingAt = player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool, player.isFishing)
         player.fishingAt ? player.isFishing = true : player.isFishing = false
+        if (player.fishingAt) {
+          player.bobber.x = player.fishingAt.x
+          player.bobber.y = player.fishingAt.y  
+        }
       } else if (!player.activeTool) {
         // If player has no active tool, they can't perform any actions
         // Show "no tool selected" message
