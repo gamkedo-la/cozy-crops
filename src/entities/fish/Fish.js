@@ -25,6 +25,6 @@ export default class Fish {
   }
 
   drawAsInventory (x, y, width, height) {
-    this.game.ctx.drawImage(this.animation.spritesheet, this.animation.x, this.animation.y, this.animation.width, this.animation.height, x, y, width, height)
+    this.game.ctx.drawImage(this.animation.canvas, this.animation.x, this.animation.y, this.animation.width, this.animation.height, x, y, width, height)
   }
 }

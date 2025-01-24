@@ -32,6 +32,8 @@ import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
 import { BackgroundBirds, BackgroundWaterfall, BackgroundSeashore } from '../globals/Sounds.js'
 import Bobber from '../entities/fish/Bobber.js'
+import FishData from '../globals/FishData.js'
+import Fish from '../entities/fish/Fish.js'
 import UncaughtFish from '../entities/fish/UncaughtFish.js'
 
 export default class GameScene extends Scene {
@@ -607,10 +609,14 @@ export default class GameScene extends Scene {
     }
   }
 
-  fish (x, y, tool, isFishing) {
+  fish (x, y, tool, isFishing, walkedAway = false) {
     // console.log(`Fishing at (${x}, ${y})`)
     if (isFishing) {
       if (this.bobber) {
+        if (!walkedAway && this.bobber.showWater) {
+          // player pulled the bobber out of the water while the fish was close => caught a fish
+          caughtFish(this)
+        }
         this.entityManager.removeEntity(this.bobber)
         this.bobber = null
       }
@@ -836,4 +842,29 @@ function getAffectedTreesForTool (scene, toolSize, x, y, direction) {
   }
 
   return result
+}
+
+function caughtFish (scene) {
+  let fishType = null
+  const probability = Math.random()
+  let runningProbability = 0
+  const fishDataArray = Object.values(FishData)
+  for (const fish of fishDataArray) {
+    if (fish.probability === 0) continue
+    runningProbability += fish.probability
+    if (probability <= runningProbability) {
+      fishType = fish.type
+      break
+    }
+  }
+  const newFish = new Fish({
+    game: scene.game,
+    scene: scene,
+    imageManager: scene.imageManager,
+    x: scene.uncaughtFish.x,
+    y: scene.uncaughtFish.y,
+    type: fishType
+  })
+  newFish.init()
+  scene.inventoryManager.addItemToInventory(newFish, 1)
 }

@@ -37,6 +37,7 @@ import Tomato from '../entities/crops/Tomato.js'
 import Watermelon from '../entities/crops/Watermelon.js'
 import Wood from '../entities/crops/Wood.js'
 import Furniture from '../entities/furniture/Furniture.js'
+import Fish from '../entities/fish/Fish.js'
 
 export default class InventoryManager {
   constructor(config) {
@@ -87,7 +88,8 @@ export default class InventoryManager {
         this.entityManager.isForageable(itemToAdd) ||
         this.entityManager.isTool(itemToAdd) ||
         this.entityManager.isWood(itemToAdd) ||
-        this.entityManager.isFurniture(itemToAdd)) {
+        this.entityManager.isFurniture(itemToAdd) ||
+        this.entityManager.isFish(itemToAdd)) {
       let item = this.getItem(itemToAdd.type)
       if (item) {
         item.quantity += quantity
@@ -208,6 +210,11 @@ export default class InventoryManager {
     return inventory.filter(item => this.entityManager.isWood(item))
   }
 
+  getFish () {
+    const inventory = this.getInventory()
+    return inventory.filter(item => this.entityManager.isFish(item))
+  }
+
   getTreeFruit () {
     const inventory = this.getInventory()
     return inventory.filter(item => this.entityManager.isTreeFruit(item))
@@ -314,6 +321,16 @@ export default class InventoryManager {
       drawQuantity(this.game.ctx, wood.x, wood.y, wood.quantity, this.itemWidth, this.itemHeight)
     })
 
+    this.getFish().forEach((fish, index) => {
+      fish.drawAsInventory(
+        fish.x + fish.width / 4,
+        fish.y - 1,
+        this.itemWidth,
+        this.itemHeight
+      )
+      drawQuantity(this.game.ctx, fish.x, fish.y, fish.quantity, this.itemWidth, this.itemHeight)
+    })
+
     // Don't draw furniture or wallpaper
 
     if (this.selectedItem) {
@@ -342,6 +359,8 @@ function initializeInventory (manager, itemToAdd, quantity = 1) {
     initializeWood(manager, itemToAdd, quantity)
   } else if (manager.entityManager.isFurniture(itemToAdd)) {
     initializeFurniture(manager, itemToAdd, quantity)
+  } else if (manager.entityManager.isFish(itemToAdd)) {
+    initializeFish(manager, itemToAdd, quantity)
   }
 }
 
@@ -561,6 +580,28 @@ function initializeFurniture (manager, itemToAdd, quantity = 1) {
 
   if (manager.entityManager.isFurniture(itemToAdd)) {
     item = new Furniture(config)
+  }
+
+  item.init()
+  manager.inventory.push(item)
+}
+
+function initializeFish (manager, itemToAdd, quantity = 1) {
+  let item  = null
+
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type: itemToAdd.type,
+    x: 0,
+    y: 0,
+    width: manager.itemWidth,
+    height: manager.itemHeight,
+    quantity
+  }
+
+  if (manager.entityManager.isFish(itemToAdd)) {
+    item = new Fish(config)
   }
 
   item.init()

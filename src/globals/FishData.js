@@ -4,6 +4,7 @@ import { Seasons } from './Calendar.js'
 const FishData = {
   [EntityTypes.Catfish]: {
     name: EntityTypes.Catfish,
+    type: EntityTypes.Catfish,
     size: 'medium',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -13,6 +14,7 @@ const FishData = {
   },
   [EntityTypes.Guppy]: {
     name: EntityTypes.Guppy,
+    type: EntityTypes.Guppy,
     size: 'small',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -22,6 +24,7 @@ const FishData = {
   },
   [EntityTypes.Herring]: {
     name: EntityTypes.Herring,
+    type: EntityTypes.Herring,
     size: 'medium',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -31,6 +34,7 @@ const FishData = {
   },
   [EntityTypes.Minnow]: {
     name: EntityTypes.Minnow,
+    type: EntityTypes.Minnow,
     size: 'small',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -40,6 +44,7 @@ const FishData = {
   },
   [EntityTypes.Pike]: {
     name: EntityTypes.Pike,
+    type: EntityTypes.Pike,
     size: 'medium',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -49,6 +54,7 @@ const FishData = {
   },
   [EntityTypes.Salmon]: {
     name: EntityTypes.Salmon,
+    type: EntityTypes.Salmon,
     size: 'large',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -58,6 +64,7 @@ const FishData = {
   },
   [EntityTypes.Sardine]: {
     name: EntityTypes.Sardine,
+    type: EntityTypes.Sardine,
     size: 'small',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -67,6 +74,7 @@ const FishData = {
   },
   [EntityTypes.Tuna]: {
     name: EntityTypes.Tuna,
+    type: EntityTypes.Tuna,
     size: 'large',
     inSeason: Seasons.Rainy,
     probability: 0.1,
@@ -76,6 +84,7 @@ const FishData = {
   },
   [EntityTypes.Walleye]: {
     name: EntityTypes.Walleye,
+    type: EntityTypes.Walleye,
     size: 'large',
     inSeason: Seasons.Rainy,
     probability: 0.1,

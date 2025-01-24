@@ -185,7 +185,7 @@ function handleInput (player) {
   const groundPoint = { x: player.collisionPoint.x, y: player.collisionPoint.y - 2 } // -2 to check the tile just above the bottom of th player's feet
   const mapActions  = player.scene.getAvailableMapActions(groundPoint.x, groundPoint.y)
   if (player.isFishing && !mapActions.includes('Fish')) {
-    player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool, player.isFishing)
+    player.scene.fish(groundPoint.x, groundPoint.y, player.activeTool, player.isFishing, true)
     player.isFishing = false
     player.fishingAt = null
   }
