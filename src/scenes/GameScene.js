@@ -1,7 +1,7 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Player from '../entities/Player.js'
-import Keys from '../globals/Keys.js'
+import Keys, { M } from '../globals/Keys.js'
 import Camera from '../components/Camera.js'
 import EntityTypes, { Player1 } from '../globals/EntityTypes.js'
 import CollisionManager from '../managers/CollisionManager.js'
@@ -31,6 +31,8 @@ import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
 import { BackgroundBirds, BackgroundWaterfall, BackgroundSeashore } from '../globals/Sounds.js'
+import Bobber from '../entities/fish/Bobber.js'
+import UncaughtFish from '../entities/fish/UncaughtFish.js'
 
 export default class GameScene extends Scene {
   constructor (config) {
@@ -51,6 +53,8 @@ export default class GameScene extends Scene {
     this.weather = null
 
     this.collisionManager = null
+
+    this.uncaughtFish = null
   }
 
   addEntity (entity) {
@@ -606,9 +610,40 @@ export default class GameScene extends Scene {
   fish (x, y, tool, isFishing) {
     // console.log(`Fishing at (${x}, ${y})`)
     if (isFishing) {
-      console.log('Already Fishing - get a fish')
+      if (this.bobber) {
+        this.entityManager.removeEntity(this.bobber)
+        this.bobber = null
+      }
+      if (this.uncaughtFish) {
+        this.entityManager.removeEntity(this.uncaughtFish)
+        this.uncaughtFish = null
+      }
     } else {
+      if (this.bobber || this.uncaughtFish) return
+
       const bobberLocation = this.mapManager.getBobberLocationForDockLocation({ x, y })
+      if (bobberLocation) {
+        this.bobber = new Bobber({
+          game: this.game,
+          scene: this,
+          imageManager: this.imageManager,
+          x: bobberLocation.x,
+          y: bobberLocation.y
+        })
+        this.bobber.init()
+        this.entityManager.addEntity(this.bobber, true, false)
+        // Create an unknown/uncaught fish near the bobber
+        this.uncaughtFish = new UncaughtFish({
+          game: this.game,
+          scene: this,
+          imageManager: this.imageManager,
+          x: bobberLocation.x + Math.random() * 20 - 10,
+          y: bobberLocation.y + Math.random() * 20 - 10,
+          bobber: this.bobber
+        })
+        this.uncaughtFish.init()
+        this.entityManager.addEntity(this.uncaughtFish, true, false)
+      }
       return bobberLocation
     }
   }

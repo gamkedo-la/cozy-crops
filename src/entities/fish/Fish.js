@@ -18,6 +18,12 @@ export default class Fish {
     // override this method in subclasses
   }
 
+  draw (camera) {
+    const imageX = this.animation.x
+    const imageY = this.animation.y
+    this.imageManager.draw(this.animation.canvas, this.x, this.y, this.animation.width, this.animation.height, imageX, imageY, camera, false)
+  }
+
   drawAsInventory (x, y, width, height) {
     this.game.ctx.drawImage(this.animation.spritesheet, this.animation.x, this.animation.y, this.animation.width, this.animation.height, x, y, width, height)
   }

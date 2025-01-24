@@ -19,8 +19,8 @@ export default class Bobber {
     this.animations['BobberWater'].canvas = this.imageManager.getImageWithSrc(this.animations['BobberWater'].spritesheet)
   }
 
-  showWaterAnimation () {
-    this.showWater = true
+  showWaterAnimation (value) {
+    this.showWater = value
   }
 
   update (deltaTime) {
