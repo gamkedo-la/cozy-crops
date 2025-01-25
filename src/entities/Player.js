@@ -318,7 +318,7 @@ function setStaminaForLocation (player) {
 }
 
 function updateStamina (player) {
-  player.stamina -= 0.01
+  //player.stamina -= 0.01
 
   if (player.stamina <= 0) {
     player.stamina = 0
