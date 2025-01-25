@@ -35,6 +35,9 @@ export const fenceright = 162
 export const fencevert = 163
 export const NearShoreOcean = 164
 export const LockedDoor = 165
+export const fishingSpot = 166
+export const dockTop = 167
+export const dockBottom = 168
 
 export const WorldIndexes = {
   Bridge,
@@ -71,7 +74,10 @@ export const WorldIndexes = {
   Stone,
   Water,
   Waterfall,
-  WetSand
+  WetSand,
+  fishingSpot,
+  dockTop,
+  dockBottom
 }
 
 export const WorldTileNames = {
@@ -110,7 +116,10 @@ export const WorldTileNames = {
   [Stone]: 'Stone',
   [Water]: 'Water',
   [Waterfall]: 'Waterfall',
-  [WetSand]: 'WetSand'
+  [WetSand]: 'WetSand',
+  [fishingSpot]: 'fishingSpot',
+  [dockTop]: 'dockTop',
+  [dockBottom]: 'dockBottom'
 }
 
 export const WorldUnwalkable = [
@@ -124,6 +133,9 @@ export const WorldUnwalkable = [
   RockyGround,
   Waterfall,
   Water,
+  dockBottom,
+  dockTop,
+  fishingSpot
 ]
 
 const grassTiles = [Grass1, Grass3]
