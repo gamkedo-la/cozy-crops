@@ -15,6 +15,10 @@ export default class SellItemElement extends StoreItemElement {
     super(config)
 
     getSourceDataForShopType(this.shopType)
+    if (this.manager.entityManager.isFish({ type: config.type })) {
+      //TODO: Temporarily disabled until fish are fully implemented
+      return
+    }
     this.icon = getItemForType(this, config.type)
     this.icon.init()
     this.icon.width = this.itemWidth
