@@ -29,11 +29,16 @@ export default class TitleScene extends Scene {
       y: 100 + this.game.canvas.height / (2 * Constants.CanvasScale),
       game: this.game,
       scene: this,
-      options: ['Start', 'Options', 'Credits'],
+      options: ['Start', 'Credits'],
       textColor: Constants.MainMenuTextColor,
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
     })
+  }
+
+  start () {
+    super.start() // Call the start method of the parent class
+    this.menu.show()
   }
 
   update (deltaTime) {
@@ -54,7 +59,7 @@ export default class TitleScene extends Scene {
 
   stop () {
     super.stop() // Call the stop method of the parent class
-
+    this.menu.hide()
     // clean up resources
   }
 
@@ -71,29 +76,29 @@ export default class TitleScene extends Scene {
 }
 
 // used by the sunshine effect
-function drawBitmapCenteredWithRotation(ctx,img,atX,atY,withAng) {
-	ctx.save();
-	ctx.translate(atX, atY);
-	ctx.rotate(withAng);
-	ctx.drawImage(img, -img.width/2, -img.height/2);
-	ctx.restore();
+function drawBitmapCenteredWithRotation(ctx, img, atX, atY, withAng) {
+	ctx.save()
+	ctx.translate(atX, atY)
+	ctx.rotate(withAng)
+	ctx.drawImage(img, -img.width/2, -img.height/2)
+	ctx.restore()
 }
 
 function drawBackground (title) {
   // sky and clouds
   title.game.ctx.drawImage(title.backgroundImage, 0, 0, title.game.canvas.width, title.game.canvas.height)
   // rotating sunshine effect
-  drawBitmapCenteredWithRotation(title.game.ctx,title.backgroundImage2,
-    Math.round(title.game.canvas.width/2),
-    Math.round(title.game.canvas.height/2), 
-    performance.now()/8000
+  drawBitmapCenteredWithRotation(title.game.ctx, title.backgroundImage2,
+    Math.round(title.game.canvas.width / 2),
+    Math.round(title.game.canvas.height / 2), 
+    performance.now() / 8000
   )
   // horizon and rows of crops
   title.game.ctx.drawImage(title.backgroundImage3, 0, 0, title.game.canvas.width, title.game.canvas.height)
   // centered logo
   title.game.ctx.drawImage(title.backgroundImage4,
-    Math.round(title.game.canvas.width/2-title.backgroundImage4.width/2),
-    Math.round(-250+title.game.canvas.height/2-title.backgroundImage4.height/2))
+    Math.round(title.game.canvas.width / 2 - title.backgroundImage4.width / 2),
+    Math.round(-250 + title.game.canvas.height / 2 - title.backgroundImage4.height / 2))
 }
 
 function manageInput (scene) {

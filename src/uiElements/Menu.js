@@ -31,9 +31,6 @@ export default class Menu {
           imgDims: buttonData,
           onClick: () => {
             this.scene.clicked(selection)
-            this.menuItems.forEach(item => {
-              if (item.element) document.body.removeChild(item.element)
-            })
           }
         })
 
@@ -62,6 +59,20 @@ export default class Menu {
           menuItem.element.style.left = `${canvasRect.left + (canvasRect.width / 2) - buttonData.width}px`
         }
       })
+    })
+  }
+
+  show () {
+    this.menuItems.forEach(menuItem => {
+      if (menuItem.element) {
+        menuItem.show()
+      }
+    })
+  }
+
+  hide () {
+    this.menuItems.forEach(menuItem => {
+      if (menuItem.element) menuItem.hide()
     })
   }
 

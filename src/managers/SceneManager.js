@@ -22,6 +22,7 @@ export default class SceneManager {
     this.buildScenes()
 
     this.currentScene = this.scenes.Boot
+    this.nextScene = null
   }
 
   buildScenes () {
@@ -119,6 +120,9 @@ export default class SceneManager {
   }
 
   changeScene (sceneName, data) {
+    if (this.nextScene) return
+
+    this.nextScene = sceneName
     data ? data.uiScene = this.scenes[Scenes.UIScene] : data = { uiScene: this.scenes[Scenes.UIScene] }
 
     fadeOut(this.managers.imageManager, () => {
@@ -145,7 +149,9 @@ export default class SceneManager {
         }
       }
 
-      fadeIn(this.managers.imageManager, () => {})
+      fadeIn(this.managers.imageManager, () => {
+        this.nextScene = null
+      })
     })
   }
 

@@ -28,6 +28,11 @@ export default class CreditsScene extends Scene {
     })
   }
 
+  start () {
+    super.start() // Call the start method of the parent class
+    this.menu.show()
+  }
+
   update (deltaTime) {
     super.update(deltaTime) // Call the update method of the parent class
 
@@ -44,7 +49,7 @@ export default class CreditsScene extends Scene {
 
   stop () {
     super.stop() // Call the stop method of the parent class
-
+    this.menu.hide()
     // clean up resources
   }
 
