@@ -4,12 +4,14 @@ import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys from '../globals/Keys.js'
+import Credits from '../globals/Credits.js'
 
 export default class CreditsScene extends Scene {
   constructor (config) {
     super(config)
 
     this.menu = null
+    this.currentY = 0
   }
 
   init (data) {
@@ -44,6 +46,7 @@ export default class CreditsScene extends Scene {
     super.draw() // Call the draw method of the parent class
 
     drawTitle(this)
+    drawCredits(this)
     this.menu.draw()
   }
 
@@ -64,7 +67,20 @@ function drawTitle (title) {
   title.game.ctx.fillStyle = Constants.TitleTextColor
   title.game.ctx.font = `${Constants.TitleFontSize}px ${Constants.TitleFontFamily}`
   title.game.ctx.textAlign = UIAttributes.CenterAlign
-  title.game.ctx.fillText('Credits', title.game.canvas.width / 2, title.game.canvas.height / 4)
+  title.game.ctx.fillText('Credits', title.game.canvas.width / 2, (title.game.canvas.height / 4 - 100))
+}
+
+function drawCredits (scene) {
+  scene.game.ctx.fillStyle = Constants.MainMenuTextColor
+  scene.game.ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
+  scene.game.ctx.textAlign = UIAttributes.LeftAlign
+
+  Credits.forEach((credit, index) => {
+    scene.game.ctx.fillText(credit.contributor, 10, 200 + 50 * index)
+    credit.contributions.forEach((contribution, contributionIndex) => {
+      scene.game.ctx.fillText(contribution, 20, 225 + 50 * index + contributionIndex * 25)
+    })
+  })
 }
 
 function manageInput (scene) {
