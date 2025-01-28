@@ -121,7 +121,7 @@ function buildSpritesheet (player) {
   hairCanvas.width = PlayerImageData.Hair.width
   hairCanvas.height = PlayerImageData.Hair.height
   const hairStyle = player.styles.Hair
-  if (hairStyle) hairCtx.drawImage(basePlayerImage, hairStyle.x, hairStyle.y, hairStyle.width, hairStyle.height, 0, 0, hairStyle.width, hairStyle.height)
+  hairCtx.drawImage(basePlayerImage, hairStyle.x, hairStyle.y, hairStyle.width, hairStyle.height, 0, 0, hairStyle.width, hairStyle.height)
   const hairImage = player.imageManager.replaceColorInImage(hairCanvas, PlayerImageData.Hair.baseColor, player.hairColor)
 
   const armCanvas = document.createElement('canvas')

@@ -355,17 +355,7 @@ export default class GameScene extends Scene {
     }
 
     // hardcoded river water turbulence particles scattered here and there manually
-    this.particles.riverSplashes();
-    /*
-    // this is how we collected x,y data for them:
-    // output an array of mouseclick x,y to the console
-    if (this.camera && this.inputManager.mouse.justDown) {
-        if (!this.allMouseClicks) this.allMouseClicks = "const xy = ["
-        let cam = this.camera.getTopLeft()
-        this.allMouseClicks += "["+(this.inputManager.mouse.x+cam.x)+","+(this.inputManager.mouse.y+cam.y)+"],"
-        console.log(this.allMouseClicks+"];")
-    }
-    */
+    this.particles.riverSplashes()
     
     this.particles.update(deltaTime)
 

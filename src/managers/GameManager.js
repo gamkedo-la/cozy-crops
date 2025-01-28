@@ -1,6 +1,6 @@
 import LocalStorageKeys from '../globals/LocalStorageKeys.js'
 import EntityTypes from '../globals/EntityTypes.js'
-import PlayerImageData from '../globals/PlayerImageData.js'
+import PlayerImageData, { PlayerHairData } from '../globals/PlayerImageData.js'
 import { ArrowKeys, E, WASDKeys } from '../globals/Keys.js'
 // import { WetSand } from '../globals/Tiles.js'
 import { WetSand } from '../globals/TilesWorld.js'
@@ -435,9 +435,9 @@ function initializeNewGame (manager, saveSlot) {
         Pants: PlayerImageData.Pants.baseColor
       },
       Styles: {
-        Hair: 'Short',
-        Shirt: 'Tee',
-        Pants: 'Jeans'
+        Hair: PlayerHairData.Default,
+        Shirt: PlayerImageData.Shirt,
+        Pants: PlayerImageData.Pants
       },
       Location: {
         X: 0,

@@ -36,13 +36,13 @@ export default class PreGameScene extends Scene {
 
     this.player1 = {
       colors: {
-        skinTone: null,
-        hairColor: null,
-        shirtColor: null,
-        pantsColor: null
+        skinTone: PlayerImageData.Body.baseColor,
+        hairColor: PlayerImageData.Hair.baseColor,
+        shirtColor: PlayerImageData.Shirt.baseColor,
+        pantsColor: PlayerImageData.Pants.baseColor
       },
       styles: {
-        hairStyle: null,
+        hairStyle: PlayerHairData.Default,
         accessories: null
        // shirtStyle: null,
        // pantsStyle: null
