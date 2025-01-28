@@ -84,15 +84,16 @@ function drawBackground (title) {
   title.game.ctx.drawImage(title.backgroundImage, 0, 0, title.game.canvas.width, title.game.canvas.height)
   // rotating sunshine effect
   drawBitmapCenteredWithRotation(title.game.ctx,title.backgroundImage2,
-    title.game.canvas.width/2,title.game.canvas.height/2, 
+    Math.round(title.game.canvas.width/2),
+    Math.round(title.game.canvas.height/2), 
     performance.now()/8000
   )
-  // horizon and rows and crops
+  // horizon and rows of crops
   title.game.ctx.drawImage(title.backgroundImage3, 0, 0, title.game.canvas.width, title.game.canvas.height)
   // centered logo
   title.game.ctx.drawImage(title.backgroundImage4,
-    title.game.canvas.width/2-title.backgroundImage4.width/2,
-    -250+title.game.canvas.height/2-title.backgroundImage4.height/2)
+    Math.round(title.game.canvas.width/2-title.backgroundImage4.width/2),
+    Math.round(-250+title.game.canvas.height/2-title.backgroundImage4.height/2))
 }
 
 function manageInput (scene) {
