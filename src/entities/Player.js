@@ -2,9 +2,10 @@ import PlayerAnimations from '../globals/PlayerAnimations.js'
 import Animation from '../components/Animation.js'
 import PlayerImageData from '../globals/PlayerImageData.js'
 import { waterGroundSound, tillGroundSound, openDoorSound, harvestCropSound, plantSeedSound, stepSound1, stepSound2, stepSound3, stepSound4, treeChopSound } from '../globals/Sounds.js'
+import { Player2 } from '../globals/EntityTypes.js'
 
 //These are for Cheats
-import { K, M } from '../globals/Keys.js'
+import { E, K, M } from '../globals/Keys.js'
 import { CheatKeys } from '../globals/Debug.js'
 
 export default class Player {
@@ -40,6 +41,8 @@ export default class Player {
 
     this.width = this.animation.width
     this.height = this.animation.height
+
+    this.altControls = this.game.gameManager.getPlayerControls(Player2)
   }
 
   update (deltaTime) {
@@ -190,7 +193,7 @@ function handleInput (player) {
     player.fishingAt = null
   }
 
-  if (playerJustDownKeys.includes(player.controls.Action)) {
+  if (playerJustDownKeys.includes(player.controls.Action) || playerJustDownKeys.includes(player.altControls.Action)) {
     if (player.scene.showingNPCDialogue) {
       // player is trying to give a gift to an NPC
       player.scene.showGiftDialogue()
@@ -247,7 +250,7 @@ function handleInput (player) {
         // Show "no tool selected" message
       }
     }
-  } else if (downKeys.includes(player.controls.Up)) {
+  } else if (downKeys.includes(player.controls.Up) || downKeys.includes(player.altControls.Up)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y - player.speed })) {
       player.y -= player.speed
       player.scene.playerIsWalkingNow(true)
@@ -256,7 +259,7 @@ function handleInput (player) {
     if (player.animation !== player.animations.SteveWalkUp) {
       player.animation = player.animations.SteveWalkUp
     }
-  } else if (downKeys.includes(player.controls.Down)) {
+  } else if (downKeys.includes(player.controls.Down) || downKeys.includes(player.altControls.Down)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x, y: player.collisionPoint.y + player.speed })) {
       player.y += player.speed
       player.scene.playerIsWalkingNow(true)
@@ -265,7 +268,7 @@ function handleInput (player) {
     if (player.animation !== player.animations.SteveWalkDown) {
       player.animation = player.animations.SteveWalkDown
     }
-  } else if (downKeys.includes(player.controls.Left)) {
+  } else if (downKeys.includes(player.controls.Left) || downKeys.includes(player.altControls.Left)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x - player.speed, y: player.collisionPoint.y })) {
       player.x -= player.speed
       player.scene.playerIsWalkingNow(true)
@@ -274,7 +277,7 @@ function handleInput (player) {
     if (player.animation !== player.animations.SteveWalkLeft) {
       player.animation = player.animations.SteveWalkLeft
     }
-  }  else if (downKeys.includes(player.controls.Right)) {
+  }  else if (downKeys.includes(player.controls.Right) || downKeys.includes(player.altControls.Right)) {
     if (player.scene.playerCanWalk({ x: player.collisionPoint.x + player.speed, y: player.collisionPoint.y })) {
       player.x += player.speed
       player.scene.playerIsWalkingNow(true)

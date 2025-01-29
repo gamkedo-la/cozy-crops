@@ -1,8 +1,7 @@
 import LocalStorageKeys from '../globals/LocalStorageKeys.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import PlayerImageData, { PlayerHairData } from '../globals/PlayerImageData.js'
-import { ArrowKeys, E, WASDKeys } from '../globals/Keys.js'
-// import { WetSand } from '../globals/Tiles.js'
+import { ArrowKeys, WASDKeys } from '../globals/Keys.js'
 import { WetSand } from '../globals/TilesWorld.js'
 
 // GameManager is responsible for keeping track of the game state and saving it to local storage.

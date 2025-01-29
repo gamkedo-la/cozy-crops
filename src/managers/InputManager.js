@@ -1,5 +1,5 @@
-import { Player1Keys, Player2Keys, ArrowKeys } from '../globals/Keys.js'
-import { Player1, Player2 } from '../globals/EntityTypes.js'
+import { ArrowKeys, WASDKeys, SPACE } from '../globals/Keys.js'
+import { Player1 } from '../globals/EntityTypes.js'
 
 /**
  * @typedef {import('../Game.js').default} Game
@@ -20,12 +20,9 @@ export default class InputManager {
     this.justDown = {}
     this.stillDown = {}
     this.justUp = {}
-    this.player1KeyValues = null
-    this.player2KeyValues = null
+    this.player1KeyValues = [...Object.values(ArrowKeys), ...Object.values(WASDKeys)]
     this.ignore = false
     this.activeGamepad = null
-    this.frameCounter = 0
-    this.frameCounterLastDown = -999
 
     this.mouse = {
       x: 0,
@@ -87,8 +84,7 @@ export default class InputManager {
   }
 
   setPlayerKeys () {
-    this.player1KeyValues = Object.values(this.gameManager.getPlayerControls(Player1))
-    this.player2KeyValues = Object.values(this.gameManager.getPlayerControls(Player2))
+    this.player1KeyValues = [...Object.values(ArrowKeys), ...Object.values(WASDKeys)]
   }
 
   setPlayerControl (player, control, key) {
@@ -99,8 +95,6 @@ export default class InputManager {
   getPlayerControls (player) {
     if (player === Player1) {
       return this.gameManager.getPlayerControls(Player1)
-    } else if (player === Player2) {
-      return this.gameManager.getPlayerControls(Player2)
     }
   }
 
@@ -116,34 +110,40 @@ export default class InputManager {
     this.pollGamepad()
   }
 
-  handleKeyDown (event) {
-    
-    // console.log(event.key + " key was pressed on frame "+this.frameCounter)
-    this.frameCounterLastDown = this.frameCounter
-    
+  handleKeyDown (event) {   
     if (this.ignore) return
 
     event.preventDefault()
 
-    if (!this.stillDown[event.key]) {
-      this.justDown[event.key] = true
+    if (event.key === ' ') {
+      if (!this.stillDown[event.code]) {
+        this.justDown[event.code] = true
+      }
+      this.stillDown[event.code] = true
+      this.justUp[event.code] = false 
+    } else {
+      if (!this.stillDown[event.key]) {
+        this.justDown[event.key] = true
+      }
+      this.stillDown[event.key] = true
+      this.justUp[event.key] = false  
     }
-    this.stillDown[event.key] = true
-    this.justUp[event.key] = false
   }
 
   handleKeyUp (event) {
-    
-    // console.log(event.key + " key was released on frame "+this.frameCounter)
-    // if (this.frameCounter == this.frameCounterLastDown) console.log("WARNING: key was released on the same frame it was pressed.")
-
     if (this.ignore) return
 
     event.preventDefault()
 
-    this.justUp[event.key] = true
-    this.stillDown[event.key] = false
-    this.justDown[event.key] = false
+    if (event.key === ' ') {
+      this.justUp[event.code] = true
+      this.stillDown[event.code] = false
+      this.justDown[event.code] = false  
+    } else {
+      this.justUp[event.key] = true
+      this.stillDown[event.key] = false
+      this.justDown[event.key] = false  
+    }
   }
 
   handleMouseMove (event) {
@@ -185,8 +185,6 @@ export default class InputManager {
   getJustDownKeys (player) {
     if (player === Player1) {
       return Object.keys(this.justDown).filter(key => this.justDown[key] && this.player1KeyValues.includes(key))
-    } else if (player === Player2) {
-      return Object.keys(this.justDown).filter(key => this.justDown[key] && this.player2KeyValues.includes(key))
     }
 
     return Object.keys(this.justDown).filter(key => this.justDown[key])
@@ -195,8 +193,6 @@ export default class InputManager {
   getDownKeys (player) {
     if (player === Player1) {
       return Object.keys(this.stillDown).filter(key => this.stillDown[key] && this.player1KeyValues.includes(key))
-    } else if (player === Player2) {
-      return Object.keys(this.stillDown).filter(key => this.stillDown[key] && this.player2KeyValues.includes(key))
     }
 
     return Object.keys(this.stillDown).filter(key => this.stillDown[key])
@@ -205,8 +201,6 @@ export default class InputManager {
   getJustUpKeys (player) {
     if (player === Player1) {
       return Object.keys(this.justUp).filter(key => this.justUp[key] && this.player1KeyValues.includes(key))
-    } else if (player === Player2) {
-      return Object.keys(this.justUp).filter(key => this.justUp[key] && this.player2KeyValues.includes(key))
     }
 
     return Object.keys(this.justUp).filter(key => this.justUp[key])
