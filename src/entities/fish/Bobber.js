@@ -44,24 +44,17 @@ export default class Bobber {
     let offset = this.imageManager.camera.getTopLeft()
     let startX = this.scene.steve.collisionPoint.x - offset.x - 8 
     let startY = this.scene.steve.collisionPoint.y - offset.y - 28
-    let endX = this.x - offset.x + 8
-    let endY = this.y - offset.y + 2
-    //console.log("drawing fishing line from "+startX+","+startY+" to  "+endX+","+endY);
+    let endX = this.x - offset.x + 6
+    let endY = this.y - offset.y + 1
+    //console.log("drawing fishing line from "+startX+","+startY+" to  "+endX+","+endY)
     let ctx = this.imageManager.internalCtx
-    ctx.strokeStyle = "rgba(220,255,220,0.5)"; // transparent light blue
-    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgba(220,255,220,0.5)" // transparent light blue
+    ctx.lineWidth = 1
     ctx.beginPath()
     ctx.moveTo(startX,startY)
-    ctx.bezierCurveTo(startX,startY,startX-4,startY+30,endX,endY) // make it curvy
-    //ctx.lineTo(endX,endY) // just a nice straight line
+    ctx.bezierCurveTo(startX,startY,startX-4,startY+30,endX,endY) // curvy
+    //ctx.lineTo(endX,endY) // straight
     ctx.stroke()
-
-    // test the postions! needs no offset
-    //const imageX = this.animations['BobberWater'].x
-    //const imageY = this.animations['BobberWater'].y
-    //this.imageManager.draw(this.animations['BobberWater'].canvas, startX, startY, this.animations['BobberWater'].width, this.animations['BobberWater'].height, imageX, imageY)//, camera, false)
-    //this.imageManager.draw(this.animations['BobberWater'].canvas, endX, endY, this.animations['BobberWater'].width, this.animations['BobberWater'].height, imageX, imageY)//, camera, false)
-
   }
 
   draw (camera) {
