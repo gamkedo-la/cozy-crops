@@ -323,7 +323,7 @@ export default class InventoryManager {
 
     this.getFish().forEach((fish, index) => {
       fish.drawAsInventory(
-        fish.x + fish.width / 4,
+        fish.x,
         fish.y - 1,
         this.itemWidth,
         this.itemHeight

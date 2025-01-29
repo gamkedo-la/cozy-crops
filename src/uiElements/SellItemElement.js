@@ -6,6 +6,7 @@ import SeedPacket from '../entities/crops/SeedPacket.js'
 import Fruit from '../entities/crops/Fruit.js'
 import Wood from '../entities/crops/Wood.js'
 import Furniture from '../entities/furniture/Furniture.js'
+import Fish from '../entities/fish/Fish.js'
 
 export default class SellItemElement extends StoreItemElement {
   constructor (config) {
@@ -15,10 +16,7 @@ export default class SellItemElement extends StoreItemElement {
     super(config)
 
     getSourceDataForShopType(this.shopType)
-    if (this.manager.entityManager.isFish({ type: config.type })) {
-      //TODO: Temporarily disabled until fish are fully implemented
-      return
-    }
+
     this.icon = getItemForType(this, config.type)
     this.icon.init()
     this.icon.width = this.itemWidth
@@ -31,6 +29,10 @@ export default class SellItemElement extends StoreItemElement {
     } else if (this.manager.entityManager.isForageable({ type: config.type })) {
       this.icon.height = this.itemHeight
     } else if (this.manager.entityManager.isFurniture({ type: config.type })) {
+      this.icon.height = this.itemHeight
+      this.icon.x += this.itemWidth / 2
+      this.icon.y += this.itemHeight / 2
+    } else if (this.manager.entityManager.isFish({ type: config.type })) {
       this.icon.height = this.itemHeight
       this.icon.x += this.itemWidth / 2
       this.icon.y += this.itemHeight / 2
@@ -222,7 +224,25 @@ function getNameForType (type) {
       return 'Herringbone'
     case EntityTypes.FlooringCrosshatch:
       return 'Crosshatch'
-  }
+    case EntityTypes.Catfish:
+      return 'Catfish'
+    case EntityTypes.Guppy:
+      return 'Guppy'
+    case EntityTypes.Herring:
+      return 'Herring'
+    case EntityTypes.Minnow:
+      return 'Minnow'
+    case EntityTypes.Pike:
+      return 'Pike'
+    case EntityTypes.Salmon:
+      return 'Salmon'
+    case EntityTypes.Sardine:
+      return 'Sardine'
+    case EntityTypes.Tuna:
+      return 'Tuna'
+    case EntityTypes.Walleye:
+      return 'Walleye'
+    }
 }
 
 function getSourceDataForShopType (element, shopType) {
@@ -271,6 +291,8 @@ function getItemForType (element, type) {
     return getWoodForType(element, type)
   } else if (element.entityManager.isFurniture({ type })) {
     return getFurnitureForType(element, type)
+  } else if (element.entityManager.isFish({ type })) {
+    return getFishForType(element, type)
   }
 }
 
@@ -344,6 +366,24 @@ function getFurnitureForType (manager, type) {
   }
 
   const item = new Furniture(config)
+  item.init()
+
+  return item
+}
+
+function getFishForType (manager, type) {
+  const config = {
+    game: manager.game,
+    imageManager: manager.imageManager,
+    type,
+    x: manager.x + manager.width - manager.itemWidth - 28,
+    y: manager.y + 28 - manager.itemHeight,
+    width: 2 * manager.itemWidth,
+    height: 2 * manager.itemHeight,
+    quantity: 1
+  }
+
+  const item = new Fish(config)
   item.init()
 
   return item

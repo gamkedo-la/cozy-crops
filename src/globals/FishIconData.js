@@ -4,73 +4,73 @@ const FishIconData = {
   Catfish: {
     name: 'CatfishIcon',
     spritesheet: Fish,
-    x: 112,
+    x: 126,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Guppy: {
     name: 'GuppyIcon',
     spritesheet: Fish,
-    x: 144,
+    x: 162,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Herring: {
     name: 'HerringIcon',
     spritesheet: Fish,
-    x: 48,
+    x: 54,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Minnow: {
     name: 'MinnowIcon',
     spritesheet: Fish,
-    x: 16,
+    x: 18,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Pike: {
     name: 'PikeIcon',
     spritesheet: Fish,
-    x: 64,
+    x: 72,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Salmon: {
     name: 'SalmonIcon',
     spritesheet: Fish,
-    x: 128,
+    x: 144,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Sardine: {
     name: 'SardineIcon',
     spritesheet: Fish,
-    x: 80,
+    x: 90,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Tuna: {
     name: 'TunaIcon',
     spritesheet: Fish,
-    x: 32,
+    x: 36,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   UnknownFish: {
@@ -78,17 +78,17 @@ const FishIconData = {
     spritesheet: Fish,
     x: 0,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   },
   Walleye: {
     name: 'WalleyeIcon',
     spritesheet: Fish,
-    x: 96,
+    x: 108,
     y: 0,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     padding: 1
   }
 }
