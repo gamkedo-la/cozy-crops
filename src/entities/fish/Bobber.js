@@ -1,5 +1,6 @@
 import FishingUIData from '../../globals/FishingUIData.js'
 import EntityTypes from '../../globals/EntityTypes.js'
+import { fishWaitSound, fishSplashSound1, fishSplashSound2, fishSplashSound3 } from '../../globals/Sounds.js'
 
 export default class Bobber {
   constructor (config) {
@@ -30,6 +31,13 @@ export default class Bobber {
       this.y = this.isUp ? this.y - 1 : this.y + 1
       this.isUp = !this.isUp
     }
+
+    let r = Math.random() // very occasionally play a splashing sound
+    if (r<0.005) this.scene.audioManager?.playSource(fishSplashSound1,1)
+    else if (r<0.01) this.scene.audioManager?.playSource(fishSplashSound2,1)
+    else if (r<0.015) this.scene.audioManager?.playSource(fishSplashSound3,1)
+    else if (r<0.03) this.scene.audioManager?.playSource(fishWaitSound,1) // more often
+
   }
 
   draw (camera) {

@@ -19,6 +19,13 @@ const Sounds = {
   stepSound3: `${path}footStep3.wav`,
   stepSound4: `${path}footStep4.wav`,
   treeChopSound: `${path}treeChopping.wav`,
+  fishCastSound: `${path}fish-cast-rod.mp3`,
+  fishBobberSound: `${path}fish-lure-hits-water.mp3`,
+  fishReelSound: `${path}fish-reel-loop.mp3`,
+  fishWaitSound: `${path}fish-bubble-pop.mp3`,
+  fishSplashSound1: `${path}fish-splash-1.mp3`,
+  fishSplashSound2: `${path}fish-splash-2.mp3`,
+  fishSplashSound3: `${path}fish-splash-3.mp3`,
 }
 
 export default Sounds
@@ -39,4 +46,11 @@ export const {
   stepSound3,
   stepSound4,    
   treeChopSound,
+  fishCastSound,
+  fishBobberSound,
+  fishReelSound,
+  fishWaitSound,
+  fishSplashSound1,
+  fishSplashSound2,
+  fishSplashSound3,
  } =  Sounds
