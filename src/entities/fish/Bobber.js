@@ -48,7 +48,7 @@ export default class Bobber {
     let endY = this.y - offset.y + 1
     //console.log("drawing fishing line from "+startX+","+startY+" to  "+endX+","+endY)
     let ctx = this.imageManager.internalCtx
-    ctx.strokeStyle = "rgba(220,255,220,0.5)" // transparent light blue
+    ctx.strokeStyle = "rgba(200,200,255,0.5)" // transparent light blue
     ctx.lineWidth = 1
     ctx.beginPath()
     ctx.moveTo(startX,startY)
