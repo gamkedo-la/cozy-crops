@@ -26,7 +26,7 @@ export default class Menu {
         const button = new ImageButton({
           imageManager: this.scene.managers.imageManager,
           id: selection,
-          top: `${canvasRect.top + (canvasRect.height / 2) + (index * buttonData.height * 2) - (buttonData.height)}px`,
+          top: `${this.y + (index * buttonData.height * 2) - buttonData.height}px`, //`${canvasRect.top + (canvasRect.height / 2) + (index * buttonData.height * 2) - (buttonData.height)}px`,
           left: `${canvasRect.left + (canvasRect.width / 2) - buttonData.width}px`,
           imgDims: buttonData,
           onClick: () => {

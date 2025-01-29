@@ -11,7 +11,15 @@ export default class CreditsScene extends Scene {
     super(config)
 
     this.menu = null
-    this.currentY = 0
+    this.currentY = this.game.canvas.height
+    this.contributorColors = [
+      '#FF0000',
+      '#00FF00',
+      '#0000FF',
+      '#FFFF00',
+      '#FF00FF',
+      '#00FFFF'
+    ]
   }
 
   init (data) {
@@ -20,7 +28,7 @@ export default class CreditsScene extends Scene {
     // initialize resources
     this.menu = new Menu({
       x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
-      y: 100 + this.game.canvas.height / (2 * Constants.CanvasScale),
+      y: this.game.canvas.height - 50,
       game: this.game,
       scene: this,
       options: ['Back'],
@@ -33,6 +41,7 @@ export default class CreditsScene extends Scene {
   start () {
     super.start() // Call the start method of the parent class
     this.menu.show()
+    this.currentY = this.game.canvas.height
   }
 
   update (deltaTime) {
@@ -40,13 +49,15 @@ export default class CreditsScene extends Scene {
 
     manageInput(this)
     this.menu.update(deltaTime)
+    this.currentY -= 1
   }
 
   draw (scene) {
     super.draw() // Call the draw method of the parent class
 
-    drawTitle(this)
     drawCredits(this)
+
+    drawTitle(this)
     this.menu.draw()
   }
 
@@ -65,22 +76,28 @@ export default class CreditsScene extends Scene {
 
 function drawTitle (title) {
   title.game.ctx.fillStyle = Constants.TitleTextColor
-  title.game.ctx.font = `${Constants.TitleFontSize}px ${Constants.TitleFontFamily}`
+  title.game.ctx.font = `${Constants.TitleFontSize - 10}px ${Constants.TitleFontFamily}`
   title.game.ctx.textAlign = UIAttributes.CenterAlign
   title.game.ctx.fillText('Credits', title.game.canvas.width / 2, (title.game.canvas.height / 4 - 100))
 }
 
 function drawCredits (scene) {
-  scene.game.ctx.fillStyle = Constants.MainMenuTextColor
   scene.game.ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
   scene.game.ctx.textAlign = UIAttributes.LeftAlign
 
-  Credits.forEach((credit, index) => {
-    scene.game.ctx.fillText(credit.contributor, 10, 200 + 50 * index)
-    credit.contributions.forEach((contribution, contributionIndex) => {
-      scene.game.ctx.fillText(contribution, 20, 225 + 50 * index + contributionIndex * 25)
-    })
-  })
+  let lineIndex = 0
+  let contributorIndex = 0
+  for (const credit of Credits) {
+    scene.game.ctx.fillStyle = scene.contributorColors[contributorIndex]
+    scene.game.ctx.fillText(credit.contributor, 100, scene.currentY + 50 * lineIndex)
+    lineIndex++
+    contributorIndex++
+    scene.game.ctx.fillStyle = Constants.MainMenuTextColor
+    for (const contribution of credit.contributions) {
+      scene.game.ctx.fillText(contribution, 200, scene.currentY + 50 * lineIndex)
+      lineIndex++
+    }
+  }
 }
 
 function manageInput (scene) {
