@@ -11,6 +11,7 @@ import TreeData from '../globals/TreeData.js'
 import ForageableData from '../globals/ForageableData.js'
 import ToolData from '../globals/ToolData.js'
 import FurnitureData from '../globals/FurnitureData.js'
+import FishData from '../globals/FishData.js'
 import NextButton from '../uiElements/NextButton.js'
 import PreviousButton from '../uiElements/PreviousButton.js'
 import StoreConfirmation from '../uiElements/StoreConfirmation.js'
@@ -153,12 +154,14 @@ function setStoreShopType (manager, config) {
   manager.pages = [
     [], // crops
     [], // trees
-    [] // forage items
+    [], // forage items
+    [] // fish
   ]
   manager.pageTitles = [
     'Sell Crops',
     'Sell Tree Fruit',
-    'Sell Forage Items'
+    'Sell Forage Items',
+    'Sell Fish'
   ]
 
   manager.itemContainer = StoreUIData.StoreItem
@@ -171,6 +174,7 @@ function setStoreShopType (manager, config) {
   initializeStorePage0(manager, config)
   initializeStorePage1(manager, config)
   initializeStorePage2(manager, config)
+  initializeStorePage3(manager, config)
 
   manager.prevButton.x = manager.game.canvas.width / 2 - manager.backgroundTop.width + 10
   manager.nextButton.x = manager.game.canvas.width / 2 + manager.backgroundTop.width - (2 * UISpriteData.NextButtonSmall.width) - 10
@@ -307,6 +311,33 @@ function initializeStorePage2 (manager, config) {
     sellItem.init()
     manager.pages[2].push(sellItem)
     if (manager.pages[2].length === 1) sellItem.selected = true
+    currentY += deltaY
+  })
+}
+
+function initializeStorePage3 (manager, config) {
+  let currentY = manager.pageTitleHeight
+  const deltaY = 2 * manager.itemContainer.height
+
+  config.shopType = 'store'
+
+  const fish = manager.inventoryManager.getFish()
+  fish.forEach(fish => {
+    const itemData = FishData[fish.type]
+    const item = new SellItemElement({
+      ...config,
+      x: manager.game.canvas.width / 2 - manager.itemContainer.width,
+      y: currentY,
+      type: fish.type,
+      name: itemData.name,
+      price: itemData.sellingPrice,
+      selected: false,
+      cropManager: manager.scene.cropManager
+    })
+    item.init()
+    manager.pages[3].push(item)
+
+    if (manager.pages[3].length === 1) item.selected = true
     currentY += deltaY
   })
 }

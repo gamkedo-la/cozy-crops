@@ -116,7 +116,8 @@ export default class InventoryManager {
         this.entityManager.isForageable(itemToRemove) ||
         this.entityManager.isTool(itemToRemove) ||
         this.entityManager.isWood(itemToRemove) ||
-        this.entityManager.isFurniture(itemToRemove)) {
+        this.entityManager.isFurniture(itemToRemove) ||
+        this.entityManager.isFish(itemToRemove)) {
       let item = this.getItem(itemToRemove.type)
       if (item) {
         item.quantity -= quantity
