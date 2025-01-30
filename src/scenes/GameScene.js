@@ -621,8 +621,7 @@ export default class GameScene extends Scene {
   fish (x, y, tool, isFishing, walkedAway = false) {
     //console.log(`Fishing at (${x}, ${y})`)
     if (isFishing) {
-      this.audioManager.pauseMusic(FishingMusic)
-      this.audioManager.startMusic(BackgroundMusic)
+      this.audioManager.fadeMusic(FishingMusic, BackgroundMusic)
       if (this.bobber) {
         if (!walkedAway && this.bobber.showWater) {
           // player pulled the bobber out of the water while the fish was close => caught a fish
@@ -645,8 +644,7 @@ export default class GameScene extends Scene {
 
       const bobberLocation = this.mapManager.getBobberLocationForDockLocation({ x, y })
       if (bobberLocation) {
-        this.audioManager.pauseMusic(BackgroundMusic)
-        this.audioManager.startMusic(FishingMusic)
+        this.audioManager.fadeMusic(BackgroundMusic, FishingMusic)
         this.bobber = new Bobber({
           game: this.game,
           scene: this,
