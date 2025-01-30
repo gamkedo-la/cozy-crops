@@ -15,5 +15,5 @@ export default [
   ]
   
   export const CarpenterPosition = { x: -150, y: -100 }
-  export const CarpenterEntrance = { x: 450 + CarpenterPosition.x, y: 350 + CarpenterPosition.y }
+  export const CarpenterEntrance = { x: 466 + CarpenterPosition.x, y: 350 + CarpenterPosition.y }
   export const CarpenterDialogPosition = { x: 512 + CarpenterPosition.x, y: 340 + CarpenterPosition.y }
