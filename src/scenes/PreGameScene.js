@@ -367,14 +367,14 @@ function drawPlayerControlsTitles (canvas, ctx) {
   ctx.fillStyle = UIAttributes.UIColor
   ctx.font = `${Constants.MainMenuFontSize}px ${Constants.MainMenuFontFamily}`
   ctx.textAlign = UIAttributes.CenterAlign
-  ctx.fillText('Controls', (canvas.width / 2), borderY)
+  ctx.fillText('Controls', (canvas.width / 2), borderY -50)
  // ctx.fillText('Controls', 3 * (canvas.width / 4), borderY)
 }
 
-function drawPlayerControlsOptions (canvas, ctx, player1Controls/*, player2Controls*/) {
-  const borderWidth = canvas.width / 8
-  const offsetX = 40 + canvas.width / 8
-  const player1X = canvas.width / 4 - borderWidth / 2 - offsetX
+function drawPlayerControlsOptions (canvas, ctx, player1Controls /*, player2Controls*/) {
+  const borderWidth = canvas.width / 4
+  const offsetX = 40 + canvas.width / 4
+  const player1X = canvas.width / 2 - borderWidth / 2 - offsetX
  // const player2X = 3 * canvas.width / 4 - borderWidth / 2 - offsetX
   const borderY = (3 * canvas.height / 4)
 
@@ -382,24 +382,32 @@ function drawPlayerControlsOptions (canvas, ctx, player1Controls/*, player2Contr
   ctx.fillStyle = UIAttributes.UIColor
   ctx.textAlign = UIAttributes.LeftAlign
 
-  const player1Options = [
+   const player1Options = [
+    `Up: W   or   Up Arrow`.toUpperCase(),
+    `Down: S   or   Down Arrow`.toUpperCase(),
+    `Left: A   or   Left Arrow`.toUpperCase(),
+    `Right: D   or   Right Arrow`.toUpperCase(),
+    `Action: Space   or   L`.toUpperCase()
+  ]
+
+ /* const player1Options = [
     `Up: ${player1Controls.Up}`.toUpperCase(),
     `Down: ${player1Controls.Down}`.toUpperCase(),
     `Left: ${player1Controls.Left}`.toUpperCase(),
     `Right: ${player1Controls.Right}`.toUpperCase(),
     `Action: ${player1Controls.Action}`.toUpperCase()
-  ]
+  ]*/
 
   const optionsYStart = borderY + 0.25 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
   const lineHeight = 1.5 * UIAttributes.getFontSizeNumber(UIAttributes.UIFontSize)
 
   player1Options.forEach((option, index) => {
     if (index < 2) {
-      ctx.fillText(option, player1X + 350, optionsYStart + index * lineHeight)
+      ctx.fillText(option, player1X + 100, optionsYStart + index * lineHeight - 65)
     } else if (index < 4) {
-      ctx.fillText(option, player1X + 650, optionsYStart + (index - 2) * lineHeight)
+      ctx.fillText(option, player1X + 650, optionsYStart + (index - 2) * lineHeight - 65)
     } else {
-      ctx.fillText(option, player1X + 550, optionsYStart + (index - 2) * lineHeight)
+      ctx.fillText(option, player1X + 400, optionsYStart + (index - 2) * lineHeight - 65)
     }
   })
 
