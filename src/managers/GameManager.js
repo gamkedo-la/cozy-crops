@@ -469,10 +469,10 @@ function initializeNewGame (manager, saveSlot) {
       Day: 1
     },
     Inventory: [
-      { type: EntityTypes.ShovelWooden, quantity: 1 },
-      { type: EntityTypes.WateringCanWooden, quantity: 1 },
       { type: EntityTypes.HoeWooden, quantity: 1 },
-      { type: EntityTypes.FishingRodBamboo, quantity: 1 }
+      { type: EntityTypes.WateringCanWooden, quantity: 1 }
+     // { type: EntityTypes.ShovelWooden, quantity: 1 },
+     // { type: EntityTypes.FishingRodBamboo, quantity: 1 }
     ],
     Map: {
       Achievements: [
@@ -501,7 +501,7 @@ function initializeNewGame (manager, saveSlot) {
         // { x: 0, y: 0, type: EntityTypes.AppleTree, growth: 0 }
       ]
     },
-    Money: 500,
+    Money: 100,
     NPCs: {
       [EntityTypes.Blacksmith]: {
         hasMetPlayer: false,
