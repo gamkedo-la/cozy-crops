@@ -2,7 +2,7 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
-import { BasePlayer, Pregame } from '../globals/Images.js'
+import { BasePlayer, TitleBackground, TitleBackground2, TitleBackground3, Pregame } from '../globals/Images.js'
 import Keys from '../globals/Keys.js'
 import NewGameDialog from '../components/NewGameDialog.js'
 import UIAttributes from '../globals/UIAttributes.js'
@@ -82,7 +82,10 @@ export default class PreGameScene extends Scene {
   init (data) {
     super.init(data) // Call the init method of the parent class
 
-    this.backgroundImage = this.imageManager.getImageWithSrc(Pregame)
+    this.backgroundImage4 = this.imageManager.getImageWithSrc(Pregame)
+    this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
+    this.backgroundImage2 = this.imageManager.getImageWithSrc(TitleBackground2)
+    this.backgroundImage3 = this.imageManager.getImageWithSrc(TitleBackground3)
 
     // setup resources
     this.saveSlots = this.managers.gameManager.getSaveSlots()
@@ -240,9 +243,31 @@ function manageInput (scene) {
     }
   }
 }
+// used by the sunshine effect
+function drawBitmapCenteredWithRotation(ctx, img, atX, atY, withAng) {
+	ctx.save()
+	ctx.translate(atX, atY)
+	ctx.rotate(withAng)
+	ctx.drawImage(img, -img.width/2, -img.height/2)
+	ctx.restore()
+}
 
 function drawBackground (title) {
+
+  // sky and clouds
   title.game.ctx.drawImage(title.backgroundImage, 0, 0, title.game.canvas.width, title.game.canvas.height)
+  
+  // rotating sunshine effect
+  drawBitmapCenteredWithRotation(title.game.ctx, title.backgroundImage2,
+    Math.round(title.game.canvas.width / 2),
+    Math.round(title.game.canvas.height / 2), 
+    performance.now() / 8000
+  )
+  
+  // horizon and rows of crops
+  title.game.ctx.drawImage(title.backgroundImage3, 0, 0, title.game.canvas.width, title.game.canvas.height)
+
+  title.game.ctx.drawImage(title.backgroundImage4, 0, 0, title.game.canvas.width, title.game.canvas.height)
 }
 
 function showNewGameDialog (scene) {
