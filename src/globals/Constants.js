@@ -15,7 +15,7 @@ const Constants = {
   TitleFontSize: 300,
   TitleFontFamily: FontFamilies.FarmVintage,
   TitleTextColor: 'beige',
-  SHADOWS_ENABLED: false, // if true, imageManager.draw renders a darkened upside-down version of every sprite
+  SHADOWS_ENABLED: true, // if true, imageManager.draw renders a darkened upside-down version of every sprite
 }
 
 export default Constants

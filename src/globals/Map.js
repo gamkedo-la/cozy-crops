@@ -138,7 +138,7 @@ export const PlayerHome = { x: 976, y: 1168 }
 export const Museum = { x: 1616, y: 960 }
 export const mapPosition = { x: 0, y: 0 }
 
-export const FishermanStart = { x: 450, y: 1160 }
+export const FishermanStart = { x: 475, y: 1156 }
 export const GrandmaStart = { x: 450, y: 450 }
 export const LumberjackStart = { x: 1100, y: 1500 }
 export const TiffanyStart = { x: 1270, y: 675 }
