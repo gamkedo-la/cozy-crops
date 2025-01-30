@@ -1,4 +1,4 @@
-import { WorldIndexes, WorldTileNames, WorldUnwalkable } from './TilesWorld.js'
+import { WorldIndexes, WorldTileNames, WorldUnwalkable, WorldUngrowable } from './TilesWorld.js'
 import { BuildingIndexes, BuildingTileNames, BuildingUnwalkable } from './TilesBuilding.js'
 import { SpliceIndexes, SpliceTileNames, SpliceUnwalkable } from './TilesSplice.js'
 import { CarpenterIndexes, CarpenterTileNames, CarpenterUnwalkable } from './TilesCarpenter.js'
@@ -38,6 +38,10 @@ export const UnWalkable = [
   ...PlayerHomeUnwalkable,
   ...StoreUnwalkable,
   ...MuseumUnwalkable
+]
+
+export const Ungrowable = [
+  WorldUngrowable
 ]
 
 // export const TileTimes = {

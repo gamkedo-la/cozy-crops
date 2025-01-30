@@ -450,6 +450,22 @@ export default class MapManager {
 
     return { x, y }
   }
+
+  getRandomForagePos (mustBeGrowable = true) {
+    let x, y, tileIsGrowable
+    do {
+      x = Math.floor(Math.random() * this.worldDimensions.pixels.width)
+      y = Math.floor(Math.random() * this.worldDimensions.pixels.height)
+      const tile = this.getTileAtPixelPos(x, y)
+      if (mustBeGrowable) {
+        const tilePos = this.getTileTopLeftAtPixelPos(x, y)
+          x = tilePos.x
+          y = tilePos.y
+        tileIsGrowable = this.collisionManager.playerCanWalk(tile)
+      }
+    } while (mustBeGrowable && !tileIsGrowable)
+    return { x, y }
+  }
 }
 
 function getTileIndexByName(index) {

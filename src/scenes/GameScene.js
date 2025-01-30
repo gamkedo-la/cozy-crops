@@ -111,7 +111,7 @@ export default class GameScene extends Scene {
     
     this.spawnButterflies(12)
     this.spawnBunnies(10)
-    this.spawnForageableItems(12)
+    this.spawnForageableItems(120)
 
     this.weather = new Weather({
         game: this.game,
@@ -181,7 +181,7 @@ export default class GameScene extends Scene {
   spawnForageableItems (howmany) {
     // Implement once ForageableItems are created
     for (let i = 0; i < howmany; i++) {
-      const itemPos = this.mapManager.getRandomTilePos()
+      const itemPos = this.mapManager.getRandomForagePos()
       const items = Object.keys(ForageableData)
       const itemType = items[Math.floor(Math.random() * items.length)]
 

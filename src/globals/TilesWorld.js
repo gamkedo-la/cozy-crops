@@ -138,6 +138,36 @@ export const WorldUnwalkable = [
   fishingSpot
 ]
 
+export const WorldUngrowable = 
+[
+  fencefull,
+  fenceleft,
+  fenceright,
+  fencevert,
+  LockedDoor,
+  NearShoreOcean,
+  Pink,
+  RockyGround,
+  Waterfall,
+  Water,
+  dockBottom,
+  dockTop,
+  fishingSpot,
+  Bridge,
+  DarkStone,
+  HorizontalRamp,
+  HorizontalStripe,
+  Path,
+  RockyPathDL,
+  RockyPathDR,
+  RockyPathUL,
+  RockyPathUR,
+  Sand,
+  Seafoam,
+  Stone,
+  WetSand
+]
+
 const grassTiles = [Grass1, Grass3]
 export function isGrass (index) {
   return grassTiles.includes(index)
