@@ -2,6 +2,7 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
+import { TitleBackground, TitleBackground2, TitleBackground3, TitleBackground4, TitleBackground5, WildlifeSprites } from '../globals/Images.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys from '../globals/Keys.js'
 import Credits from '../globals/Credits.js'
@@ -20,10 +21,19 @@ export default class CreditsScene extends Scene {
       '#FF00FF',
       '#00FFFF'
     ]
+
+    this.backgroundImage = null
+    this.menu = null
   }
 
   init (data) {
     super.init(data) // Call the init method of the parent class
+    
+        this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
+        this.backgroundImage2 = this.imageManager.getImageWithSrc(TitleBackground2)
+        this.backgroundImage3 = this.imageManager.getImageWithSrc(TitleBackground3)
+        //this.backgroundImage4 = this.imageManager.getImageWithSrc(TitleBackground4)
+        this.backgroundImage5 = this.imageManager.getImageWithSrc(TitleBackground5)
 
     // initialize resources
     this.menu = new Menu({
@@ -54,7 +64,7 @@ export default class CreditsScene extends Scene {
 
   draw (scene) {
     super.draw() // Call the draw method of the parent class
-
+    drawBackground(this)
     drawCredits(this)
 
     drawTitle(this)
@@ -78,7 +88,7 @@ function drawTitle (title) {
   title.game.ctx.fillStyle = Constants.TitleTextColor
   title.game.ctx.font = `${Constants.TitleFontSize - 10}px ${Constants.TitleFontFamily}`
   title.game.ctx.textAlign = UIAttributes.CenterAlign
-  title.game.ctx.fillText('Credits', title.game.canvas.width / 2, (title.game.canvas.height / 4 - 100))
+  title.game.ctx.fillText('Credits', title.game.canvas.width / 2 + 250, (title.game.canvas.height / 4 - 100))
 }
 
 function drawCredits (scene) {
@@ -89,15 +99,43 @@ function drawCredits (scene) {
   let contributorIndex = 0
   for (const credit of Credits) {
     scene.game.ctx.fillStyle = scene.contributorColors[contributorIndex]
-    scene.game.ctx.fillText(credit.contributor, 100, scene.currentY + 50 * lineIndex)
+    scene.game.ctx.fillText(credit.contributor, 50, scene.currentY + 50 * lineIndex)
     lineIndex++
     contributorIndex++
     scene.game.ctx.fillStyle = Constants.MainMenuTextColor
     for (const contribution of credit.contributions) {
-      scene.game.ctx.fillText(contribution, 200, scene.currentY + 50 * lineIndex)
+      scene.game.ctx.fillText(contribution, 100, scene.currentY + 50 * lineIndex)
       lineIndex++
     }
   }
+}
+
+// used by the sunshine effect
+function drawBitmapCenteredWithRotation(ctx, img, atX, atY, withAng) {
+	ctx.save()
+	ctx.translate(atX, atY)
+	ctx.rotate(withAng)
+	ctx.drawImage(img, -img.width/2, -img.height/2)
+	ctx.restore()
+}
+
+function drawBackground (title) {
+  
+  // sky and clouds
+  title.game.ctx.drawImage(title.backgroundImage, 0, 0, title.game.canvas.width, title.game.canvas.height)
+  
+  // rotating sunshine effect
+  drawBitmapCenteredWithRotation(title.game.ctx, title.backgroundImage2,
+    Math.round(title.game.canvas.width / 2),
+    Math.round(title.game.canvas.height / 2), 
+    performance.now() / 8000
+  )
+  
+  // horizon and rows of crops
+  title.game.ctx.drawImage(title.backgroundImage3, 0, 0, title.game.canvas.width, title.game.canvas.height)
+  
+    title.game.ctx.drawImage(title.backgroundImage5, 0, 0, title.game.canvas.width - 50, title.game.canvas.height)
+
 }
 
 function manageInput (scene) {
