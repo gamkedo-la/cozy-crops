@@ -60,6 +60,66 @@ export const ButterflyAnimationData = {
   }
 }
 
+export const BeeAnimationData = {
+  flyLeft: {
+    flipped: true,
+    name: 'flyLeft',
+    spritesheet: WildlifeSprites,
+    frames: [16,17],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 80,
+    durationRandomness: 0,
+    loop: true,
+  },
+  flyRight: {
+    flipped: false,
+    name: 'flyRight',
+    spritesheet: WildlifeSprites,
+    frames: [16,17],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 80,
+    durationRandomness: 0,
+    loop: true,
+  },
+  Flying: {
+    name: 'BeeFlying',
+    spritesheet: WildlifeSprites,
+    frames: [16,17],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 80,
+    durationRandomness: 0,
+    loop: true
+  },
+  Idle: {
+    name: 'BeeIdle',
+    spritesheet: WildlifeSprites,
+    frames: [16,17],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 80,
+    durationRandomness: 0,
+    loop: true
+  },
+  Inventory: {
+    name: 'BeeInventory',
+    spritesheet: WildlifeSprites,
+    frames: [16,17],
+    frameWidth: 16,
+    frameHeight: 16,
+    padding: 0,
+    duration: 8888,
+    durationRandomness: 0,
+    loop: true
+  }
+}
+
 export const BunnyAnimationData = {
   IdleLeft: {
     name: 'BunnyIdle',

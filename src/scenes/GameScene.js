@@ -8,6 +8,7 @@ import CollisionManager from '../managers/CollisionManager.js'
 import Colors from '../globals/Colors.js'
 import { CheatKeys } from '../globals/Debug.js'
 import Butterfly from '../entities/wildlife/Butterfly.js'
+import Bee from '../entities/wildlife/Bee.js'
 import Bunny from '../entities/wildlife/Bunny.js'
 import ForageableData from '../globals/ForageableData.js'
 import Daffodil from '../entities/forageables/Daffodil.js'
@@ -111,6 +112,7 @@ export default class GameScene extends Scene {
     
     this.spawnButterflies(12)
     this.spawnBunnies(10)
+    this.spawnBees(6)
     this.spawnForageableItems(120)
 
     this.weather = new Weather({
@@ -153,6 +155,23 @@ export default class GameScene extends Scene {
         imageManager: this.imageManager,
         x: butterflyPos.x,
         y: butterflyPos.y
+      })
+
+      bug.init()
+      this.entityManager.addEntity(bug, true, true)
+    }
+  }
+
+  spawnBees (howmany) {
+    for (let i = 0; i < howmany; i++) {
+      const beePos = this.mapManager.getRandomTilePos(false)
+
+      let bug = new Bee({
+        game: this.game,
+        scene: this,
+        imageManager: this.imageManager,
+        x: beePos.x,
+        y: beePos.y
       })
 
       bug.init()
