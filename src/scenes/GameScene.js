@@ -31,7 +31,7 @@ import Lumberjack from '../entities/npcs/Lumberjack.js'
 import Tiffany from '../entities/npcs/Tiffany.js'
 import Weather from '../entities/effects/Weather.js'
 import Particles from '../entities/effects/Particles.js'
-import { BackgroundBirds, BackgroundWaterfall, BackgroundSeashore, fishCastSound, fishBobberSound, fishReelSound, fishWaitSound, fishSplashSound1, fishSplashSound2, fishSplashSound3 } from '../globals/Sounds.js'
+import { BackgroundBirds, BackgroundWaterfall, BackgroundMusic, FishingMusic, BackgroundSeashore, fishCastSound, fishBobberSound, fishReelSound, fishWaitSound, fishSplashSound1, fishSplashSound2, fishSplashSound3 } from '../globals/Sounds.js'
 import Bobber from '../entities/fish/Bobber.js'
 import FishData from '../globals/FishData.js'
 import Fish from '../entities/fish/Fish.js'
@@ -621,6 +621,8 @@ export default class GameScene extends Scene {
   fish (x, y, tool, isFishing, walkedAway = false) {
     //console.log(`Fishing at (${x}, ${y})`)
     if (isFishing) {
+      this.audioManager.pauseMusic(FishingMusic)
+      this.audioManager.startMusic(BackgroundMusic)
       if (this.bobber) {
         if (!walkedAway && this.bobber.showWater) {
           // player pulled the bobber out of the water while the fish was close => caught a fish
@@ -643,6 +645,8 @@ export default class GameScene extends Scene {
 
       const bobberLocation = this.mapManager.getBobberLocationForDockLocation({ x, y })
       if (bobberLocation) {
+        this.audioManager.pauseMusic(BackgroundMusic)
+        this.audioManager.startMusic(FishingMusic)
         this.bobber = new Bobber({
           game: this.game,
           scene: this,
