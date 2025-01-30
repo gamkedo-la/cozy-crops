@@ -93,4 +93,35 @@ export default class AudioManager {
   pauseSource (src) {
     this.pause(this.getSoundWithSrc(src))
   }
+
+  // fade from one music track to another
+  fadeMusic(fromSrc, toSrc, duration = 500) { 
+    const fromMusic = this.getSoundWithSrc(fromSrc);
+    const toMusic = this.getSoundWithSrc(toSrc);
+
+    // Ensure the new music starts playing at 0 volume
+    toMusic.volume = 0;
+    toMusic.play();
+    
+    const fadeSteps = 30; // Number of steps in fade
+    let stepDuration = duration / fadeSteps;
+    
+    let step = 0;
+
+    const fadeInterval = setInterval(() => {
+        step++;
+        let progress = step / fadeSteps;
+        
+        // Gradually reduce volume of current music
+        fromMusic.volume = Math.max(0, 1 - progress);
+        // Gradually increase volume of new music
+        toMusic.volume = Math.min(1, progress);
+
+        if (progress >= 1) {
+            clearInterval(fadeInterval);
+            fromMusic.pause(); // Pause the old music after fade completes
+            fromMusic.currentTime = 0; // Reset to start in case played later
+        }
+    }, stepDuration);
+}
 }
