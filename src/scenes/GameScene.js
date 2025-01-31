@@ -678,6 +678,7 @@ export default class GameScene extends Scene {
   newDayActions () {
     this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
+    this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
     setNewWeather(this)
   }
 
