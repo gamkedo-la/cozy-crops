@@ -16,7 +16,7 @@ export default class Menu {
 
     this.game.ctx.fillStyle = this.textColor
     this.game.ctx.font = `${this.fontSize}px ${this.fontFamily}`
-    this.game.ctx.textAlign = 'left'
+    this.game.ctx.textAlign = 'right'
   
     this.options.forEach((selection, index) => {
       const buttonData = getSpriteDataFromName(selection)
@@ -42,11 +42,25 @@ export default class Menu {
         this.menuItems.push({
           selection,
           x: this.x,
-          y: this.y + (index * this.fontSize * 1.5) - (this.fontSize * 0.25),
+          y: this.y + (index * this.fontSize * 1.5),
           width: metrics.width,
-          height: this.fontSize * 1.5
+          height: metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
         })
-        this.game.ctx.fillText(selection, this.x, this.y + index * this.fontSize * 1.5)  
+
+        if (selection !== 'New Game') {
+          this.game.ctx.textAlign = 'left'
+          const removeMetrics = this.game.ctx.measureText('Remove')
+
+          this.menuItems.push({
+            selection: 'Remove',
+            x: this.x + 25,
+            y: this.y + (index * this.fontSize * 1.5),
+            width: removeMetrics.width,
+            height: removeMetrics.actualBoundingBoxAscent + removeMetrics.actualBoundingBoxDescent
+          })
+
+          this.game.ctx.textAlign = 'right'
+        }
       }
     })
 
@@ -102,11 +116,15 @@ export default class Menu {
   draw () {
     this.game.ctx.fillStyle = this.textColor
     this.game.ctx.font = `${this.fontSize}px ${this.fontFamily}`
-    this.game.ctx.textAlign = 'left'
   
     this.menuItems.forEach((menuItem, index) => {
       if (!menuItem.element) {
-        this.game.ctx.fillText(menuItem.selection, this.x, this.y + index * this.fontSize * 1.5)
+        if (menuItem.selection === 'Remove') {
+          this.game.ctx.textAlign = 'left'
+        } else {
+          this.game.ctx.textAlign = 'right'
+        }
+        this.game.ctx.fillText(menuItem.selection, menuItem.x, menuItem.y)
       }
     })
   
@@ -137,15 +155,31 @@ function handleMouse (menu, mousePos) {
         overButton = true
       }
     } else {
-      if (mousePos.x > menuItem.x && mousePos.x < menuItem.x + menuItem.width && mousePos.y > menuItem.y && mousePos.y < menuItem.y + menuItem.height) {
-        menu.selectionIndex = index
-        overButton = true
-      }  
+      if (menuItem.selection === 'Remove') {
+        console.log(mousePos.x > menuItem.x, mousePos.x < menuItem.x + menuItem.width, mousePos.y > (menuItem.y - menuItem.height / 2), mousePos.y < (menuItem.y + menuItem.height / 2))
+        if (mousePos.x > menuItem.x && mousePos.x < menuItem.x + menuItem.width && mousePos.y > (menuItem.y - menuItem.height / 2) && mousePos.y < (menuItem.y + menuItem.height / 2)) {
+          menu.selectionIndex = index
+          overButton = true
+        }  
+      } else {
+        if (mousePos.x > menuItem.x - menuItem.width && mousePos.x < menuItem.x && mousePos.y > (menuItem.y - menuItem.height / 2) && mousePos.y < (menuItem.y + menuItem.height / 2)) {
+          menu.selectionIndex = index
+          overButton = true
+        }  
+      }
     }
   })
 
   if (mousePos.justDown && overButton) {
-    menu.scene.clicked(menu.options[menu.selectionIndex])
+    const item = menu.menuItems[menu.selectionIndex]
+    if (item.element) {
+      menu.scene.clicked(menu.options[menu.selectionIndex])
+    } else if (item.selection === 'Remove') {
+      menu.scene.clicked(menu.menuItems[menu.selectionIndex - 1].selection, true)
+      menu.selectionIndex = 0
+    } else {
+      menu.scene.clicked(item.selection)
+    }
   }
 }
 

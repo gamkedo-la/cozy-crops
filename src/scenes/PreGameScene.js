@@ -90,13 +90,14 @@ export default class PreGameScene extends Scene {
     // setup resources
     this.saveSlots = this.managers.gameManager.getSaveSlots()
     if (!this.saveSlots) this.saveSlots = []
-    this.saveSlots.push('New Game')
+    if (this.saveSlots.length <= 5) this.saveSlots.push('New Game')
     this.startGameMenu = new Menu({
-      x: (this.game.canvas.width / (2 * Constants.CanvasScale)) - 65,
-      y: this.game.canvas.height / (2 * Constants.CanvasScale),
+      x: (this.game.canvas.width / (2 * Constants.CanvasScale)),
+      y: 350, // this.game.canvas.height / (2 * Constants.CanvasScale),
       game: this.game,
       scene: this,
       options: this.saveSlots,
+      removeButtons: true,
       textColor: Constants.MainMenuTextColor,
       fontSize: Constants.MainMenuFontSize,
       fontFamily: Constants.MainMenuFontFamily
@@ -143,9 +144,24 @@ export default class PreGameScene extends Scene {
     // clean up resources
   }
 
-  clicked (selection) {
+  clicked (selection, remove = false) {
     if (selection === 'New Game') {
       showNewGameDialog(this)
+    } else if (remove) {
+      this.managers.gameManager.clearSaveSlot(selection)
+      this.saveSlots = this.managers.gameManager.getSaveSlots()
+      if (this.saveSlots.length <= 5) this.saveSlots.push('New Game')
+      this.startGameMenu = new Menu({
+        x: (this.game.canvas.width / (2 * Constants.CanvasScale)),
+        y: 350, // this.game.canvas.height / (2 * Constants.CanvasScale),
+        game: this.game,
+        scene: this,
+        options: this.saveSlots,
+        removeButtons: true,
+        textColor: Constants.MainMenuTextColor,
+        fontSize: Constants.MainMenuFontSize,
+        fontFamily: Constants.MainMenuFontFamily
+      })
     } else {
       this.managers.gameManager.loadGame(selection)
       this.game.changeScene(Scenes.Game)
@@ -187,8 +203,8 @@ function manageInput (scene) {
 
     scene.saveSlots = ['New Game']
     scene.startGameMenu = new Menu({
-      x: (scene.game.canvas.width / (2 * Constants.CanvasScale)) - 15,
-      y: scene.game.canvas.height / (2 * Constants.CanvasScale),
+      x: (scene.game.canvas.width / (2 * Constants.CanvasScale)),
+      y: 350, // scene.game.canvas.height / (2 * Constants.CanvasScale),
       game: scene.game,
       scene: scene,
       options: scene.saveSlots,
