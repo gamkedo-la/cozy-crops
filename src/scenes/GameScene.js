@@ -200,7 +200,12 @@ export default class GameScene extends Scene {
   spawnForageableItems (howmany) {
     // Implement once ForageableItems are created
     for (let i = 0; i < howmany; i++) {
-      const itemPos = this.mapManager.getRandomForagePos()
+      let itemPos = null
+      while (!itemPos) {
+        itemPos = this.mapManager.getRandomForagePos()
+        if (this.entityManager.getEntitiesAt(itemPos.x, itemPos.y).length) itemPos = null
+      }
+
       const items = Object.keys(ForageableData)
       const itemType = items[Math.floor(Math.random() * items.length)]
 

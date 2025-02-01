@@ -156,7 +156,6 @@ function handleMouse (menu, mousePos) {
       }
     } else {
       if (menuItem.selection === 'Remove') {
-        console.log(mousePos.x > menuItem.x, mousePos.x < menuItem.x + menuItem.width, mousePos.y > (menuItem.y - menuItem.height / 2), mousePos.y < (menuItem.y + menuItem.height / 2))
         if (mousePos.x > menuItem.x && mousePos.x < menuItem.x + menuItem.width && mousePos.y > (menuItem.y - menuItem.height / 2) && mousePos.y < (menuItem.y + menuItem.height / 2)) {
           menu.selectionIndex = index
           overButton = true

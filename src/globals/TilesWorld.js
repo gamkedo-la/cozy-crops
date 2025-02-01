@@ -15,6 +15,17 @@ export const DarkStone = 13
 export const Seafoam = 14
 export const WetSand = 15
 export const Waterfall = 19
+export const Bldg20 = 20
+export const Bldg21 = 21
+export const Bldg22 = 22
+export const Bldg23 = 23
+export const Bldg24 = 24
+export const Bldg25 = 25
+export const Bldg26 = 26
+export const Bldg27 = 27
+export const Bldg28 = 28
+export const Bldg29 = 29
+export const Bldg30 = 30
 export const Path = 31
 export const Bldg32 = 32
 export const Bldg33 = 33
@@ -149,6 +160,17 @@ export const WorldIndexes = {
   PathDarkGrassUR,
   PathDarkGrassDL,
   PathDarkGrassDR,
+  Bldg20,
+  Bldg21,
+  Bldg22,
+  Bldg23,
+  Bldg24,
+  Bldg25,
+  Bldg26,
+  Bldg27,
+  Bldg28,
+  Bldg29,
+  Bldg30,
   Bldg32,
   Bldg33,
   Bldg34,
@@ -250,6 +272,17 @@ export const WorldTileNames = {
   [PathDarkGrassUR]: 'PathDarkGrassUR',
   [PathDarkGrassDL]: 'PathDarkGrassDL',
   [PathDarkGrassDR]: 'PathDarkGrassDR',
+  [Bldg20]: 'Bldg20',
+  [Bldg21]: 'Bldg21',
+  [Bldg22]: 'Bldg22',
+  [Bldg23]: 'Bldg23',
+  [Bldg24]: 'Bldg24',
+  [Bldg25]: 'Bldg25',
+  [Bldg26]: 'Bldg26',
+  [Bldg27]: 'Bldg27',
+  [Bldg28]: 'Bldg28',
+  [Bldg29]: 'Bldg29',
+  [Bldg30]: 'Bldg30',
   [Bldg32]: 'Bldg32',
   [Bldg33]: 'Bldg33',
   [Bldg34]: 'Bldg34',
@@ -363,6 +396,17 @@ export const WorldUngrowable =
   PathDarkGrassUR,
   PathDarkGrassDL,
   PathDarkGrassDR,
+  Bldg20,
+  Bldg21,
+  Bldg22,
+  Bldg23,
+  Bldg24,
+  Bldg25,
+  Bldg26,
+  Bldg27,
+  Bldg28,
+  Bldg29,
+  Bldg30,
   Bldg32,
   Bldg33,
   Bldg34,
