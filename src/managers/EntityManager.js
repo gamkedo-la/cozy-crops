@@ -643,7 +643,11 @@ function insertEntity (entities, entity) {
 
   while (low < high) {
     const mid = Math.floor((low + high) / 2)
-    if (entities[mid].y < (entity.collisionPoint?.y || entity.y)) {
+    const midEntity = entities[mid]
+    const midY = midEntity.collisionPoint?.y || midEntity.y
+    const entityY = entity.collisionPoint?.y || entity.y
+
+    if (midY < entityY) {
       low = mid + 1
     } else {
       high = mid
