@@ -16,6 +16,38 @@ export const Seafoam = 14
 export const WetSand = 15
 export const Waterfall = 19
 export const Path = 31
+export const Bldg32 = 32
+export const Bldg33 = 33
+export const Bldg34 = 34
+export const Bldg35 = 35
+export const Bldg36 = 36
+export const Bldg37 = 37
+export const Bldg38 = 38
+export const Bldg39 = 39
+export const Bldg40 = 40
+export const Bldg41 = 41
+export const Bldg42 = 42
+export const Bldg43 = 43
+export const Bldg44 = 44
+export const Bldg45 = 45
+export const Bldg46 = 46
+export const Bldg47 = 47
+export const Bldg48 = 48
+export const Bldg49 = 49
+export const Bldg50 = 50
+export const Bldg51 = 51
+export const Bldg52 = 52
+export const Bldg53 = 53
+export const Bldg54 = 54
+export const Bldg55 = 55
+export const Bldg56 = 56
+export const Bldg57 = 57
+export const Bldg58 = 58
+export const Bldg59 = 59
+export const Bldg60 = 60
+export const Bldg61 = 61
+export const Bldg62 = 62
+export const Bldg63 = 63
 export const GrassWaterUL = 66
 export const GrassWaterUR = 67
 export const GrassWaterDL = 98
@@ -28,6 +60,32 @@ export const GrassPathUL = 74
 export const GrassPathUR = 75
 export const GrassPathDL = 76
 export const GrassPathDR = 77
+export const PathDarkRockyUL = 78
+export const PathDarkRockyUR = 79
+export const PathDarkRockyDL = 80
+export const PathDarkRockyDR = 81
+export const PathGrassRockyUL = 82
+export const PathGrassRockyUR = 83
+export const PathGrassRockyDL = 84
+export const PathGrassRockyDR = 85
+export const PathDarkGrassUL = 86
+export const PathDarkGrassUR = 87
+export const PathDarkGrassDL = 88
+export const PathDarkGrassDR = 89
+export const Bldg96 = 96
+export const Bldg97 = 97
+export const Bldg99 = 99
+export const Bldg100 = 100
+export const Bldg101 = 101
+export const Bldg102 = 102
+export const Bldg104 = 104
+export const Bldg105 = 105
+export const Bldg106 = 106
+export const Bldg107 = 107
+export const Bldg108 = 108
+export const Bldg109 = 109
+export const Bldg110 = 110
+export const Bldg111 = 111
 export const Grass5 = 128
 export const fencefull = 160
 export const fenceleft = 161
@@ -76,8 +134,67 @@ export const WorldIndexes = {
   Waterfall,
   WetSand,
   fishingSpot,
+  Dock,
   dockTop,
-  dockBottom
+  dockBottom,
+  PathDarkRockyUL,
+  PathDarkRockyUR,
+  PathDarkRockyDL,
+  PathDarkRockyDR,
+  PathGrassRockyUL,
+  PathGrassRockyUR,
+  PathGrassRockyDL,
+  PathGrassRockyDR,
+  PathDarkGrassUL,
+  PathDarkGrassUR,
+  PathDarkGrassDL,
+  PathDarkGrassDR,
+  Bldg32,
+  Bldg33,
+  Bldg34,
+  Bldg35,
+  Bldg36,
+  Bldg37,
+  Bldg38,
+  Bldg39,
+  Bldg40,
+  Bldg41,
+  Bldg42,
+  Bldg43,
+  Bldg44,
+  Bldg45,
+  Bldg46,
+  Bldg47,
+  Bldg48,
+  Bldg49,
+  Bldg50,
+  Bldg51,
+  Bldg52,
+  Bldg53,
+  Bldg54,
+  Bldg55,
+  Bldg56,
+  Bldg57,
+  Bldg58,
+  Bldg59,
+  Bldg60,
+  Bldg61,
+  Bldg62,
+  Bldg63,
+  Bldg96,
+  Bldg97,
+  Bldg99,
+  Bldg100,
+  Bldg101,
+  Bldg102,
+  Bldg104,
+  Bldg105,
+  Bldg106,
+  Bldg107,
+  Bldg108,
+  Bldg109,
+  Bldg110,
+  Bldg111
 }
 
 export const WorldTileNames = {
@@ -118,8 +235,67 @@ export const WorldTileNames = {
   [Waterfall]: 'Waterfall',
   [WetSand]: 'WetSand',
   [fishingSpot]: 'fishingSpot',
+  [Dock]: 'Dock',
   [dockTop]: 'dockTop',
-  [dockBottom]: 'dockBottom'
+  [dockBottom]: 'dockBottom',
+  [PathDarkRockyUL]: 'PathDarkRockyUL',
+  [PathDarkRockyUR]: 'PathDarkRockyUR',
+  [PathDarkRockyDL]: 'PathDarkRockyDL',
+  [PathDarkRockyDR]: 'PathDarkRockyDR',
+  [PathGrassRockyUL]: 'PathGrassRockyUL',
+  [PathGrassRockyUR]: 'PathGrassRockyUR',
+  [PathGrassRockyDL]: 'PathGrassRockyDL',
+  [PathGrassRockyDR]: 'PathGrassRockyDR',
+  [PathDarkGrassUL]: 'PathDarkGrassUL',
+  [PathDarkGrassUR]: 'PathDarkGrassUR',
+  [PathDarkGrassDL]: 'PathDarkGrassDL',
+  [PathDarkGrassDR]: 'PathDarkGrassDR',
+  [Bldg32]: 'Bldg32',
+  [Bldg33]: 'Bldg33',
+  [Bldg34]: 'Bldg34',
+  [Bldg35]: 'Bldg35',
+  [Bldg36]: 'Bldg36',
+  [Bldg37]: 'Bldg37',
+  [Bldg38]: 'Bldg38',
+  [Bldg39]: 'Bldg39',
+  [Bldg40]: 'Bldg40',
+  [Bldg41]: 'Bldg41',
+  [Bldg42]: 'Bldg42',
+  [Bldg43]: 'Bldg43',
+  [Bldg44]: 'Bldg44',
+  [Bldg45]: 'Bldg45',
+  [Bldg46]: 'Bldg46',
+  [Bldg47]: 'Bldg47',
+  [Bldg48]: 'Bldg48',
+  [Bldg49]: 'Bldg49',
+  [Bldg50]: 'Bldg50',
+  [Bldg51]: 'Bldg51',
+  [Bldg52]: 'Bldg52',
+  [Bldg53]: 'Bldg53',
+  [Bldg54]: 'Bldg54',
+  [Bldg55]: 'Bldg55',
+  [Bldg56]: 'Bldg56',
+  [Bldg57]: 'Bldg57',
+  [Bldg58]: 'Bldg58',
+  [Bldg59]: 'Bldg59',
+  [Bldg60]: 'Bldg60',
+  [Bldg61]: 'Bldg61',
+  [Bldg62]: 'Bldg62',
+  [Bldg63]: 'Bldg63',
+  [Bldg96]: 'Bldg96',
+  [Bldg97]: 'Bldg97',
+  [Bldg99]: 'Bldg99',
+  [Bldg100]: 'Bldg100',
+  [Bldg101]: 'Bldg101',
+  [Bldg102]: 'Bldg102',
+  [Bldg104]: 'Bldg104',
+  [Bldg105]: 'Bldg105',
+  [Bldg106]: 'Bldg106',
+  [Bldg107]: 'Bldg107',
+  [Bldg108]: 'Bldg108',
+  [Bldg109]: 'Bldg109',
+  [Bldg110]: 'Bldg110',
+  [Bldg111]: 'Bldg111'
 }
 
 export const WorldUnwalkable = [
@@ -150,6 +326,7 @@ export const WorldUngrowable =
   RockyGround,
   Waterfall,
   Water,
+  Dock,
   dockBottom,
   dockTop,
   fishingSpot,
@@ -165,7 +342,73 @@ export const WorldUngrowable =
   Sand,
   Seafoam,
   Stone,
-  WetSand
+  WetSand,
+  GrassWaterUL,
+  GrassWaterUR,
+  GrassWaterDL,
+  GrassWaterDR,
+  GrassPathUL,
+  GrassPathUR,
+  GrassPathDL,
+  GrassPathDR,
+  PathDarkRockyUL,
+  PathDarkRockyUR,
+  PathDarkRockyDL,
+  PathDarkRockyDR,
+  PathGrassRockyUL,
+  PathGrassRockyUR,
+  PathGrassRockyDL,
+  PathGrassRockyDR,
+  PathDarkGrassUL,
+  PathDarkGrassUR,
+  PathDarkGrassDL,
+  PathDarkGrassDR,
+  Bldg32,
+  Bldg33,
+  Bldg34,
+  Bldg35,
+  Bldg36,
+  Bldg37,
+  Bldg38,
+  Bldg39,
+  Bldg40,
+  Bldg41,
+  Bldg42,
+  Bldg43,
+  Bldg44,
+  Bldg45,
+  Bldg46,
+  Bldg47,
+  Bldg48,
+  Bldg49,
+  Bldg50,
+  Bldg51,
+  Bldg52,
+  Bldg53,
+  Bldg54,
+  Bldg55,
+  Bldg56,
+  Bldg57,
+  Bldg58,
+  Bldg59,
+  Bldg60,
+  Bldg61,
+  Bldg62,
+  Bldg63,
+  Bldg96,
+  Bldg97,
+  Bldg99,
+  Bldg100,
+  Bldg101,
+  Bldg102,
+  Bldg104,
+  Bldg105,
+  Bldg106,
+  Bldg107,
+  Bldg108,
+  Bldg109,
+  Bldg110,
+  Bldg111
 ]
 
 const grassTiles = [Grass1, Grass3]

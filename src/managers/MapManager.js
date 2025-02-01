@@ -458,12 +458,13 @@ export default class MapManager {
       y = Math.floor(Math.random() * this.worldDimensions.pixels.height)
       const tile = this.getTileAtPixelPos(x, y)
       if (mustBeGrowable) {
+        tileIsGrowable = this.collisionManager.tileIsGrowable(tile)
         const tilePos = this.getTileTopLeftAtPixelPos(x, y)
-          x = tilePos.x
-          y = tilePos.y
-        tileIsGrowable = this.collisionManager.playerCanWalk(tile)
+        x = tilePos.x
+        y = tilePos.y
       }
     } while (mustBeGrowable && !tileIsGrowable)
+
     return { x, y }
   }
 }

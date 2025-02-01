@@ -1,4 +1,4 @@
-import { UnWalkable } from '../globals/Tiles.js'
+import { UnWalkable, Ungrowable } from '../globals/Tiles.js'
 
 export default class CollisionManager {
   constructor(config) {
@@ -9,6 +9,11 @@ export default class CollisionManager {
 
   playerCanWalk (tileIndex) {
     return !UnWalkable.includes(tileIndex)
+  }
+
+  tileIsGrowable (tileIndex) {
+    const isGrowable = !Ungrowable.includes(tileIndex)
+    return isGrowable
   }
 
   addEntity (collidable) {

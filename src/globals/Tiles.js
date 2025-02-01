@@ -41,7 +41,7 @@ export const UnWalkable = [
 ]
 
 export const Ungrowable = [
-  WorldUngrowable
+  ...WorldUngrowable
 ]
 
 // export const TileTimes = {
