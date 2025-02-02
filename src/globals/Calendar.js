@@ -36,7 +36,7 @@ export const WeatherProbabilities = {
 }
 
 // 8:00 AM is 1/3 of the way through the day
-export const ShopOpeningTime = 0 // LengthOfDay / 4 // not realistic, but keeps shop open during the day
+export const ShopOpeningTime = LengthOfDay / 5 // LengthOfDay / 4 // not realistic, but keeps shop open during the day
 // 8:00 PM is 2/3 of the way through the day
 export const ShopClosingTime = LengthOfDay * 3 / 4 // not realistic, but keeps shop open during the day
 
