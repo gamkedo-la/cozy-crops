@@ -90,7 +90,7 @@ export default class InventoryManager {
         this.entityManager.isWood(itemToAdd) ||
         this.entityManager.isFurniture(itemToAdd) ||
         this.entityManager.isFish(itemToAdd)) {
-      let item = this.getItem(itemToAdd.type)
+      item = this.getItem(itemToAdd.type)
       if (item) {
         item.quantity += quantity
       } else {

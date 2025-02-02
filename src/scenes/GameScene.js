@@ -886,14 +886,17 @@ function caughtFish (scene) {
       break
     }
   }
-  const newFish = new Fish({
-    game: scene.game,
-    scene: scene,
-    imageManager: scene.imageManager,
-    x: scene.uncaughtFish.x,
-    y: scene.uncaughtFish.y,
-    type: fishType
-  })
-  newFish.init()
-  scene.inventoryManager.addItemToInventory(newFish, 1)
+
+  if (fishType) {
+    const newFish = new Fish({
+      game: scene.game,
+      scene: scene,
+      imageManager: scene.imageManager,
+      x: scene.uncaughtFish.x,
+      y: scene.uncaughtFish.y,
+      type: fishType
+    })
+    newFish.init()
+    scene.inventoryManager.addItemToInventory(newFish, 1)
+  }
 }
