@@ -6,7 +6,7 @@ export const Seasons = {
 
 export const SeasonNames =  ['Cool', 'Hot', 'Rainy']
 
-export const LengthOfDay = 5 * 60 * 1000 // 5 minutes converted to milliseconds
+export const LengthOfDay = 2 * 60 * 1000 // 2 minutes converted to milliseconds
 export const DaysPerWeek = 3
 export const WeeksPerSeason = 3
 export const SeasonLength = WeeksPerSeason * DaysPerWeek
