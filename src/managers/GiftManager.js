@@ -28,6 +28,7 @@ export default class GiftManager extends SellManager {
     this.scene.giveItem(selectedItem.getSoldItem(), this.storeConfirmation.quantity)
     this.scene.inventoryManager.removeItemFromInventory(selectedItem.getSoldItem(), this.storeConfirmation.quantity)
 
+    this.selectedItemIndex = 0
     this.storeConfirmation = null
     this.setShopType(this.shopType)
   }

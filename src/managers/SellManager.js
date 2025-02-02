@@ -129,6 +129,7 @@ export default class SellManager {
     this.scene.gameManager.setMoney(this.scene.gameManager.getMoney() + (selectedItem.price * this.storeConfirmation.quantity))
     this.scene.inventoryManager.removeItemFromInventory(selectedItem.getSoldItem(), this.storeConfirmation.quantity)
 
+    this.selectedItemIndex = 0
     this.storeConfirmation = null
     this.setShopType(this.shopType)
   }
