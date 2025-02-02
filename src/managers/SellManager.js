@@ -604,13 +604,14 @@ function manageInput (manager) {
   const justDownKeys = manager.scene.inputManager.getJustDownKeys()
 
   const controls  = manager.scene.gameManager.getPlayerControls(EntityTypes.Player1)
+  const altControls = manager.scene.gameManager.getPlayerControls(EntityTypes.Player2)
   if (justDownKeys.includes(Keys.ESCAPE)) {
     manager.currentPageIndex = 0
     manager.selectedItemIndex = 0
     setButtonDisabled(manager)
     positionButtons(manager)
     manager.scene.hideShowingDialogue()
-  } else if (justDownKeys.includes(controls.Action)) {
+  } else if (justDownKeys.includes(controls.Action) || justDownKeys.includes(altControls.Action)) {
     const items = manager.pages[manager.currentPageIndex]
     const selectedItem = items[manager.selectedItemIndex]
 
@@ -630,9 +631,9 @@ function manageInput (manager) {
     manager.storeConfirmation = new StoreConfirmation(config)
     manager.storeConfirmation.init()
     manager.storeConfirmation.setShopType(manager.shopType)
-  } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN)) {
+  } else if (justDownKeys.includes(Keys.ARROW_RIGHT) || justDownKeys.includes(Keys.ARROW_DOWN) || justDownKeys.includes(Keys.D) || justDownKeys.includes(Keys.S)) {
     selectNextItem(manager)
-  } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP)) {
+  } else if (justDownKeys.includes(Keys.ARROW_LEFT) || justDownKeys.includes(Keys.ARROW_UP) || justDownKeys.includes(Keys.A) || justDownKeys.includes(Keys.W)) {
     selectPreviousItem(manager)
   }
 }
