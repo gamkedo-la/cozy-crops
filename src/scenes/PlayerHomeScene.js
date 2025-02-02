@@ -1,14 +1,14 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
-import { HomePosition, HomeEntrance, HomeDialogPosition } from '../globals/PlayerHomeMap.js'
+import { HomePosition, HomeEntrance, HomeDialogPosition, FurniturePositions } from '../globals/PlayerHomeMap.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
+import Furniture from '../entities/furniture/Furniture.js'
 
 export default class PlayerHomeScene extends Scene {
   constructor (config) {
     super(config)
-
 
     this.player = null
     this.playerWorldPosition = { x: 0, y: 0 }
@@ -16,6 +16,8 @@ export default class PlayerHomeScene extends Scene {
     this.drawlist = []
     this.shouldShowUI = false
     this.textBackground = null
+
+    this.furnishings = []
   }
 
   init (data) {
@@ -24,6 +26,8 @@ export default class PlayerHomeScene extends Scene {
     this.homeCamera = {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }
+
+    buildFurnishings(this)
   }
 
   start (data) {
@@ -116,4 +120,37 @@ function returnToWorld (scene) {
   scene.player.y = scene.playerWorldPosition.y
   scene.player.scene = scene.game.sceneManager.scenes[Scenes.Game]
   scene.game.changeScene(Scenes.Game)
+}
+
+function buildFurnishings (scene) {
+  const window1 = new Furniture({
+    type: 'Window',
+    game: scene.game,
+    imageManager: scene.imageManager,
+    x: FurniturePositions.Window1.x,
+    y: FurniturePositions.Window1.y
+  })
+  window1.init()
+  scene.drawlist.push(window1)
+
+  const window2 = new Furniture({
+    type: 'Window',
+    game: scene.game,
+    imageManager: scene.imageManager,
+    x: FurniturePositions.Window2.x,
+    y: FurniturePositions.Window2.y
+  })
+  window2.init()
+  scene.drawlist.push(window2)
+
+  for (const furnishing of scene.furnishings) {
+    const newFurnishing = new Furniture({
+      type: furnishing,
+      game: scene.game,
+      imageManager: scene.imageManager
+    })
+
+    newFurnishing.init()
+    scene.drawlist.push(newFurnishing)
+  }
 }

@@ -37,13 +37,15 @@ export default class Furniture {
     // })
     this.animations['Idle'] = idleData
 
-    const inventoryConfig = CarpentryIconData[this.type]
-    inventoryConfig.owner = this
-    inventoryConfig.game = this.game
-    inventoryConfig.imageManager = this.imageManager
-    inventoryConfig.imageSrc = CarpentryIconData[this.type].spritesheet
-    inventoryConfig.canvas = this.imageManager.getImageWithSrc(CarpentryIconData[this.type].spritesheet)
-    this.animations['Inventory'] = inventoryConfig
+    if (CarpentryIconData[this.type]) {
+      const inventoryConfig = CarpentryIconData[this.type]
+      inventoryConfig.owner = this
+      inventoryConfig.game = this.game
+      inventoryConfig.imageManager = this.imageManager
+      inventoryConfig.imageSrc = CarpentryIconData[this.type].spritesheet
+      inventoryConfig.canvas = this.imageManager.getImageWithSrc(CarpentryIconData[this.type].spritesheet)
+      this.animations['Inventory'] = inventoryConfig
+    }
   }
 
   getAnimation (type = 'Inventory') {

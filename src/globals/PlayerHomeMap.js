@@ -41,3 +41,7 @@ export default [
   export const HomePosition = { x: -150, y: -100 }
   export const HomeEntrance = { x: 450 + HomePosition.x, y: 380 + HomePosition.y }
   export const HomeDialogPosition = { x: 512 + HomePosition.x, y: 340 + HomePosition.y }
+  export const FurniturePositions = {
+    Window1: { x: 150 + HomePosition.x, y: 100 + HomePosition.y },
+    Window2: { x: 150 + HomePosition.x, y: 200 + HomePosition.y },
+  }
