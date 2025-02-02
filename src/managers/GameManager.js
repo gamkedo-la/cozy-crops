@@ -211,8 +211,8 @@ export default class GameManager {
           if (this.game.entityManager.isWood(this.state.Inventory[i])) {
             if (this.state.Inventory[i].quantity <= remaining) {
               remaining -= this.state.Inventory[i].quantity
-              this.state.Inventory.splice(i, 1)
-              woodRemoved.push({ type: this.state.Inventory[i].type, quantity: this.state.Inventory[i].quantity })
+              const rmvd = this.state.Inventory.splice(i, 1)
+              woodRemoved.push({ type: rmvd[0].type, quantity: rmvd[0].quantity })
             } else {
               this.state.Inventory[i].quantity -= remaining
               woodRemoved.push({ type: this.state.Inventory[i].type, quantity: remaining })
