@@ -58,8 +58,8 @@ export default class InventoryManager {
     this.selectedItemHighlight = null
   }
 
-  start () {
-    buildInventory(this)
+  start (scene) {
+    buildInventory(this, scene)
 
     this.updateInventoryPlacement()
 
@@ -340,35 +340,36 @@ export default class InventoryManager {
   }
 }
 
-function buildInventory (inventoryManager) {
+function buildInventory (inventoryManager, scene) {
   const inventoryData = inventoryManager.gameManager.getInventory()
   for (const inventoryItem of inventoryData) {
-    initializeInventory(inventoryManager, inventoryItem, inventoryItem.quantity)
+    initializeInventory(inventoryManager, scene, inventoryItem, inventoryItem.quantity)
   }
 }
 
-function initializeInventory (manager, itemToAdd, quantity = 1) {
+function initializeInventory (manager, scene, itemToAdd, quantity = 1) {
   if (manager.entityManager.isSeed(itemToAdd)) {
-    initializeSeedPackets(manager, itemToAdd, quantity)
+    initializeSeedPackets(manager, scene, itemToAdd, quantity)
   } else if (manager.entityManager.isTool(itemToAdd)) {
-    initializeTools(manager, itemToAdd, quantity)
+    initializeTools(manager, scene, itemToAdd, quantity)
   } else if (manager.entityManager.isForageable(itemToAdd)) {
-    initializeForageables(manager, itemToAdd, quantity)
+    initializeForageables(manager, scene, itemToAdd, quantity)
   } else if (manager.entityManager.isCrop(itemToAdd)) {
-    initializeCrops(manager, itemToAdd, quantity)
+    initializeCrops(manager, scene, itemToAdd, quantity)
   } else if (manager.entityManager.isWood(itemToAdd)) {
-    initializeWood(manager, itemToAdd, quantity)
+    initializeWood(manager, scene, itemToAdd, quantity)
   } else if (manager.entityManager.isFurniture(itemToAdd)) {
-    initializeFurniture(manager, itemToAdd, quantity)
+    initializeFurniture(manager, scene, itemToAdd, quantity)
   } else if (manager.entityManager.isFish(itemToAdd)) {
-    initializeFish(manager, itemToAdd, quantity)
+    initializeFish(manager, scene, itemToAdd, quantity)
   }
 }
 
-function initializeSeedPackets (manager, itemToAdd, quantity = 1) {
+function initializeSeedPackets (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
   const config = {
     game: manager.game,
+    scene,
     imageManager: manager.imageManager,
     type: itemToAdd.type,
     x: 0,
@@ -386,10 +387,11 @@ function initializeSeedPackets (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
-function initializeTools (manager, itemToAdd, quantity = 1) {
+function initializeTools (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
   const config = {
     game: manager.game,
+    scene,
     imageManager: manager.imageManager,
     type: itemToAdd.type,
     x: 0,
@@ -431,10 +433,11 @@ function initializeTools (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
-function initializeForageables (manager, itemToAdd, quantity = 1) {
+function initializeForageables (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
   const config = {
     game: manager.game,
+    scene,
     imageManager: manager.imageManager,
     type: itemToAdd.type,
     x: 0,
@@ -469,12 +472,13 @@ function initializeForageables (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
-function initializeCrops (manager, itemToAdd, quantity = 1) {
+function initializeCrops (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
 
   const config = {
     game: manager.game,
     imageManager: manager.imageManager,
+    scene,
     type: itemToAdd.type,
     x: 0,
     y: 0,
@@ -543,11 +547,12 @@ function initializeCrops (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
-function initializeWood (manager, itemToAdd, quantity = 1) {
+function initializeWood (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
 
   const config = {
     game: manager.game,
+    scene,
     imageManager: manager.imageManager,
     type: itemToAdd.type,
     x: 0,
@@ -565,11 +570,12 @@ function initializeWood (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
-function initializeFurniture (manager, itemToAdd, quantity = 1) {
+function initializeFurniture (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
 
   const config = {
     game: manager.game,
+    scene,
     imageManager: manager.imageManager,
     type: itemToAdd.type,
     x: 0,
@@ -587,11 +593,12 @@ function initializeFurniture (manager, itemToAdd, quantity = 1) {
   manager.inventory.push(item)
 }
 
-function initializeFish (manager, itemToAdd, quantity = 1) {
+function initializeFish (manager, scene, itemToAdd, quantity = 1) {
   let item  = null
 
   const config = {
     game: manager.game,
+    scene,
     imageManager: manager.imageManager,
     type: itemToAdd.type,
     x: 0,
