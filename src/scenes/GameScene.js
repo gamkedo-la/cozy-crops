@@ -675,6 +675,12 @@ export default class GameScene extends Scene {
     }
   }
 
+  playerExhausted () {
+    if (!this.isSleeping) {
+      this.reachedEndOfDay()
+    }
+  }
+
   reachedEndOfDay () {
     sleep(this)
     this.newDayActions()

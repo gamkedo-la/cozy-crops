@@ -325,9 +325,10 @@ function updateStamina (player) {
 
   if (player.stamina <= 0) {
     player.stamina = 0
+    player.scene.playerExhausted()
+  } else {
+    player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
   }
-
-  player.scene.gameManager.setPlayerStamina(player.type, player.stamina)
 }
 
 function deductConsumedStamina (player, amount) {
