@@ -109,8 +109,8 @@ export default class CropManager {
     })
   }
 
-  plantCrop (cropType, x, y) {
-    const newCrop = createCropFromSeed(this, cropType, x, y)
+  plantCrop (cropType, scene, x, y) {
+    const newCrop = createCropFromSeed(this, scene, cropType, x, y)
 
     if (newCrop) {
       this.crops.push(newCrop)
@@ -311,11 +311,11 @@ export default class CropManager {
   }
 }
 
-function createCropFromSeed (manager, cropType, x, y) {
+function createCropFromSeed (manager, scene, cropType, x, y) {
   let newCrop = null
   const cropConfig = {
     game: manager.game,
-    scene: manager.scene,
+    scene,
     imageManager: manager.imageManager,
     manager,
     x,

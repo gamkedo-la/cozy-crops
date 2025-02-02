@@ -69,7 +69,7 @@ export default class GameScene extends Scene {
 
     const modifiedTiles = this.gameManager.getModifiedTiles()
     this.mapManager.start(modifiedTiles)
-    this.inventoryManager.start()
+    this.inventoryManager.start(this)
 
     this.inputManager.setPlayerKeys()
 
@@ -543,7 +543,7 @@ export default class GameScene extends Scene {
     // If there are no entities at the tile, plant the seed
     if (!crop) {
       const offsetY = this.entityManager.isTallCropSeed({ type: seedType }) ? -TileHeight : 0
-      this.cropManager.plantCrop(seedType, tileTopLeft.x, tileTopLeft.y + offsetY)
+      this.cropManager.plantCrop(seedType, this, tileTopLeft.x, tileTopLeft.y + offsetY)
       this.inventoryManager.removeItemFromInventory(seedType, 1)
     }
   }
