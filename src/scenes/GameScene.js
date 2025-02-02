@@ -684,6 +684,7 @@ export default class GameScene extends Scene {
     this.cropManager.advanceDay()
     this.mapManager.unWaterAllTiles()
     this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
+    this.spawnForageableItems(4)
     setNewWeather(this)
   }
 
