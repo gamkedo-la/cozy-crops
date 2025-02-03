@@ -104,10 +104,10 @@ export const RefrigeratorSilver = {
 export const SleepingBag2 = {
   name: 'SleepingBag2Idle',
   spritesheet: CarpentryItems,
-  x: 64,
+  x: 134,
   y: 0,
-  width: 14,
-  height: 14,
+  width: 20,
+  height: 42,
   padding: 1
 }
 

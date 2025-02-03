@@ -1,10 +1,11 @@
 import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
-import { HomePosition, HomeEntrance, HomeDialogPosition, FurniturePositions } from '../globals/PlayerHomeMap.js'
+import { HomePosition, HomeEntrance, HomeDialogPosition, FurniturePositions, setWallpaper } from '../globals/PlayerHomeMap.js'
 import { UISprites } from '../globals/Images.js'
 import { TextBackground } from '../globals/UISpriteData.js'
 import Furniture from '../entities/furniture/Furniture.js'
+import EntityTypes from '../globals/EntityTypes.js'
 
 export default class PlayerHomeScene extends Scene {
   constructor (config) {
@@ -39,6 +40,20 @@ export default class PlayerHomeScene extends Scene {
       this.player.y = HomeEntrance.y
       this.drawlist.push(this.player)
     }
+
+    const allWallpaper = this.inventoryManager.getWallpaper()
+    const allWallpaperTypes = allWallpaper.map(wallpaper => wallpaper.type)
+    if (allWallpaperTypes.includes(EntityTypes.WallPaperAuburn)) {
+      setWallpaper(EntityTypes.WallPaperAuburn)
+    } else if (allWallpaperTypes.includes(EntityTypes.WallPaperGray)) {
+      setWallpaper(EntityTypes.WallPaperGray)
+    } else if (allWallpaperTypes.includes(EntityTypes.WallPaperStriped)) {
+      setWallpaper(EntityTypes.WallPaperStriped)
+    } else if (allWallpaperTypes.includes(EntityTypes.WallPaperTan)) {
+      setWallpaper(EntityTypes.WallPaperTan)
+    }
+
+    this.mapManager.updateHomeMap()
   }
 
   update (deltaTime) {
@@ -75,7 +90,13 @@ export default class PlayerHomeScene extends Scene {
       return aYToUse - bYToUse
     })
 
-    this.drawlist.forEach(entity => entity.draw(this.homeCamera))
+    this.drawlist.forEach(entity => {
+      if (entity.type === EntityTypes.Player1 || entity.type === EntityTypes.Player2) {
+        entity.draw(this.homeCamera)
+      } else {
+        entity.draw(entity.x, entity.y, this.homeCamera)
+      }
+    })
 
     this.imageManager.render()
   }
@@ -142,6 +163,23 @@ function buildFurnishings (scene) {
   })
   window2.init()
   scene.drawlist.push(window2)
+
+  const furnishingTypes = scene.furnishings.map(furnishing => furnishing.type)
+  if (furnishingTypes.includes(EntityTypes.BedQueen)) {
+
+  } else if (furnishingTypes.includes(EntityTypes.BedTwin)) {
+
+  } else {
+    const sleepingBag1 = new Furniture({
+      type: EntityTypes.SleepingBag2,
+      game: scene.game,
+      imageManager: scene.imageManager,
+      x: FurniturePositions.SleepingBag1.x,
+      y: FurniturePositions.SleepingBag1.y
+    })
+    sleepingBag1.init()
+    scene.drawlist.push(sleepingBag1)
+  }
 
   for (const furnishing of scene.furnishings) {
     const newFurnishing = new Furniture({

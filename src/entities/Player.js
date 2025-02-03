@@ -321,6 +321,8 @@ function setStaminaForLocation (player) {
 }
 
 function updateStamina (player) {
+  if (!player.scene.playerExhausted) return
+
   player.stamina -= 0.005
 
   if (player.stamina <= 0) {

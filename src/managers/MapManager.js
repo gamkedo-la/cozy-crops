@@ -178,18 +178,7 @@ export default class MapManager {
     this.homeCanvas.width = 2 * this.homeData[0].length * TileWidth
     this.homeCanvas.height = 2 * this.homeData.length * TileHeight
 
-    for (let y = 0; y < this.homeData.length; y++) {
-      for (let x = 0; x < this.homeData[y].length; x++) {
-        const homeData = this.homeData[y][x]
-        const imageX = (homeData % this.tilesPerRow) * TileWidth
-        const imageY = (Math.floor(homeData / this.tilesPerRow)) * TileHeight
-        this.homeCtx.drawImage(
-          this.tileImage,
-          imageX, imageY, TileWidth, TileHeight,
-          x * TileWidth, y * TileHeight, TileWidth, TileHeight
-        )
-      }
-    }
+    this.updateHomeMap()
 
     this.carpenterCanvas = document.createElement('canvas')
     this.carpenterCtx = this.carpenterCanvas.getContext('2d')
@@ -228,6 +217,22 @@ export default class MapManager {
     }
   }
 
+  updateHomeMap () {
+    this.homeData = HomeMapData
+
+    for (let y = 0; y < this.homeData.length; y++) {
+      for (let x = 0; x < this.homeData[y].length; x++) {
+        const homeData = this.homeData[y][x]
+        const imageX = (homeData % this.tilesPerRow) * TileWidth
+        const imageY = (Math.floor(homeData / this.tilesPerRow)) * TileHeight
+        this.homeCtx.drawImage(
+          this.tileImage,
+          imageX, imageY, TileWidth, TileHeight,
+          x * TileWidth, y * TileHeight, TileWidth, TileHeight
+        )
+      }
+    }
+  }
 
   update (deltaTime) {
     this.gameManager.getModifiedTiles().forEach(tile => {
