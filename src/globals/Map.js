@@ -140,8 +140,8 @@ export const mapPosition = { x: 0, y: 0 }
 
 export const FishermanStart = { x: 475, y: 1156 }
 export const GrandmaStart = { x: 450, y: 450 }
-export const LumberjackStart = { x: 1100, y: 1500 }
-export const TiffanyStart = { x: 1270, y: 675 }
+export const LumberjackStart = { x: 1090, y: 1500 }
+export const TiffanyStart = { x: 1270, y: 660 }
 
 export const NPCStarts = {
   Fisherman: FishermanStart,
