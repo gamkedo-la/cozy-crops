@@ -107,6 +107,9 @@ export const LockedDoor = 165
 export const fishingSpot = 166
 export const dockTop = 167
 export const dockBottom = 168
+export const bullitenBoard = 307
+export const bullitenBoard2 = 308
+
 
 export const WorldIndexes = {
   Bridge,
@@ -216,7 +219,9 @@ export const WorldIndexes = {
   Bldg108,
   Bldg109,
   Bldg110,
-  Bldg111
+  Bldg111,
+  bullitenBoard,
+  bullitenBoard2
 }
 
 export const WorldTileNames = {
@@ -328,7 +333,9 @@ export const WorldTileNames = {
   [Bldg108]: 'Bldg108',
   [Bldg109]: 'Bldg109',
   [Bldg110]: 'Bldg110',
-  [Bldg111]: 'Bldg111'
+  [Bldg111]: 'Bldg111',
+  [bullitenBoard]: 'bullitenBoard',
+  [bullitenBoard2]: 'bullitenBoard2'
 }
 
 export const WorldUnwalkable = [
@@ -344,7 +351,9 @@ export const WorldUnwalkable = [
   Water,
   dockBottom,
   dockTop,
-  fishingSpot
+  fishingSpot,
+  bullitenBoard,
+  bullitenBoard2
 ]
 
 export const WorldUngrowable = 
@@ -452,7 +461,9 @@ export const WorldUngrowable =
   Bldg108,
   Bldg109,
   Bldg110,
-  Bldg111
+  Bldg111,
+  bullitenBoard,
+  bullitenBoard2
 ]
 
 const grassTiles = [Grass1, Grass3]
