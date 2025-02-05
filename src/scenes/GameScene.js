@@ -23,7 +23,7 @@ import { CarpenterDoor } from '../globals/TilesCarpenter.js'
 import { BlacksmithDoor } from '../globals/TilesBlacksmith.js'
 import { MuseumDoor } from '../globals/TilesMuseum.js'
 import { StoreDoor } from '../globals/TilesStore.js'
-import { Bridge, bullitenBoard3, bullitenBoard4, Dock, Grass1, Grass3, Sand, Water, WetSand } from '../globals/TilesWorld.js'
+import { Bridge, bullitenBoard3, bullitenBoard4, bullitenBoard7, bullitenBoard8, Dock, Grass1, Grass3, Sand, Water, WetSand } from '../globals/TilesWorld.js'
 import { TileNames } from '../globals/Tiles.js'
 import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
@@ -456,6 +456,8 @@ export default class GameScene extends Scene {
       case TileNames[BlacksmithDoor]:
       case TileNames[bullitenBoard3]:
       case TileNames[bullitenBoard4]:
+      case TileNames[bullitenBoard7]:
+      case TileNames[bullitenBoard8]:
         result.add('Open Door')
         break
       case TileNames[Sand]:
@@ -527,11 +529,17 @@ export default class GameScene extends Scene {
         }
         break
       case bullitenBoard3:
-        this.uiScene.showSignDialogue('Tools:\n Shovel: Used to till grass into dirt. \n Hoe: Used to harvest forage items and crops \n Watering Can: used to water your crops \n Fishing Rod: Used on the western dock to get fish \n Ax: Used to chop down trees to buy new furniture')
+        this.uiScene.showSignDialogue('Tools:\n Shovel: Used to till grass into dirt. \n Hoe: Used to collect forage items, pick fruit, and harvest crops \n Watering Can: used to water your crops \n Fishing Rod: Used on the western dock to get fish \n Ax: Used to chop down trees to buy new furniture')
         break
       case bullitenBoard4:
           this.uiScene.showSignDialogue('Don\'t forget to visit your neighbors! \n They may have a quest for you! \n Visit the museum after you\'ve helped them.')
           break
+      case bullitenBoard7:
+            this.uiScene.showSignDialogue('WASD or Arrow Keys to move \n L key or Space for an action \n Use left mouse button to select inventory items and navigate menus')
+            break
+      case bullitenBoard8:
+              this.uiScene.showSignDialogue('Visit the shops! \n General Store: Sells a variety of seeds \n Blacksmith: He will upgrade your tools \n Carpenter: She will exchange your wood you have collected \n for furniture for your home')
+              break
     }
   }
 

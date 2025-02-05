@@ -111,6 +111,10 @@ export const bullitenBoard = 307
 export const bullitenBoard2 = 308
 export const bullitenBoard3 = 339
 export const bullitenBoard4 = 340
+export const bullitenBoard5 = 309
+export const bullitenBoard6 = 310
+export const bullitenBoard7 = 341
+export const bullitenBoard8 = 342
 
 
 export const WorldIndexes = {
@@ -225,7 +229,11 @@ export const WorldIndexes = {
   bullitenBoard,
   bullitenBoard2,
   bullitenBoard3,
-  bullitenBoard4
+  bullitenBoard4,
+  bullitenBoard5,
+  bullitenBoard6,
+  bullitenBoard7,
+  bullitenBoard8
 }
 
 export const WorldTileNames = {
@@ -341,7 +349,11 @@ export const WorldTileNames = {
   [bullitenBoard]: 'bullitenBoard',
   [bullitenBoard2]: 'bullitenBoard2',
   [bullitenBoard3]: 'bullitenBoard3',
-  [bullitenBoard4]: 'bullitenBoard4'
+  [bullitenBoard4]: 'bullitenBoard4',
+  [bullitenBoard5]: 'bullitenBoard5',
+  [bullitenBoard6]: 'bullitenBoard6',
+  [bullitenBoard7]: 'bullitenBoard7',
+  [bullitenBoard8]: 'bullitenBoard8'
 }
 
 export const WorldUnwalkable = [
@@ -359,7 +371,9 @@ export const WorldUnwalkable = [
   dockTop,
   fishingSpot,
   bullitenBoard,
-  bullitenBoard2
+  bullitenBoard2,
+  bullitenBoard5,
+  bullitenBoard6
 ]
 
 export const WorldUngrowable = 
@@ -469,7 +483,13 @@ export const WorldUngrowable =
   Bldg110,
   Bldg111,
   bullitenBoard,
-  bullitenBoard2
+  bullitenBoard2,
+  bullitenBoard3,
+  bullitenBoard4,
+  bullitenBoard5,
+  bullitenBoard6,
+  bullitenBoard7,
+  bullitenBoard8
 ]
 
 const grassTiles = [Grass1, Grass3]
