@@ -527,10 +527,10 @@ export default class GameScene extends Scene {
         }
         break
       case bullitenBoard3:
-        this.uiScene.showSignDialogue('Testing tutorial.\nPlease come back soon.')
+        this.uiScene.showSignDialogue('Tools:\n Shovel: Used to till grass into dirt. \n Hoe: Used to harvest forage items and crops \n Watering Can: used to water your crops \n Fishing Rod: Used on the western dock to get fish \n Ax: Used to chop down trees to buy new furniture')
         break
       case bullitenBoard4:
-          this.uiScene.showSignDialogue('Testing tutorial.\nPlease come back soon.')
+          this.uiScene.showSignDialogue('Don\'t forget to visit your neighbors! \n They may have a quest for you! \n Visit the museum after you\'ve helped them.')
           break
     }
   }

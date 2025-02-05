@@ -10,7 +10,7 @@ export default class Curator extends NPC {
     this.type =  EntityTypes.Curator
     this.dialogue = {
       // TODO: Remove this with the correct dialogue
-      default: `Hello there! I'm the Museum Curator.\nI can help you with all your museum needs.`
+      default: `Hello there! I'm the Museum Curator \nI can help you with all your museum needs.`
     }
 
     this.collisionPoint = { x: 0, y: 0 }
