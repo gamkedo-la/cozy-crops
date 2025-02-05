@@ -23,7 +23,7 @@ import { CarpenterDoor } from '../globals/TilesCarpenter.js'
 import { BlacksmithDoor } from '../globals/TilesBlacksmith.js'
 import { MuseumDoor } from '../globals/TilesMuseum.js'
 import { StoreDoor } from '../globals/TilesStore.js'
-import { Bridge, Dock, Grass1, Grass3, Sand, Water, WetSand } from '../globals/TilesWorld.js'
+import { Bridge, bullitenBoard3, bullitenBoard4, Dock, Grass1, Grass3, Sand, Water, WetSand } from '../globals/TilesWorld.js'
 import { TileNames } from '../globals/Tiles.js'
 import Fisherman from '../entities/npcs/Fisherman.js'
 import Grandma from '../entities/npcs/Grandma.js'
@@ -454,6 +454,8 @@ export default class GameScene extends Scene {
       case TileNames[StoreDoor]:
       case TileNames[CarpenterDoor]:
       case TileNames[BlacksmithDoor]:
+      case TileNames[bullitenBoard3]:
+      case TileNames[bullitenBoard4]:
         result.add('Open Door')
         break
       case TileNames[Sand]:
@@ -484,6 +486,7 @@ export default class GameScene extends Scene {
     const shopsAreOpen = this.calendarManager.areShopsOpen()
     const openedDoor = this.mapManager.getTileAtPixelPos(x, y)
     switch (openedDoor) {
+      
       case Door:
         this.game.changeScene(Scenes.PlayerHome, { player: this.steve })
         break
@@ -523,6 +526,12 @@ export default class GameScene extends Scene {
           this.uiScene.showSignDialogue('I\'ve gone home for the night.\nPlease return in the morning.')
         }
         break
+      case bullitenBoard3:
+        this.uiScene.showSignDialogue('Testing tutorial.\nPlease come back soon.')
+        break
+      case bullitenBoard4:
+          this.uiScene.showSignDialogue('Testing tutorial.\nPlease come back soon.')
+          break
     }
   }
 

@@ -109,6 +109,8 @@ export const dockTop = 167
 export const dockBottom = 168
 export const bullitenBoard = 307
 export const bullitenBoard2 = 308
+export const bullitenBoard3 = 339
+export const bullitenBoard4 = 340
 
 
 export const WorldIndexes = {
@@ -221,7 +223,9 @@ export const WorldIndexes = {
   Bldg110,
   Bldg111,
   bullitenBoard,
-  bullitenBoard2
+  bullitenBoard2,
+  bullitenBoard3,
+  bullitenBoard4
 }
 
 export const WorldTileNames = {
@@ -335,7 +339,9 @@ export const WorldTileNames = {
   [Bldg110]: 'Bldg110',
   [Bldg111]: 'Bldg111',
   [bullitenBoard]: 'bullitenBoard',
-  [bullitenBoard2]: 'bullitenBoard2'
+  [bullitenBoard2]: 'bullitenBoard2',
+  [bullitenBoard3]: 'bullitenBoard3',
+  [bullitenBoard4]: 'bullitenBoard4'
 }
 
 export const WorldUnwalkable = [
