@@ -28,7 +28,7 @@ export default class PlayerHomeScene extends Scene {
       getTopLeft: () => ({ x: 0, y: 0 }),
     }
 
-    buildFurnishings(this)
+    // buildFurnishings(this)
   }
 
   start (data) {
