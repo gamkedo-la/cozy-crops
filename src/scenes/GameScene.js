@@ -701,6 +701,7 @@ export default class GameScene extends Scene {
   reachedEndOfDay () {
     sleep(this)
     this.newDayActions()
+    this.calendarManager.advanceDay()
   }
 
   newDayActions () {
