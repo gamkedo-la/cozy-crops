@@ -9,6 +9,8 @@ const Constants = {
   MainMenuFontSize: 36,
   MainMenuFontFamily: FontFamilies.LuckyFarmer,
   MainMenuTextColor: '#FFFFFF',
+  MainMenuTextColor2: '#542015',
+  MainMenuTextColor3:  '#ac6e0e',
   SceneTitleFontSize: 96,
   TileHeight: 16,
   TileWidth: 16,
@@ -27,6 +29,7 @@ export const {
   CanvasScale,
   ImageScale,
   MainMenuTextColor,
+  MainMenuTextColor2,
   TileHeight,
   TileWidth,
   SHADOWS_ENABLED

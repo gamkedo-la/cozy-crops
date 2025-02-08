@@ -2,7 +2,7 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
-import { TitleBackground, TitleBackground2, TitleBackground3, TitleBackground4, TitleBackground5, WildlifeSprites } from '../globals/Images.js'
+import { TitleBackground, TitleBackground2, TitleBackground3, Pregame, TitleBackground4, TitleBackground5 } from '../globals/Images.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys from '../globals/Keys.js'
 import Credits from '../globals/Credits.js'
@@ -14,6 +14,12 @@ export default class CreditsScene extends Scene {
     this.menu = null
     this.currentY = this.game.canvas.height
     this.contributorColors = [
+      '#FF0000',
+      '#00FF00',
+      '#0000FF',
+      '#FFFF00',
+      '#FF00FF',
+      '#00FFFF',
       '#FF0000',
       '#00FF00',
       '#0000FF',
@@ -32,8 +38,8 @@ export default class CreditsScene extends Scene {
         this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
         this.backgroundImage2 = this.imageManager.getImageWithSrc(TitleBackground2)
         this.backgroundImage3 = this.imageManager.getImageWithSrc(TitleBackground3)
-        //this.backgroundImage4 = this.imageManager.getImageWithSrc(TitleBackground4)
-        this.backgroundImage5 = this.imageManager.getImageWithSrc(TitleBackground5)
+        this.backgroundImage4 = this.imageManager.getImageWithSrc(Pregame)
+        //this.backgroundImage5 = this.imageManager.getImageWithSrc(TitleBackground5)
 
     // initialize resources
     this.menu = new Menu({
@@ -88,7 +94,7 @@ function drawTitle (title) {
   title.game.ctx.fillStyle = Constants.TitleTextColor
   title.game.ctx.font = `${Constants.TitleFontSize - 10}px ${Constants.TitleFontFamily}`
   title.game.ctx.textAlign = UIAttributes.CenterAlign
-  title.game.ctx.fillText('Credits', title.game.canvas.width / 2 + 250, (title.game.canvas.height / 4 - 100))
+ // title.game.ctx.fillText('Credits', title.game.canvas.width / 2 + 250, (title.game.canvas.height / 4 - 100))
 }
 
 function drawCredits (scene) {
@@ -99,12 +105,16 @@ function drawCredits (scene) {
   let contributorIndex = 0
   for (const credit of Credits) {
     scene.game.ctx.fillStyle = scene.contributorColors[contributorIndex]
-    scene.game.ctx.fillText(credit.contributor, 50, scene.currentY + 50 * lineIndex)
+    scene.game.ctx.fillText(credit.contributor, 100, scene.currentY + 50 * lineIndex)
+    scene.game.ctx.fillStyle = Constants.MainMenuTextColor
+
     lineIndex++
     contributorIndex++
-    scene.game.ctx.fillStyle = Constants.MainMenuTextColor
     for (const contribution of credit.contributions) {
-      scene.game.ctx.fillText(contribution, 100, scene.currentY + 50 * lineIndex)
+      scene.game.ctx.fillText(contribution, 100, scene.currentY + 50 * lineIndex )
+      scene.game.ctx.fillStyle = Constants.MainMenuTextColor
+      scene.game.ctx.fillText(contribution, 102, scene.currentY + 50 * lineIndex )
+      scene.game.ctx.fillStyle = Constants.MainMenuTextColor2
       lineIndex++
     }
   }
@@ -134,7 +144,7 @@ function drawBackground (title) {
   // horizon and rows of crops
   title.game.ctx.drawImage(title.backgroundImage3, 0, 0, title.game.canvas.width, title.game.canvas.height)
   
-    title.game.ctx.drawImage(title.backgroundImage5, 0, 0, title.game.canvas.width - 50, title.game.canvas.height)
+   title.game.ctx.drawImage(title.backgroundImage4, 0, 0, title.game.canvas.width - 50, title.game.canvas.height)
 
 }
 
