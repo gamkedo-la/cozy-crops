@@ -111,10 +111,10 @@ function drawCredits (scene) {
     lineIndex++
     contributorIndex++
     for (const contribution of credit.contributions) {
-      scene.game.ctx.fillText(contribution, 100, scene.currentY + 50 * lineIndex )
-      scene.game.ctx.fillStyle = Constants.MainMenuTextColor
-      scene.game.ctx.fillText(contribution, 102, scene.currentY + 50 * lineIndex )
       scene.game.ctx.fillStyle = Constants.MainMenuTextColor2
+      scene.game.ctx.fillText(contribution, 102, scene.currentY + 50 * lineIndex )
+      scene.game.ctx.fillStyle = Constants.MainMenuTextColor
+      scene.game.ctx.fillText(contribution, 100, scene.currentY + 50 * lineIndex )
       lineIndex++
     }
   }
