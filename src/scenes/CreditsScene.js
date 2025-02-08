@@ -2,7 +2,7 @@ import Scene from './Scene.js'
 import Scenes from '../globals/Scenes.js'
 import Menu from '../uiElements/Menu.js'
 import Constants from '../globals/Constants.js'
-import { TitleBackground, TitleBackground2, TitleBackground3, Pregame, TitleBackground4, TitleBackground5 } from '../globals/Images.js'
+import { CreditsBackgroundBack, CreditsBackgroundFrame, TitleBackground, TitleBackground2, TitleBackground3, Pregame, TitleBackground4, TitleBackground5 } from '../globals/Images.js'
 import UIAttributes from '../globals/UIAttributes.js'
 import Keys from '../globals/Keys.js'
 import Credits from '../globals/Credits.js'
@@ -35,11 +35,11 @@ export default class CreditsScene extends Scene {
   init (data) {
     super.init(data) // Call the init method of the parent class
     
-        this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
-        this.backgroundImage2 = this.imageManager.getImageWithSrc(TitleBackground2)
-        this.backgroundImage3 = this.imageManager.getImageWithSrc(TitleBackground3)
-        this.backgroundImage4 = this.imageManager.getImageWithSrc(Pregame)
-        //this.backgroundImage5 = this.imageManager.getImageWithSrc(TitleBackground5)
+    this.backgroundImage = this.imageManager.getImageWithSrc(TitleBackground)
+    this.backgroundImage2 = this.imageManager.getImageWithSrc(TitleBackground2)
+    this.backgroundImage3 = this.imageManager.getImageWithSrc(TitleBackground3)
+    this.backgroundImage4 = this.imageManager.getImageWithSrc(CreditsBackgroundBack)
+    this.backgroundImage5 = this.imageManager.getImageWithSrc(CreditsBackgroundFrame)
 
     // initialize resources
     this.menu = new Menu({
@@ -72,6 +72,7 @@ export default class CreditsScene extends Scene {
     super.draw() // Call the draw method of the parent class
     drawBackground(this)
     drawCredits(this)
+    drawBackgroundFrame(this)
 
     drawTitle(this)
     this.menu.draw()
@@ -146,8 +147,11 @@ function drawBackground (title) {
   // horizon and rows of crops
   title.game.ctx.drawImage(title.backgroundImage3, 0, 0, title.game.canvas.width, title.game.canvas.height)
   
-   title.game.ctx.drawImage(title.backgroundImage4, 0, 0, title.game.canvas.width - 50, title.game.canvas.height)
+  title.game.ctx.drawImage(title.backgroundImage4, 0, 0, title.game.canvas.width - 50, title.game.canvas.height)
+}
 
+function drawBackgroundFrame (title) {
+  title.game.ctx.drawImage(title.backgroundImage5, 0, 0, title.game.canvas.width, title.game.canvas.height)
 }
 
 function manageInput (scene) {
