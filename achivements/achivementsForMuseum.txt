@@ -11,5 +11,5 @@ Painting 4	Collect every furniture item		once player has purchased every furnitu
 Painting 5	Complete every town quest		once player has collected all the museum's statues, they are awarded this
 Statue 1	Completed Grandma Mae's quest		Give Grandma Mae 5 sunflowers so she can make a bouquet
 Statue 2	Completed Fisherman Jo Jo's quest	Catch 1 tuna and give it to the Fisherman so he has a fishing story to tell
-Statue 3	Completed Lumberjack Bob's quest	Give 20 wood to Lumberjack Bob so he can finish the project he is working on
+Statue 3	Completed Lumberjack Bobbi's quest	Give 20 wood to Lumberjack Bobbi so he can finish the project he is working on
 Statue 4	Completed Tiffany Sue's quest		Give 1 onion, 1 tomato, 1 carrot, and 1 pumpkin to Tiffany Sue so she can make a soup
