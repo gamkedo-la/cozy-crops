@@ -488,7 +488,7 @@ function initializeNewGame (manager, saveSlot) {
         { name: 'Good Samaritan', incompleteDescription: 'Complete every town quest', completeDescription: 'Congratulations!\nYou completed every town quest', type: EntityTypes.PortraitWave, requiredCount: 4, currentCount: 0, complete: false },
         { name: 'Favored Grandchild', incompleteDescription: 'Complete Grandma Mea\'s quest', completeDescription: 'Well done!\nYou helped Grandma Mea', type: EntityTypes.StatueBust, requiredCount: 5, currentCount: 0, complete: false },
         { name: 'Jo Jo\'s Friend', incompleteDescription: 'Complete Jo Jo\'s quest', completeDescription: 'Well done!\nYou helped Jo Jo', type: EntityTypes.StatueFossil, requiredCount: 1, currentCount: 0, complete: false },
-        { name: 'Bob\'s Paul Bunyan', incompleteDescription: 'Complete Bob\'s quest', completeDescription: 'Well done!\nYou helped Bob', type: EntityTypes.StatueMoai, requiredCount: 20, currentCount: 0, complete: false },
+        { name: 'Bobbi\'s Paul Bunyan', incompleteDescription: 'Complete Bobbi\'s quest', completeDescription: 'Well done!\nYou helped Bobbi', type: EntityTypes.StatueMoai, requiredCount: 20, currentCount: 0, complete: false },
         { name: 'Tiffany\'s Souper Friend', incompleteDescription: 'Complete Tiffany\'s quest', completeDescription: 'Well done!\nYou helped Tiffany', type: EntityTypes.StatuePharaoh, requiredCount: 4, collected: new Set(), complete: false }
       ],
       Crops: [

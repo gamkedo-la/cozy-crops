@@ -538,7 +538,7 @@ export default class GameScene extends Scene {
             this.uiScene.showSignDialogue('WASD or Arrow Keys to move \n L key or Space for an action \n Use left mouse button to select inventory items and navigate menus')
             break
       case bullitenBoard8:
-              this.uiScene.showSignDialogue('Visit the shops! \n General Store: Sells a variety of seeds \n Blacksmith: He will upgrade your tools \n Carpenter: She will exchange your wood you have collected \n for furniture for your home')
+              this.uiScene.showSignDialogue('Visit the shops! \n General Store: Sells a variety of seeds \n Blacksmith: He will upgrade your tools')
               break
     }
   }
