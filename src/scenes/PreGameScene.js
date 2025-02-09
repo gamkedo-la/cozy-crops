@@ -502,7 +502,7 @@ function buildSkinToneButtons (scene, canvasRect) {
       imageManager: scene.managers.imageManager,
       id: `skinToneButton${color}`,
       top: Math.floor((canvasRect.top + 140) + Math.floor(index / 8) * (2 * StandardUIBox.height)),
-      left: Math.floor(canvasRect.left + 350 + (index % 8) * (2 * StandardUIBox.width) + index * 4),
+      left: Math.floor(canvasRect.left + 450 + (index % 8) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
       activate: () => {
@@ -525,7 +525,7 @@ function buildHairColorButtons (scene, canvasRect) {
       imageManager: scene.managers.imageManager,
       id: `hairColorButton${color}`,
       top: Math.floor((canvasRect.top + 210) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
-      left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
+      left: Math.floor(canvasRect.left + 450 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
       activate: () => {
@@ -550,7 +550,7 @@ function buildHairStyleButtons (scene, canvasRect) {
       imageManager: scene.managers.imageManager,
       id: `hairStyleButton${style.name}`,
       top: Math.floor((canvasRect.top + 285) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
-      left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
+      left: Math.floor(canvasRect.left + 450 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       foreground: style,
       activate: () => {
@@ -575,7 +575,7 @@ function buildAccessoriesButtons (scene, canvasRect) {
       imageManager: scene.managers.imageManager,
       id: `accessoriesButton${style.name}`,
       top: Math.floor((canvasRect.top + 360) + Math.floor(index / 11) * (2 * StandardUIBox.height)),
-      left: Math.floor(canvasRect.left + 350 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
+      left: Math.floor(canvasRect.left + 450 + (index % 11) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       foreground: style,
       activate: () => {
@@ -598,7 +598,7 @@ function buildShirtColorButtons (scene, canvasRect) {
       imageManager: scene.managers.imageManager,
       id: `shirtColorButton${color}`,
       top: Math.floor((canvasRect.top + 430) + Math.floor(index / 8) * (2 * StandardUIBox.height)),
-      left: Math.floor(canvasRect.left + 350 + (index % 8) * (2 * StandardUIBox.width) + index * 4),
+      left: Math.floor(canvasRect.left + 450 + (index % 8) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
       activate: () => {
@@ -621,7 +621,7 @@ function buildPantsColorButtons (scene, canvasRect) {
       imageManager: scene.managers.imageManager,
       id: `pantsColorButton${color}`,
       top: Math.floor((canvasRect.top + 500) + Math.floor(index / 6) * (2 * StandardUIBox.height)),
-      left: Math.floor(canvasRect.left + 350 + (index % 6) * (2 * StandardUIBox.width) + index * 4),
+      left: Math.floor(canvasRect.left + 450 + (index % 6) * (2 * StandardUIBox.width) + index * 4),
       imgDims: StandardUIBox,
       color: color,
       activate: () => {
