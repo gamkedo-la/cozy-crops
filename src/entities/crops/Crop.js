@@ -86,9 +86,9 @@ export default class Crop {
   harvest () {
     const quantity = this.scene.getSeason() === this.inSeason ? Math.floor(Math.random() * (this.maxInSeasonYield - this.minInSeasonYield + 1)) + this.minInSeasonYield : Math.floor(Math.random() * (this.maxOutOfSeasonYield - this.minOutOfSeasonYield + 1)) + this.minOutOfSeasonYield
     let seedQuantity = 0
-    if (Math.random() < this.chanceOfSeedDrop) {
-      seedQuantity = Math.floor(Math.random() * (this.maxSeedQuantity - 1 + 1)) + 1
-    }
+    //if (Math.random() < this.chanceOfSeedDrop) {
+    //  seedQuantity = Math.floor(Math.random() * (this.maxSeedQuantity - 1 + 1)) + 1
+    //}
     return { quantity, seedQuantity }
   }
 
