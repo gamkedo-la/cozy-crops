@@ -102,6 +102,7 @@ export default class AudioManager {
     // Ensure the new music starts playing at 0 volume
     toMusic.volume = 0;
     toMusic.play();
+    this.loopMusic(toSrc);
     
     const fadeSteps = 30; // Number of steps in fade
     let stepDuration = duration / fadeSteps;
