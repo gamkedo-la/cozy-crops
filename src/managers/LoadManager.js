@@ -24,7 +24,7 @@ export default class LoadManager {
       this.fontManager.load()
     ]
 
-    await Promise.all(loadingPromises)
+    await Promise.allSettled(loadingPromises)
     this.eventManager.emit(LoadingComplete)
   }
 }
