@@ -3,6 +3,7 @@ import Scenes from '../globals/Scenes.js'
 import Keys from '../globals/Keys.js'
 import Curator from '../entities/npcs/Curator.js'
 import { MuseumEntrance, MuseumPosition, MuseumDialogPosition } from '../globals/MuseumMap.js'
+import {BackgroundMusic, MuseumMusic} from '../globals/Sounds.js'
 import EntityTypes from '../globals/EntityTypes.js'
 import Plaque from '../entities/museum/Plaque.js'
 import Portrait from '../entities/museum/Portrait.js'
@@ -66,6 +67,9 @@ export default class MuseumScene extends Scene {
       this.player.y = MuseumEntrance.y
       this.drawlist.push(this.player)
     }
+    if (this.game.audioManager) {
+      this.game.audioManager.fadeMusic(BackgroundMusic, MuseumMusic)
+    }
   }
 
   update (deltaTime) {
@@ -122,6 +126,9 @@ export default class MuseumScene extends Scene {
     const tileIndex = this.mapManager.getTileAtPixelPos(newPosition.x + MuseumPosition.x, newPosition.y + MuseumPosition.y, this.mapManager.museumData)
     if (!tileIndex) {
       returnToWorld(this)
+      if (this.game.audioManager) {
+        this.game.audioManager.fadeMusic(MuseumMusic, BackgroundMusic)
+      }
     } else {
       return this.mapManager.collisionManager.playerCanWalk(tileIndex)  
     }
