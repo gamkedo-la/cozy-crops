@@ -61,7 +61,7 @@ export const Credits = [
     contributor: 'Alex (Weinbagz) Weinberg',
     contributions: [
       
-      'Fishing music',
+      'Fishing music and Museum music',
       'Music integration and crossfade',
       'Sowing sound System'
     ]
