@@ -5,6 +5,7 @@ const path = ENV === 'development' ? '../../sounds/' : 'sounds/'
 const Sounds = {
   BackgroundMusic: `${path}cozyCropsMainBackgroundMusic.mp3`,
   FishingMusic: `${path}cozyCropsFishingBackgroundMusic.mp3`,
+  MuseumMusic: `${path}cozyCropsMuseumBackgroundMusic.mp3`,
   RainSound: `${path}rain.mp3`,
   WindSound: `${path}wind.mp3`,
   BackgroundBirds: `${path}birds.mp3`,
@@ -33,6 +34,7 @@ export default Sounds
 export const {
   BackgroundMusic,
   FishingMusic,
+  MuseumMusic,
   RainSound,
   WindSound,
   BackgroundBirds,
